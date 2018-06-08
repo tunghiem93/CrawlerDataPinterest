@@ -9,13 +9,12 @@ namespace CMS_Entity.Entity
     public class CMS_Products : CMS_EntityBase
     {
         public string Id { get; set; }
-        public string ProductCode { get; set; }
         public string ProductName { get; set; }
-        public decimal ProductPrice { get; set; }
-        public string CategoryId { get; set; }
-        public string Description { get; set; }
-
-        public virtual CMS_Board Category { get; set; }
-        public virtual List<CMS_Images> Images { get; set; }
+        public int repin_count { get; set; }
+        public string Link { get; set; }
+        public string Board { get; set; }
+        public DateTime Created_At { get; set; }
+        public DateTime DateCrawler { get; set; }
+        public string ImageURL { get; set; }
     }
 }

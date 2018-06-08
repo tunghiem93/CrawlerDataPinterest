@@ -14,11 +14,11 @@ namespace CMS_DTO.CMSProduct
     {
         public string Id { get; set; }
         public string ProductName { get; set; }
+        public int repin_count { get; set; }
         public string Link { get; set; }
-        public string CreatedBy { get; set; }
-        public string UpdatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
+        public string Board { get; set; }
+        public DateTime Created_At { get; set; }
+        public DateTime DateCrawler { get; set; }
         public bool IsActive { get; set; }
         [AllowHtml]
         public string Description { get; set; }

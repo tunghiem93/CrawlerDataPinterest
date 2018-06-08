@@ -27,11 +27,8 @@ namespace CMS_Shared.CMSProducts
                             var e = new CMS_Products
                             {
                                 Id = _Id,
-                                CreatedBy = model.CreatedBy,
                                 CreatedDate = DateTime.Now,
-                                Description = model.Description,
                                 ProductName = model.ProductName,
-                                UpdatedBy = model.UpdatedBy,
                                 UpdatedDate = DateTime.Now,
                                 IsActive  = model.IsActive
                             };
@@ -43,8 +40,6 @@ namespace CMS_Shared.CMSProducts
                             if(e != null)
                             {
                                 e.ProductName = model.ProductName;
-                                e.Description = model.Description;
-                                e.UpdatedBy = model.UpdatedBy;
                                 e.UpdatedDate = DateTime.Now;
                                 e.IsActive = model.IsActive;
                             }
@@ -111,23 +106,11 @@ namespace CMS_Shared.CMSProducts
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var e = cxt.CMS_Products.Join(cxt.CMS_Categories,
-                                                    p =>p.CategoryId,
-                                                    c => c.Id,
-                                                    (p , c) => new { p, CategoryName = c.CategoryName})
-                                             .Where(x=>x.p.Id.Equals(Id)).FirstOrDefault();
+                    var e = cxt.CMS_Products.FirstOrDefault();
                     if(e != null)
                     {
                         var o = new CMS_ProductsModels
                         {
-                            Id = e.p.Id,
-                            CreatedBy = e.p.CreatedBy,
-                            CreatedDate = e.p.CreatedDate,
-                            Description = e.p.Description,
-                            IsActive = e.p.IsActive,
-                            ProductName = e.p.ProductName,
-                            UpdatedBy = e.p.UpdatedBy,
-                            UpdatedDate = e.p.UpdatedDate,
                         };
                         return o;
                     }
@@ -143,21 +126,8 @@ namespace CMS_Shared.CMSProducts
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Products.Join(cxt.CMS_Categories,
-                                                    p => p.CategoryId,
-                                                    c => c.Id,
-                                                    (p, c) => new { p, CategoryName = c.CategoryName })
-                                               .Select(x=> new CMS_ProductsModels
-                                               {
-                                                   Id = x.p.Id,
-                                                   CreatedBy = x.p.CreatedBy,
-                                                   CreatedDate = x.p.CreatedDate,
-                                                   Description = x.p.Description,
-                                                   IsActive = x.p.IsActive,
-                                                   ProductName = x.p.ProductName,
-                                                   UpdatedBy = x.p.UpdatedBy,
-                                                   UpdatedDate = x.p.UpdatedDate,
-                                               }).ToList();
+                    var data = cxt.CMS_Products
+                                               .Select(x=> new CMS_ProductsModels { }).ToList();
                     return data;
                 }
             }
