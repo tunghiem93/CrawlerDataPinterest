@@ -73,26 +73,26 @@ namespace CMS_Web
             //    }
             //}
 
-            CMSBoardsFactory _facLoc = new CMSBoardsFactory();
-            var _cate = _facLoc.GetList().Select(x => new CateSession
-            {
-                Id = x.Id,
-                Name = x.CategoryName,
-                ParrentId =  x.ParentId
-            }).ToList();//.OrderBy(x => x.Name).Skip(0).Take(7).ToList();
-            if (_cate != null && _cate.Any())
-            {
-                var ObjSession = new CateSession();
-                ObjSession.MainCate = _cate.OrderBy(x => x.Name).Where(x => string.IsNullOrEmpty(x.ParrentId)).Skip(0).Take(7).ToList();
-                ObjSession.OrtherCate = _cate.OrderBy(x => x.Name).Where(x => string.IsNullOrEmpty(x.ParrentId)).Skip(7).Take(_cate.Count).ToList();
+            //CMSBoardsFactory _facLoc = new CMSBoardsFactory();
+            //var _cate = _facLoc.GetList().Select(x => new CateSession
+            //{
+            //    Id = x.Id,
+            //    Name = x.CategoryName,
+            //    ParrentId =  x.ParentId
+            //}).ToList();//.OrderBy(x => x.Name).Skip(0).Take(7).ToList();
+            //if (_cate != null && _cate.Any())
+            //{
+            //    var ObjSession = new CateSession();
+            //    ObjSession.MainCate = _cate.OrderBy(x => x.Name).Where(x => string.IsNullOrEmpty(x.ParrentId)).Skip(0).Take(7).ToList();
+            //    ObjSession.OrtherCate = _cate.OrderBy(x => x.Name).Where(x => string.IsNullOrEmpty(x.ParrentId)).Skip(7).Take(_cate.Count).ToList();
 
-                string myObjectJson = JsonConvert.SerializeObject(_cate);  //new JavaScriptSerializer().Serialize(userSession);
-                HttpCookie cookie = new HttpCookie("CateCookie");
-                cookie.Expires = DateTime.Now.AddYears(10);
-                cookie.Value = Server.UrlEncode(myObjectJson);
-                Response.Cookies.Add(cookie);
-                Session.Add("Catelogies", ObjSession);
-            }
+            //    string myObjectJson = JsonConvert.SerializeObject(_cate);  //new JavaScriptSerializer().Serialize(userSession);
+            //    HttpCookie cookie = new HttpCookie("CateCookie");
+            //    cookie.Expires = DateTime.Now.AddYears(10);
+            //    cookie.Value = Server.UrlEncode(myObjectJson);
+            //    Response.Cookies.Add(cookie);
+            //    Session.Add("Catelogies", ObjSession);
+            //}
 
 
             //HttpCookie _UserClientCookie = Request.Cookies["UserClientCookie"];

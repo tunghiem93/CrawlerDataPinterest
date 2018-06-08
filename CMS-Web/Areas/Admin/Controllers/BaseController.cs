@@ -9,7 +9,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 {
     public class BaseController : HQController
     {
-        // GET: Administration/Base
+        // GET: Admin/Base
         public string List { get; set; }
         // GET: Base
         //public UserSession CurrentUser

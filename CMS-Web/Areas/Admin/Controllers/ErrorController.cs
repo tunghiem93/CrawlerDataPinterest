@@ -9,7 +9,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 {
     public class ErrorController : Controller
     {
-        // GET: Administration/Error
+        // GET: Admin/Error
         public ActionResult Index()
         {
             ErrorModel model = new ErrorModel();

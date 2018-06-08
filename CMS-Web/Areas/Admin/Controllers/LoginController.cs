@@ -9,11 +9,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace WebSaleCable.Areas.Administration.Controllers
+namespace CMS_Web.Areas.Admin.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Administration/Login
+        // GET: Admin/Login
         private static string mController = "";
         public LoginController()
         {
@@ -26,7 +26,7 @@ namespace WebSaleCable.Areas.Administration.Controllers
         public ActionResult Index(bool isAjax = false, string returnUrl = null)
         {
             if (Session["User"] != null)
-                return RedirectToAction("Index", "Home", new { area = "Administration" });
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
 
             LoginRequestModel model = new LoginRequestModel();
 
@@ -60,7 +60,7 @@ namespace WebSaleCable.Areas.Administration.Controllers
 
             if (isAjax)
                 //return PartialView("_Login", model);
-                return RedirectToAction("Index", "Login", new { area = "Administration" });
+                return RedirectToAction("Index", "Login", new { area = "Admin" });
             else
                 return View(model);
         }
@@ -72,7 +72,7 @@ namespace WebSaleCable.Areas.Administration.Controllers
             try
             {
                 if (Session["User"] != null)
-                    return RedirectToAction("Index", "Home", new { area = "Administration" });
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
 
                 if (ModelState.IsValid)
                 {
@@ -95,9 +95,9 @@ namespace WebSaleCable.Areas.Administration.Controllers
                         Session.Add("User", userSession);
                         //
                         if (!string.IsNullOrEmpty(mController))
-                            return RedirectToAction("Index", mController, new { area = "Administration" });
+                            return RedirectToAction("Index", mController, new { area = "Admin" });
                         if (returnUrl == null)
-                            return RedirectToAction("Index", "Home", new { area = "Administration" });
+                            return RedirectToAction("Index", "Home", new { area = "Admin" });
                         else
                             return Redirect(returnUrl);
                     }

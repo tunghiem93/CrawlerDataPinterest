@@ -1,0 +1,46 @@
+﻿@model CMS_DTO.CMSSession.UserSession
+@{
+    ViewBag.Title = "User Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div role="main" class="right_col" style="min-height: 508px;">
+
+    <div class="col-md-12 col-sm-12 col-xs-12 x_panel">
+        <div class="x_content">
+            <form class="form-horizontal form-label-left">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="UserId">
+                        User ID:
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <div style="padding-top:8px;">
+                            @*@Html.DisplayFor(model => model.UserId)*@
+                            ***
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        Name:
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <div style="padding-top:8px;">
+                            @Html.DisplayFor(model => model.UserName)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Email" class="control-label col-md-3 col-sm-3 col-xs-12">Email:</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <div style="padding-top:8px;">
+                            @Html.DisplayFor(model => model.Email)
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
