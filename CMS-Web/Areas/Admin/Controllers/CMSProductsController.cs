@@ -30,10 +30,6 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult LoadGrid()
         {
             var model = _factory.GetList();
-            model.ForEach(x =>
-            {
-                x.sStatus = x.IsActive ? "Kích hoạt" : "Chưa kích hoạt";
-            });
             return PartialView("_ListData", model);
         }
 
@@ -163,8 +159,6 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult View(string Id)
         {
             var model = GetDetail(Id);
-            
-            var _OffSet = 0;
             
             return PartialView("_View", model);
         }

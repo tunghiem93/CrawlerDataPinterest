@@ -194,15 +194,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NuAuthAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CMSAccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\CMSBoardsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CMSEmployeesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CMSProductsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HQController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Models\Categories\CategoriesModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -285,15 +289,6 @@
     <Content Include="Areas\Admin\Views\CMSEmployees\_ListData.cshtml" />
     <Content Include="Areas\Admin\Views\CMSEmployees\_View.cshtml" />
     <Content Include="Areas\Admin\Views\CMSEmployees\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSPolicy\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSPolicy\_Form.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSNews\_Create.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSNews\_Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSNews\_Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSNews\_Form.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSNews\_ListData.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSNews\_View.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSNews\Index.cshtml" />
     <Content Include="Areas\Admin\Views\CMSProducts\_ListItem.cshtml" />
     <Content Include="Libraries\plugins\bootstrap-hover-dropdown\bootstrap-hover-dropdown.js" />
     <Content Include="Libraries\plugins\bootstrap-hover-dropdown\bootstrap-hover-dropdown.min.js" />
@@ -576,13 +571,6 @@
     <Content Include="Libraries\plugins\select2\src\scss\_dropdown.scss" />
     <Content Include="Libraries\plugins\select2\src\scss\_multiple.scss" />
     <Content Include="Libraries\plugins\select2\src\scss\_single.scss" />
-    <Content Include="Areas\Admin\Views\CMSCustomers\_Create.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSCustomers\_Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSCustomers\_Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSCustomers\_Form.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSCustomers\_ListData.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSCustomers\_View.cshtml" />
-    <Content Include="Areas\Admin\Views\CMSCustomers\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Libraries\plugins\bootstrap-daterangepicker\daterangepicker-bs2.css" />
     <Content Include="Libraries\plugins\bootstrap-daterangepicker\daterangepicker-bs3.css" />
@@ -1737,7 +1725,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\CMSDiscounts\" />
     <Folder Include="Areas\Admin\Views\HQ\" />
     <Folder Include="Libraries\pages\img\" />
   </ItemGroup>

@@ -54,6 +54,10 @@
     <Compile Include="CMSSession\CateSession.cs" />
     <Compile Include="CMSSession\SliderSession.cs" />
     <Compile Include="CMSSession\UserSession.cs" />
+    <Compile Include="Models\BaseModels.cs" />
+    <Compile Include="Models\ErrorModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\UserModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
