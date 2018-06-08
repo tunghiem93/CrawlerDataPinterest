@@ -1,0 +1,104 @@
+﻿@using CMS_Shared;
+<footer id="footer">
+    <div class="container">
+        <!-- introduce-box -->
+        <div id="introduce-box" class="row">
+            @*<div class="col-md-2">
+                    <a href="/"><img src="@Url.Content("~/Images/logo.png")" alt="logo" style="width: 110px; " /></a>
+                </div>*@
+            <div class="col-md-5">
+                <div id="address-box">
+                    <div id="address-list">
+                        <div class="tit-name">Địa chỉ:</div>
+                        <div class="tit-contain">@Commons.AddressCompany</div>
+                        <div class="tit-name">Điện thoại:</div>
+                        <div class="tit-contain">
+                            KD1: @Commons.Phone1 <br /> KD2: @Commons.Phone2
+                            @*KD1: <a href="tel:@Commons.Phone1">@Commons.Phone1</a>
+                            &nbsp; | &nbsp;
+                            KD2: <a href="tel:@Commons.Phone2">@Commons.Phone2</a>*@
+                        </div>
+                        <div class="tit-name">Email:</div>
+                        <div class="tit-contain">
+                            @Commons.Email1 <br /> @Commons.Email2
+                            @*<a href="mailto:@Commons.Email1">@Commons.Email1</a> <br />
+                            <a href="mailto:@Commons.Email2">@Commons.Email2</a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="introduce-title">Về chúng tôi</div>
+                        <ul class="introduce-list">
+                            <li class="item">
+                                <a href="#">
+                                    Giới thiệu
+                                </a>
+                            </li>
+                            <li class="item">
+                                <a href="#">
+                                    Giao hàng - Đổi trả
+                                </a>
+                            </li>
+                            <li class="item">
+                                <a href="#">
+                                    Chính sách bảo mật
+                                </a>
+                            </li>
+                            <li class="item">
+                                <a href="#">
+                                    Liên hệ
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="introduce-title">Trợ giúp</div>
+                        <ul class="introduce-list">
+                            <li class="item">
+                                <a href="#">
+                                    Hướng dẫn mua hàng
+                                </a>
+                            </li>
+                            <li class="item">
+                                <a href="#">
+                                    Hướng dẫn thanh toán
+                                </a>
+                            </li>
+                            <li class="item">
+                                <a href="#">
+                                    Tài khoản giao dịch
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div id="contact-box">
+                    <div class="introduce-title">Đăng ký nhận tin</div>
+                    <form class='contact-form'>
+                        <div class="input-group" id="mail-box">
+                            <input type="email" placeholder="Đăng ký email" required="required" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default">Gửi</button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </form>
+                    <div class="introduce-title">Liên kết</div>
+                    <div class="social-link">
+                        <a href="javascript:void(0)"><i class="fa fa-facebook"></i></a>
+                        <a href="javascript:void(0)"><i class="fa fa-youtube"></i></a>
+                        <a href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
+                        <a href="javascript:void(0)"><i class="fa fa-google-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="cpr text-center">
+            &copy; Bản quyền thuộc về <a href="javascript:void(0)" style="color: #0f9ed8" target="_blank">@Commons.CompanyTitle</a>.
+        </p>
+    </div>
+</footer>

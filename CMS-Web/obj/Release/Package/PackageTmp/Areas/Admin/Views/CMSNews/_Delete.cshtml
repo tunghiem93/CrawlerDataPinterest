@@ -1,0 +1,73 @@
+﻿@model CMS_DTO.CMSNews.CMS_NewsModels
+<div role="main" style="display:inline-block;height:100%;width:100%">
+    @*<div class="se-pre-con" style="display: none;"></div>*@
+    <div class="page-title">
+        <!-- BEGIN PAGE BAR -->
+        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Tin tức - Xóa" } })
+        <!-- END PAGE BAR -->
+    </div>
+    <div class="page-main">
+        <div class="col-md-12 col-sm-12 col-xs-12 x_panel">
+            <div class="x_content">
+                <div class="row text-right">
+                    <ul class="header-buttons pull-right list-inline">
+                        <li>
+                            <a href="javascript:void(0)" class="btn btn-danger" id="btn-delete" onclick="CloseDetail()">
+                                <i class="fa fa-times"></i>
+                                &nbsp;Hủy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="btn btn-success" id="btn-edit-save" onclick="SubmitForm('#form-delete')">
+                                <i class="fa fa-save"></i>
+                                &nbsp;Lưu
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-body" style="display: block;">
+                    @using (@Html.BeginForm("Delete", "CMSNews", FormMethod.Post, new { @id = "form-delete", @class = "form-horizontal", @enctype = "multipart/form-data" }))
+                    {
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-6" style="font-size: 20px; width: 100%;">
+                                Bạn có chắc chắn muốn xóa <strong>[ @Model.Title ]</strong>?
+                                <br />
+                                @Html.HiddenFor(model => model.Id)
+                                @Html.HiddenFor(model => model.Title)
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $("#form-delete").submit(function (e) {
+        $.ajax({
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            url: $(this).attr('action'),
+            type: "post",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function () {
+                CloseDetail();
+                LoadGrid();
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $(".detail-view").html(jqXHR.responseText);
+            }
+        });
+        e.preventDefault();
+    });
+</script>

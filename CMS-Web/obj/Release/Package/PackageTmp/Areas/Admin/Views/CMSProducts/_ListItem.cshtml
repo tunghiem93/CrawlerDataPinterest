@@ -1,0 +1,41 @@
+﻿@model List<CMS_DTO.CMSImage.CMS_ImagesModels>
+@using CMS_Shared
+@if (Model != null && Model.Any())
+{
+    for (var i = 0; i < Model.Count; i++)
+    {
+        <div class="col-md-2 ng-image-product text-center" id="image-@Model[i].OffSet">
+            @if (!string.IsNullOrEmpty(Model[i].ImageURL))
+            {
+                if (!string.IsNullOrEmpty(Model[i].Id))
+                {
+                    <div class="img-wrap">
+                        <span class="close" onclick="DeleteImageById('@Model[i].Id','@Model[i].ProductId')">&times;</span>
+                        <img class="imageThumb" id="upload-preview-1-@Model[i].OffSet" src="@Model[i].ImageURL" style="width: 100%" />
+                    </div>
+                }
+                else
+                {
+                    <div class="img-wrap">
+                        <span class="close" onclick="DeleteImage('@Model[i].OffSet')">&times;</span>
+                        <img class="imageThumb" id="upload-preview-1-@Model[i].OffSet" src="@Model[i].ImageURL" style="width: 100%" />
+                    </div>
+                }
+
+            }
+            else
+            {
+                <div class="img-wrap">
+                    <span class="close" onclick="DeleteImage('@Model[i].OffSet')">&times;</span>
+                    <img class="text-center imageThumb" id="upload-preview-1-@Model[i].OffSet" src="@Commons.Image200_100" style="width: 100%" />
+                </div>
+
+            }
+            <input type="hidden" value="@Model[i].ImageURL" name="@string.Format("ListImages[{0}].ImageURL",Model[i].OffSet)" />
+            <input type="hidden" value="@Model[i].ImageName" name="@string.Format("ListImages[{0}].ImageName", Model[i].OffSet)" id="image-name-1-@Model[i].OffSet" />
+            <input type="hidden" name="@string.Format("ListImages[{0}].OffSet", Model[i].OffSet)" id="image-name-1-@Model[i].OffSet" value="@Model[i].OffSet" />
+            @Html.Hidden(string.Format("ListImages[{0}].IsDeleted",Model[i].OffSet),Model[i].IsDeleted,new {@id= "image-IsDelete-1-"+Model[i].OffSet })
+        </div>
+    }
+}
+

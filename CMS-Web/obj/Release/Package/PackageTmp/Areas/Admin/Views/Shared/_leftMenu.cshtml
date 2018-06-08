@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+
+<!-- BEGIN SIDEBAR -->
+<div class="page-sidebar-wrapper">
+    <!-- BEGIN SIDEBAR -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <div class="page-sidebar navbar-collapse collapse" id="sidebar-menu">
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu  page-header-fixed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+            <li class="sidebar-toggler-wrapper hide">
+                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                <div class="sidebar-toggler"> </div>
+                <!-- END SIDEBAR TOGGLER BUTTON -->
+            </li>
+            <li class="nav-item active">
+                <a href="@Url.Action("Index","Home")" class="nav-link nav-toggle">
+                    <i class="fa fa-dot-circle-o"></i>
+                    <span class="title">Trang Chủ</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a href="@Url.Action("Index","CMSCategories")" class="nav-link nav-toggle">
+                    <i class="fa fa-dot-circle-o"></i>
+                    <span class="title">Thể Loại</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="@Url.Action("Index","CMSProducts")" class="nav-link nav-toggle">
+                    <i class="fa fa-dot-circle-o"></i>
+                    <span class="title">Sản Phẩm</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="@Url.Action("Index","CMSEmployees")" class="nav-link nav-toggle">
+                    <i class="fa fa-dot-circle-o"></i>
+                    <span class="title">Nhân Viên</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="fa fa-dot-circle-o"></i>
+                    <span class="title">Khách Hàng</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="@Url.Action("Index","CMSPolicy")" class="nav-link nav-toggle">
+                    <i class="fa fa-dot-circle-o"></i>
+                    <span class="title">Chính Sách</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="@Url.Action("Index","CMSNews")" class="nav-link nav-toggle">
+                    <i class="fa fa-dot-circle-o"></i>
+                    <span class="title">Tin Tức</span>
+                </a>
+            </li>  
+</ul>
+        <!-- END SIDEBAR MENU -->
+        <!-- END SIDEBAR MENU -->
+    </div>
+    <!-- END SIDEBAR -->
+</div>
+<!-- END SIDEBAR -->

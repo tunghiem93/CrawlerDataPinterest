@@ -1,0 +1,139 @@
+﻿@model CMS_DTO.CMSProduct.CMS_ProductsModels
+@using CMS_Shared
+<style>
+    input[type="file"] {
+        display: block;
+    }
+
+    .imageThumb {
+        max-height: 120px;
+        border: 2px solid;
+        margin: 10px 10px 0 0;
+        padding: 1px;
+        margin-bottom: 15px;
+    }
+
+    .img-wrap {
+        position: relative;
+        font-size: 0;
+    }
+
+        .img-wrap .close {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            z-index: 100;
+            background-color: #FFF;
+            padding: 5px 2px 2px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: .2;
+            text-align: center;
+            font-size: 22px;
+            line-height: 10px;
+            border-radius: 50% !important;
+            text-indent: 0 !important;
+        }
+
+        .img-wrap:hover .close {
+            opacity: 1;
+        }
+</style>
+<div role="main" style="display:inline-block;height:100%;width:100%">
+    @*<div class="se-pre-con" style="display: none;"></div>*@
+    <div class="page-title">
+        <!-- BEGIN PAGE BAR -->
+        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Sản phẩm - Xem" } })
+        <!-- END PAGE BAR -->
+    </div>
+    <div class="page-main">
+            <div class="col-md-12 col-sm-12 col-xs-12 x_panel">
+                <div class="x_content">
+                    <div class="row text-right">
+                        <ul class="header-buttons pull-right list-inline">
+                            <li>
+                                <a href="javascript:void(0)" class="btn btn-danger" id="btn-delete" onclick="CloseDetail()">
+                                    <i class="fa fa-times"></i>
+                                    &nbsp;Hủy
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="box-body" style="display: block;">
+                        <div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+                            <fieldset>
+                                <legend>THÔNG TIN CHUNG</legend>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mã sản phẩm</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label style="margin-top:1%">@Model.ProductCode</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên sản phẩm</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label style="margin-top:1%">@Model.ProductName</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên thể loại</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label style="margin-top:1%">@Model.CategoryName</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Giá</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label style="margin-top:1%">@Model.ProductPrice</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Trạng thái</label>
+                                    <div class="col-md-1 col-sm-1 col-xs-12">
+                                        <label style="margin-top:10%">@string.Format("{0}", Model.IsActive ? "Kích hoạt" : "Chưa kích hoạt")</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mô tả</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        @Html.Raw(Model.Description)
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>HÌNH ẢNH</legend>
+                                @if(Model.ListImages != null && Model.ListImages.Any())
+                                {
+                                    <div class="form-group">
+                                        @foreach (var item in Model.ListImages)
+                                        {
+                                            <div class="col-md-2 ng-image-product text-center">
+                                                @if (!string.IsNullOrEmpty(item.ImageURL))
+                                                {
+                                                    <div class="img-wrap">
+                                                        <img class="imageThumb" src="@item.ImageURL" style="width: 100%" />
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="img-wrap">
+                                                        <img class="imageThumb" src="@Commons.Image200_100" style="width: 100%" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </fieldset>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+</div>

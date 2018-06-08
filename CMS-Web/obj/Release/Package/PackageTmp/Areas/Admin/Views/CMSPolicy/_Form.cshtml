@@ -1,0 +1,35 @@
+﻿
+@model CMS_DTO.CMSPolicy.CMS_PolicyModels
+@using CMS_Shared
+@{
+    Html.EnableUnobtrusiveJavaScript(true);
+    var _ID = Model.Id;
+}
+<style>
+    .form-horizontal .form-group{
+        margin-left: 0px !important;
+        margin-right:0px !important
+    }
+
+    #cke_1_contents{
+        height:450px !important;
+    }
+</style>
+@Html.HiddenFor(model =>model.Id)
+<div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+    <!--Nội dung-->
+    <div class="form-group" style="margin-left:0 !important;margin-right:0 !important">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Nội dung</label>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control ckeditor", placeholder = "Nội dung", @rows = "40" })
+            @Html.ValidationMessageFor(model => model.Description, null, new { @class = "label" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Trạng thái</label>
+        <div class="col-md-1 col-sm-1 col-xs-12">
+            <label>@Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck" })</label>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/InputCustom.js")"></script>

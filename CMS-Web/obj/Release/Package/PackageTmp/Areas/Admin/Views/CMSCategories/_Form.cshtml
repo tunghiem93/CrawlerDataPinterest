@@ -1,0 +1,71 @@
+﻿
+@model CMS_DTO.CMSCategories.CMSCategoriesModels
+@using CMS_Shared
+@{
+    Html.EnableUnobtrusiveJavaScript(true);
+    var _ID = Model.Id;
+}
+@Html.HiddenFor(model =>model.Id)
+<div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mã thể loại</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(model => model.CategoryCode, new { @class = "form-control", @placeholder = "Mã thể loại", @autocomplete = "off" })
+            @Html.ValidationMessageFor(model => model.CategoryCode, null, new { @class = "label label-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên thể loại</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(model => model.CategoryName, new { @class = "form-control", @placeholder = "Tên thể loại", @autocomplete = "off" })
+            @Html.ValidationMessageFor(model => model.CategoryName, null, new { @class = "label label-danger" })
+        </div>
+    </div>
+    @*Image*@
+    @*<div class="form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Image</label>
+        <div class="col-md-2 col-sm-2 col-xs-12">
+            @if (!string.IsNullOrEmpty(Model.ImageURL))
+            {
+                <img id="upload-preview" src="@Model.ImageURL" height="100" width="200" class="" />
+            }
+            else
+            {
+                <img id="upload-preview" class="" src="@Commons.Image200_100" height="100" width="200" />
+            }
+        </div>
+        <div class="col-md-1 col-sm-3 col-xs-12" style="line-height:55px;">
+            <div class="upload-btn-wrapper" style="cursor:pointer;">
+                <button class="btn btn-default" type="button" onclick="showPictureUpload();" style="margin-top:-6%;margin-left:50px">Add/Edit</button>
+                @Html.TextBoxFor(model => model.PictureUpload, new { @type = "file", @onchange = "PreviewImage(this,\"upload-preview\")", @accept = "*.jpg", @class = "hidden", @id = "urlImage" })
+            </div>
+            @Html.ValidationMessageFor(model => model.PictureUpload, null, new { @class = "label label-danger" })
+        </div>
+    </div>*@
+
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Trạng thái</label>
+        <div class="col-md-1 col-sm-1 col-xs-12">
+            <label>@Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck" })</label>
+        </div>
+    </div>
+
+    <!--Description-->
+    <div class="form-group">
+        <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mô tả</label>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control ckeditor", placeholder = "Mô tả" })
+            @Html.ValidationMessageFor(model => model.Description, null, new { @class = "label" })
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/InputCustom.js")"></script>
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    $('input.icheck').iCheck({
+    //        checkboxClass: 'icheckbox_square-grey',
+    //        radioClass: 'iradio_square-green'
+    //    });
+    //})
+</script>

@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+@using CMS_Shared;
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>@Commons.CompanyTitle | 404 Không Tìm Thấy Trang</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Libraries/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/simple-line-icons/simple-line-icons.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/uniform/css/uniform.default.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/bootstrap-switch/css/bootstrap-switch.min.css")" rel="stylesheet" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="@Url.Content("~/Libraries/css/components.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/css/plugins.min.css")" rel="stylesheet" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="@Url.Content("~/Libraries/pages/css/error.min.css")" rel="stylesheet" />
+    <!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="@Url.Content("~/logo.ico")" type="image/x-icon">
+</head>
+<!-- END HEAD -->
+<body class="page-404-3">
+    <div class="page-inner">
+        <img src="@Url.Content("~/Libraries/pages/media/pages/earth.jpg")" class="img-responsive" alt="">
+    </div>
+    <div class="container error-404">
+        <h1>404</h1>
+        <h2>Chúng ta có một vấn đề.</h2>
+        <p> Trên thực tế, trang bạn đang tìm kiếm không tồn tại. </p>
+        <p>
+            <a href="@Url.Action("Index","Home")" class="btn red btn-outline"> Trở về trang chủ </a>
+            <br>
+        </p>
+    </div>
+    <!--[if lt IE 9]>
+    <script src="../assets/global/plugins/respond.min.js"></script>
+    <script src="../assets/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="@Url.Content("~/Libraries/plugins/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/bootstrap/js/bootstrap.min.js")"></script>
+
+    <script src="@Url.Content("~/Libraries/plugins/js.cookie.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/jquery-slimscroll/jquery.slimscroll.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/jquery.blockui.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/uniform/jquery.uniform.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/bootstrap-switch/js/bootstrap-switch.min.js")"></script>
+
+    <script src="@Url.Content("~/Libraries/scripts/app.min.js")"></script>
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <!-- END THEME LAYOUT SCRIPTS -->
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿
+<style>
+    /*.new-login{
+        padding-top: 15px;
+    }*/
+    .topsearch {
+        line-height: 1.5;
+    }
+</style>
+@using CMS_Shared;
+<!-- MAIN HEADER -->
+<div class="container main-header">
+    <div class="row">
+        <div class="col-xs-12 col-sm-3 logo">
+            <a href="@Url.Action("Index","Home")" class="logo" title="@Commons.CompanyTitle">
+                <img src="@Url.Content("~/Images/logo.jpg")" alt="@Commons.CompanyTitle" title="@Commons.CompanyTitle" style="width:50%;margin-top:12%">
+            </a>
+            <h1 style="display: none;">
+                @Commons.CompanyTitle
+            </h1>
+        </div>
+        <div class="col-xs-10 col-sm-7 header-search-box">   
+            <div class="search-box form-group">
+                <div class="form-group">
+                    <h3 class="topsearch">
+                        <strong>@Commons.CompanyTitle</strong> 
+                    </h3>
+                    <div class="topsearch">
+                        <strong>Hotline:</strong><a title="hot-line" href="tel:@Commons.Phone2"><span class="hotline"> @Commons.Phone2 </span></a> || <strong>Email:</strong><a title="hot-line" href="mailto:@Commons.Email2"><span class="hotline"> @Commons.Email2</span></a>
+                    </div>
+                </div>
+                <form class="search form-inline" action="/Clients/Home/Search" method="get">                    
+                    <div class="input-serach">
+                        <input type="text" name="search" data-provide="typeahead" class="search_box" id="txtsearch" placeholder="Nhập từ khóa tìm kiếm..." />
+                    </div>
+                    <button id="btnsearch" class="pull-right btn-search" type="submit" @*onclick="SearchKeyWord(); return false;"*@>
+                        <span class="hidden-400">Tìm kiếm</span>
+                        <span class="show-400"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    </button>
+                </form>
+            </div>
+            
+        </div>        
+    </div>
+</div>

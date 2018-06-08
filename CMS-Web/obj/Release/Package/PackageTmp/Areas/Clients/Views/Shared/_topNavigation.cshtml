@@ -1,0 +1,49 @@
+﻿@using CMS_Shared;
+<section class="top-link clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav navbar-nav topmenu-contact pull-left">
+                    <li style="color: #808080 !important; "><span> Chào mừng bạn đến <strong class="hotline">@Commons.CompanyTitle</strong></span></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right topmenu  hidden-xs hidden-sm">
+                    @{
+                        var user = Session["UserClient"] as CMS_DTO.CMSSession.UserSession;
+                        if (user != null)
+                        {
+                            <li class=""><a href="javascript:void(0)"><i class="fa fa-user"></i> @user.UserName </a></li>
+                            <li class="icofont icofont-logout">
+                                <a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-in"></i> Đăng xuất </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="account-login"><a href="@Url.Action("SignIn","Login")"><i class="fa fa-sign-in"></i> Đăng nhập </a></li>
+                            <li class="account-register"><a href="@Url.Action("SignUp","Login")"><i class="fa fa-key"></i> Đăng ký </a></li>
+                        }
+                    }
+
+                  
+                </ul>
+                <div class="show-mobile hidden-lg hidden-md">
+                    <div class="quick-user">
+                        <div class="quickaccess-toggle">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="inner-toggle">
+                            <ul class="login links">
+                                <li>
+                                    <a href="@Url.Action("SignUp","Login")"><i class="fa fa-sign-in"></i> Đăng ký</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("SignIn","Login")"><i class="fa fa-key"></i> Đăng nhập</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

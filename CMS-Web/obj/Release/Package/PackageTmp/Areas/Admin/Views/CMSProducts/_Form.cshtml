@@ -1,0 +1,220 @@
+﻿
+@model CMS_DTO.CMSProduct.CMS_ProductsModels
+@using CMS_Shared
+@{
+    Html.EnableUnobtrusiveJavaScript(true);
+    var _ID = Model.Id;
+}
+@Html.HiddenFor(model =>model.Id)
+<style>
+    input[type="file"] {
+        display: block;
+    }
+
+    .imageThumb {
+        max-height: 100px;
+        border: 2px solid;
+        margin: 10px 10px 0 0;
+        padding: 1px;
+        margin-bottom: 15px;
+    }
+
+    .img-wrap {
+        position: relative;
+        font-size: 0;
+    }
+
+        .img-wrap .close {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            z-index: 100;
+            background-color: #FFF;
+            padding: 5px 2px 2px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: .2;
+            text-align: center;
+            font-size: 22px;
+            line-height: 10px;
+            border-radius: 50% !important;
+            text-indent: 0 !important;
+        }
+
+        .img-wrap:hover .close {
+            opacity: 1;
+        }
+</style>
+<div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+    <fieldset>
+        <legend>THÔNG TIN CHUNG: </legend>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mã sản phẩm</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.ProductCode, new { @class = "form-control", @placeholder = "Mã sản phẩm", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.ProductCode, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên sản phẩm</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control", @placeholder = "Tên sản phẩm", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.ProductName, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight">Thể loại</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.DropDownListFor(model => model.CategoryId,
+            new SelectList(ViewBag.Category, "Value", "Text", Model.CategoryId),
+            new
+            {
+                @class = "form-control select2_multiple",
+                @id = "CategoryDdl",
+                @style = "width:100%;"
+            })
+
+                @Html.ValidationMessageFor(model => model.CategoryId, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Giá</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.ProductPrice, new { @class = "form-control keyMoney", @placeholder = "Giá sản phẩm", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.ProductPrice, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Trạng thái</label>
+            <div class="col-md-1 col-sm-1 col-xs-12">
+                <label>@Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck" })</label>
+            </div>
+        </div>
+
+        <!--Description-->
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Mô tả</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control ckeditor", placeholder = "Mô tả" })
+                @Html.ValidationMessageFor(model => model.Description, null, new { @class = "label" })
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>HÌNH SẢN PHẨM (600 X 450)</legend>
+        <!--IMAGE-->
+        <div class="form-group">
+            <div class="col-md-12">
+                <button class="btn btn-success btnFile" type="button" onclick="showPictureUpload();">Chọn hình</button>
+                @Html.TextBoxFor(model => model.PictureUpload, new { @type = "file", @onchange = "preview_image(this)", @accept = "*.jpg", @multiple = "multiple", @id = "upload_file", @class = "hidden inputFile" })
+                @Html.ValidationMessageFor(model => model.PictureUpload, null, new { @class = "label-danger" })
+            </div>
+        </div>
+        <div class="form-group list-image">
+            @if (Model.ListImages != null && Model.ListImages.Any())
+            {
+                @Html.Partial("_ListItem", Model.ListImages)
+            }
+        </div>
+    </fieldset>
+</div>
+<script src="@Url.Content("~/Scripts/InputCustom.js")"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#CategoryDdl").select2({
+            placeholder: "Làm ơn chọn thể loại",
+            //allowClear: true
+        });
+    });
+
+    function showPictureUpload() {
+        $('[id=upload_file]').click();
+    }
+
+    function preview_image(e) {
+        var _Files = document.getElementById("upload_file").files;
+        var filesLength = _Files.length;
+        var _OffSet = $('.ng-image-product').length;
+
+        var ListImage = [];
+        var ListName = [];
+        for (var i = 0; i < filesLength; i++) {
+            var _file = _Files[i];
+            ListName.push(_file.name);
+            var oFReader = new FileReader();
+            oFReader.onload = function (oFREvent) {
+                ListImage.push(oFREvent.target.result)
+            };
+            oFReader.readAsDataURL(_Files[i]);
+        }
+        setTimeout(function () {
+            $.ajax({
+                url: '@Url.Action("AddImageItem", "CMSProducts")',
+                type: 'POST',
+                data: {
+                    OffSet: _OffSet,
+                    Length: filesLength
+                },
+                dataType: 'html',
+                traditional: true,
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                error: function (e) {
+                },
+                success: function (data) {
+                    $(".list-image").append(data);
+                    var index = _OffSet;
+                    for (var i = 0; i < ListImage.length; i++) {
+                        $('#upload-preview-1-' + index + '').attr('src', ListImage[i]);
+                        $('#image-name-1-' + index + '').val(ListName[i]);
+                        index = index + 1;
+                    }
+                },
+                complete: function () {
+                    $('.se-pre-con').hide();
+                }
+            });
+        }, 300);
+    }
+
+
+    function DeleteImage(offset) {
+        $("#image-" + offset + "").find('input#image-IsDelete-1-' + offset + '').val(true);
+        $("#image-" + offset + "").hide();
+    }
+
+    function DeleteImageById(Id, ProductId)
+    {
+        var r = confirm("Bạn có chắc chắn muốn xóa!");
+        if (r)
+        {
+            $.ajax({
+                url: '@Url.Action("DeleteImage", "CMSProducts")',
+                type: 'POST',
+                data: {
+                    Id: Id,
+                    ProductId: ProductId
+                },
+                dataType: 'html',
+                traditional: true,
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                error: function (e) {
+                },
+                success: function (data) {
+                    $(".list-image").html(data);
+                },
+                complete: function () {
+                    $('.se-pre-con').hide();
+                }
+            });
+        }
+    }
+</script>

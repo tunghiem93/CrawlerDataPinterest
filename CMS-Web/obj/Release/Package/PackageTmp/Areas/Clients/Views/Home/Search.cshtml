@@ -1,0 +1,42 @@
+﻿@model CMS_DTO.CMSProduct.ProductViewModels
+@using CMS_Shared;
+@{
+    Layout = "~/Areas/Clients/Views/Shared/_Layout.cshtml";
+}
+<div class="adv">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-content">
+                    <h2 class="page-heading">
+                        <span class="page-heading-title">
+                            Danh sách sản phẩm
+                        </span>
+                    </h2>
+                    <div id="products" class="list-group">
+                        @Html.Partial("_ListItem", Model)
+                    </div>
+                </div>
+                <!--End-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('.menu-product li.child .open-close').on('click', function () {
+                $(this).removeAttr('href');
+                var element = $(this).parent('li');
+                if (element.hasClass('open')) {
+                    element.removeClass('open');
+                    element.children('ul').slideUp();
+                }
+                else {
+                    element.addClass('open');
+                    element.children('ul').slideDown();
+                }
+            });
+            $(".vertical-menu-content").addClass("no-home");
+        })
+</script>

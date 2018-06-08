@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="shortcut icon" href="@Url.Content("~/logo.ico")" type="image/x-icon">
+    <title>CMS - @ViewBag.Title</title>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Libraries/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/simple-line-icons/simple-line-icons.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/uniform/css/uniform.default.css")" rel="stylesheet" />
+    @*<link href="@Url.Content("~/Libraries/plugins/bootstrap-switch/css/bootstrap-switch.min.css")" rel="stylesheet" />*@
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <link href="@Url.Content("~/Libraries/plugins/datatables/datatables.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css")" rel="stylesheet" />
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="@Url.Content("~/Libraries/plugins/moment/moment.min.js")"></script>
+    <link href="@Url.Content("~/Libraries/plugins/bootstrap-daterangepicker/daterangepicker.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/morris/morris.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/fullcalendar/fullcalendar.min.css")" rel="stylesheet" />
+    @*<link href="@Url.Content("~/Libraries/plugins/jqvmap/jqvmap/jqvmap.css")" rel="stylesheet" />*@
+    <!-- END PAGE LEVEL PLUGINS -->
+
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="@Url.Content("~/Libraries/css/components.min.css")" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="@Url.Content("~/Libraries/css/plugins.min.css")" rel="stylesheet" />
+    <!-- END THEME GLOBAL STYLES -->
+
+    <link href="@Url.Content("~/Libraries/plugins/icheck/skins/all.css")" rel="stylesheet" />
+
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="@Url.Content("~/Libraries/layouts/layout/css/layout.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/layouts/layout/css/themes/darkblue.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/layouts/layout/css/custom.min.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Libraries/plugins/select2/dist/css/select2.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/bootstrap-select/css/bootstrap-select.min.css")" rel="stylesheet" />
+   
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <script src="@Url.Content("~/Libraries/plugins/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/bootstrap/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/scripts/datatable.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/datatables/datatables.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js")"></script>
+
+    <script src="@Url.Content("~/Libraries/plugins/icheck/icheck.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/pages/scripts/form-icheck.min.js")"></script>
+    <link href="@Url.Content("~/Content/Common.css")" rel="stylesheet" />
+</head>
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+    @Html.Partial("_topMenu")
+
+    <!-- BEGIN HEADER & CONTENT DIVIDER -->
+    <div class="clearfix"> </div>
+    <!-- END HEADER & CONTENT DIVIDER -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        @Html.Partial("_leftMenu")
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <!-- BEGIN CONTENT BODY -->
+            <div class="page-content">
+                <!-- BEGIN PAGE HEADER-->
+
+
+                <!-- END PAGE HEADER-->
+                @RenderBody()
+            </div>
+            <!-- END CONTENT BODY -->
+        </div>
+        <!-- END CONTENT -->
+        <!-- BEGIN QUICK SIDEBAR -->
+        <a href="javascript:;" class="page-quick-sidebar-toggler">
+            <i class="icon-login"></i>
+        </a>
+        
+        <!-- END QUICK SIDEBAR -->
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    @Html.Partial("_footer")
+    <!-- BEGIN CORE PLUGINS -->
+    
+    
+    @*<script src="@Url.Content("~/Libraries/plugins/js.cookie.min.js")"></script>*@
+    <script src="@Url.Content("~/Libraries/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/jquery-slimscroll/jquery.slimscroll.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/jquery.blockui.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/uniform/jquery.uniform.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/bootstrap-switch/js/bootstrap-switch.min.js")"></script>
+    <!-- END CORE PLUGINS -->
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="@Url.Content("~/Libraries/plugins/moment.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/bootstrap-daterangepicker/daterangepicker.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/morris/morris.min.js")"></script>
+    @*<script src="@Url.Content("~/Libraries/plugins/morris/raphael-min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/counterup/jquery.waypoints.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/counterup/jquery.counterup.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/amcharts/amcharts/amcharts.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/amcharts/amcharts/serial.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/amcharts/amcharts/pie.js")"></script>*@
+    @*<script src="@Url.Content("~/Libraries/plugins/amcharts/amcharts/radar.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/amcharts/amcharts/themes/light.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/amcharts/amcharts/themes/patterns.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/amcharts/amcharts/themes/chalk.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/amcharts/ammap/ammap.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/amcharts/ammap/maps/js/worldLow.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/amcharts/amstockcharts/amstock.js")"></script>*@
+    <script src="@Url.Content("~/Libraries/plugins/fullcalendar/fullcalendar.min.js")"></script>
+    @*<script src="@Url.Content("~/Libraries/plugins/flot/jquery.flot.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/flot/jquery.flot.resize.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/flot/jquery.flot.categories.min.js")"></script>*@
+   @* <script src="@Url.Content("~/Libraries/plugins/jquery-easypiechart/jquery.easypiechart.min.js")"></script>*@
+    @*<script src="@Url.Content("~/Libraries/plugins/jquery.sparkline.min.js")"></script>*@
+    <!-- END PAGE LEVEL PLUGINS -->
+   
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    <script src="@Url.Content("~/Libraries/scripts/app.min.js")"></script>
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    @*<script src="@Url.Content("~/Libraries/pages/scripts/dashboard.min.js")"></script>*@
+    <!-- END PAGE LEVEL SCRIPTS -->
+
+
+    <script src="@Url.Content("~/Libraries/plugins/ckeditor/ckeditor.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/ckeditor/adapters/jquery.js")"></script>
+
+    <!--Select 2-->
+    <script src="@Url.Content("~/Libraries/plugins/select2/dist/js/select2.full.js")"></script>
+
+    <script src="@Url.Content("~/Libraries/plugins/bootstrap-select/js/bootstrap-select.min.js")"></script>
+    <!-- BEGIN THEME LAYOUT SCRIPTS -->
+    <script src="@Url.Content("~/Libraries/layouts/layout/scripts/layout.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/layouts/layout/scripts/demo.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/layouts/global/scripts/quick-sidebar.min.js")"></script>
+    <!-- END THEME LAYOUT SCRIPTS -->
+    <script src="@Url.Content("~/Scripts/Common.js")"></script>
+   @* <script src="@Url.Content("~/Scripts/custom.js")"></script>*@
+</body>
+</html>
+
+<script type="text/javascript">
+    var CURRENT_URL = window.location.href.split('?')[0],
+        $BODY = $('body'),
+        $MENU_TOGGLE = $('#menu_toggle'),
+        $SIDEBAR_MENU = $('#sidebar-menu');
+        
+
+    $(document).ready(function () {
+
+        $SIDEBAR_MENU.find('li').removeClass("active");
+
+        $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
+
+        $SIDEBAR_MENU.find('a').filter(function () {
+            return this.href.toLowerCase() == CURRENT_URL.toLowerCase();
+        }).parent('li').addClass('current-page').addClass("active");
+    })
+</script>
