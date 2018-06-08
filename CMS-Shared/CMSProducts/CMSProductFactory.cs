@@ -27,10 +27,7 @@ namespace CMS_Shared.CMSProducts
                             var e = new CMS_Products
                             {
                                 Id = _Id,
-                                CreatedDate = DateTime.Now,
                                 ProductName = model.ProductName,
-                                UpdatedDate = DateTime.Now,
-                                IsActive  = model.IsActive
                             };
                             cxt.CMS_Products.Add(e);
                         }
@@ -40,8 +37,6 @@ namespace CMS_Shared.CMSProducts
                             if(e != null)
                             {
                                 e.ProductName = model.ProductName;
-                                e.UpdatedDate = DateTime.Now;
-                                e.IsActive = model.IsActive;
                             }
                         }
                         cxt.SaveChanges();

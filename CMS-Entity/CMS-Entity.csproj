@@ -63,6 +63,11 @@
     <Compile Include="Mapping\CMS_ProductMap.cs" />
     <Compile Include="Mapping\CMS_BoardMap.cs" />
     <Compile Include="Mapping\CMS_EmployeeMap.cs" />
+    <Compile Include="Migrations\201806080829426_createDb06082018.cs" />
+    <Compile Include="Migrations\201806080829426_createDb06082018.Designer.cs">
+      <DependentUpon>201806080829426_createDb06082018.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,7 +75,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <EmbeddedResource Include="Migrations\201806080829426_createDb06082018.resx">
+      <DependentUpon>201806080829426_createDb06082018.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

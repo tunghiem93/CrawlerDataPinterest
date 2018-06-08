@@ -84,12 +84,7 @@ namespace CMS_Shared.CMSBoards
                 {
                     var data = cxt.CMS_Categories.Select(x => new CMSBoardModels
                     {
-                        CreatedBy = x.CreatedBy,
-                        CreatedDate = x.CreatedDate,
                         Id = x.Id,
-                        IsActive = x.IsActive,
-                        UpdatedBy = x.UpdatedBy,
-                        UpdatedDate = x.UpdatedDate,
                     }).Where(x => x.Id.Equals(Id)).FirstOrDefault();
                     return data;
                 }
@@ -106,12 +101,7 @@ namespace CMS_Shared.CMSBoards
                 {
                     var data = cxt.CMS_Categories.Select(x => new CMSBoardModels
                     {
-                        CreatedBy = x.CreatedBy,
-                        CreatedDate = x.CreatedDate,
                         Id = x.Id,
-                        IsActive = x.IsActive,
-                        UpdatedBy = x.UpdatedBy,
-                        UpdatedDate = x.UpdatedDate,
                     }).ToList();
                     return data;
                 }

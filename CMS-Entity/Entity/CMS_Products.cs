@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMS_Entity.Entity
 {
-    public class CMS_Products : CMS_EntityBase
+    public class CMS_Products
     {
         public string Id { get; set; }
         public string ProductName { get; set; }

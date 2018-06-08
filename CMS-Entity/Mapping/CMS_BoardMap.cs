@@ -15,8 +15,9 @@ namespace CMS_Entity.Mapping
             this.HasKey(x => x.Id);
             this.Property(x => x.Id).HasColumnType("varchar").HasMaxLength(60);
             this.Property(x => x.BoardName).HasMaxLength(500).HasColumnType("nvarchar").IsRequired();
-            this.Property(x => x.repin_count).HasColumnType("nvarchar").IsRequired();
+            this.Property(x => x.repin_count).HasColumnType("int").IsRequired();
             this.Property(x => x.Link).HasMaxLength(60).HasColumnType("nvarchar").IsRequired();
+            this.Property(x => x.ImageURL).IsOptional().HasColumnType("varchar").HasMaxLength(60);
         }
     }
 }

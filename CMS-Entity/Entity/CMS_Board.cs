@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMS_Entity.Entity
 {
-    public class CMS_Board : CMS_EntityBase
+    public class CMS_Board
     {
         public string Id { get; set; }
         public string BoardName { get; set; }
