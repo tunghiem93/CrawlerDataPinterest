@@ -206,7 +206,6 @@
     <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HQController.cs" />
-    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Models\Categories\CategoriesModels.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -222,7 +221,6 @@
   <ItemGroup>
     <Content Include="Content\animate.css" />
     <Content Include="Content\Common.css" />
-    <Content Include="Content\css\custom.min.css" />
     <Content Include="Content\default-skin.css" />
     <Content Include="Content\flexslider.css" />
     <Content Include="Content\jquery-ui.css" />
@@ -282,7 +280,6 @@
     <Content Include="Areas\Admin\Views\Error\NotFound.cshtml" />
     <Content Include="Areas\Admin\Views\Error\TimeOutSession.cshtml" />
     <Content Include="Areas\Admin\Views\Error\Unauthorised.cshtml" />
-    <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Profile\Index.cshtml" />
     <Content Include="Libraries\layouts\layout7\img\Thumbs.db" />
     <Content Include="Libraries\pages\media\blog\Thumbs.db" />
