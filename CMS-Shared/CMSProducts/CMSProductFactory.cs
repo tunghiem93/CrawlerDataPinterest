@@ -27,37 +27,15 @@ namespace CMS_Shared.CMSProducts
                             var e = new CMS_Products
                             {
                                 Id = _Id,
-                                CategoryId = model.CategoryId,
                                 CreatedBy = model.CreatedBy,
                                 CreatedDate = DateTime.Now,
                                 Description = model.Description,
-                                ProductCode = model.ProductCode,
                                 ProductName = model.ProductName,
-                                ProductPrice = model.ProductPrice,
                                 UpdatedBy = model.UpdatedBy,
                                 UpdatedDate = DateTime.Now,
                                 IsActive  = model.IsActive
                             };
                             cxt.CMS_Products.Add(e);
-                            
-                            if(model.ListImages != null && model.ListImages.Any())
-                            {
-                                var _e = new List<CMS_Images>();
-                                model.ListImages.ForEach(x =>
-                                {
-                                    _e.Add(new CMS_Images
-                                    {
-                                        Id = Guid.NewGuid().ToString(),
-                                        CreatedBy = model.CreatedBy,
-                                        CreatedDate = DateTime.Now,
-                                        ImageURL = x.ImageURL,
-                                        ProductId = _Id,
-                                        UpdatedBy = model.UpdatedBy,
-                                        UpdatedDate = DateTime.Now
-                                    });
-                                });
-                                cxt.CMS_Images.AddRange(_e);
-                            }
                         }
                         else
                         {
@@ -65,35 +43,10 @@ namespace CMS_Shared.CMSProducts
                             if(e != null)
                             {
                                 e.ProductName = model.ProductName;
-                                e.ProductCode = model.ProductCode;
-                                e.ProductPrice = model.ProductPrice;
                                 e.Description = model.Description;
-                                e.CategoryId = model.CategoryId;
                                 e.UpdatedBy = model.UpdatedBy;
                                 e.UpdatedDate = DateTime.Now;
                                 e.IsActive = model.IsActive;
-                            }
-
-                            if (model.ListImages != null && model.ListImages.Any())
-                            {
-                                var _edel = cxt.CMS_Images.Where(x => x.ProductId.Equals(e.Id));
-                                cxt.CMS_Images.RemoveRange(_edel);
-
-                                var _e = new List<CMS_Images>();
-                                model.ListImages.ForEach(x =>
-                                {
-                                    _e.Add(new CMS_Images
-                                    {
-                                        Id = Guid.NewGuid().ToString(),
-                                        CreatedBy = model.CreatedBy,
-                                        CreatedDate = DateTime.Now,
-                                        ImageURL = x.ImageURL,
-                                        ProductId = e.Id,
-                                        UpdatedBy = model.UpdatedBy,
-                                        UpdatedDate = DateTime.Now
-                                    });
-                                });
-                                cxt.CMS_Images.AddRange(_e);
                             }
                         }
                         cxt.SaveChanges();
@@ -168,17 +121,13 @@ namespace CMS_Shared.CMSProducts
                         var o = new CMS_ProductsModels
                         {
                             Id = e.p.Id,
-                            CategoryId = e.p.CategoryId,
                             CreatedBy = e.p.CreatedBy,
                             CreatedDate = e.p.CreatedDate,
                             Description = e.p.Description,
                             IsActive = e.p.IsActive,
-                            ProductCode = e.p.ProductCode,
                             ProductName = e.p.ProductName,
-                            ProductPrice = e.p.ProductPrice,
                             UpdatedBy = e.p.UpdatedBy,
                             UpdatedDate = e.p.UpdatedDate,
-                            CategoryName = e.CategoryName
                         };
                         return o;
                     }
@@ -201,17 +150,13 @@ namespace CMS_Shared.CMSProducts
                                                .Select(x=> new CMS_ProductsModels
                                                {
                                                    Id = x.p.Id,
-                                                   CategoryId = x.p.CategoryId,
                                                    CreatedBy = x.p.CreatedBy,
                                                    CreatedDate = x.p.CreatedDate,
                                                    Description = x.p.Description,
                                                    IsActive = x.p.IsActive,
-                                                   ProductCode = x.p.ProductCode,
                                                    ProductName = x.p.ProductName,
-                                                   ProductPrice = x.p.ProductPrice,
                                                    UpdatedBy = x.p.UpdatedBy,
                                                    UpdatedDate = x.p.UpdatedDate,
-                                                   CategoryName = x.CategoryName
                                                }).ToList();
                     return data;
                 }
