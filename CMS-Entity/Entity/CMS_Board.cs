@@ -9,10 +9,10 @@ namespace CMS_Entity.Entity
     public class CMS_Board : CMS_EntityBase
     {
         public string Id { get; set; }
-        public string CategoryName { get; set; }
-        public string CategoryCode { get; set; }
-        public string Description { get; set; }
-        public string ParentId { get; set; }
-        public virtual List<CMS_Products> Products { get; set; }
+        public string BoardName { get; set; }
+        public int repin_count { get; set; }
+        public string Link { get; set; }
+        public DateTime Created_At { get; set; }
+        public string ImageURL { get; set; }
     }
 }

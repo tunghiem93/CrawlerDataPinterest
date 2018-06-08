@@ -20,9 +20,6 @@ namespace CMS_DTO.CMSProduct
         public DateTime Created_At { get; set; }
         public DateTime DateCrawler { get; set; }
         public bool IsActive { get; set; }
-        [AllowHtml]
-        public string Description { get; set; }
-        public string sStatus { get; set; }
 
         public HttpPostedFileBase[] PictureUpload { get; set; }
         public byte[] PictureByte { get; set; }

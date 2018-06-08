@@ -14,7 +14,6 @@ namespace CMS_Entity.Entity
         public string Link { get; set; }
         public string Board { get; set; }
         public DateTime Created_At { get; set; }
-        public DateTime DateCrawler { get; set; }
         public string ImageURL { get; set; }
     }
 }
