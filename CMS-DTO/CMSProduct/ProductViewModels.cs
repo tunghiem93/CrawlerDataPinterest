@@ -9,9 +9,7 @@ namespace CMS_DTO.CMSProduct
     public class ProductViewModels
     {
         public List<CMS_ProductsModels> ListProduct { get; set; }
-
-        public string CateID { get; set; }
-        public int TotalProduct { get; set; }
+        
         public bool IsAddMore { get; set; }
         public int TotalPage { get; set; }
         public string Key { get; set; }
