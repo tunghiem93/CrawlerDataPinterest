@@ -1,0 +1,7 @@
+D:\David\CMS-Web\CMS-DTO\bin\Debug\CMS-DTO.dll
+D:\David\CMS-Web\CMS-DTO\bin\Debug\CMS-DTO.pdb
+D:\David\CMS-Web\CMS-DTO\obj\Debug\CMS-DTO.csprojResolveAssemblyReference.cache
+D:\David\CMS-Web\CMS-DTO\obj\Debug\CMS-DTO.csproj.CoreCompileInputs.cache
+D:\David\CMS-Web\CMS-DTO\obj\Debug\CMS-DTO.dll
+D:\David\CMS-Web\CMS-DTO\obj\Debug\CMS-DTO.pdb
+D:\David\CMS-Web\CMS-DTO\bin\Debug\System.Web.Mvc.dll

@@ -1,0 +1,207 @@
+﻿@{
+    string controller = (string)ViewContext.RouteData.Values["controller"];
+    string action = (string)ViewContext.RouteData.Values["action"];
+}
+@using CMS_Shared;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="@Url.Content("~/logo.ico")" type="image/x-icon">
+    <title>@Commons.CompanyTitle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <script src="@Url.Content("~/Libraries/plugins/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/bootstrap/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/select2/dist/js/select2.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.bxslider.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/owl-carousel/owl.carousel.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/modernizr.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.flexslider-min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.plugin.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.actual.min.js")"></script>
+    <script src="@Url.Content("~/Libraries/plugins/jquery-ui/jquery-ui.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/html5shiv.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery-migrate-1.2.0.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.touchSwipe.min.js")"></script>
+
+    <!--------------CSS----------->
+    <link href="@Url.Content("~/Libraries/plugins/bootstrap/css/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/font-awesome/css/font-awesome.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/reset.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/flexslider.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/animate.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/jquery.bxslider.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/jquery.fancybox.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/owl-carousel/owl.carousel.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Libraries/plugins/select2/dist/css/select2.min.css")" rel="stylesheet" />
+
+    <!-- Datatables -->
+    @*<link rel="stylesheet" href='@Url.Content("~/Libraries/plugins/datatables.net-bs/css/dataTables.bootstrap.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Libraries/plugins/datatables.net-buttons-bs/css/buttons.bootstrap.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Libraries/plugins/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css")'>
+    <link rel="stylesheet" href='@Url.Content("~/Libraries/plugins/datatables.net-responsive-bs/css/responsive.bootstrap.min.css")'>*@
+    @*<link rel="stylesheet" href='@Url.Content("~/Libraries/plugins/datatables.net-scroller-bs/css/scroller.bootstrap.min.css")'>*@
+
+    <script src="@Url.Content("~/Scripts/theme-script.js")"></script>
+    <link href="@Url.Content("~/Content/style.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/responsive.css")" rel="stylesheet" />
+
+    <style type="text/css">
+        .at-latest-news ul li {
+            margin-bottom: 70px;
+            padding-bottom: 70px;
+        }
+
+        .glyphicon {
+            margin-right: 5px;
+        }
+
+        .thumbnail {
+            margin-bottom: 20px;
+            padding: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            border-radius: 0px;
+            border: 0px solid #fff;
+        }
+
+        .item.list-group-item {
+            float: none;
+            width: 100%;
+            background-color: #fff;
+            margin-bottom: 10px;
+        }
+
+            .item.list-group-item .list-group-image {
+                margin-right: 10px;
+                border: 0px;
+            }
+
+            .item.list-group-item .thumbnail {
+                margin-bottom: 0px;
+            }
+
+            .item.list-group-item .caption {
+                padding: 9px 9px 0px 9px;
+            }
+
+            .item.list-group-item:nth-of-type(odd) {
+                /*background: #eeeeee;*/
+            }
+
+            .item.list-group-item:before, .item.list-group-item:after {
+                display: table;
+                content: " ";
+            }
+
+            .item.list-group-item img {
+                float: left;
+            }
+
+            .item.list-group-item:after {
+                clear: both;
+            }
+
+        .list-group-item-text {
+            margin: 0 0 11px;
+        }
+
+        #products img {
+            width: 400px !important;
+            height: 250px !important;
+        }
+
+        .list-group-item {
+            padding: 0.1px 0.1px;
+        }
+    </style>
+</head>
+<body style="" class="home option2">
+    <div class="wrapper page-home">
+        <div id="" class="header">
+            @Html.Partial("_topNavigation")
+        </div> 
+        <div id="" class="search">
+            @Html.Partial("_search")
+        </div>
+        <div id="" class="menu">
+            @Html.Partial("_header")
+        </div>
+        <div class="main-body">
+            @RenderBody()
+        </div>
+        <!--Footer-->
+        <div class="footer">
+            @Html.Partial("_footer")
+        </div>
+    </div>
+    <div style="display: none;" id="loading-mask">
+        <div id="loading_mask_loader" class="loader">
+            <img alt="Loading..." src="@Url.Content("~/Images/ajax-loader-main.gif")" />
+            <div>
+                Vui lòng đợi...
+            </div>
+        </div>
+    </div>
+    <a href="#" class="scroll_top" title="Scroll to Top" style="display: none;">Scroll</a>
+</body>
+</html>
+<script src="@Url.Content("~/Scripts/jquery.lazyload.min.js")"></script>
+<script src="@Url.Content("~/Libraries/plugins/moment/moment.min.js")"></script>
+<script src="@Url.Content("~/Libraries/plugins/bootstrap-daterangepicker/daterangepicker.js")"></script>
+<!-- timepicker -->
+<script src="@Url.Content("~/Libraries/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js")"></script>
+    <!-- Datatables -->
+@*<script src="@Url.Content("~/Libraries/plugins/datatables.net/js/jquery.dataTables.min.js")"></script>
+<script src="@Url.Content("~/Libraries/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js")"></script>
+<script src="@Url.Content("~/Libraries/plugins/datatables.net-responsive/js/dataTables.responsive.min.js")"></script>
+<script src="@Url.Content("~/Libraries/plugins/datatables.net-responsive-bs/js/responsive.bootstrap.js")"></script>*@
+@*<script src="@Url.Content("~/Libraries/plugins/datatables.net-scroller/js/dataTables.scroller.min.js")"></script>*@
+<script src="@Url.Content("~/Libraries/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js")"></script>
+<script type="text/javascript">
+    function SearchKeyWord() {
+        var _key = $("#txtsearch").val();
+        if (_key.length > 0)
+        {
+            $.ajax({
+                url: "/Clients/Home/SearchKey",
+                type: "post",
+                data: { Key: _key },
+                beforeSend: function () {
+                    $("#loading-mask").show();
+                },
+                success: function (content) {
+                    $(".list-group").html(content);
+                },
+                complete: function () {
+                    $("#loading-mask").hide();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                }
+            });
+        }
+    }
+
+    function LoadPagging(index,id,_key) {
+        $.ajax({
+            url: "/Clients/Home/LoadPagging",
+            type: "post",
+            beforeSend: function () {
+                $("#loading-mask").show();
+            },
+            data: { pageIndex: index, Key: _key, Id: id },
+            success: function (content) {
+                $(".list-group").html(content);
+            },
+            complete: function () {
+                $("#loading-mask").hide();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+    }
+</script>

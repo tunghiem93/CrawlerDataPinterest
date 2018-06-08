@@ -1,0 +1,71 @@
+﻿@model CMS_DTO.CMSNews.CMS_NewsModels
+@using CMS_Shared
+<div role="main" style="display:inline-block;height:100%;width:100%">
+    @*<div class="se-pre-con" style="display: none;"></div>*@
+    <div class="page-title">
+        <!-- BEGIN PAGE BAR -->
+        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Tin tức - Xem" } })
+        <!-- END PAGE BAR -->
+    </div>
+    <div class="page-main">
+        <div class="col-md-12 col-sm-12 col-xs-12 x_panel">
+            <div class="x_content">
+                <div class="row text-right">
+                    <ul class="header-buttons pull-right list-inline">
+                        <li>
+                            <a href="javascript:void(0)" class="btn btn-danger" id="btn-delete" onclick="CloseDetail()">
+                                <i class="fa fa-times"></i>
+                                &nbsp;Hủy
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-body" style="display: block;">
+                    <div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+                        @*Image*@
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Hình</label>
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                @if (!string.IsNullOrEmpty(Model.ImageURL))
+                                {
+                                    <img id="upload-preview" src="@Model.ImageURL" height="100" width="200" class="" />
+                                }
+                                else
+                                {
+                                    <img id="upload-preview" class="" src="@Commons.Image272_259" height="100" width="200" />
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Tiêu đề</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <label style="margin-top:1%">@Model.Title</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Mô tả</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextAreaFor(model => model.Short_Description, new { @class = "form-control", @placeholder = "Mô tả ngắn", @autocomplete = "off" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Nội dung</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control ckeditor", @placeholder = "Nội dung", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Trạng thái</label>
+                            <div class="col-md-1 col-sm-1 col-xs-12">
+                                <label style="margin-top:10%">@string.Format("{0}", Model.IsActive ? "Kích hoạt" : "Chưa kích hoạt")</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/InputCustom.js")"></script>

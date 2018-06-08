@@ -1,0 +1,6 @@
+D:\David\CMS-Web\CMS-Service\bin\Release\CMS-Service.dll
+D:\David\CMS-Web\CMS-Service\bin\Release\CMS-Service.pdb
+D:\David\CMS-Web\CMS-Service\obj\Release\CMS-Service.csprojResolveAssemblyReference.cache
+D:\David\CMS-Web\CMS-Service\obj\Release\CMS-Service.csproj.CoreCompileInputs.cache
+D:\David\CMS-Web\CMS-Service\obj\Release\CMS-Service.dll
+D:\David\CMS-Web\CMS-Service\obj\Release\CMS-Service.pdb

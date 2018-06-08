@@ -1,0 +1,125 @@
+﻿
+@model CMS_DTO.CMSEmployee.CMS_EmployeeModels
+@using CMS_Shared
+@{
+    Html.EnableUnobtrusiveJavaScript(true);
+    var _ID = Model.Id;
+}
+@Html.HiddenFor(model =>model.Id)
+@if (!string.IsNullOrEmpty(_ID))
+{
+    @Html.Hidden("ImageURL", Model.ImageURL)
+}
+<div class="row form-horizontal form-label-left" style="margin-bottom:15px;">
+    @*Image*@
+    <fieldset>
+        <legend>THÔNG TIN CHUNG</legend>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Avartar</label>
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                @if (!string.IsNullOrEmpty(Model.ImageURL))
+                {
+                    <img id="upload-preview" src="@Model.ImageURL" height="100" width="100" class="" style="border-radius:100% !important" />
+                }
+                else
+                {
+                    <img id="upload-preview" class="" src="@Commons.Image200_100" height="100" width="100" style="border-radius:100% !important" />
+                }
+            </div>
+            <div class="col-md-1 col-sm-3 col-xs-12" style="line-height:55px;">
+                <div class="upload-btn-wrapper" style="cursor:pointer;">
+                    <button class="btn btn-default" type="button" onclick="showPictureUpload();" style="margin-top:-6%;margin-left:50px">Chọn hình</button>
+                    @Html.TextBoxFor(model => model.PictureUpload, new { @type = "file", @onchange = "PreviewImage(this,\"upload-preview\")", @accept = "*.jpg", @class = "hidden", @id = "urlImage" })
+                </div>
+                @Html.ValidationMessageFor(model => model.PictureUpload, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Họ Tên</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @placeholder = "Họ tên", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Tên</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "Tên nhân viên", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Email</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.Employee_Email, new { @class = "form-control", @placeholder = "Địa chỉ email", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Employee_Email, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Điện thoại</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.Employee_Phone, new { @class = "form-control", @placeholder = "Điện thoại", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Employee_Phone, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Ngày sinh</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Ngày sinh", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.BirthDate, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Mật khẩu</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Mật khẩu", @autocomplete = "off",@id="txtPassword" })
+                @Html.ValidationMessageFor(model => model.Password, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Địa chỉ</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.Employee_Address, new { @class = "form-control", @placeholder = "Địa chỉ", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Employee_Address, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 fontLighter">Trạng thái</label>
+            <div class="col-md-1 col-sm-1 col-xs-12">
+                <label>@Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck" })</label>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<script src="@Url.Content("~/Scripts/InputCustom.js")"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.datepicker1').daterangepicker({
+            singleDatePicker: true,
+            calender_style: "picker_2",
+            maxDate: new Date(),
+            //==========
+            showDropdowns: true,
+            locale: {
+                format: 'DD/MM/YYYY',
+                daysOfWeek: ['CN', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'],
+                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+            }
+        }, function (start, end, label) {
+            });
+
+        $('[id=txtPassword]').val('@Model.Password')
+    });
+
+    function showPictureUpload() {
+        $('[id=urlImage]').click();
+    }
+</script>

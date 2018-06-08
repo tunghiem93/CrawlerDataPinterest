@@ -1,0 +1,1835 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{48E2AE69-7554-4280-A002-4892EAA62BE0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CMS_Web</RootNamespace>
+    <AssemblyName>CMS-Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CMSAccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CMSCategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CMSCustomersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CMSDiscountsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CMSEmployeesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CMSNewsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CMSPolicyController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CMSProductsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HQController.cs" />
+    <Compile Include="Areas\Admin\Models\Categories\CategoriesModels.cs" />
+    <Compile Include="Areas\Clients\ClientsAreaRegistration.cs" />
+    <Compile Include="Areas\Clients\Controllers\AboutController.cs" />
+    <Compile Include="Areas\Clients\Controllers\ContactController.cs" />
+    <Compile Include="Areas\Clients\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Clients\Controllers\HQController.cs" />
+    <Compile Include="Areas\Clients\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Clients\Controllers\NewsController.cs" />
+    <Compile Include="Areas\Clients\Controllers\NotFoundController.cs" />
+    <Compile Include="Areas\Clients\Controllers\PolicyController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\animate.css" />
+    <Content Include="Content\Common.css" />
+    <Content Include="Content\default-skin.css" />
+    <Content Include="Content\flexslider.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery.bxslider.css" />
+    <Content Include="Content\jquery.fancybox.css" />
+    <Content Include="Content\photoswipe.css" />
+    <Content Include="Content\productdetail.css" />
+    <Content Include="Content\reset.css" />
+    <Content Include="Content\responsive.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\styledetail.css" />
+    <Content Include="Content\styledetail_child.css" />
+    <Content Include="Content\woocommerce.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\ajax-loader-main.gif" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Images\logo2.png" />
+    <Content Include="Images\Preloader_21.gif" />
+    <Content Include="Libraries\css\components.min.css" />
+    <Content Include="Libraries\css\plugins.min.css" />
+    <Content Include="Libraries\layouts\global\scripts\quick-sidebar.min.js" />
+    <Content Include="Libraries\layouts\layout\css\custom.min.css" />
+    <Content Include="Libraries\layouts\layout\css\layout.min.css" />
+    <Content Include="Libraries\layouts\layout\css\themes\darkblue.min.css" />
+    <Content Include="Libraries\layouts\layout\img\avatar3_small.jpg" />
+    <Content Include="Libraries\layouts\layout\img\sidebar_toggler_icon_darkblue.png" />
+    <Content Include="Libraries\layouts\layout\scripts\demo.min.js" />
+    <Content Include="Libraries\layouts\layout\scripts\layout.min.js" />
+    <Content Include="Libraries\pages\css\error.min.css" />
+    <Content Include="Libraries\pages\media\pages\earth.jpg" />
+    <Content Include="Libraries\pages\scripts\form-icheck.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Clients\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_breadcrumb.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_footer.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_leftMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_topMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCategories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCategories\_ListData.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCategories\_Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCategories\_Form.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCategories\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCategories\_View.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSAccount\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCategories\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSProducts\_Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSProducts\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSProducts\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSProducts\_Form.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSProducts\_ListData.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSProducts\_View.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSProducts\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSEmployees\_Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSEmployees\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSEmployees\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSEmployees\_Form.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSEmployees\_ListData.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSEmployees\_View.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSEmployees\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSPolicy\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSPolicy\_Form.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSNews\_Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSNews\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSNews\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSNews\_Form.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSNews\_ListData.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSNews\_View.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSNews\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSProducts\_ListItem.cshtml" />
+    <Content Include="Areas\Clients\Views\Shared\_footer.cshtml" />
+    <Content Include="Areas\Clients\Views\Shared\_header.cshtml" />
+    <Content Include="Areas\Clients\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Clients\Views\Shared\_search.cshtml" />
+    <Content Include="Areas\Clients\Views\Shared\_topNavigation.cshtml" />
+    <Content Include="Areas\Clients\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Clients\Views\Home\_ListItem.cshtml" />
+    <Content Include="Areas\Clients\Views\About\Index.cshtml" />
+    <Content Include="Areas\Clients\Views\Contact\Index.cshtml" />
+    <Content Include="Areas\Clients\Views\Policy\Index.cshtml" />
+    <Content Include="Areas\Clients\Views\Home\Detail.cshtml" />
+    <Content Include="Areas\Clients\Views\Home\Search.cshtml" />
+    <Content Include="Areas\Clients\Views\News\Index.cshtml" />
+    <Content Include="Areas\Clients\Views\News\NewsDetail.cshtml" />
+    <Content Include="Areas\Clients\Views\NotFound\Index.cshtml" />
+    <Content Include="Areas\Clients\Views\Login\SignIn.cshtml" />
+    <Content Include="Areas\Clients\Views\Login\SignUp.cshtml" />
+    <Content Include="Libraries\plugins\bootstrap-hover-dropdown\bootstrap-hover-dropdown.js" />
+    <Content Include="Libraries\plugins\bootstrap-hover-dropdown\bootstrap-hover-dropdown.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-hover-dropdown\LICENSE" />
+    <Content Include="Libraries\plugins\bootstrap-hover-dropdown\README.md" />
+    <Content Include="Libraries\plugins\bootstrap-select\css\bootstrap-select.css" />
+    <Content Include="Libraries\plugins\bootstrap-select\css\bootstrap-select.css.map" />
+    <Content Include="Libraries\plugins\bootstrap-select\css\bootstrap-select.min.css" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\bootstrap-select.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\bootstrap-select.js.map" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\bootstrap-select.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-ar_AR.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-ar_AR.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-bg_BG.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-bg_BG.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-cs_CZ.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-cs_CZ.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-da_DK.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-da_DK.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-de_DE.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-de_DE.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-en_US.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-en_US.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-es_CL.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-es_CL.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-eu.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-eu.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-fa_IR.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-fa_IR.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-fi_FI.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-fi_FI.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-fr_FR.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-fr_FR.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-hu_HU.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-hu_HU.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-id_ID.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-id_ID.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-it_IT.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-it_IT.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-ko_KR.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-ko_KR.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-nb_NO.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-nb_NO.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-nl_NL.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-nl_NL.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-pl_PL.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-pl_PL.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-pt_BR.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-pt_BR.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-pt_PT.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-pt_PT.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-ro_RO.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-ro_RO.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-ru_RU.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-ru_RU.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-sk_SK.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-sk_SK.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-sl_SI.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-sl_SI.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-sv_SE.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-sv_SE.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-tr_TR.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-tr_TR.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-ua_UA.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-ua_UA.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-zh_CN.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-zh_CN.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-zh_TW.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\js\i18n\defaults-zh_TW.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-select\LICENSE" />
+    <Content Include="Libraries\plugins\bootstrap-select\README.md" />
+    <Content Include="Libraries\plugins\bootstrap-switch\css\bootstrap-switch.css" />
+    <Content Include="Libraries\plugins\bootstrap-switch\css\bootstrap-switch.min.css" />
+    <Content Include="Libraries\plugins\bootstrap-switch\js\bootstrap-switch.js" />
+    <Content Include="Libraries\plugins\bootstrap-switch\js\bootstrap-switch.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-switch\LICENSE" />
+    <Content Include="Libraries\plugins\bootstrap-switch\README.md" />
+    <Content Include="Libraries\plugins\bootstrap-timepicker\css\bootstrap-timepicker.css" />
+    <Content Include="Libraries\plugins\bootstrap-timepicker\css\bootstrap-timepicker.min.css" />
+    <Content Include="Libraries\plugins\bootstrap-timepicker\js\bootstrap-timepicker.js" />
+    <Content Include="Libraries\plugins\bootstrap-timepicker\js\bootstrap-timepicker.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-timepicker\LICENSE" />
+    <Content Include="Libraries\plugins\bootstrap-timepicker\README.md" />
+    <Content Include="Libraries\plugins\jquery-slimscroll\jquery.slimscroll.js" />
+    <Content Include="Libraries\plugins\jquery-slimscroll\jquery.slimscroll.min.js" />
+    <Content Include="Libraries\plugins\jquery-slimscroll\README.md" />
+    <Content Include="Libraries\plugins\jquery-slimscroll\slimScroll.jquery.json" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-icons_222222_256x240.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Libraries\plugins\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Libraries\plugins\jquery-ui\jquery-ui.min.css" />
+    <Content Include="Libraries\plugins\jquery-ui\jquery-ui.min.js" />
+    <Content Include="Libraries\plugins\jquery.blockui.min.js" />
+    <Content Include="Libraries\plugins\jquery.min.js" />
+    <Content Include="Libraries\plugins\moment.min.js" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\css\bootstrapTheme.css" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\css\custom.css" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\css\responsive.css" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\ico\apple-touch-icon-114-precomposed.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\ico\apple-touch-icon-144-precomposed.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\ico\apple-touch-icon-57-precomposed.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\ico\apple-touch-icon-72-precomposed.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\ico\favicon.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\AjaxLoader.gif" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\demo-slides\controls.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\demo-slides\css3.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\demo-slides\feather.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\demo-slides\grab.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\demo-slides\modern.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\demo-slides\multi.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\demo-slides\responsive.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\demo-slides\tons.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\demo-slides\touch.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\demo-slides\zombie.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\glyphicons-halflings-green.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\glyphicons-halflings-white.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\glyphicons-halflings.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\img\owl-logo.png" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\js\application.js" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\js\bootstrap-collapse.js" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\js\bootstrap-tab.js" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\js\bootstrap-transition.js" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\js\google-code-prettify\prettify.css" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\js\google-code-prettify\prettify.js" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\js\google-code-prettify\run_prettify.js" />
+    <Content Include="Libraries\plugins\owl-carousel\assets\js\jquery-1.9.1.min.js" />
+    <Content Include="Libraries\plugins\owl-carousel\LICENSE" />
+    <Content Include="Libraries\plugins\owl-carousel\owl.carousel.css" />
+    <Content Include="Libraries\plugins\owl-carousel\owl.carousel.js" />
+    <Content Include="Libraries\plugins\owl-carousel\owl.carousel.min.js" />
+    <Content Include="Libraries\plugins\owl-carousel\owl.theme.css" />
+    <Content Include="Libraries\plugins\owl-carousel\owl.transitions.css" />
+    <Content Include="Libraries\plugins\owl-carousel\README.md" />
+    <Content Include="Libraries\plugins\select2\.bower.json" />
+    <Content Include="Libraries\plugins\select2\.editorconfig" />
+    <Content Include="Libraries\plugins\select2\.gitignore" />
+    <Content Include="Libraries\plugins\select2\.jshintignore" />
+    <Content Include="Libraries\plugins\select2\.jshintrc" />
+    <Content Include="Libraries\plugins\select2\.travis.yml" />
+    <Content Include="Libraries\plugins\select2\bower.json" />
+    <Content Include="Libraries\plugins\select2\component.json" />
+    <Content Include="Libraries\plugins\select2\composer.json" />
+    <Content Include="Libraries\plugins\select2\CONTRIBUTING.md" />
+    <Content Include="Libraries\plugins\select2\docs\.gitignore" />
+    <Content Include="Libraries\plugins\select2\docs\css\bootstrap.scss" />
+    <Content Include="Libraries\plugins\select2\docs\css\font-awesome.scss" />
+    <Content Include="Libraries\plugins\select2\docs\css\s2-docs.scss" />
+    <Content Include="Libraries\plugins\select2\docs\images\manifest.json" />
+    <Content Include="Libraries\plugins\select2\docs\README.md" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\fonts\fontawesome-webfont.eot" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\fonts\fontawesome-webfont.woff" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\fonts\FontAwesome.otf" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_alerts.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_buttons.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_center-block.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_forms.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_gradients.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_grid.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_hide-text.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_image.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_labels.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_list-group.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_nav-vertical-align.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_opacity.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_pagination.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_panels.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_progress-bar.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_reset-filter.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_resize.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_responsive-visibility.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_size.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_tab-focus.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_table-row.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_text-overflow.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\mixins\_vendor-prefixes.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_alerts.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_badges.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_breadcrumbs.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_button-groups.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_buttons.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_carousel.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_close.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_code.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_component-animations.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_dropdowns.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_forms.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_glyphicons.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_grid.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_input-groups.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_jumbotron.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_labels.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_list-group.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_media.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_mixins.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_modals.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_navbar.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_navs.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_normalize.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_pager.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_pagination.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_panels.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_popovers.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_print.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_progress-bars.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_responsive-embed.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_responsive-utilities.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_scaffolding.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_tables.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_theme.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_thumbnails.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_tooltip.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_type.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_utilities.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_variables.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\bootstrap\_wells.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_animated.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_bordered-pulled.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_core.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_fixed-width.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_icons.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_larger.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_list.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_mixins.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_path.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_rotated-flipped.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_stacked.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\vendor\font-awesome\_variables.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_alert.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_anchorjs.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_buttons.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_code.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_dl-panels.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_examples.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_featurette.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_footer.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_hamburger.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_home.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_jumbotron.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_layout.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_nav.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_prettify.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_result-repository.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_sidenav.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_social.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_syntax-highlighting.scss" />
+    <Content Include="Libraries\plugins\select2\docs\_sass\_typography.scss" />
+    <Content Include="Libraries\plugins\select2\ISSUE_TEMPLATE.md" />
+    <Content Include="Libraries\plugins\select2\package.json" />
+    <Content Include="Libraries\plugins\select2\PULL_REQUEST_TEMPLATE.md" />
+    <Content Include="Libraries\plugins\select2\select2.jquery.json" />
+    <Content Include="Libraries\plugins\select2\src\scss\core.scss" />
+    <Content Include="Libraries\plugins\select2\src\scss\mixins\_gradients.scss" />
+    <Content Include="Libraries\plugins\select2\src\scss\theme\classic\layout.scss" />
+    <Content Include="Libraries\plugins\select2\src\scss\theme\classic\_defaults.scss" />
+    <Content Include="Libraries\plugins\select2\src\scss\theme\classic\_multiple.scss" />
+    <Content Include="Libraries\plugins\select2\src\scss\theme\classic\_single.scss" />
+    <Content Include="Libraries\plugins\select2\src\scss\theme\default\layout.scss" />
+    <Content Include="Libraries\plugins\select2\src\scss\theme\default\_multiple.scss" />
+    <Content Include="Libraries\plugins\select2\src\scss\theme\default\_single.scss" />
+    <Content Include="Libraries\plugins\select2\src\scss\_dropdown.scss" />
+    <Content Include="Libraries\plugins\select2\src\scss\_multiple.scss" />
+    <Content Include="Libraries\plugins\select2\src\scss\_single.scss" />
+    <Content Include="Areas\Admin\Views\CMSCustomers\_Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCustomers\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCustomers\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCustomers\_Form.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCustomers\_ListData.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCustomers\_View.cshtml" />
+    <Content Include="Areas\Admin\Views\CMSCustomers\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Libraries\plugins\bootstrap-daterangepicker\daterangepicker-bs2.css" />
+    <Content Include="Libraries\plugins\bootstrap-daterangepicker\daterangepicker-bs3.css" />
+    <Content Include="Libraries\plugins\bootstrap-daterangepicker\daterangepicker.css" />
+    <Content Include="Libraries\plugins\bootstrap-daterangepicker\daterangepicker.js" />
+    <Content Include="Libraries\plugins\bootstrap-daterangepicker\daterangepicker.min.css" />
+    <Content Include="Libraries\plugins\bootstrap-daterangepicker\daterangepicker.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-daterangepicker\moment.min.js" />
+    <Content Include="Libraries\plugins\bootstrap-daterangepicker\README.md" />
+    <Content Include="Libraries\plugins\bootstrap\css\bootstrap.css" />
+    <Content Include="Libraries\plugins\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Libraries\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.eot" />
+    <Content Include="Libraries\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.svg" />
+    <Content Include="Libraries\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.ttf" />
+    <Content Include="Libraries\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.woff" />
+    <Content Include="Libraries\plugins\bootstrap\fonts\bootstrap\glyphicons-halflings-regular.woff2" />
+    <Content Include="Libraries\plugins\bootstrap\js\bootstrap.js" />
+    <Content Include="Libraries\plugins\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Libraries\plugins\ckeditor\adapters\jquery.js" />
+    <Content Include="Libraries\plugins\ckeditor\build-config.js" />
+    <Content Include="Libraries\plugins\ckeditor\CHANGES.md" />
+    <Content Include="Libraries\plugins\ckeditor\ckeditor.js" />
+    <Content Include="Libraries\plugins\ckeditor\config.js" />
+    <Content Include="Libraries\plugins\ckeditor\contents.css" />
+    <Content Include="Libraries\plugins\ckeditor\lang\af.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\ar.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\bg.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\bn.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\bs.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\ca.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\cs.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\cy.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\da.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\de.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\el.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\en-au.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\en-ca.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\en-gb.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\en.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\eo.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\es.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\et.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\eu.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\fa.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\fi.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\fo.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\fr-ca.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\fr.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\gl.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\gu.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\he.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\hi.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\hr.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\hu.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\id.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\is.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\it.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\ja.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\ka.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\km.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\ko.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\ku.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\lt.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\lv.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\mk.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\mn.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\ms.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\nb.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\nl.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\no.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\pl.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\pt-br.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\pt.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\ro.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\ru.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\si.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\sk.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\sl.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\sq.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\sr-latn.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\sr.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\sv.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\th.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\tr.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\tt.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\ug.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\uk.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\vi.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\zh-cn.js" />
+    <Content Include="Libraries\plugins\ckeditor\lang\zh.js" />
+    <Content Include="Libraries\plugins\ckeditor\LICENSE.md" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\en-gb.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\ko.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\tt.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\div\dialogs\div.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\find\dialogs\find.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\flash\dialogs\flash.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\flash\images\placeholder.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\forms\dialogs\button.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\forms\dialogs\checkbox.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\forms\dialogs\form.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\forms\dialogs\hiddenfield.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\forms\dialogs\radio.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\forms\dialogs\select.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\forms\dialogs\textarea.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\forms\dialogs\textfield.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\forms\images\hiddenfield.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\icons.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\iframe\dialogs\iframe.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\iframe\images\placeholder.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\image\images\noimage.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\liststyle\dialogs\liststyle.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\magicline\images\hidpi\icon-rtl.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\magicline\images\icon-rtl.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\pagebreak\images\pagebreak.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\preview\preview.html" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\showblocks\images\block_address.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\showblocks\images\block_blockquote.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\showblocks\images\block_div.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\showblocks\images\block_h1.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\showblocks\images\block_h2.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\showblocks\images\block_h3.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\showblocks\images\block_h4.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\showblocks\images\block_h5.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\showblocks\images\block_h6.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\showblocks\images\block_p.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\showblocks\images\block_pre.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\angel_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\angry_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\broken_heart.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\confused_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\cry_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\devil_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\embarrassed_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\embarrassed_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\envelope.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\envelope.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\heart.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\heart.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\kiss.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\kiss.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\lightbulb.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\omg_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\regular_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\sad_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\shades_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\teeth_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\thumbs_down.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\thumbs_up.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\tongue_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\tongue_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\smiley\images\wink_smile.png" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\km.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\tt.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\templates\dialogs\templates.css" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\templates\dialogs\templates.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\templates\templates\default.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\templates\templates\images\template1.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\templates\templates\images\template2.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\templates\templates\images\template3.gif" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Libraries\plugins\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Libraries\plugins\ckeditor\README.md" />
+    <Content Include="Libraries\plugins\ckeditor\samples\ajax.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\api.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\appendto.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\assets\inlineall\logo.png" />
+    <Content Include="Libraries\plugins\ckeditor\samples\assets\outputxhtml\outputxhtml.css" />
+    <Content Include="Libraries\plugins\ckeditor\samples\assets\posteddata.php" />
+    <Content Include="Libraries\plugins\ckeditor\samples\assets\sample.jpg" />
+    <Content Include="Libraries\plugins\ckeditor\samples\assets\uilanguages\languages.js" />
+    <Content Include="Libraries\plugins\ckeditor\samples\datafiltering.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\divreplace.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\index.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\inlineall.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\inlinebycode.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\inlinetextarea.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\jquery.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\plugins\dialog\assets\my_dialog.js" />
+    <Content Include="Libraries\plugins\ckeditor\samples\plugins\dialog\dialog.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\plugins\enterkey\enterkey.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
+    <Content Include="Libraries\plugins\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.swf" />
+    <Content Include="Libraries\plugins\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\swfobject.js" />
+    <Content Include="Libraries\plugins\ckeditor\samples\plugins\htmlwriter\outputforflash.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\plugins\htmlwriter\outputhtml.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\plugins\magicline\magicline.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\plugins\toolbar\toolbar.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\plugins\wysiwygarea\fullpage.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\readonly.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\replacebyclass.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\replacebycode.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\sample.css" />
+    <Content Include="Libraries\plugins\ckeditor\samples\sample.js" />
+    <Content Include="Libraries\plugins\ckeditor\samples\sample_posteddata.php" />
+    <Content Include="Libraries\plugins\ckeditor\samples\tabindex.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\uicolor.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\uilanguages.html" />
+    <Content Include="Libraries\plugins\ckeditor\samples\xhtmlstyle.html" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\dialog.css" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\dialog_ie.css" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\dialog_ie7.css" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\dialog_ie8.css" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\dialog_iequirks.css" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\editor.css" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\editor_gecko.css" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\editor_ie.css" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\editor_ie7.css" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\editor_ie8.css" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\editor_iequirks.css" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\icons.png" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\icons_hidpi.png" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\images\arrow.png" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\images\close.png" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\images\hidpi\close.png" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\images\hidpi\lock-open.png" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\images\hidpi\lock.png" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\images\hidpi\refresh.png" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\images\lock-open.png" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\images\lock.png" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\images\refresh.png" />
+    <Content Include="Libraries\plugins\ckeditor\skins\moono\readme.md" />
+    <Content Include="Libraries\plugins\ckeditor\styles.js" />
+    <Content Include="Libraries\plugins\datatables\datatables.all.min.js" />
+    <Content Include="Libraries\plugins\datatables\datatables.css" />
+    <Content Include="Libraries\plugins\datatables\datatables.js" />
+    <Content Include="Libraries\plugins\datatables\datatables.min.css" />
+    <Content Include="Libraries\plugins\datatables\datatables.min.js" />
+    <Content Include="Libraries\plugins\datatables\images\back_disabled.png" />
+    <Content Include="Libraries\plugins\datatables\images\back_enabled.png" />
+    <Content Include="Libraries\plugins\datatables\images\back_enabled_hover.png" />
+    <Content Include="Libraries\plugins\datatables\images\favicon.ico" />
+    <Content Include="Libraries\plugins\datatables\images\forward_disabled.png" />
+    <Content Include="Libraries\plugins\datatables\images\forward_enabled.png" />
+    <Content Include="Libraries\plugins\datatables\images\forward_enabled_hover.png" />
+    <Content Include="Libraries\plugins\datatables\images\Sorting icons.psd" />
+    <Content Include="Libraries\plugins\datatables\images\sort_asc.png" />
+    <Content Include="Libraries\plugins\datatables\images\sort_asc_disabled.png" />
+    <Content Include="Libraries\plugins\datatables\images\sort_both.png" />
+    <Content Include="Libraries\plugins\datatables\images\sort_desc.png" />
+    <Content Include="Libraries\plugins\datatables\images\sort_desc_disabled.png" />
+    <Content Include="Libraries\plugins\datatables\plugins\bootstrap\datatables.bootstrap.css" />
+    <Content Include="Libraries\plugins\datatables\plugins\bootstrap\datatables.bootstrap.js" />
+    <Content Include="Libraries\plugins\font-awesome\css\font-awesome.css" />
+    <Content Include="Libraries\plugins\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Libraries\plugins\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Libraries\plugins\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Libraries\plugins\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Libraries\plugins\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Libraries\plugins\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Libraries\plugins\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Libraries\plugins\fullcalendar\changelog.txt" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\agenda-views.html" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\background-events.html" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\basic-views.html" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\default.html" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\external-dragging.html" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\gcal.html" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\json.html" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\json\events.json" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\languages.html" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\php\get-events.php" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\php\get-timezones.php" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\php\utils.php" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\selectable.html" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\theme.html" />
+    <Content Include="Libraries\plugins\fullcalendar\demos\timezones.html" />
+    <Content Include="Libraries\plugins\fullcalendar\fullcalendar.css" />
+    <Content Include="Libraries\plugins\fullcalendar\fullcalendar.js" />
+    <Content Include="Libraries\plugins\fullcalendar\fullcalendar.min.css" />
+    <Content Include="Libraries\plugins\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Libraries\plugins\fullcalendar\fullcalendar.print.css" />
+    <Content Include="Libraries\plugins\fullcalendar\gcal.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang-all.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\ar-ma.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\ar-sa.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\ar-tn.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\ar.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\bg.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\ca.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\cs.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\da.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\de-at.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\de.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\el.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\en-au.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\en-ca.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\en-gb.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\es.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\fa.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\fi.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\fr-ca.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\fr.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\he.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\hi.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\hr.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\hu.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\id.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\is.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\it.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\ja.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\ko.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\lt.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\lv.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\nb.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\nl.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\pl.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\pt-br.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\pt.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\ro.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\ru.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\sk.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\sl.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\sr-cyrl.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\sr.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\sv.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\th.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\tr.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\uk.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\vi.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\zh-cn.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lang\zh-tw.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\animated-overlay.gif" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-bg_flat_15_cd0a0a_40x100.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-bg_glass_100_e4f1fb_1x400.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-bg_glass_50_3baae3_1x400.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-bg_glass_80_d7ebf9_1x400.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-bg_highlight-hard_70_000000_1x100.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-icons_2694e8_256x240.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-icons_3d80b3_256x240.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-icons_72a7cf_256x240.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\cupertino\jquery-ui.min.css" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\jquery-ui.custom.min.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\jquery.min.js" />
+    <Content Include="Libraries\plugins\fullcalendar\lib\moment.min.js" />
+    <Content Include="Libraries\plugins\fullcalendar\license.txt" />
+    <Content Include="Libraries\plugins\icheck\.gitignore" />
+    <Content Include="Libraries\plugins\icheck\bower.json" />
+    <Content Include="Libraries\plugins\icheck\CHANGELOG.md" />
+    <Content Include="Libraries\plugins\icheck\demo\css\banner.jpg" />
+    <Content Include="Libraries\plugins\icheck\demo\css\custom.css" />
+    <Content Include="Libraries\plugins\icheck\demo\css\custom.styl" />
+    <Content Include="Libraries\plugins\icheck\demo\css\icheck.png" />
+    <Content Include="Libraries\plugins\icheck\demo\css\ie\arrow-bottom.png" />
+    <Content Include="Libraries\plugins\icheck\demo\css\ie\arrow-top.png" />
+    <Content Include="Libraries\plugins\icheck\demo\css\ie\header-line.png" />
+    <Content Include="Libraries\plugins\icheck\demo\css\ie\icon-fork.png" />
+    <Content Include="Libraries\plugins\icheck\demo\css\ie\icon-github.png" />
+    <Content Include="Libraries\plugins\icheck\demo\css\ie\icon-lab.png" />
+    <Content Include="Libraries\plugins\icheck\demo\css\ie\icon-options.png" />
+    <Content Include="Libraries\plugins\icheck\demo\css\ie\icon-star.png" />
+    <Content Include="Libraries\plugins\icheck\demo\css\montserrat-bold.eot" />
+    <Content Include="Libraries\plugins\icheck\demo\css\montserrat-bold.svg" />
+    <Content Include="Libraries\plugins\icheck\demo\css\montserrat-bold.ttf" />
+    <Content Include="Libraries\plugins\icheck\demo\css\montserrat-bold.woff" />
+    <Content Include="Libraries\plugins\icheck\demo\css\montserrat-regular.eot" />
+    <Content Include="Libraries\plugins\icheck\demo\css\montserrat-regular.svg" />
+    <Content Include="Libraries\plugins\icheck\demo\css\montserrat-regular.ttf" />
+    <Content Include="Libraries\plugins\icheck\demo\css\montserrat-regular.woff" />
+    <Content Include="Libraries\plugins\icheck\demo\css\normalize.css" />
+    <Content Include="Libraries\plugins\icheck\demo\index.html" />
+    <Content Include="Libraries\plugins\icheck\demo\js\custom.js" />
+    <Content Include="Libraries\plugins\icheck\demo\js\custom.min.js" />
+    <Content Include="Libraries\plugins\icheck\demo\js\jquery.js" />
+    <Content Include="Libraries\plugins\icheck\demo\js\zepto.js" />
+    <Content Include="Libraries\plugins\icheck\icheck.jquery.json" />
+    <Content Include="Libraries\plugins\icheck\icheck.js" />
+    <Content Include="Libraries\plugins\icheck\icheck.min.js" />
+    <Content Include="Libraries\plugins\icheck\README.md" />
+    <Content Include="Libraries\plugins\icheck\skins\all.css" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\aero%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\aero.css" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\aero.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\blue%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\blue.css" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\blue.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\flat%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\flat.css" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\flat.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\green%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\green.css" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\green.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\grey%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\grey.css" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\grey.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\orange%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\orange.css" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\orange.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\pink%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\pink.css" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\pink.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\purple%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\purple.css" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\purple.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\red%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\red.css" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\red.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\yellow%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\yellow.css" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\yellow.png" />
+    <Content Include="Libraries\plugins\icheck\skins\flat\_all.css" />
+    <Content Include="Libraries\plugins\icheck\skins\futurico\futurico%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\futurico\futurico.css" />
+    <Content Include="Libraries\plugins\icheck\skins\futurico\futurico.png" />
+    <Content Include="Libraries\plugins\icheck\skins\line\aero.css" />
+    <Content Include="Libraries\plugins\icheck\skins\line\blue.css" />
+    <Content Include="Libraries\plugins\icheck\skins\line\green.css" />
+    <Content Include="Libraries\plugins\icheck\skins\line\grey.css" />
+    <Content Include="Libraries\plugins\icheck\skins\line\line%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\line\line.css" />
+    <Content Include="Libraries\plugins\icheck\skins\line\line.png" />
+    <Content Include="Libraries\plugins\icheck\skins\line\orange.css" />
+    <Content Include="Libraries\plugins\icheck\skins\line\pink.css" />
+    <Content Include="Libraries\plugins\icheck\skins\line\purple.css" />
+    <Content Include="Libraries\plugins\icheck\skins\line\red.css" />
+    <Content Include="Libraries\plugins\icheck\skins\line\yellow.css" />
+    <Content Include="Libraries\plugins\icheck\skins\line\_all.css" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\aero%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\aero.css" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\aero.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\blue%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\blue.css" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\blue.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\green%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\green.css" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\green.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\grey%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\grey.css" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\grey.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\minimal%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\minimal.css" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\minimal.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\orange%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\orange.css" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\orange.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\pink%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\pink.css" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\pink.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\purple%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\purple.css" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\purple.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\red%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\red.css" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\red.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\yellow%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\yellow.css" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\yellow.png" />
+    <Content Include="Libraries\plugins\icheck\skins\minimal\_all.css" />
+    <Content Include="Libraries\plugins\icheck\skins\polaris\polaris%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\polaris\polaris.css" />
+    <Content Include="Libraries\plugins\icheck\skins\polaris\polaris.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\aero%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\aero.css" />
+    <Content Include="Libraries\plugins\icheck\skins\square\aero.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\blue%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\blue.css" />
+    <Content Include="Libraries\plugins\icheck\skins\square\blue.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\green%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\green.css" />
+    <Content Include="Libraries\plugins\icheck\skins\square\green.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\grey%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\grey.css" />
+    <Content Include="Libraries\plugins\icheck\skins\square\grey.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\orange%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\orange.css" />
+    <Content Include="Libraries\plugins\icheck\skins\square\orange.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\pink%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\pink.css" />
+    <Content Include="Libraries\plugins\icheck\skins\square\pink.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\purple%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\purple.css" />
+    <Content Include="Libraries\plugins\icheck\skins\square\purple.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\red%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\red.css" />
+    <Content Include="Libraries\plugins\icheck\skins\square\red.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\square%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\square.css" />
+    <Content Include="Libraries\plugins\icheck\skins\square\square.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\yellow%402x.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\yellow.css" />
+    <Content Include="Libraries\plugins\icheck\skins\square\yellow.png" />
+    <Content Include="Libraries\plugins\icheck\skins\square\_all.css" />
+    <Content Include="Libraries\plugins\moment\moment-timezone-with-data.js" />
+    <Content Include="Libraries\plugins\moment\moment-timezone.js" />
+    <Content Include="Libraries\plugins\moment\moment.min.js" />
+    <Content Include="Libraries\plugins\morris\examples\area-as-line.html" />
+    <Content Include="Libraries\plugins\morris\examples\area.html" />
+    <Content Include="Libraries\plugins\morris\examples\bar-colors.html" />
+    <Content Include="Libraries\plugins\morris\examples\bar-no-axes.html" />
+    <Content Include="Libraries\plugins\morris\examples\bar.html" />
+    <Content Include="Libraries\plugins\morris\examples\days.html" />
+    <Content Include="Libraries\plugins\morris\examples\decimal-custom-hover.html" />
+    <Content Include="Libraries\plugins\morris\examples\diagonal-xlabels-bar.html" />
+    <Content Include="Libraries\plugins\morris\examples\diagonal-xlabels.html" />
+    <Content Include="Libraries\plugins\morris\examples\donut-colors.html" />
+    <Content Include="Libraries\plugins\morris\examples\donut-formatter.html" />
+    <Content Include="Libraries\plugins\morris\examples\donut.html" />
+    <Content Include="Libraries\plugins\morris\examples\dst.html" />
+    <Content Include="Libraries\plugins\morris\examples\events.html" />
+    <Content Include="Libraries\plugins\morris\examples\goals.html" />
+    <Content Include="Libraries\plugins\morris\examples\lib\example.css" />
+    <Content Include="Libraries\plugins\morris\examples\lib\example.js" />
+    <Content Include="Libraries\plugins\morris\examples\months-no-smooth.html" />
+    <Content Include="Libraries\plugins\morris\examples\negative.html" />
+    <Content Include="Libraries\plugins\morris\examples\no-grid.html" />
+    <Content Include="Libraries\plugins\morris\examples\non-continuous.html" />
+    <Content Include="Libraries\plugins\morris\examples\non-date.html" />
+    <Content Include="Libraries\plugins\morris\examples\quarters.html" />
+    <Content Include="Libraries\plugins\morris\examples\resize.html" />
+    <Content Include="Libraries\plugins\morris\examples\stacked_bars.html" />
+    <Content Include="Libraries\plugins\morris\examples\timestamps.html" />
+    <Content Include="Libraries\plugins\morris\examples\updating.html" />
+    <Content Include="Libraries\plugins\morris\examples\weeks.html" />
+    <Content Include="Libraries\plugins\morris\examples\years.html" />
+    <Content Include="Libraries\plugins\morris\examples\_template.html" />
+    <Content Include="Libraries\plugins\morris\less\morris.core.less" />
+    <Content Include="Libraries\plugins\morris\lib\morris.area.coffee" />
+    <Content Include="Libraries\plugins\morris\lib\morris.bar.coffee" />
+    <Content Include="Libraries\plugins\morris\lib\morris.coffee" />
+    <Content Include="Libraries\plugins\morris\lib\morris.donut.coffee" />
+    <Content Include="Libraries\plugins\morris\lib\morris.grid.coffee" />
+    <Content Include="Libraries\plugins\morris\lib\morris.hover.coffee" />
+    <Content Include="Libraries\plugins\morris\lib\morris.line.coffee" />
+    <Content Include="Libraries\plugins\morris\morris.css" />
+    <Content Include="Libraries\plugins\morris\morris.js" />
+    <Content Include="Libraries\plugins\morris\morris.min.js" />
+    <Content Include="Libraries\plugins\morris\raphael-min.js" />
+    <Content Include="Libraries\plugins\morris\README.md" />
+    <Content Include="Libraries\plugins\morris\spec\lib\area\area_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\bar\bar_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\bar\colours.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\commas_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\donut\donut_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\grid\auto_grid_lines_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\grid\set_data_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\grid\y_label_format_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\hover_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\label_series_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\line\line_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\pad_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\lib\parse_time_spec.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\specs.html" />
+    <Content Include="Libraries\plugins\morris\spec\support\placeholder.coffee" />
+    <Content Include="Libraries\plugins\morris\spec\viz\examples.js" />
+    <Content Include="Libraries\plugins\morris\spec\viz\exemplary\area0.png" />
+    <Content Include="Libraries\plugins\morris\spec\viz\exemplary\bar0.png" />
+    <Content Include="Libraries\plugins\morris\spec\viz\exemplary\line0.png" />
+    <Content Include="Libraries\plugins\morris\spec\viz\exemplary\stacked_bar0.png" />
+    <Content Include="Libraries\plugins\morris\spec\viz\run.sh" />
+    <Content Include="Libraries\plugins\morris\spec\viz\test.html" />
+    <Content Include="Libraries\plugins\morris\spec\viz\visual_specs.js" />
+    <Content Include="Libraries\plugins\select2\dist\css\select2.css" />
+    <Content Include="Libraries\plugins\select2\dist\css\select2.min.css" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\ar.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\az.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\bg.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\ca.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\cs.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\da.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\de.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\el.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\en.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\es.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\et.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\eu.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\fa.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\fi.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\fr.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\gl.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\he.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\hi.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\hr.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\hu.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\id.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\is.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\it.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\ja.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\km.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\ko.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\lt.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\lv.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\mk.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\ms.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\nb.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\nl.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\pl.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\pt-BR.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\pt.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\ro.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\ru.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\sk.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\sr-Cyrl.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\sr.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\sv.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\th.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\tr.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\uk.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\vi.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\zh-CN.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\i18n\zh-TW.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\select2.full.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\select2.full.min.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\select2.js" />
+    <Content Include="Libraries\plugins\select2\dist\js\select2.min.js" />
+    <Content Include="Libraries\plugins\select2\docs\announcements-4.0.html" />
+    <Content Include="Libraries\plugins\select2\docs\browserconfig.xml" />
+    <Content Include="Libraries\plugins\select2\docs\community.html" />
+    <Content Include="Libraries\plugins\select2\docs\examples.html" />
+    <Content Include="Libraries\plugins\select2\docs\images\android-chrome-36x36.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\android-chrome-48x48.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\android-chrome-72x72.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\apple-touch-icon-57x57.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\apple-touch-icon-60x60.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\apple-touch-icon-72x72.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\apple-touch-icon-precomposed.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\apple-touch-icon.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\favicon-16x16.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\favicon-32x32.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\favicon.ico" />
+    <Content Include="Libraries\plugins\select2\docs\images\logo.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\mstile-150x150.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\mstile-310x150.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\mstile-70x70.png" />
+    <Content Include="Libraries\plugins\select2\docs\images\safari-pinned-tab.svg" />
+    <Content Include="Libraries\plugins\select2\docs\index.html" />
+    <Content Include="Libraries\plugins\select2\docs\options-old.html" />
+    <Content Include="Libraries\plugins\select2\docs\options.html" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\fonts\fontawesome-webfont.svg" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ak.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\al.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ar.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\az.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ca.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\co.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ct.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\de.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\fl.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ga.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\hi.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ia.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\id.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\il.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\in.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ks.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ky.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\la.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ma.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\md.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\me.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\mi.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\mn.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\mo.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ms.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\mt.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\nc.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\nd.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ne.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\nh.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\nj.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\nm.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\nv.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ny.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\oh.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ok.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\or.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\pa.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ri.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\sc.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\sd.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\tn.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\tx.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\ut.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\va.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\vt.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\wa.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\wi.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\wv.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\images\flags\wy.png" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\js\anchor.min.js" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\js\bootstrap.min.js" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\js\jquery.min.js" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\js\placeholders.jquery.min.js" />
+    <Content Include="Libraries\plugins\select2\docs\vendor\js\prettify.min.js" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\basics.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\data.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\disabled-mode.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\disabled-results.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\hide-search.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\localization-rtl-diacritics.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\matcher.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\multiple-max.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\placeholders.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\programmatic-control.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\tags.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\themes-templating-responsive-design.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\examples\tokenizer.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\footer.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\ga.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\head.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\js-source-states.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\navigation.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\nav\announcements-4.0.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\nav\examples.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\nav\options-old.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\nav\options.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\notice-previous.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options-old\adapters.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options-old\backwards-compatibility.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options-old\core-options.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options-old\dropdown.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options-old\events.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options-old\setting-default-options.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\compatibility.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\compatibility\initial-selection.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\compatibility\introduction.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\compatibility\matcher.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\compatibility\query-function.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\compatibility\text-input.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\core.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\core\amd-support.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\core\data-attributes.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\core\options.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\data.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\data\ajax.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\data\array.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\data\select.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\dropdown.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\dropdown\filtering.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\dropdown\placement.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\dropdown\selections.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\dropdown\tagging.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\events.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\events\internal.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\events\jquery.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\introduction.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\not-written.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\selections.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\selections\clearing-selections.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\selections\multiple.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\selections\placeholder.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\options\selections\templating.html" />
+    <Content Include="Libraries\plugins\select2\docs\_includes\social-buttons.html" />
+    <Content Include="Libraries\plugins\select2\docs\_layouts\default.html" />
+    <Content Include="Libraries\plugins\select2\docs\_layouts\home.html" />
+    <Content Include="Libraries\plugins\select2\Gruntfile.js" />
+    <Content Include="Libraries\plugins\select2\LICENSE.md" />
+    <Content Include="Libraries\plugins\select2\README.md" />
+    <Content Include="Libraries\plugins\select2\src\js\banner.end.js" />
+    <Content Include="Libraries\plugins\select2\src\js\banner.start.js" />
+    <Content Include="Libraries\plugins\select2\src\js\jquery.mousewheel.shim.js" />
+    <Content Include="Libraries\plugins\select2\src\js\jquery.select2.js" />
+    <Content Include="Libraries\plugins\select2\src\js\jquery.shim.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\compat\containerCss.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\compat\dropdownCss.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\compat\initSelection.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\compat\inputData.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\compat\matcher.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\compat\query.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\compat\utils.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\core.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\data\ajax.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\data\array.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\data\base.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\data\maximumInputLength.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\data\maximumSelectionLength.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\data\minimumInputLength.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\data\select.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\data\tags.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\data\tokenizer.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\defaults.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\diacritics.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\dropdown.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\dropdown\attachBody.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\dropdown\attachContainer.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\dropdown\closeOnSelect.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\dropdown\hidePlaceholder.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\dropdown\infiniteScroll.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\dropdown\minimumResultsForSearch.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\dropdown\search.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\dropdown\selectOnClose.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\dropdown\stopPropagation.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\ar.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\az.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\bg.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\ca.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\cs.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\da.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\de.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\el.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\en.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\es.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\et.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\eu.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\fa.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\fi.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\fr.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\gl.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\he.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\hi.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\hr.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\hu.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\id.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\is.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\it.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\ja.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\km.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\ko.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\lt.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\lv.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\mk.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\ms.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\nb.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\nl.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\pl.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\pt-BR.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\pt.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\ro.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\ru.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\sk.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\sr-Cyrl.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\sr.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\sv.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\th.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\tr.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\uk.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\vi.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\zh-CN.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\i18n\zh-TW.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\keys.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\options.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\results.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\selection\allowClear.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\selection\base.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\selection\clickMask.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\selection\eventRelay.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\selection\multiple.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\selection\placeholder.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\selection\search.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\selection\single.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\selection\stopPropagation.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\translation.js" />
+    <Content Include="Libraries\plugins\select2\src\js\select2\utils.js" />
+    <Content Include="Libraries\plugins\select2\src\js\wrapper.end.js" />
+    <Content Include="Libraries\plugins\select2\src\js\wrapper.start.js" />
+    <Content Include="Libraries\plugins\select2\tests\a11y\search-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\a11y\selection-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\data\array-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\data\base-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\data\inputData-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\data\maximumInputLength-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\data\maximumSelectionLength-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\data\minimumInputLength-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\data\select-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\data\tags-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\data\tokenizer-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\dropdown\dropdownCss-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\dropdown\positioning-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\dropdown\selectOnClose-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\dropdown\stopPropagation-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\helpers.js" />
+    <Content Include="Libraries\plugins\select2\tests\integration.html" />
+    <Content Include="Libraries\plugins\select2\tests\integration\dom-changes.js" />
+    <Content Include="Libraries\plugins\select2\tests\integration\jquery-calls.js" />
+    <Content Include="Libraries\plugins\select2\tests\integration\select2-methods.js" />
+    <Content Include="Libraries\plugins\select2\tests\options\ajax-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\options\data-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\options\deprecated-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\options\translation-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\options\width-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\results\focusing-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\selection\allowClear-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\selection\containerCss-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\selection\multiple-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\selection\placeholder-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\selection\search-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\selection\single-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\selection\stopPropagation-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\unit.html" />
+    <Content Include="Libraries\plugins\select2\tests\utils\decorator-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\utils\escapeMarkup-tests.js" />
+    <Content Include="Libraries\plugins\select2\tests\vendor\jquery-1.7.2.js" />
+    <Content Include="Libraries\plugins\select2\tests\vendor\qunit-1.14.0.css" />
+    <Content Include="Libraries\plugins\select2\tests\vendor\qunit-1.14.0.js" />
+    <Content Include="Libraries\plugins\select2\tests\vendor\qunit-1.23.1.css" />
+    <Content Include="Libraries\plugins\select2\tests\vendor\qunit-1.23.1.js" />
+    <Content Include="Libraries\plugins\select2\vendor\jquery-2.1.0.js" />
+    <Content Include="Libraries\plugins\simple-line-icons\fonts\Simple-Line-Icons.dev.svg" />
+    <Content Include="Libraries\plugins\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Libraries\plugins\simple-line-icons\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Libraries\plugins\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Libraries\plugins\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Libraries\plugins\simple-line-icons\icons-lte-ie7.js" />
+    <Content Include="Libraries\plugins\simple-line-icons\License.txt" />
+    <Content Include="Libraries\plugins\simple-line-icons\Readme.txt" />
+    <Content Include="Libraries\plugins\simple-line-icons\simple-line-icons.css" />
+    <Content Include="Libraries\plugins\simple-line-icons\simple-line-icons.min.css" />
+    <Content Include="Libraries\plugins\uniform\css\uniform.default.css" />
+    <Content Include="Libraries\plugins\uniform\css\uniform.default.min.css" />
+    <Content Include="Libraries\plugins\uniform\css\uniform.default.scss" />
+    <Content Include="Libraries\plugins\uniform\images\bg-input-focus.png" />
+    <Content Include="Libraries\plugins\uniform\images\bg-input.png" />
+    <Content Include="Libraries\plugins\uniform\images\sprite.png" />
+    <Content Include="Libraries\plugins\uniform\images\sprite_original.png" />
+    <Content Include="Libraries\plugins\uniform\jquery.uniform.js" />
+    <Content Include="Libraries\plugins\uniform\jquery.uniform.min.js" />
+    <Content Include="Libraries\plugins\uniform\README.md" />
+    <Content Include="Libraries\scripts\app.min.js" />
+    <Content Include="Libraries\scripts\datatable.js" />
+    <Content Include="logo.ico" />
+    <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\customer_frontend.js" />
+    <Content Include="Scripts\html5shiv.js" />
+    <Content Include="Scripts\InputCustom.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-migrate-1.2.0.min.js" />
+    <Content Include="Scripts\jquery.actual.min.js" />
+    <Content Include="Scripts\jquery.bxslider.min.js" />
+    <Content Include="Scripts\jquery.flexslider-min.js" />
+    <Content Include="Scripts\jquery.lazyload.min.js" />
+    <Content Include="Scripts\jquery.plugin.js" />
+    <Content Include="Scripts\jquery.sticky.js" />
+    <Content Include="Scripts\jquery.touchSwipe.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.zoom.min.js" />
+    <Content Include="Scripts\js.cookie.min.js" />
+    <Content Include="Scripts\load_products.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr.min.js" />
+    <Content Include="Scripts\photoswipe-ui-default.min.js" />
+    <Content Include="Scripts\photoswipe.min.js" />
+    <Content Include="Scripts\poka.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\scripts.js" />
+    <Content Include="Scripts\single-product.min.js" />
+    <Content Include="Scripts\theme-script.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Uploads\News\1944f332-a90c-46b5-9c14-9cb90cb4ab81.jpg" />
+    <Content Include="Uploads\News\2d20718e-d859-4d6c-aa99-a7fc88cbebcf.jpg" />
+    <Content Include="Uploads\News\5d71c02d-51dd-4093-9a8c-bb0829c516b5.jpg" />
+    <Content Include="Uploads\News\7b9f0275-cc00-4141-b332-35523fdf2d1f.jpg" />
+    <Content Include="Uploads\News\97cc5ab7-97b6-4cb8-bda9-9b248fd58552.jpg" />
+    <Content Include="Uploads\News\de174e62-4973-4333-905a-1a5b4889668d.jpg" />
+    <Content Include="Uploads\Products\0b98b28d-35f9-45c9-9ba2-a46dc96174bf.jpg" />
+    <Content Include="Uploads\Products\142cf3fe-c04d-4bfd-9350-23824d909210.jpg" />
+    <Content Include="Uploads\Products\1ba1b63c-d627-44fc-bba6-e74c1ccd7194.jpg" />
+    <Content Include="Uploads\Products\27d1ed8a-1002-49be-bd8d-fe5d24b870c2.jpg" />
+    <Content Include="Uploads\Products\281f2405-0e3d-4cc6-a447-e8ecf4b20625.jpg" />
+    <Content Include="Uploads\Products\64fb58ca-46c5-4d0d-9796-ebccde882efe.jpg" />
+    <Content Include="Uploads\Products\674701d9-6933-44e9-af2b-e57a384b8829.jpg" />
+    <Content Include="Uploads\Products\71a41a96-242d-46b1-9841-830950a1e4da.jpg" />
+    <Content Include="Uploads\Products\927e0ffe-6010-4d5d-befb-0d1b1d8fd3f7.jpg" />
+    <Content Include="Uploads\Products\c14e57e1-095e-43b0-8a52-0fc7362ce609.jpg" />
+    <Content Include="Uploads\Products\ca91d582-fde1-4f7b-92dd-ee2c43759543.jpg" />
+    <Content Include="Uploads\Products\d97cfb09-f27d-42aa-80cd-86ed94fbe35f.jpg" />
+    <Content Include="Uploads\Products\f42d4575-9b01-4dad-a7a0-7decfbbc1960.jpg" />
+    <Content Include="Uploads\Silder\00ad0e48-7cde-49cc-ac55-ab71b43dabd5.jpg" />
+    <Content Include="Uploads\Silder\92e707f0-d154-4546-961a-073c79729d96.jpg" />
+    <Content Include="Uploads\Silder\d7dcf7e8-cd47-45cb-bfeb-8339d4581062.jpg" />
+    <Content Include="Uploads\Silder\fda77325-1778-4927-9b22-9d77fbe83c67.jpg" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_topMenu.cshtml" />
+    <Content Include="Views\Shared\_leftMenu.cshtml" />
+    <Content Include="Views\Shared\_footer.cshtml" />
+    <Content Include="Views\Shared\_breadcrumb.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\CMSDiscounts\" />
+    <Folder Include="Areas\Admin\Views\HQ\" />
+    <Folder Include="Areas\Clients\Models\" />
+    <Folder Include="Areas\Clients\Views\HQ\" />
+    <Folder Include="Libraries\pages\img\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CMS-DTO\CMS-DTO.csproj">
+      <Project>{f995d98b-9021-48b3-a6f2-f01bca878f7e}</Project>
+      <Name>CMS-DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CMS-Shared\CMS-Shared.csproj">
+      <Project>{c98eb556-272d-422f-90c4-1005d5ebc295}</Project>
+      <Name>CMS-Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50327</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50327/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

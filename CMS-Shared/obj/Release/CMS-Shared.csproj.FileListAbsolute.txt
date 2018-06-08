@@ -1,0 +1,17 @@
+D:\David\CMS-Web\CMS-Shared\bin\Release\CMS-Shared.dll
+D:\David\CMS-Web\CMS-Shared\bin\Release\CMS-Shared.pdb
+D:\David\CMS-Web\CMS-Shared\obj\Release\CMS-Shared.csproj.CoreCompileInputs.cache
+D:\David\CMS-Web\CMS-Shared\obj\Release\CMS-Shared.dll
+D:\David\CMS-Web\CMS-Shared\obj\Release\CMS-Shared.pdb
+D:\David\CMS-Web\CMS-Shared\bin\Release\CMS-Shared.dll.config
+D:\David\CMS-Web\CMS-Shared\bin\Release\CMS-DTO.dll
+D:\David\CMS-Web\CMS-Shared\bin\Release\CMS-Entity.dll
+D:\David\CMS-Web\CMS-Shared\bin\Release\EntityFramework.dll
+D:\David\CMS-Web\CMS-Shared\bin\Release\EntityFramework.SqlServer.dll
+D:\David\CMS-Web\CMS-Shared\bin\Release\System.Web.Mvc.dll
+D:\David\CMS-Web\CMS-Shared\bin\Release\CMS-DTO.pdb
+D:\David\CMS-Web\CMS-Shared\bin\Release\CMS-Entity.pdb
+D:\David\CMS-Web\CMS-Shared\bin\Release\CMS-Entity.dll.config
+D:\David\CMS-Web\CMS-Shared\bin\Release\EntityFramework.xml
+D:\David\CMS-Web\CMS-Shared\bin\Release\EntityFramework.SqlServer.xml
+D:\David\CMS-Web\CMS-Shared\obj\Release\CMS-Shared.csprojResolveAssemblyReference.cache

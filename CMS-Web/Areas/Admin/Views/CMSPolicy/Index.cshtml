@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@model CMS_DTO.CMSPolicy.CMS_PolicyModels
+@{
+    ViewBag.Title = "Chính sách công ty";
+}
+<div role="main">
+    <div class="se-pre-con" style="display: none;"></div>
+    <div class="_gridview">
+        <div class="page-title">
+            <!-- BEGIN PAGE BAR -->
+            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Chính sách công ty" } })
+            <!-- END PAGE BAR -->
+        </div>
+        <div class="page-main">
+            <div class="row text-right">
+                <ul class="header-buttons pull-right list-inline">
+                    <li>
+                        <a href="javascript:void(0);" class="btn btn-success" id="btn-edit-save" onclick="SubmitForm('.form-create')">
+                            <i class="fa fa-save"></i>
+                            &nbsp;Lưu
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            @using (Html.BeginForm("Create", "CMSPolicy", FormMethod.Post, new { @class = "form-horizontal form-create" }))
+            {
+                @Html.Partial("_Form",Model)
+            }
+        </div>      
+    </div>
+</div>
+
+<script>
+    function SubmitForm(form) {
+        $(form).submit();
+    }
+</script>

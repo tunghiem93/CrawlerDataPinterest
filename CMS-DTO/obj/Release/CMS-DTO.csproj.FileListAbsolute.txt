@@ -1,0 +1,7 @@
+D:\David\CMS-Web\CMS-DTO\bin\Release\CMS-DTO.dll
+D:\David\CMS-Web\CMS-DTO\bin\Release\CMS-DTO.pdb
+D:\David\CMS-Web\CMS-DTO\bin\Release\System.Web.Mvc.dll
+D:\David\CMS-Web\CMS-DTO\obj\Release\CMS-DTO.csprojResolveAssemblyReference.cache
+D:\David\CMS-Web\CMS-DTO\obj\Release\CMS-DTO.csproj.CoreCompileInputs.cache
+D:\David\CMS-Web\CMS-DTO\obj\Release\CMS-DTO.dll
+D:\David\CMS-Web\CMS-DTO\obj\Release\CMS-DTO.pdb

@@ -1,0 +1,150 @@
+﻿@{
+    Layout = null;
+}
+@model List<CMS_DTO.CMSNews.CMS_NewsModels>
+@using CMS_Shared
+@*<style type="text/css">
+    #sample_3 ul {
+        width: 100% !important;
+    }
+
+        #sample_3 ul li .dtr-title {
+            width: 25% !important;
+        }
+
+        #sample_3 ul li .dtr-data {
+            width: 75% !important;
+        }
+</style>*@
+<div class="table-responsive">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-cogs"></i>Tin tức
+                </div>
+                <div class="actions">
+                    <a href="javascript:;" class="btn btn-default btn-sm" onclick='ShowView("@Url.Action("Create","CMSNews")")'>
+                        <i class="fa fa-plus"></i> Thêm mới
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped table-bordered table-hover dt-responsive" id="sample_3">
+                    <thead>
+                        <tr>
+                            <th class="text-center"> Tiêu đề </th>
+                            <th class="text-center"> Mô tả </th>
+                            <th class="text-center"> Hình ảnh </th>
+                            <th class="text-center"> Trạng thái </th>
+                            <th class="text-center"> Tùy chỉnh </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr class="odd gradeX">
+                                    <td class="text-center">
+                                        @item.Title
+                                    </td>
+                                    <td class="text-center"> @item.Short_Description </td>
+                                    <td class="text-center">
+                                        @if (!string.IsNullOrEmpty(item.ImageURL))
+                                        {
+                                            <img id="upload-preview" src="@item.ImageURL" height="50" width="50" class="" style="border-radius:100% !important" />
+                                        }
+                                        else
+                                        {
+                                            <img id="upload-preview" class="" src="@Commons.Image272_259" height="50" width="50" style="border-radius:100% !important" />
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="label label-sm label-success"> @item.sStatus </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="javascript:void(0)"
+                                           onclick='ShowView("@Url.Action("View","CMSNews",new { Id=item.Id})")'
+                                           class="btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Xem</a>&nbsp;&nbsp;
+                                        <a href="javascript:void(0)"
+                                           onclick='ShowView("@Url.Action("Edit","CMSNews",new { Id=item.Id})")'
+                                           class="btn btn-info btn-xs edit details"><i class="fa fa-edit"></i>&nbsp;Cập nhập</a>&nbsp;&nbsp;
+                                        <a href="javascript:void(0)"
+                                           onclick='ShowView("@Url.Action("Delete","CMSNews",new { Id=item.Id})")'
+                                           class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //TableDatatablesManaged.init();
+        var table = $('#sample_3');
+        // begin: third table
+        table.dataTable({
+
+            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                "infoEmpty": "No records found",
+                "infoFiltered": "(filtered1 from _MAX_ total records)",
+                "lengthMenu": "Show _MENU_",
+                "search": "Search:",
+                "zeroRecords": "No matching records found",
+                "paginate": {
+                    "previous": "Prev",
+                    "next": "Next",
+                    "last": "Last",
+                    "first": "First"
+                }
+            },
+            "oLanguage": {
+
+                "sSearch": "Tìm Kiếm:",
+                "sLengthMenu": "Xem _MENU_",
+                "sProcessing": "Đang xử lý...",
+                "sZeroRecords": "Không tìm thấy dòng nào phù hợp",
+                "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+                "sInfoEmpty": "Đang xem 0 đến 0 trong tổng số 0 mục",
+                "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+                "sInfoPostFix": "",
+            },
+            "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+            "lengthMenu": [
+                [6, 15, 20, -1],
+                [6, 15, 20, "All"] // change per page values here
+            ],
+            "pageLength": 6,
+            "columnDefs": [
+                { "orderable": false, "targets": [4] },
+                { "width": "10%", "targets": [0, 1] },
+                { "width": "3%", "targets": [2, 3] },
+                { "width": "15%", "targets": [4] },
+            ],
+            "order": [
+                [1, "asc"]
+            ] // set first column as a default sort by asc
+        });
+    })
+
+    function ShowView(url)
+    {
+        ShowViewOrEdit(url);
+    }
+</script>

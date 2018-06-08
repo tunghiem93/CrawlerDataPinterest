@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = "~/Areas/Clients/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Liên hệ";
+}
+@using CMS_Shared;
+<style>
+    .contentabct {
+        min-height: 500px;
+        padding-top: 30px;
+    }
+</style>
+
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="form-group contentabct">
+        <div class="container">
+            <div class="" style="padding: 13px 0px; ">
+                <h2>@Commons.CompanyTitle</h2><br />
+                <div class="">
+                    <i class="fa fa-location-arrow"></i> <strong>Địa chỉ: </strong><span>@Commons.AddressCompany</span>
+                </div><br />
+            </div>
+            <div class="">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.728203706996!2d106.70278871418297!3d10.832099761127058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175288a05fd79b9%3A0x4bb3a52725025b14!2zMTcxIELDrG5oIEzhu6NpLCBwaMaw4budbmcgMTMsIELDrG5oIFRo4bqhbmgsIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1527672281044" width="100%" height="500px" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div><br />
+
+            <div class="" style="padding-top: 10px; ">
+                <div>
+                    <i class="fa fa-location-arrow"></i> <strong>Liên hệ</strong>
+                </div><br />
+
+                <div class="">
+                    <i class="fa fa-phone"></i> <strong>Điện thoại: </strong><span>KD1: <a href="tel:@Commons.Phone1">@Commons.Phone1</a> || KD2: <a href="tel:@Commons.Phone2">@Commons.Phone2</a></span>
+                </div><br />
+
+                <div class="">
+                    <i class="fa fa-mail-forward"></i> <strong>Email: </strong><span><a href="mailto:@Commons.Email1">@Commons.Email1</a> || <a href="mailto:@Commons.Email2">@Commons.Email2</a></span>
+                </div><br />
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.menu-product li.child .open-close').on('click', function () {
+            $(this).removeAttr('href');
+            var element = $(this).parent('li');
+            if (element.hasClass('open')) {
+                element.removeClass('open');
+                element.children('ul').slideUp();
+            }
+            else {
+                element.addClass('open');
+                element.children('ul').slideDown();
+            }
+        });
+        $(".vertical-menu-content").addClass("no-home");
+    })
+</script>
+

@@ -1,0 +1,162 @@
+﻿@model CMS_DTO.CMSCustomer.CustomerModels
+@{
+    Layout = "~/Areas/Clients/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Đăng ký thành viên";
+}
+<div class="wrapper">
+    <div class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-9">
+                    <div class="breadcrumb clearfix">
+                        <ul>
+                            <li>
+                                <a title="Đến trang chủ" href="@Url.Action("Index", "Home")"><span>Trang chủ</span></a>
+                            </li>
+                            <li class="icon-li"><strong>Đăng ký tài khoản</strong> </li>
+                        </ul>
+                    </div>
+
+                    <div class="register-content clearfix">
+                        <h1 class="page-heading"><span>Đăng ký tài khoản</span></h1>
+                        <div class="col-md-8 col-md-offset-2 col-xs-12 col-sm-12 col-xs-offset-0 col-sm-offset-0">
+                            @using (@Html.BeginForm("SignUp", "Login", FormMethod.Post, new { @class = "form-horizontal create-form", @enctype = "multipart/form-data", @style = "" }))
+                            {
+
+                                <h2><span>Thông tin tài khoản</span></h2>
+                                    <div class="form-group">
+                                        <label for="Email" class="col-sm-4 control-label">Email<span class="warning">(*)</span></label>
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email", @type = "email", })
+                                            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "label label-danger", })
+                                        </div>
+                                    </div>
+                                        <div class="form-group">
+                                            <label for="Password" class="col-sm-4 control-label">Mật khẩu<span class="warning">(*)</span></label>
+                                            <div class="col-sm-8">
+                                                @Html.PasswordFor(model => model.Password, new { @class = "form-control txtpassword", @placeholder = "Mật khẩu" })
+                                                @Html.ValidationMessageFor(model => model.Password, null, new { @class = "label label-danger", })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="RePassword" class="col-sm-4 control-label">Xác nhận mật khẩu<span class="warning">(*)</span></label>
+                                            <div class="col-sm-8">
+                                                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control txtConfirmPassword", @placeholder = "Xác nhận mật khẩu" })
+                                                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "label label-danger", })
+                                            </div>
+                                        </div>
+
+                                        <h2>Thông tin cá nhân</h2>
+
+                                        <div class="form-group">
+                                            <label for="firstname" class="col-sm-4 control-label">Họ<span class="warning">(*)</span></label>
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @placeholder = "Họ" })
+                                                @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "label label-danger", })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastname" class="col-sm-4 control-label">Tên<span class="warning">(*)</span></label>
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "Tên" })
+                                                @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "label label-danger", })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Giới tính</label>
+                                            <div class="col-sm-8">
+                                                <div class="col-sm-2">
+                                                    <label class="radio-inline">
+                                                        @Html.RadioButtonFor(model => model.Gender, "false", new { @checked = "checked", @class = "flat", @name = "gender", @id = "idmale" }) Nam
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <label class="radio-inline">
+                                                        @Html.RadioButtonFor(model => model.Gender, "true", new
+                                                   {
+                                                       @class = "flat",
+                                                       @name = "gender",
+                                                       @id = "idfemale"
+                                                   }) Nữ
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-inline">
+                                            <label class="col-sm-4 control-label">Ngày sinh</label>
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control datepicker1  has-feedback-left", @placeholder = "Ngày sinh" })
+                                                @Html.ValidationMessageFor(model => model.BirthDate, null, new { @class = "label label-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-4 control-label">Điện thoại</label>
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @placeholder = "Số điện thoại" })
+                                                @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "label label-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-4 control-label">Địa chỉ</label>
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @placeholder = "Địa chỉ" })
+                                                @Html.ValidationMessageFor(model => model.Address, null, new { @class = "label label-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Tỉnh/TP</label>
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(model => model.City, new { @class = "form-control", @placeholder = "Tỉnh/Thành phố" })
+                                                @Html.ValidationMessageFor(model => model.City, null, new { @class = "label label-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Quốc gia</label>
+                                            <div class="col-sm-8">
+                                                @Html.TextBoxFor(model => model.Country, new { @class = "form-control", @placeholder = "Quốc gia" })
+                                                @Html.ValidationMessageFor(model => model.Country, null, new { @class = "label label-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-4 col-sm-8">
+                                                <button type="submit" class="btn btn-primary">Đăng ký</button>
+                                            </div>
+                                        </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(".vertical-menu-content").addClass("no-home");
+        $(document).ready(function () {
+        });
+    </script>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.datepicker1').daterangepicker({
+            singleDatePicker: true,
+            calender_style: "picker_2",
+            maxDate: new Date(),
+            //==========
+            showDropdowns: true,
+            locale: {
+                format: 'DD/MM/YYYY',
+                daysOfWeek: ['CN', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'],
+                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+            }
+        }, function (start, end, label) {
+        });
+    });
+     $('.txtpassword').val('@Model.Password')
+     $('.txtConfirmPassword').val('@Model.ConfirmPassword')
+    $(".header-content").css({ "background": '' });
+    $("html").addClass('');
+
+</script>

@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Trang chủ";
+}
+@model CMS_DTO.CMSHome.CMSHomeModels
+<div role="main">
+    <div class="se-pre-con" style="display: none;"></div>
+    <div class="_gridview">
+        <div class="page-main">
+            <div id="div-silder">
+                <fieldset>
+                    <legend>SILDER (900 X 450)</legend>
+                    <div class="row text-right" style="margin-right:0px !important">
+                        <ul class="header-buttons pull-right list-inline">
+                            <li>
+                                <a href="javascript:void(0);" class="btn btn-success" id="btn-edit-save" onclick="SubmitFormSilder('#form-create-silder')">
+                                    <i class="fa fa-save"></i>
+                                    &nbsp;Lưu
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    @using (@Html.BeginForm("UploadSilder", "Home", FormMethod.Post, new { @id = "form-create-silder", @class = "form-horizontal", @enctype = "multipart/form-data" }))
+                    {
+                        <div class="form-group">
+                            <div class="col-md-6" style="margin-bottom:10px">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Silder.PictureUpload1, new { @type = "file", @onchange = "preview_image(this,\"upload-preview-1\")", @accept = "*.jpg", @class = "hidden", @id = "upload-preview-1" })
+                                    @Html.HiddenFor(model => model.Silder.ImageURL1)
+                                    <input type="text" class="form-control upload-preview-1" placeholder="Chọn hình..." value="@Model.Silder.ImageURL1">
+                                    <span class="input-group-addon btn green" onclick="showPictureUpload('#upload-preview-1');">
+                                        <i class="fa fa-cloud-upload"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" style="margin-bottom:10px">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Silder.PictureUpload2, new { @type = "file", @onchange = "preview_image(this,\"upload-preview-2\")", @accept = "*.jpg", @class = "hidden", @id = "upload-preview-2" })
+                                    @Html.HiddenFor(model => model.Silder.ImageURL2)
+                                    <input type="text" class="form-control upload-preview-2" placeholder="Chọn hình..." value="@Model.Silder.ImageURL2">
+                                    <span class="input-group-addon btn green" onclick="showPictureUpload('#upload-preview-2');">
+                                        <i class="fa fa-cloud-upload"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6" style="margin-bottom:10px">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Silder.PictureUpload3, new { @type = "file", @onchange = "preview_image(this,\"upload-preview-3\")", @accept = "*.jpg", @class = "hidden", @id = "upload-preview-3" })
+                                    @Html.HiddenFor(model => model.Silder.ImageURL3)
+                                    <input type="text" class="form-control upload-preview-3" placeholder="Chọn hình..." value="@Model.Silder.ImageURL3">
+                                    <span class="input-group-addon btn green" onclick="showPictureUpload('#upload-preview-3');">
+                                        <i class="fa fa-cloud-upload"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" style="margin-bottom:10px">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Silder.PictureUpload4, new { @type = "file", @onchange = "preview_image(this,\"upload-preview-4\")", @accept = "*.jpg", @class = "hidden", @id = "upload-preview-4" })
+                                    @Html.HiddenFor(model => model.Silder.ImageURL4)
+                                    <input type="text" class="form-control upload-preview-4" placeholder="Chọn hình..." value="@Model.Silder.ImageURL4">
+                                    <span class="input-group-addon btn green" onclick="showPictureUpload('#upload-preview-4');">
+                                        <i class="fa fa-cloud-upload"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6" style="margin-bottom:10px">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Silder.PictureUpload5, new { @type = "file", @onchange = "preview_image(this,\"upload-preview-5\")", @accept = "*.jpg", @class = "hidden", @id = "upload-preview-5" })
+                                    @Html.HiddenFor(model => model.Silder.ImageURL5)
+                                    <input type="text" class="form-control upload-preview-5" placeholder="Chọn hình..." value="@Model.Silder.ImageURL5">
+                                    <span class="input-group-addon btn green" onclick="showPictureUpload('#upload-preview-5');">
+                                        <i class="fa fa-cloud-upload"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" style="margin-bottom:10px">
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.Silder.PictureUpload6, new { @type = "file", @onchange = "preview_image(this,\"upload-preview-6\")", @accept = "*.jpg", @class = "hidden", @id = "upload-preview-6" })
+                                    @Html.HiddenFor(model => model.Silder.ImageURL6)
+                                    <input type="text" class="form-control upload-preview-6" placeholder="Chọn hình..." value="@Model.Silder.ImageURL6">
+                                    <span class="input-group-addon btn green" onclick="showPictureUpload('#upload-preview-6');">
+                                        <i class="fa fa-cloud-upload"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </fieldset>
+
+                <fieldset style="margin-top:30px">
+                    <legend>THÔNG TIN CÔNG TY</legend>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function preview_image(that, _attr) {
+        var _Files = document.getElementById(_attr).files[0];
+        var _FileName = _Files.name;
+        $("." + _attr + "").val(_FileName);
+    }
+
+    function showPictureUpload(that) {
+        $(that).click();
+    }
+
+    function SubmitFormSilder(form) {
+        $(form).submit();
+    }
+</script>

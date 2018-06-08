@@ -1,0 +1,47 @@
+﻿@model CMS_DTO.CMSProduct.ProductViewModels
+@using CMS_Shared;
+<div class="category-featured featured1">
+    <div class="product-featured clearfix">
+        <div class="row">
+            <div class="col-sm-12 col-right-tab">
+                <div class="product-featured-tab-content">
+                    @if (Model.ListProduct != null && Model.ListProduct.Any())
+                    {
+                        <ul class="product-list row">
+                            @foreach (var item in Model.ListProduct)
+                            {
+                                <li class="col-sm-3">
+
+                                    <div class="left-block">
+                                        <a href="/Clients/Home/Detail/@item.Id"><img class="img-responsive" alt="product" src="@item.ImageURL" /></a>
+                                        <div class="add-to-cart">
+                                            <a class="" href="/Clients/Home/Detail/@item.Id">Chi tiết</a>
+                                        </div>
+                                    </div>
+                                    <div class="right-block" style="padding-top:10px">
+                                        <h5 class="product-name"><a href="/Clients/Home/Detail/@item.Id">@item.ProductName</a></h5>
+                                        <div class="content_price">
+                                            <span class="price product-price">@string.Format("{0}", item.ProductPrice.ToString("#,0")) VNĐ</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Không có sản phẩm nào</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (!Model.IsAddMore && Model.TotalProduct > 0)
+{
+    <div class="addmore" style="text-align:center;margin-top:15px;">
+        <button id="btnsearch" onclick="LoadPagging(@Model.TotalPage,'@Model.CateID','@Model.Key')" class="text-center btn-search" style="background-color: #958457;width: 110px;height: 41px;color: #ffffff;">
+            <span class="">Xem thêm</span>
+        </button>
+    </div>
+}

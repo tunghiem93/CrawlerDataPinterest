@@ -1,0 +1,227 @@
+﻿@model CMS_DTO.CMSProduct.ProductDetailViewModels
+@using CMS_Shared;
+@{
+    Layout = "~/Areas/Clients/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .paracontent {
+        font-weight: 200;
+        color: #131315;
+    }
+</style>
+
+<div class="product-template-default single single-product postid-916 wp-custom-logo woocommerce woocommerce-page right-sidebar woocommerce-active">
+    <link href="@Url.Content("~/Content/photoswipe.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/default-skin.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/styledetail_child.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/woocommerce.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/styledetail.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/jquery-migrate-1.2.0.min.js")"></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var the_lmp_js_data = { "type": "more_button", "use_mobile": "", "mobile_type": "", "mobile_width": "", "is_AAPF": "", "buffer": "50", "load_image": "<div class=\"lmp_products_loading\"><i class=\"fa fa-spinner lmp_rotate\"><\/i><\/div>", "load_img_class": ".lmp_products_loading", "load_more": "<div class=\"lmp_load_more_button\"><a class=\"lmp_button btn-load-more\" style=\"background-color: ; color: ; font-size: px;padding: px px px px;\" href=\"#load_next_page\">Xem Th\u00eam<\/a><\/div>", "lazy_load": "", "end_text": "", "javascript": { "before_update": "", "after_update": "" }, "products": "ul.products", "item": "li.product", "pagination": ".woocommerce-pagination", "next_page": ".woocommerce-pagination a.next" };
+/* ]]> */
+    </script>
+    <script src="@Url.Content("~/Scripts/load_products.js")"></script>
+    <script src="@Url.Content("~/Scripts/customer_frontend.js")"></script>
+
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var aamLocal = { "nonce": "79e51e855c", "ajaxurl": "https:\/\/bagi.com.vn\/wp-admin\/admin-ajax.php" };
+/* ]]> */
+    </script>
+    <div id="page" class="hfeed site">
+        <div id="content" class="site-content" tabindex="-1">
+            <div class="col-full">
+                <nav class="woocommerce-breadcrumb"><a href="/Home/Index">Trang chủ</a><span class="breadcrumb-separator"> / </span><a href="javascript:void(0)">@Model.Product.ProductName</a></nav><div class="woocommerce"></div>
+                <div id="primary" class="content-area">
+                    <main id="main" class="site-main" role="main">
+                        <div id="product-916" class="post-916 product type-product status-publish has-post-thumbnail product_cat-cap-sac-bagi-cables product_cat-cap-sac-usb-c first instock shipping-taxable purchasable product-type-simple">
+                            <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images woocommerce-product-gallery--columns-4 images" data-columns="4" style="opacity: 0; transition: opacity .25s ease-in-out;">
+                                @if (Model.Product != null && Model.Product.ListImages != null && Model.Product.ListImages.Any())
+                                {
+                                    <figure class="woocommerce-product-gallery__wrapper">
+                                        @foreach (var itemImg in Model.Product.ListImages)
+                                        {
+                                            <div data-thumb="@itemImg.ImageURL" class="woocommerce-product-gallery__image">
+                                                <a href="@itemImg.ImageURL">
+                                                    <img width="600" height="450" style="width:100% !important" src="@itemImg.ImageURL" class="attachment-shop_single size-shop_single wp-post-image" alt="Cáp sạc nhựa nhanh chống đứt type c CF10" title="cáp sạc nhựa nhanh chống đứt type c cf10" data-caption="" data-src="@itemImg.ImageURL" data-large_image="@itemImg.ImageURL" data-large_image_width="600" data-large_image_height="450" srcset="@itemImg.ImageURL 600w, @itemImg.ImageURL 300w, @itemImg.ImageURL 450w" sizes="(max-width: 600px) 100vw, 600px" />
+                                                </a>
+                                            </div>
+                                        }
+                                    </figure>
+                                }
+
+                            </div>
+
+                            <div class="summary entry-summary">
+                                <h1 class="product_title entry-title">@Model.Product.ProductName</h1>
+                                <div class='bagi_price_wp'>
+                                    <p class='price_custom'>
+                                        <span class='bagi_price'>
+                                            <b>Giá cả:</b> @Model.Product.ProductPrice
+                                        </span>
+                                        <span class='bagi_price_ bagi_price_in_stock'>Còn hàng</span>
+                                    </p>
+                                </div>
+
+                                <p class="price">
+                                    <span class="woocommerce-Price-amount amount">
+                                        @string.Format("{0}", Model.Product.ProductPrice.ToString("#,0")) VNĐ&nbsp;
+                                    </span>
+                                </p>
+
+                                <span class='sku no-rating-sku'><b>Mã sản phẩm:</b> @Model.Product.ProductCode</span>
+                            </div>
+
+                            <div class="clear hr"></div>
+                            <div class="woocommerce-tabs wc-tabs-wrapper">
+                                <ul class="tabs wc-tabs" role="tablist">
+                                    <li class="description_tab" id="tab-title-description" role="tab" aria-controls="tab-description">
+                                        <a href="#tab-description">Mô tả</a>
+                                    </li>
+                                    <li class="tskt_tab_tab" id="tab-title-tskt_tab" role="tab" aria-controls="tab-tskt_tab">
+                                        <a href="#tab-tskt_tab">Thông Số Kĩ Thuật</a>
+                                    </li>
+                                </ul>
+                                <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab" id="tab-description" role="tabpanel" aria-labelledby="tab-title-description">
+                                    <div class="content-product" style="line-height: 1.8">
+                                        @Html.Raw(Model.Product.Description)
+                                    </div>
+
+                                </div>
+                                <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--tskt_tab panel entry-content wc-tab paracontent" id="tab-tskt_tab" role="tabpanel" aria-labelledby="tab-title-tskt_tab">
+                                    <div class="row at-property-features">
+                                        <div class="col-md-6 clearfix">
+                                            <ul>
+                                                <li>
+                                                    Tên : <em class="">@Model.Product.ProductName</em>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul>
+                                                <li>
+                                                    Thể loại: <em class="">@Model.Product.CategoryName</em>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <section class="related products">
+                                <b class="header">Sản phẩm tương tự</b>
+                                @if (Model.ListProduct != null && Model.ListProduct.Any())
+                                {
+                                    <ul class="products">
+                                        @foreach (var item in Model.ListProduct)
+                                        {
+
+                                            <li class="post-769 product type-product status-publish has-post-thumbnail product_cat-cap-sac-bagi-cables product_cat-cap-sac-lightning-cables first instock shipping-taxable purchasable product-type-simple">
+                                                <a href="/Clients/Home/Detail/@item.Id" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+                                                    <img width="300" height="300" src="@item.ImageURL" class="attachment-shop_catalog size-shop_catalog wp-post-image" alt="dây cáp hộp bagi lightning ai15" srcset="@item.ImageURL 300w, @item.ImageURL 180w" sizes="(max-width: 300px) 100vw, 300px" /><h3 class="woocommerce-loop-product__title">@item.ProductName</h3>
+                                                    <span class="price"><span class="woocommerce-Price-amount amount">@item.ProductPrice.ToString("#,0")&nbsp;<span class="woocommerce-Price-currencySymbol">VNĐ</span></span></span>
+                                                </a>
+                                                <a class='btn-xemchitiet' href='/Clients/Home/Detail/@item.Id'>Xem Chi Tiết</a>
+                                            </li>
+
+                                        }
+                                    </ul>
+                                }
+
+
+                            </section>
+                        </div><!-- #product-916 -->
+                    </main><!-- #main -->
+                </div><!-- #primary -->
+            </div><!-- .col-full -->
+        </div><!-- #content -->
+    </div>
+
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" aria-label="Đóng (Esc)"></button>
+                    <button class="pswp__button pswp__button--share" aria-label="Chia sẻ"></button>
+                    <button class="pswp__button pswp__button--fs" aria-label="Bật/tắt chế độ toàn màn hình"></button>
+                    <button class="pswp__button pswp__button--zoom" aria-label="Phóng to/ thu nhỏ"></button>
+                    <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                    <!-- element will get class pswp__preloader--active when preloader is running -->
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" aria-label="Ảnh trước (mũi tên trái)"></button>
+                <button class="pswp__button pswp__button--arrow--right" aria-label="Ảnh tiếp (mũi tên phải)"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link href="@Url.Content("~/Content/productdetail.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/scripts.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.zoom.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.flexslider-min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/photoswipe.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/photoswipe-ui-default.min.js")"></script>
+
+    <script type='text/javascript'>
+        var wc_single_product_params = { "i18n_required_rating_text": "Vui l\u00f2ng ch\u1ecdn m\u1ed9t m\u1ee9c \u0111\u00e1nh gi\u00e1", "review_rating_required": "no", "flexslider": { "rtl": false, "animation": "slide", "smoothHeight": true, "directionNav": false, "controlNav": "thumbnails", "slideshow": false, "animationSpeed": 500, "animationLoop": false, "allowOneSlide": false }, "zoom_enabled": "1", "photoswipe_enabled": "1", "photoswipe_options": { "shareEl": false, "closeOnScroll": false, "history": false, "hideAnimationDuration": 0, "showAnimationDuration": 0 }, "flexslider_enabled": "1" };
+    </script>
+    <script src="@Url.Content("~/Scripts/single-product.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/js.cookie.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.sticky.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/poka.js")"></script>
+
+    <style>
+        .tabs wc-tabs {
+            position: absolute !important;
+        }
+
+        .option2 .box-vertical-megamenus .vertical-menu-list > li > a {
+            color: #666666
+        }
+    </style>
+</div>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('.menu-product li.child .open-close').on('click', function () {
+                $(this).removeAttr('href');
+                var element = $(this).parent('li');
+                if (element.hasClass('open')) {
+                    element.removeClass('open');
+                    element.children('ul').slideUp();
+                }
+                else {
+                    element.addClass('open');
+                    element.children('ul').slideDown();
+                }
+            });
+            $(".vertical-menu-content").addClass("no-home");
+        })
+</script>

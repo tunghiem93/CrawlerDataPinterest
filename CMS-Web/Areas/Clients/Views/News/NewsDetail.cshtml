@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "~/Areas/Clients/Views/Shared/_Layout.cshtml";
+}
+@model CMS_DTO.CMSNews.CMS_NewsViewModel
+@using CMS_Shared;
+<div class="wrapper">
+    <div id="article">
+        <div class="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="breadcrumb clearfix">
+                            <ul>
+                                <li itemscope="" class="home">
+                                   <span class="fa fa-home"></span> <a title="Đến trang chủ" href="@Url.Action("Index","Home")" itemprop="url"><span itemprop="title">Trang chủ</span></a>
+                                </li>
+                                <li itemscope="" class="icon-li">
+                                    <a title="Tin tức" href="@Url.Action("Index","News")" itemprop="url"><span itemprop="title">Tin tức</span></a>
+                                </li>
+                                <li class="icon-li"><strong>@Model.CMS_News.Title</strong> </li>
+                            </ul>
+                        </div>
+                        <script type="text/javascript">
+                            $(".link-site-more").hover(function () { $(this).find(".s-c-n").show(); }, function () { $(this).find(".s-c-n").hide(); });
+                        </script>
+
+                        <div class="news-detail">
+                            <h1 class="page-heading">
+                                <span class="page-heading-title2">@Model.CMS_News.Title</span>
+                            </h1>
+                            <article class="entry-detail">
+                                <div class="entry-meta-data">
+                                    <span class="author">
+                                        <i class="fa fa-user"></i>
+                                        by: @Commons.CompanyTitle
+                                    </span>
+                                    <span class="date"><i class="fa fa-calendar"></i> @Model.CMS_News.CreatedDate.ToString("dd/MM/yyyy hh:mm")</span>
+                                </div>
+                                <div class="body-content content-text clearfix">
+                                    @Html.Raw(Model.CMS_News.Description)
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="left_column">
+                            <div class="block left-module">
+                                <p class="title_block">Bài viết nổi bật</p>
+                                <div class="block_content">
+                                    <!-- layered -->
+                                    <div class="layered">
+                                        <div class="layered-content">
+                                            <ul class="blog-list-sidebar clearfix">
+                                                <!--Begin: Bài viết mới nhất-->
+                                                @if (Model.ListNewsNew != null && Model.ListNewsNew.Any())
+                                                {
+                                                    foreach (var item in Model.ListNewsNew)
+                                                    {
+                                                        <li>
+                                                            <div class="post-thumb">
+                                                                <a href="@Url.Action("NewsDetail","News",new {id=item.Id })"><img src="@Url.Content(item.ImageURL)" alt="@item.Title"></a>
+                                                            </div>
+                                                            <div class="post-info">
+                                                                <h5 class="entry_title"><a href="@Url.Action("NewsDetail","News",new {id=item.Id })">@item.Title</a></h5>
+                                                                <div class="post-meta">
+                                                                    <span class="date"><i class="fa fa-calendar"></i> @item.CreatedDate.ToString("dd/MM/yyyy hh:mm")</span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                                <!--End: Bài viết mới nhất-->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- ./layered -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(".vertical-menu-content").addClass("no-home");
+    </script>
+</div>
+<script type="text/javascript">
+    $(".header-content").css({ "background": '' });
+    $("html").addClass('');
+</script>
+
+

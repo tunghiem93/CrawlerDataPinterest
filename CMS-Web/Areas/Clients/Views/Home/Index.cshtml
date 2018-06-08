@@ -1,0 +1,114 @@
+﻿@{
+    Layout = "~/Areas/Clients/Views/Shared/_Layout.cshtml";
+}
+@model CMS_DTO.CMSProduct.ProductViewModels
+<style>
+    /*.bx-viewport{
+        height:415px !important;
+    }*/
+    .table-responsive {
+        overflow: hidden !important;
+    }
+
+    ul.products li.product:hover .btn-xemchitiet {
+        background: #c4161c;
+        color: #fff;
+    }
+</style>
+<div class="slideshow">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+                <div id="home-slider">
+                    <div class="header-top-right">
+                        <div class="homeslider">
+                            <ul id="contenhomeslider">
+                                @{
+                                    var listSlider = Session["SliderSession"] as List<CMS_DTO.CMSSession.SliderSession>;
+                                    if (listSlider != null && listSlider.Any())
+                                    {
+                                        foreach (var item in listSlider)
+                                        {
+                                            <li>
+                                                <a href="#">
+                                                    <img class="img-responsive" alt="01" src="@Url.Content("~/Uploads/Silder/"+item.ImageUrl)">
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Begin-->
+                <!--End-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="listCate">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</div>
+
+
+<div class="adv">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-content">
+                    <h2 class="page-heading">
+                        <span class="page-heading-title">
+                            Danh sách sản phẩm
+                        </span>
+                    </h2>
+                    <div id="products" class="list-group">
+                        @Html.Partial("_ListItem", Model)
+                    </div>
+                </div>
+                <!--End-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function ShowView(url) {
+        ShowViewOrEdit(url);
+        return false;
+    }
+
+    //function ShowViewAll(url)
+    //{
+    //    $('.addmore').addClass("hidden");
+    //    ShowViewOrEdit(url);
+    //    return false;
+    //}
+
+    function ShowViewOrEdit(action) {
+        $.ajax({
+            url: action,
+            beforeSend: function () {
+                $("#loading-mask").show();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            },
+            complete: function () {
+                $("#loading-mask").hide();
+            },
+            success: function (html) {
+               // $(".se-pre-con").hide();
+                ShowDetail(html);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+    })
+</script>

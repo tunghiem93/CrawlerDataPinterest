@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "~/Areas/Clients/Views/Shared/_Layout.cshtml";
+     ViewBag.Title = "Chính sách";
+}
+@model CMS_DTO.CMSPolicy.CMS_PolicyModels
+<style>
+    .contentabct {
+        padding-top: 40px;
+    }
+
+    p {
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    ul {
+        list-style: disc;
+        padding-left: 37px;
+    }
+
+        ul > li {
+            font-size: 15px;
+            line-height: 1.8;
+        }
+</style>
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="form-group contentabct">
+        @Html.Raw(Model.Description)
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('.menu-product li.child .open-close').on('click', function () {
+                $(this).removeAttr('href');
+                var element = $(this).parent('li');
+                if (element.hasClass('open')) {
+                    element.removeClass('open');
+                    element.children('ul').slideUp();
+                }
+                else {
+                    element.addClass('open');
+                    element.children('ul').slideDown();
+                }
+            });
+            $(".vertical-menu-content").addClass("no-home");
+        })
+</script>
