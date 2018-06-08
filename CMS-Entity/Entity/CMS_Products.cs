@@ -15,7 +15,7 @@ namespace CMS_Entity.Entity
         public string CategoryId { get; set; }
         public string Description { get; set; }
 
-        public virtual CMS_Categories Category { get; set; }
+        public virtual CMS_Board Category { get; set; }
         public virtual List<CMS_Images> Images { get; set; }
     }
 }

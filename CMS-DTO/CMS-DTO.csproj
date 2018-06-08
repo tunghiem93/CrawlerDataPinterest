@@ -44,14 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CMSBase\CMS_BaseModel.cs" />
-    <Compile Include="CMSCategories\CMSCategoriesModels.cs" />
-    <Compile Include="CMSCustomer\ClientLoginModel.cs" />
-    <Compile Include="CMSCustomer\CustomerModels.cs" />
+    <Compile Include="CMSBoard\CMSBoardModels.cs" />
     <Compile Include="CMSEmployee\CMS_EmployeeModels.cs" />
     <Compile Include="CMSHome\CMSHomeModels.cs" />
     <Compile Include="CMSImage\CMS_ImagesModels.cs" />
-    <Compile Include="CMSNews\CMS_NewsModels.cs" />
-    <Compile Include="CMSPolicy\CMS_PolicyModels.cs" />
     <Compile Include="CMSProduct\CMS_ProductsModels.cs" />
     <Compile Include="CMSProduct\ProductDetailViewModels.cs" />
     <Compile Include="CMSProduct\ProductViewModels.cs" />

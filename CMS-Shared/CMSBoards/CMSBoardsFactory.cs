@@ -1,4 +1,4 @@
-﻿using CMS_DTO.CMSCategories;
+﻿using CMS_DTO.CMSBoard;
 using CMS_Entity;
 using CMS_Entity.Entity;
 using System;
@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMS_Shared.CMSCategories
+namespace CMS_Shared.CMSBoards
 {
-    public class CMSCategoriesFactory
+    public class CMSBoardsFactory
     {
-        public bool CreateOrUpdate(CMSCategoriesModels model,ref string Id, ref string msg)
+        public bool CreateOrUpdate(CMSBoardModels model,ref string Id, ref string msg)
         {
             var result = true;
             using (var cxt = new CMS_Context())
@@ -31,7 +31,7 @@ namespace CMS_Shared.CMSCategories
                             if (string.IsNullOrEmpty(model.Id))
                             {
                                 var _Id = Guid.NewGuid().ToString();
-                                var e = new CMS_Categories()
+                                var e = new CMS_Board()
                                 {
                                     CategoryCode = model.CategoryCode,
                                     CategoryName = model.CategoryName,
@@ -95,13 +95,13 @@ namespace CMS_Shared.CMSCategories
             return result;
         }
 
-        public CMSCategoriesModels GetDetail(string Id)
+        public CMSBoardModels GetDetail(string Id)
         {
             try
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Categories.Select(x => new CMSCategoriesModels
+                    var data = cxt.CMS_Categories.Select(x => new CMSBoardModels
                     {
                         CategoryCode = x.CategoryCode,
                         CategoryName = x.CategoryName,
@@ -121,13 +121,13 @@ namespace CMS_Shared.CMSCategories
             return null;
         }
 
-        public List<CMSCategoriesModels> GetList()
+        public List<CMSBoardModels> GetList()
         {
             try
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Categories.Select(x => new CMSCategoriesModels
+                    var data = cxt.CMS_Categories.Select(x => new CMSBoardModels
                     {
                         CategoryCode = x.CategoryCode,
                         CategoryName = x.CategoryName,

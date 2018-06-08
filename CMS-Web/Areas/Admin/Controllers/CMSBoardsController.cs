@@ -1,6 +1,5 @@
-﻿using CMS_DTO.CMSCategories;
-using CMS_Shared.CMSCategories;
-using CMS_Web.Areas.Admin.Models.Categories;
+﻿using CMS_DTO.CMSBoard;
+using CMS_Shared.CMSBoards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +9,12 @@ using System.Web.Mvc;
 
 namespace CMS_Web.Areas.Admin.Controllers
 {
-    public class CMSCategoriesController : HQController
+    public class CMSBoardsController : HQController
     {
-        private CMSCategoriesFactory _factory;
-        public CMSCategoriesController()
+        private CMSBoardsFactory _factory;
+        public CMSBoardsController()
         {
-            _factory = new CMSCategoriesFactory();
+            _factory = new CMSBoardsFactory();
             ViewBag.Category = GetListCategorySelectItem();
         }
         // GET: Admin/CMSCategories
@@ -36,17 +35,17 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
-            CMSCategoriesModels model = new CMSCategoriesModels();
+            CMSBoardModels model = new CMSBoardModels();
             return PartialView("_Create", model);
         }
 
-        public CMSCategoriesModels GetDetail(string Id)
+        public CMSBoardModels GetDetail(string Id)
         {
             return _factory.GetDetail(Id);
         }
 
         [HttpPost]
-        public ActionResult Create(CMSCategoriesModels model)
+        public ActionResult Create(CMSBoardModels model)
         {
             try
             {
@@ -78,7 +77,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(CMSCategoriesModels model)
+        public ActionResult Edit(CMSBoardModels model)
         {
             try
             {
@@ -118,7 +117,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(CMSCategoriesModels model)
+        public ActionResult Delete(CMSBoardModels model)
         {
             try
             {

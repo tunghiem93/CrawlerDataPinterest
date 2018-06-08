@@ -54,183 +54,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CMS_Context.cs" />
-    <Compile Include="Entity\CMS_Customers.cs" />
     <Compile Include="Entity\CMS_Images.cs" />
-    <Compile Include="Entity\CMS_News.cs" />
-    <Compile Include="Entity\CMS_Policy.cs" />
-    <Compile Include="Entity\CMS_Categories.cs" />
+    <Compile Include="Entity\CMS_Board.cs" />
     <Compile Include="Entity\CMS_Employee.cs" />
     <Compile Include="Entity\CMS_EntityBase.cs" />
     <Compile Include="Entity\CMS_Products.cs" />
-    <Compile Include="Mapping\CMS_CustomerMap.cs" />
     <Compile Include="Mapping\CMS_ImagesMap.cs" />
-    <Compile Include="Mapping\CMS_NewsMap.cs" />
-    <Compile Include="Mapping\CMS_PolicyMap.cs" />
     <Compile Include="Mapping\CMS_ProductMap.cs" />
-    <Compile Include="Mapping\CMS_CategoriesMap.cs" />
+    <Compile Include="Mapping\CMS_BoardMap.cs" />
     <Compile Include="Mapping\CMS_EmployeeMap.cs" />
-    <Compile Include="Migrations\201804271447437_createdatabase.cs" />
-    <Compile Include="Migrations\201804271447437_createdatabase.Designer.cs">
-      <DependentUpon>201804271447437_createdatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804271451449_updateTableCategories.cs" />
-    <Compile Include="Migrations\201804271451449_updateTableCategories.Designer.cs">
-      <DependentUpon>201804271451449_updateTableCategories.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804281110359_updateDataType.cs" />
-    <Compile Include="Migrations\201804281110359_updateDataType.Designer.cs">
-      <DependentUpon>201804281110359_updateDataType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804281113104_updatedatatype1815.cs" />
-    <Compile Include="Migrations\201804281113104_updatedatatype1815.Designer.cs">
-      <DependentUpon>201804281113104_updatedatatype1815.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804281114309_updatedatatype1815_v2.cs" />
-    <Compile Include="Migrations\201804281114309_updatedatatype1815_v2.Designer.cs">
-      <DependentUpon>201804281114309_updatedatatype1815_v2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805020851193_updatetableCategory_type.cs" />
-    <Compile Include="Migrations\201805020851193_updatetableCategory_type.Designer.cs">
-      <DependentUpon>201805020851193_updatetableCategory_type.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805030636202_updatetablecategoryfieldCreateByUpdateBy.cs" />
-    <Compile Include="Migrations\201805030636202_updatetablecategoryfieldCreateByUpdateBy.Designer.cs">
-      <DependentUpon>201805030636202_updatetablecategoryfieldCreateByUpdateBy.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805030639331_updatecolumnIdInCategory.cs" />
-    <Compile Include="Migrations\201805030639331_updatecolumnIdInCategory.Designer.cs">
-      <DependentUpon>201805030639331_updatecolumnIdInCategory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805030706207_createtableProduct.cs" />
-    <Compile Include="Migrations\201805030706207_createtableProduct.Designer.cs">
-      <DependentUpon>201805030706207_createtableProduct.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805030728372_updatedatabase0305.cs" />
-    <Compile Include="Migrations\201805030728372_updatedatabase0305.Designer.cs">
-      <DependentUpon>201805030728372_updatedatabase0305.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805040721452_updatetableemployee.cs" />
-    <Compile Include="Migrations\201805040721452_updatetableemployee.Designer.cs">
-      <DependentUpon>201805040721452_updatetableemployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805040737565_addfieldPasswordInTableEmployee.cs" />
-    <Compile Include="Migrations\201805040737565_addfieldPasswordInTableEmployee.Designer.cs">
-      <DependentUpon>201805040737565_addfieldPasswordInTableEmployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805041013329_updatecolumnIDCard.cs" />
-    <Compile Include="Migrations\201805041013329_updatecolumnIDCard.Designer.cs">
-      <DependentUpon>201805041013329_updatecolumnIDCard.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805050347546_addColumnImageURLInTableEmployee.cs" />
-    <Compile Include="Migrations\201805050347546_addColumnImageURLInTableEmployee.Designer.cs">
-      <DependentUpon>201805050347546_addColumnImageURLInTableEmployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805050446312_createTablePolicy.cs" />
-    <Compile Include="Migrations\201805050446312_createTablePolicy.Designer.cs">
-      <DependentUpon>201805050446312_createTablePolicy.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805061330403_createTableNews.cs" />
-    <Compile Include="Migrations\201805061330403_createTableNews.Designer.cs">
-      <DependentUpon>201805061330403_createTableNews.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805090612144_createTableImages.cs" />
-    <Compile Include="Migrations\201805090612144_createTableImages.Designer.cs">
-      <DependentUpon>201805090612144_createTableImages.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805091007582_updatetableProductFieldProductName.cs" />
-    <Compile Include="Migrations\201805091007582_updatetableProductFieldProductName.Designer.cs">
-      <DependentUpon>201805091007582_updatetableProductFieldProductName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805310636020_updateMaxLenghtShortDescription.cs" />
-    <Compile Include="Migrations\201805310636020_updateMaxLenghtShortDescription.Designer.cs">
-      <DependentUpon>201805310636020_updateMaxLenghtShortDescription.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806010615373_addTableCustomer.cs" />
-    <Compile Include="Migrations\201806010615373_addTableCustomer.Designer.cs">
-      <DependentUpon>201806010615373_addTableCustomer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806040253273_updateDatabase_0604.cs" />
-    <Compile Include="Migrations\201806040253273_updateDatabase_0604.Designer.cs">
-      <DependentUpon>201806040253273_updateDatabase_0604.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806040637126_addFieldParentIdOnTableCategory.cs" />
-    <Compile Include="Migrations\201806040637126_addFieldParentIdOnTableCategory.Designer.cs">
-      <DependentUpon>201806040637126_addFieldParentIdOnTableCategory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804271447437_createdatabase.resx">
-      <DependentUpon>201804271447437_createdatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804271451449_updateTableCategories.resx">
-      <DependentUpon>201804271451449_updateTableCategories.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804281110359_updateDataType.resx">
-      <DependentUpon>201804281110359_updateDataType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804281113104_updatedatatype1815.resx">
-      <DependentUpon>201804281113104_updatedatatype1815.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804281114309_updatedatatype1815_v2.resx">
-      <DependentUpon>201804281114309_updatedatatype1815_v2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805020851193_updatetableCategory_type.resx">
-      <DependentUpon>201805020851193_updatetableCategory_type.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805030636202_updatetablecategoryfieldCreateByUpdateBy.resx">
-      <DependentUpon>201805030636202_updatetablecategoryfieldCreateByUpdateBy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805030639331_updatecolumnIdInCategory.resx">
-      <DependentUpon>201805030639331_updatecolumnIdInCategory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805030706207_createtableProduct.resx">
-      <DependentUpon>201805030706207_createtableProduct.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805030728372_updatedatabase0305.resx">
-      <DependentUpon>201805030728372_updatedatabase0305.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805040721452_updatetableemployee.resx">
-      <DependentUpon>201805040721452_updatetableemployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805040737565_addfieldPasswordInTableEmployee.resx">
-      <DependentUpon>201805040737565_addfieldPasswordInTableEmployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805041013329_updatecolumnIDCard.resx">
-      <DependentUpon>201805041013329_updatecolumnIDCard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805050347546_addColumnImageURLInTableEmployee.resx">
-      <DependentUpon>201805050347546_addColumnImageURLInTableEmployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805050446312_createTablePolicy.resx">
-      <DependentUpon>201805050446312_createTablePolicy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805061330403_createTableNews.resx">
-      <DependentUpon>201805061330403_createTableNews.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805090612144_createTableImages.resx">
-      <DependentUpon>201805090612144_createTableImages.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805091007582_updatetableProductFieldProductName.resx">
-      <DependentUpon>201805091007582_updatetableProductFieldProductName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805310636020_updateMaxLenghtShortDescription.resx">
-      <DependentUpon>201805310636020_updateMaxLenghtShortDescription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806010615373_addTableCustomer.resx">
-      <DependentUpon>201806010615373_addTableCustomer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806040253273_updateDatabase_0604.resx">
-      <DependentUpon>201806040253273_updateDatabase_0604.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806040637126_addFieldParentIdOnTableCategory.resx">
-      <DependentUpon>201806040637126_addFieldParentIdOnTableCategory.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

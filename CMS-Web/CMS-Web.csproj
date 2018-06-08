@@ -198,25 +198,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CMSAccountController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CMSCategoriesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CMSCustomersController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CMSDiscountsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CMSBoardsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CMSEmployeesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CMSNewsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CMSPolicyController.cs" />
     <Compile Include="Areas\Admin\Controllers\CMSProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HQController.cs" />
     <Compile Include="Areas\Admin\Models\Categories\CategoriesModels.cs" />
-    <Compile Include="Areas\Clients\ClientsAreaRegistration.cs" />
-    <Compile Include="Areas\Clients\Controllers\AboutController.cs" />
-    <Compile Include="Areas\Clients\Controllers\ContactController.cs" />
-    <Compile Include="Areas\Clients\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Clients\Controllers\HQController.cs" />
-    <Compile Include="Areas\Clients\Controllers\LoginController.cs" />
-    <Compile Include="Areas\Clients\Controllers\NewsController.cs" />
-    <Compile Include="Areas\Clients\Controllers\NotFoundController.cs" />
-    <Compile Include="Areas\Clients\Controllers\PolicyController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -270,7 +257,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Clients\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_breadcrumb.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_footer.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
@@ -309,23 +295,6 @@
     <Content Include="Areas\Admin\Views\CMSNews\_View.cshtml" />
     <Content Include="Areas\Admin\Views\CMSNews\Index.cshtml" />
     <Content Include="Areas\Admin\Views\CMSProducts\_ListItem.cshtml" />
-    <Content Include="Areas\Clients\Views\Shared\_footer.cshtml" />
-    <Content Include="Areas\Clients\Views\Shared\_header.cshtml" />
-    <Content Include="Areas\Clients\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Clients\Views\Shared\_search.cshtml" />
-    <Content Include="Areas\Clients\Views\Shared\_topNavigation.cshtml" />
-    <Content Include="Areas\Clients\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Clients\Views\Home\_ListItem.cshtml" />
-    <Content Include="Areas\Clients\Views\About\Index.cshtml" />
-    <Content Include="Areas\Clients\Views\Contact\Index.cshtml" />
-    <Content Include="Areas\Clients\Views\Policy\Index.cshtml" />
-    <Content Include="Areas\Clients\Views\Home\Detail.cshtml" />
-    <Content Include="Areas\Clients\Views\Home\Search.cshtml" />
-    <Content Include="Areas\Clients\Views\News\Index.cshtml" />
-    <Content Include="Areas\Clients\Views\News\NewsDetail.cshtml" />
-    <Content Include="Areas\Clients\Views\NotFound\Index.cshtml" />
-    <Content Include="Areas\Clients\Views\Login\SignIn.cshtml" />
-    <Content Include="Areas\Clients\Views\Login\SignUp.cshtml" />
     <Content Include="Libraries\plugins\bootstrap-hover-dropdown\bootstrap-hover-dropdown.js" />
     <Content Include="Libraries\plugins\bootstrap-hover-dropdown\bootstrap-hover-dropdown.min.js" />
     <Content Include="Libraries\plugins\bootstrap-hover-dropdown\LICENSE" />
@@ -1770,8 +1739,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\CMSDiscounts\" />
     <Folder Include="Areas\Admin\Views\HQ\" />
-    <Folder Include="Areas\Clients\Models\" />
-    <Folder Include="Areas\Clients\Views\HQ\" />
     <Folder Include="Libraries\pages\img\" />
   </ItemGroup>
   <ItemGroup>

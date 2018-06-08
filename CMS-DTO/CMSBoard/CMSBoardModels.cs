@@ -6,16 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace CMS_DTO.CMSCategories
+namespace CMS_DTO.CMSBoard
 {
-    public class CMSCategoriesModels
+    public class CMSBoardModels
     {
         public string Id { get; set; }
-        [Required(ErrorMessage="Vui lòng nhập tên thể loại")]
-        [MaxLength(60,ErrorMessage ="Tên thể loại tối đa 250 kí tự")]
+        [Required(ErrorMessage = "Vui lòng nhập tên thể loại")]
+        [MaxLength(60, ErrorMessage = "Tên thể loại tối đa 250 kí tự")]
         public string CategoryName { get; set; }
 
-        [Required(ErrorMessage ="Vui lòng nhập mã thể loại")]
+        [Required(ErrorMessage = "Vui lòng nhập mã thể loại")]
         [MaxLength(50, ErrorMessage = "Mã thể loại tối đa 50 kí tự")]
         public string CategoryCode { get; set; }
         public bool IsActive { get; set; }

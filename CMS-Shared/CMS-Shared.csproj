@@ -50,11 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CMSCategories\CMSCategoriesFactory.cs" />
-    <Compile Include="CMSCustomers\CMSCustomersFactory.cs" />
+    <Compile Include="CMSBoards\CMSBoardsFactory.cs" />
     <Compile Include="CMSEmployees\CMSEmployeeFactory.cs" />
-    <Compile Include="CMSNews\CMSNewsFactory.cs" />
-    <Compile Include="CMSPolicy\CMSPolicyFactory.cs" />
     <Compile Include="CMSProducts\CMSProductFactory.cs" />
     <Compile Include="Commons.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

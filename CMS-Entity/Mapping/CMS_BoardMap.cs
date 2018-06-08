@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CMS_Entity.Mapping
 {
-    public class CMS_CategoriesMap : EntityTypeConfiguration<CMS_Categories>
+    public class CMS_BoardMap : EntityTypeConfiguration<CMS_Board>
     {
-        public CMS_CategoriesMap()
+        public CMS_BoardMap()
         {
             this.HasKey(x => x.Id);
             this.Property(x => x.Id).HasMaxLength(60).HasColumnType("varchar");

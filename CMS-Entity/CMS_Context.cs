@@ -20,12 +20,9 @@ namespace CMS_Entity
         }
 
         public virtual DbSet<CMS_Employee> CMS_Employees { get; set; }
-        public virtual DbSet<CMS_Categories> CMS_Categories { get; set; }
+        public virtual DbSet<CMS_Board> CMS_Categories { get; set; }
         public virtual DbSet<CMS_Products> CMS_Products { get; set; }
-        public virtual DbSet<CMS_Policy> CMS_Policys { get; set; }
-        public virtual DbSet<CMS_News> CMS_News { get; set; }
         public virtual DbSet<CMS_Images> CMS_Images { get; set; }
-        public virtual DbSet<CMS_Customers> CMS_Customers { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()

@@ -1,5 +1,5 @@
 ﻿using CMS_DTO.CMSBase;
-using CMS_Shared.CMSCategories;
+using CMS_Shared.CMSBoards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace CMS_Web.Areas.Admin.Controllers
     {
         public List<SelectListItem> GetListCategorySelectItem()
         {
-            var _factory = new CMSCategoriesFactory();
+            var _factory = new CMSBoardsFactory();
             var data = _factory.GetList().Where(x => string.IsNullOrEmpty(x.ParentId)).Select(x => new SelectListItem
             {
                 Value = x.Id,
@@ -23,7 +23,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public List<CategoryByCategory> GetListCategory()
         {
-            var _factory = new CMSCategoriesFactory();
+            var _factory = new CMSBoardsFactory();
             //var data = _factory.GetList().Where(x => !string.IsNullOrEmpty(x.ParentId)).Select(x => new SelectListItem
             //{
             //    Value = x.Id,

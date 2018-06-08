@@ -1,5 +1,5 @@
 ﻿using CMS_DTO.CMSSession;
-using CMS_Shared.CMSCategories;
+using CMS_Shared.CMSBoards;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -73,7 +73,7 @@ namespace CMS_Web
             //    }
             //}
 
-            CMSCategoriesFactory _facLoc = new CMSCategoriesFactory();
+            CMSBoardsFactory _facLoc = new CMSBoardsFactory();
             var _cate = _facLoc.GetList().Select(x => new CateSession
             {
                 Id = x.Id,
