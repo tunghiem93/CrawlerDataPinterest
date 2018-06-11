@@ -2,6 +2,7 @@
 using CMS_Shared;
 using CMS_Shared.CMSEmployees;
 using CMS_Shared.Utilities;
+using CMS_Web.Web.App_Start;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Web.Mvc;
 
 namespace CMS_Web.Areas.Admin.Controllers
 {
+    [NuAuth]
     public class CMSEmployeesController : HQController
     {
         private CMSEmployeeFactory _factory;
@@ -51,6 +53,10 @@ namespace CMS_Web.Areas.Admin.Controllers
             try
             {
                 byte[] photoByte = null;
+                if (!model.Password.Trim().ToLower().Equals(model.ConfirmPassword.ToString().Trim().ToLower()))
+                {
+                    ModelState.AddModelError("ConfirmPassword", "Làm ơn xác nhận lại mật khẩu!");
+                }
                 if (!ModelState.IsValid)
                 {
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -106,6 +112,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult Edit(string Id)
         {
             var model = GetDetail(Id);
+            model.ConfirmPassword = model.Password;
             if (!string.IsNullOrEmpty(model.ImageURL))
                 model.ImageURL = Commons.HostImage + "Employees/" + model.ImageURL;
             return PartialView("_Edit", model);
@@ -118,6 +125,10 @@ namespace CMS_Web.Areas.Admin.Controllers
             try
             {
                 byte[] photoByte = null;
+                if (!model.Password.Trim().ToLower().Equals(model.ConfirmPassword.ToString().Trim().ToLower()))
+                {
+                    ModelState.AddModelError("ConfirmPassword", "Làm ơn xác nhận lại mật khẩu!");
+                }
                 if (!ModelState.IsValid)
                 {
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;

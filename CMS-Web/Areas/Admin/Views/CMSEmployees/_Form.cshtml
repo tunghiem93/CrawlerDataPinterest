@@ -78,8 +78,16 @@
         <div class="form-group">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">Mật khẩu</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Mật khẩu", @autocomplete = "off",@id="txtPassword" })
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Mật khẩu", @autocomplete = "off", @id = "txtPassword" })
                 @Html.ValidationMessageFor(model => model.Password, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighte">Xác nhận mật khẩu: </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control has-feedback-left txtConfirmPassword", placeholder = "", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "label label-danger" })
             </div>
         </div>
 
@@ -117,6 +125,7 @@
             });
 
         $('[id=txtPassword]').val('@Model.Password')
+        $('.txtConfirmPassword').val('@Model.Password')
     });
 
     function showPictureUpload() {

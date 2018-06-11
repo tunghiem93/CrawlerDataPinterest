@@ -39,7 +39,7 @@ namespace CMS_Shared.Factory
                             EmployeeID = emp.Id,
                             EmployeeName = emp.FirstName + " " + emp.LastName,
                             EmployeeEmail = emp.Employee_Email,
-                            //EmployeeImageURL = string.IsNullOrEmpty(emp.ImageURL) ? "" : serverImage + emp.ImageURL,
+                            EmployeeImageURL = string.IsNullOrEmpty(emp.ImageURL) ? "" : serverImage + "Employees/" + emp.ImageURL,
                             IsSupperAdmin = emp.IsSupperAdmin,
                         };
                     }

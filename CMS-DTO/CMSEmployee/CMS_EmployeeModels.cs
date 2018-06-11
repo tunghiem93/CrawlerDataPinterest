@@ -28,6 +28,8 @@ namespace CMS_DTO.CMSEmployee
         public DateTime BirthDate { get; set; }
         [Required(ErrorMessage ="Vui lòng nhập mật khẩu")]
         public string Password { get; set; }
+        [Required(ErrorMessage = "Làm ơn xác nhận lại mật khẩu!")]
+        public string ConfirmPassword { get; set; }
         public bool IsActive { get; set; }
         public bool IsSupperAdmin { get; set; }
         public string CreatedBy { get; set; }
