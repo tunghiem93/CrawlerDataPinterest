@@ -74,9 +74,9 @@ namespace CMS_Web.Web.App_Start
                     new RouteValueDictionary(
                         new
                         {
-                            controller = "Login",
+                            controller = "CMSAccount",
                             action = "Index",
-                            area = "Administration",
+                            area = "Admin",
                             isAjax = filterContext.HttpContext.Request.IsAjaxRequest(),
                             returnUrl = filterContext.HttpContext.Request.Url.ToString().Replace("/Logout", "")
                         })

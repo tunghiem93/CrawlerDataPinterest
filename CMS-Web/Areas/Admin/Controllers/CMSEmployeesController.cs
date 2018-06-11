@@ -12,12 +12,13 @@ using System.Web.Mvc;
 
 namespace CMS_Web.Areas.Admin.Controllers
 {
-    public class CMSEmployeesController : Controller
+    public class CMSEmployeesController : HQController
     {
         private CMSEmployeeFactory _factory;
         public CMSEmployeesController()
         {
             _factory = new CMSEmployeeFactory();
+            ViewBag.IsAdmin = CurrentUser.IsSuperAdmin;
         }
         // GET: Admin/CMSCategories
         public ActionResult Index()
@@ -32,7 +33,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             {
                 x.sStatus = x.IsActive ? "Kích hoạt" : "Chưa kích hoạt";
                 if (!string.IsNullOrEmpty(x.ImageURL))
-                    x.ImageURL = Commons.HostImage + x.ImageURL;
+                    x.ImageURL = Commons.HostImage+ "Employees/" + x.ImageURL;
             });
             return PartialView("_ListData", model);
         }
@@ -40,15 +41,8 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult Create()
         {
             CMS_EmployeeModels model = new CMS_EmployeeModels();
+            model.IsActive = true;
             return PartialView("_Create", model);
-        }
-
-        public CMS_EmployeeModels GetDetail(string Id)
-        {
-            var data =  _factory.GetDetail(Id);
-            if(data != null)
-                data.Password = CommonHelper.Decrypt(data.Password);
-            return data;
         }
 
         [HttpPost]
@@ -79,7 +73,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 {
                     if (!string.IsNullOrEmpty(model.ImageURL) && model.PictureByte != null)
                     {
-                        var path = Server.MapPath("~/Uploads/" + model.ImageURL);
+                        var path = Server.MapPath("~/Uploads/Employees/" + model.ImageURL);
                         MemoryStream ms = new MemoryStream(photoByte, 0, photoByte.Length);
                         ms.Write(photoByte, 0, photoByte.Length);
                         System.Drawing.Image imageTmp = System.Drawing.Image.FromStream(ms, true);
@@ -100,12 +94,20 @@ namespace CMS_Web.Areas.Admin.Controllers
             }
         }
 
+        public CMS_EmployeeModels GetDetail(string Id)
+        {
+            var data = _factory.GetDetail(Id);
+            if (data != null)
+                data.Password = CommonHelper.Decrypt(data.Password);
+            return data;
+        }
+
         [HttpGet]
         public ActionResult Edit(string Id)
         {
             var model = GetDetail(Id);
             if (!string.IsNullOrEmpty(model.ImageURL))
-                model.ImageURL = Commons.HostImage + model.ImageURL;
+                model.ImageURL = Commons.HostImage + "Employees/" + model.ImageURL;
             return PartialView("_Edit", model);
         }
 
@@ -148,7 +150,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                             ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath(temp));
                         }
 
-                        var path = Server.MapPath("~/Uploads/" + model.ImageURL);
+                        var path = Server.MapPath("~/Uploads/Employees/" + model.ImageURL);
                         MemoryStream ms = new MemoryStream(photoByte, 0, photoByte.Length);
                         ms.Write(photoByte, 0, photoByte.Length);
                         System.Drawing.Image imageTmp = System.Drawing.Image.FromStream(ms, true);
@@ -174,7 +176,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         {
             var model = GetDetail(Id);
             if (!string.IsNullOrEmpty(model.ImageURL))
-                model.ImageURL = Commons.HostImage + model.ImageURL;
+                model.ImageURL = Commons.HostImage + "Employees/" + model.ImageURL;
             return PartialView("_View", model);
         }
 
@@ -190,12 +192,16 @@ namespace CMS_Web.Areas.Admin.Controllers
         {
             try
             {
+                if (!model.IsSupperAdmin)
+                {
+                    ModelState.AddModelError("FirstName", "Bạn không đủ quyền để xóa thông tin tài khoản!");
+                }
                 if (!ModelState.IsValid)
                 {
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     return PartialView("_Delete", model);
                 }
-                var msg = "";
+                var msg = "";                
                 var result = _factory.Delete(model.Id, ref msg);
                 if (result)
                     return RedirectToAction("Index");

@@ -1,20 +1,22 @@
 ﻿@{
     Layout = null;
+    var IsAdmin = @ViewBag.IsAdmin;
 }
-@model List<CMS_DTO.CMSEmployee.CMS_EmployeeModels >
+
+@model List<CMS_DTO.CMSEmployee.CMS_EmployeeModels>
 @*<style type="text/css">
-    #sample_3 ul {
-        width: 100% !important;
-    }
-
-        #sample_3 ul li .dtr-title {
-            width: 25% !important;
+        #sample_3 ul {
+            width: 100% !important;
         }
 
-        #sample_3 ul li .dtr-data {
-            width: 75% !important;
-        }
-</style>*@
+            #sample_3 ul li .dtr-title {
+                width: 25% !important;
+            }
+
+            #sample_3 ul li .dtr-data {
+                width: 75% !important;
+            }
+    </style>*@
 <div class="table-responsive">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -23,11 +25,14 @@
                 <div class="caption">
                     <i class="fa fa-cogs"></i>Nhân viên
                 </div>
-                <div class="actions">
-                    <a href="javascript:;" class="btn btn-default btn-sm" onclick='ShowView("@Url.Action("Create","CMSEmployees")")'>
-                        <i class="fa fa-plus"></i> Thêm mới
-                    </a>
-                </div>
+                @if (IsAdmin)
+                {
+                    <div class="actions">
+                        <a href="javascript:;" class="btn btn-default btn-sm" onclick='ShowView("@Url.Action("Create","CMSEmployees")")'>
+                            <i class="fa fa-plus"></i> Thêm mới
+                        </a>
+                    </div>
+                }
             </div>
             <div class="portlet-body">
                 <table class="table table-striped table-bordered table-hover dt-responsive" id="sample_3">
@@ -39,6 +44,7 @@
                             <th class="text-center"> Ngày sinh</th>
                             <th class="text-center"> Địa chỉ</th>
                             <th class="text-center"> Trạng thái </th>
+                            <th class="text-center"> Hình ảnh </th>
                             <th class="text-center"> Tùy chỉnh </th>
                         </tr>
                     </thead>
@@ -59,6 +65,11 @@
                                     <td>@item.Employee_Address</td>
                                     <td class="text-center">
                                         <span class="label label-sm label-success"> @item.sStatus </span>
+                                    <td class="text-center">
+                                        @if (!string.IsNullOrEmpty(item.ImageURL))
+                                        {
+                                            <img id="upload-preview" src="@item.ImageURL" style="width: 50px; border-radius:100% !important" />
+                                        }
                                     </td>
                                     <td class="text-center">
                                         <a href="javascript:void(0)"
@@ -67,9 +78,15 @@
                                         <a href="javascript:void(0)"
                                            onclick='ShowView("@Url.Action("Edit","CMSEmployees",new { Id=item.Id})")'
                                            class="btn btn-info btn-xs edit details"><i class="fa fa-edit"></i>&nbsp;Cập nhập</a>&nbsp;&nbsp;
-                                        <a href="javascript:void(0)"
-                                           onclick='ShowView("@Url.Action("Delete","CMSEmployees",new { Id=item.Id})")'
-                                           class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
+                                        @if (IsAdmin)
+                                        {
+                                            if (!item.IsSupperAdmin)
+                                            {
+                                                <a href="javascript:void(0)"
+                                                   onclick='ShowView("@Url.Action("Delete","CMSEmployees",new { Id=item.Id})")'
+                                                   class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
+                                            }
+                                        }
                                     </td>
                                 </tr>
                             }
@@ -124,8 +141,8 @@
         "columnDefs": [
             { "orderable": false, "targets": [6] },
             { "width": "8%", "targets": [0] },
-            { "width": "5%", "targets": [1, 2, 3, 4, 5] },
-            { "width": "20%", "targets": [6] },
+            { "width": "5%", "targets": [1, 2, 3, 4, 5, 6] },
+            { "width": "10%", "targets": [7] },
         ],
         "order": [
             [1, "asc"]

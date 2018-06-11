@@ -29,6 +29,7 @@ namespace CMS_DTO.CMSEmployee
         [Required(ErrorMessage ="Vui lòng nhập mật khẩu")]
         public string Password { get; set; }
         public bool IsActive { get; set; }
+        public bool IsSupperAdmin { get; set; }
         public string CreatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
