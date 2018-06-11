@@ -200,7 +200,6 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CMSAccountController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CMSBoardsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CMSEmployeesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CMSProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />

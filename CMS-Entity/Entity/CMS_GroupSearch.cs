@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace CMS_Entity.Entity
 {
-    public class CMS_Images : CMS_EntityBase
+    public class CMS_GroupSearch
     {
         public string Id { get; set; }
-        public string ImageURL { get; set; }
+        public string KeySearch { get; set; }
+        public int Quantity { get; set; }
     }
 }

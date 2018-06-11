@@ -54,18 +54,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CMS_Context.cs" />
+    <Compile Include="Entity\CMS_GroupSearch.cs" />
     <Compile Include="Entity\CMS_Images.cs" />
-    <Compile Include="Entity\CMS_Board.cs" />
     <Compile Include="Entity\CMS_Employee.cs" />
     <Compile Include="Entity\CMS_EntityBase.cs" />
-    <Compile Include="Entity\CMS_Products.cs" />
+    <Compile Include="Mapping\CMS_GroupSearchMap.cs" />
     <Compile Include="Mapping\CMS_ImagesMap.cs" />
-    <Compile Include="Mapping\CMS_ProductMap.cs" />
-    <Compile Include="Mapping\CMS_BoardMap.cs" />
     <Compile Include="Mapping\CMS_EmployeeMap.cs" />
     <Compile Include="Migrations\201806080829426_createDb06082018.cs" />
     <Compile Include="Migrations\201806080829426_createDb06082018.Designer.cs">
       <DependentUpon>201806080829426_createDb06082018.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806110345139_updatedb06112018.cs" />
+    <Compile Include="Migrations\201806110345139_updatedb06112018.Designer.cs">
+      <DependentUpon>201806110345139_updatedb06112018.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +79,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201806080829426_createDb06082018.resx">
       <DependentUpon>201806080829426_createDb06082018.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806110345139_updatedb06112018.resx">
+      <DependentUpon>201806110345139_updatedb06112018.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

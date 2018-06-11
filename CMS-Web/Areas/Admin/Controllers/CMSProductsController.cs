@@ -1,7 +1,6 @@
 ﻿using CMS_DTO.CMSImage;
 using CMS_DTO.CMSProduct;
 using CMS_Shared;
-using CMS_Shared.CMSProducts;
 using CMS_Shared.Utilities;
 using System;
 using System.Collections.Generic;
@@ -15,11 +14,8 @@ namespace CMS_Web.Areas.Admin.Controllers
 {
     public class CMSProductsController : HQController
     {
-        private CMSProductFactory _factory;
         public CMSProductsController()
         {
-            _factory = new CMSProductFactory();
-            ViewBag.Category = GetListCategory();
         }
         // GET: Admin/CMSCategories
         public ActionResult Index()
@@ -29,8 +25,8 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult LoadGrid()
         {
-            var model = _factory.GetList();
-            return PartialView("_ListData", model);
+            //var model = _factory.GetList();
+            return null; // PartialView("_ListData", model);
         }
 
         public ActionResult Create()
@@ -41,7 +37,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public CMS_ProductsModels GetDetail(string Id)
         {
-            return _factory.GetDetail(Id);
+            return null; // _factory.GetDetail(Id);
         }
 
         [HttpPost]
@@ -63,7 +59,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 
                 var msg = "";
-                var result = _factory.CreateOrUpdate(model, ref msg);
+                var result = true; // _factory.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
                     foreach (var item in data)
@@ -121,7 +117,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 var data = new List<CMS_ImagesModels>();
                 
                 var msg = "";
-                var result = _factory.CreateOrUpdate(model, ref msg);
+                var result = true; // _factory.CreateOrUpdate(model, ref msg);
                 if (result)
                 {
                     foreach (var item in data)
@@ -181,26 +177,26 @@ namespace CMS_Web.Areas.Admin.Controllers
                     return PartialView("_Delete", model);
                 }
                 var msg = "";
-                var _LstImageOfProduct = _factory.GetListImageOfProduct(model.Id);
-                var result = _factory.Delete(model.Id, ref msg);
-                if (result)
-                {
-                    if(_LstImageOfProduct != null && _LstImageOfProduct.Any())
-                    {
-                        foreach(var item in _LstImageOfProduct)
-                        {
-                            // delete image for folder
-                            if (System.IO.File.Exists(Server.MapPath("~/Uploads/Products/" + item.ImageURL)))
-                            {
-                                ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath("~/Uploads/Products/" + item.ImageURL));
-                            }
-                        }
-                    }
-                    return RedirectToAction("Index");
-                }
+                var _LstImageOfProduct = true; // _factory.GetListImageOfProduct(model.Id);
+                var result = true; // _factory.Delete(model.Id, ref msg);
+                //if (result)
+                //{
+                //    if(_LstImageOfProduct != null && _LstImageOfProduct.Any())
+                //    {
+                //        foreach(var item in _LstImageOfProduct)
+                //        {
+                //            // delete image for folder
+                //            if (System.IO.File.Exists(Server.MapPath("~/Uploads/Products/" + item.ImageURL)))
+                //            {
+                //                ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath("~/Uploads/Products/" + item.ImageURL));
+                //            }
+                //        }
+                //    }
+                //    return RedirectToAction("Index");
+                //}
                     
-                ModelState.AddModelError("ProductCode", msg);
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                //ModelState.AddModelError("ProductCode", msg);
+                //Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Delete", model);
             }
             catch (Exception ex)
@@ -234,7 +230,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             try
             {
                 string msg = "";
-                var result = _factory.DeleteImage(Id,ref msg);
+                var result = true; // _factory.DeleteImage(Id,ref msg);
                 if (!result)
                 {
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;

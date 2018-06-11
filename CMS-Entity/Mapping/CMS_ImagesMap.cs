@@ -14,7 +14,6 @@ namespace CMS_Entity.Mapping
         {
             this.HasKey(x => x.Id);
             this.Property(x => x.Id).HasColumnType("varchar").HasMaxLength(60);
-            this.Property(x => x.ProductId).HasMaxLength(60).HasColumnType("varchar").IsOptional();
             this.Property(x => x.ImageURL).HasColumnType("varchar").HasMaxLength(60).IsOptional();
             this.Property(x => x.UpdatedBy).HasMaxLength(60).HasColumnType("varchar").IsOptional();
             this.Property(x => x.CreatedBy).HasMaxLength(60).HasColumnType("varchar").IsOptional();

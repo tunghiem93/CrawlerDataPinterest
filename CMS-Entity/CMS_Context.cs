@@ -20,8 +20,6 @@ namespace CMS_Entity
         }
 
         public virtual DbSet<CMS_Employee> CMS_Employees { get; set; }
-        public virtual DbSet<CMS_Board> CMS_Categories { get; set; }
-        public virtual DbSet<CMS_Products> CMS_Products { get; set; }
         public virtual DbSet<CMS_Images> CMS_Images { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
