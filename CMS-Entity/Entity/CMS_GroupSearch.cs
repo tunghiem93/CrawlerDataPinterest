@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMS_Entity.Entity
 {
-    public class CMS_GroupSearch
+    public class CMS_GroupSearch : CMS_EntityBase
     {
         public string Id { get; set; }
         public string KeySearch { get; set; }

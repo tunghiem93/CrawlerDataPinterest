@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CMSBase\CMS_BaseModel.cs" />
-    <Compile Include="CMSBoard\CMSBoardModels.cs" />
+    <Compile Include="CMSGroupSearch\CMS_GroupSearchModels.cs" />
     <Compile Include="CMSEmployee\CMS_EmployeeModels.cs" />
     <Compile Include="CMSHome\CMSHomeModels.cs" />
     <Compile Include="CMSImage\CMS_ImagesModels.cs" />

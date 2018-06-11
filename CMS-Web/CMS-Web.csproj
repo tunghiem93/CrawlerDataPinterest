@@ -84,6 +84,10 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NSLog, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\CSC\csc\ExtandLibs\NSLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -206,6 +210,7 @@
     <Compile Include="Areas\Admin\Controllers\CMSEmployeesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CMSProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GroupSearchsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HQController.cs" />
     <Compile Include="Areas\Admin\Models\Categories\CategoriesModels.cs" />
@@ -590,6 +595,13 @@
     <Content Include="Libraries\plugins\tabdrop\less\tabdrop.less" />
     <Content Include="Libraries\plugins\typeahead\LICENSE" />
     <Content Include="Libraries\plugins\typeahead\README.md" />
+    <Content Include="Areas\Admin\Views\GroupSearchs\_Create.cshtml" />
+    <Content Include="Areas\Admin\Views\GroupSearchs\_Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\GroupSearchs\_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\GroupSearchs\_Form.cshtml" />
+    <Content Include="Areas\Admin\Views\GroupSearchs\_ListData.cshtml" />
+    <Content Include="Areas\Admin\Views\GroupSearchs\_View.cshtml" />
+    <Content Include="Areas\Admin\Views\GroupSearchs\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Libraries\css\components-md.css" />
     <Content Include="Libraries\css\components-md.min.css" />

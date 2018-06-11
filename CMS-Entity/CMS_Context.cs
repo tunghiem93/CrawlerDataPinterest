@@ -21,6 +21,7 @@ namespace CMS_Entity
 
         public virtual DbSet<CMS_Employee> CMS_Employees { get; set; }
         public virtual DbSet<CMS_Images> CMS_Images { get; set; }
+        public virtual DbSet<CMS_GroupSearch> CMS_GroupSearchs { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()

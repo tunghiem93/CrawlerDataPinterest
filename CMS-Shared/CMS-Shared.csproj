@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="CMSEmployees\CMSEmployeeFactory.cs" />
     <Compile Include="Commons.cs" />
+    <Compile Include="GroupSearch\GroupSearchFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserFactory.cs" />
     <Compile Include="Utilities\CommonHelper.cs" />
