@@ -28,7 +28,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             try
             {
                 if (Session["User"] == null)
-                    return RedirectToAction("Login", new { area = "Admin" });
+                    return RedirectToAction("CMSAccount", new { area = "Admin" });
 
                 FormsAuthentication.SignOut();
                 Session.Remove("User");
