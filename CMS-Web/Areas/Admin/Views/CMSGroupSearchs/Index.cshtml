@@ -1,0 +1,105 @@
+﻿@model CMS_DTO.CMSGroupSearch.CMS_GroupSearchModels
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Sản phẩm - Danh sách";
+}
+<div role="main">
+    <div class="se-pre-con" style="display: none;"></div>
+    <div class="page-title">
+        <!-- BEGIN PAGE BAR -->
+        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Sản phẩm - Danh sách" } })
+        <!-- END PAGE BAR -->
+    </div>
+    <div class="page-main">
+        <fieldset>
+            <legend>Từ khóa tìm kiếm</legend>
+            <div class="form-group">
+                <label for="FromDate" class="col-md-2 col-sm-2 col-xs-12 control-label text-right">Key search</label>
+                <div class="col-md-6 col-sm-8 col-xs-12 ">
+                    <div class="input-prepend input-group">
+                        <span class="add-on input-group-addon"><i class="glyphicon fa fa-search"></i></span>
+                        <input type="text" class="form-control" id="idStrSerch" placeholder="Nhập từ khóa tìm kiếm" />
+                    </div>
+                    @Html.ValidationMessage("KeySearch", new { @class = "label" })
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-12">
+                    @*<a id="btn-add-more-tab" href="#" class="btn btn-primary" onclick="AddMoreTab(this); return false;" style="font-size:16px; color:#34495e;">
+                        <i class="fa fa-search"></i>
+                        <span>Tìm kiếm</span>
+                    </a>*@
+                    <button class="btn btn-primary" onclick="AddMoreTab(this, true); return false;"><i class="fa fa-search"></i>Tìm kiếm</button>
+                </div>
+            </div>
+        </fieldset><br />
+
+        <fieldset>
+            <legend>Danh sách các từ khóa tìm kiếm.</legend>
+            <div id="div-list-searchResult">
+                <table class="table center-content">
+                    <thead style=" background-color: #34495e">
+                        <tr style="color: #fff; ">
+                            <th style="width: 50%">Key</th>
+                            <th style="width: 20%">Số Lượng</th>
+                            <th style="width: 20%">Refesh</th>
+                            <th style="width: 10%">Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListKeyResult != null && Model.ListKeyResult.Count > 0)
+                        {
+                            for (int i = 0; i < Model.ListKeyResult.Count; i++)
+                            {
+                                @Html.Partial("_TabSearch", Model.ListKeyResult[i])
+                            }
+                        }
+                        <tr id="tr-add-more-tab-keySearch">
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+        @*<div class="gridview" style="height:100%;"></div>*@
+    </div>
+    <div id="idListResult" style="height:100%;">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function AddMoreTab(e) {
+        $('.se-pre-con').show();
+        var currentOffset = $("#div-list-searchResult > table > tbody > tr").length;
+        var Key = $('#idStrSerch').val();
+        if (Key != null && Key.length > 0) {
+            $.ajax({
+                url: '@Url.Action("AddTabKeySearch", "CMSGroupSearchs")',
+                type: 'get',
+                data: {
+                    currentOffset: currentOffset,
+                    KeySearch: Key,
+                },
+                dataType: 'html',
+                success: function (data) {
+                    $('#idStrSerch').val('');
+                    $('.se-pre-con').hide();
+                    $("#tr-add-more-tab-keySearch").before(data);
+                }
+            });
+        }
+        else {
+            $('.se-pre-con').hide();
+        }
+    }
+
+    function DeleteTabPanelPostal(btn) {
+        var count = $(".KeyRow:visible").length;
+        var tr = $(btn).parents('tr:first');
+        $(tr).find('input.GroupStatus').val(9);
+        $(tr).css('display', 'none');
+    }
+
+</script>

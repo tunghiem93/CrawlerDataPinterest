@@ -17,5 +17,14 @@ namespace CMS_DTO.CMSGroupSearch
         public string CreatedBy { get; set; }
         public DateTime UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
-    }
+
+        public byte Type { get; set; }
+        public byte Status { get; set; }
+        public int OffSet { get; set; }
+        public List<CMS_GroupSearchModels> ListKeyResult { get; set; }
+        public CMS_GroupSearchModels()
+        {
+            ListKeyResult = new List<CMS_GroupSearchModels>();
+        }
+    }    
 }

@@ -1,0 +1,27 @@
+﻿@model CMS_DTO.CMSGroupSearch.CMS_GroupSearchModels
+
+<tr data-id="@Model.Id" style='@string.Format("display:{0}", Model.Status==9?"none":"table-row")' class="KeyRow">
+    <td>
+        @Html.Hidden(string.Format("ListKeyResult[{0}].ID", Model.OffSet), Model.Id)
+        @Html.Hidden(string.Format("ListKeyResult[{0}].OffSet", Model.OffSet), Model.OffSet)
+        @Html.Hidden(string.Format("ListKeyResult[{0}].Status", Model.OffSet), Model.Status, new { @class = "GroupStatus" })
+        @Html.Hidden(string.Format("ListKeyResult[{0}].Type", Model.OffSet), Model.Type)
+        @Html.Display(string.Format("ListKeyResult[{0}].KeySearch", Model.OffSet), Model.KeySearch)
+    </td>
+    <td>
+        @Html.Display(string.Format("ListKeyResult[{0}].Quantity", Model.OffSet), Model.Quantity)
+    </td>
+    <td>
+        <button>Refresh</button>
+    </td>
+    <td width="50px">
+        <a href="#" onclick="DeleteTabPanelPostal(this); return false;" @string.Format("display:{0}", Model.OffSet == -1 ? "none" : "block")" >
+            <i class="glyphicon glyphicon-minus-sign" style="font-size: 25px; color: red; padding: 5px 0px; "></i>
+        </a>
+    </td>
+</tr>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    });
+</script>

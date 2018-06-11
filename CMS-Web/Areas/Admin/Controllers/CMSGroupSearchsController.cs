@@ -22,7 +22,8 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            CMS_GroupSearchModels model = new CMS_GroupSearchModels();
+            return View(model);
         }
 
         public ActionResult LoadGrid()
@@ -52,7 +53,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         //        var result = _factory.CreateOrUpdate(model, ref msg);
         //        if (result)
         //        {
-                    
+
         //            return RedirectToAction("Index");
         //        }
 
@@ -66,5 +67,23 @@ namespace CMS_Web.Areas.Admin.Controllers
         //        return PartialView("_Create", model);
         //    }
         //}
+
+        public ActionResult AddTabKeySearch(int currentOffset, string KeySearch)
+        {
+            CMS_GroupSearchModels group = new CMS_GroupSearchModels();
+            group.CreatedBy = CurrentUser.UserId;
+            group.OffSet = currentOffset;
+            group.KeySearch = KeySearch;
+            var msg = "";
+            var result = _factory.CreateOrUpdate(group, ref msg);
+            if (result)
+            {
+                return PartialView("_TabSearch", group);
+            }
+
+            ModelState.AddModelError("FirstName", msg);
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return PartialView("_TabSearch", group);
+        }
     }
 }
