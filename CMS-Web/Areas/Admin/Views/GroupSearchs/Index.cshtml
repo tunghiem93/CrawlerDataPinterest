@@ -2,18 +2,18 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @{
-    ViewBag.Title = "Nhân viên - Danh sách";
+    ViewBag.Title = "Sản phẩm - Danh sách";
 }
 <div role="main">
     <div class="se-pre-con" style="display: none;"></div>
     <div class="_gridview">
         <div class="page-title">
             <!-- BEGIN PAGE BAR -->
-            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Nhân viên - Danh sách" } })
+            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Sản phẩm - Danh sách" } })
             <!-- END PAGE BAR -->
         </div>
         <div class="page-main">
-            @using (Html.BeginForm("LoadGrid", "CMSEmployees", FormMethod.Post, new { @class = "form-horizontal search-form" }))
+            @using (Html.BeginForm("LoadGrid", "CMSGroupSearchs", FormMethod.Post, new { @class = "form-horizontal search-form" }))
             {
             }
             @*<div class="gridview" style="height:100%;"></div>*@

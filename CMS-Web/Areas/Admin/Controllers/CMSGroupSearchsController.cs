@@ -11,11 +11,11 @@ using System.Web.Mvc;
 namespace CMS_Web.Areas.Admin.Controllers
 {
     [NuAuth]
-    public class GroupSearchsController : HQController
+    public class CMSGroupSearchsController : HQController
     {
         // GET: Admin/GroupSearchs
         private GroupSearchFactory _factory;
-        public GroupSearchsController()
+        public CMSGroupSearchsController()
         {
             _factory = new GroupSearchFactory();
         }
@@ -28,7 +28,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult LoadGrid()
         {
             var model = _factory.GetList();
-            return PartialView("_ListData", model);
+            return PartialView("../Shared/_ListData", model);
         }
 
         public ActionResult Create()
