@@ -13,6 +13,24 @@ namespace CMS_Shared
         public const string Image200_100 = "http://placehold.it/200x100";
         public const string Image272_259 = "http://placehold.it/272x259";
 
+        #region EnumWeb
+        public enum EQuantityType
+        {
+            Done = 0,
+            ZeroToOne = 1,
+            OneToTwo = 2,
+            TwoToThree = 3,
+            ThreeToFour = 4,
+            FourToFive = 5,
+            MoreFive = 6,
+        }
+        public enum ETimeType
+        {
+            Done = 0,
+            NotDone = 1,
+        }
+        #endregion
+
         public static int WidthProduct = Convert.ToInt16(ConfigurationManager.AppSettings["WidthProduct"]);
         public static int HeightProduct = Convert.ToInt16(ConfigurationManager.AppSettings["HeightProduct"]);
 
