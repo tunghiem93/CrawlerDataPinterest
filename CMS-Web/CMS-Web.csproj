@@ -5966,29 +5966,6 @@
     <Content Include="Scripts\single-product.min.js" />
     <Content Include="Scripts\theme-script.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Uploads\News\1944f332-a90c-46b5-9c14-9cb90cb4ab81.jpg" />
-    <Content Include="Uploads\News\2d20718e-d859-4d6c-aa99-a7fc88cbebcf.jpg" />
-    <Content Include="Uploads\News\5d71c02d-51dd-4093-9a8c-bb0829c516b5.jpg" />
-    <Content Include="Uploads\News\7b9f0275-cc00-4141-b332-35523fdf2d1f.jpg" />
-    <Content Include="Uploads\News\97cc5ab7-97b6-4cb8-bda9-9b248fd58552.jpg" />
-    <Content Include="Uploads\News\de174e62-4973-4333-905a-1a5b4889668d.jpg" />
-    <Content Include="Uploads\Products\0b98b28d-35f9-45c9-9ba2-a46dc96174bf.jpg" />
-    <Content Include="Uploads\Products\142cf3fe-c04d-4bfd-9350-23824d909210.jpg" />
-    <Content Include="Uploads\Products\1ba1b63c-d627-44fc-bba6-e74c1ccd7194.jpg" />
-    <Content Include="Uploads\Products\27d1ed8a-1002-49be-bd8d-fe5d24b870c2.jpg" />
-    <Content Include="Uploads\Products\281f2405-0e3d-4cc6-a447-e8ecf4b20625.jpg" />
-    <Content Include="Uploads\Products\64fb58ca-46c5-4d0d-9796-ebccde882efe.jpg" />
-    <Content Include="Uploads\Products\674701d9-6933-44e9-af2b-e57a384b8829.jpg" />
-    <Content Include="Uploads\Products\71a41a96-242d-46b1-9841-830950a1e4da.jpg" />
-    <Content Include="Uploads\Products\927e0ffe-6010-4d5d-befb-0d1b1d8fd3f7.jpg" />
-    <Content Include="Uploads\Products\c14e57e1-095e-43b0-8a52-0fc7362ce609.jpg" />
-    <Content Include="Uploads\Products\ca91d582-fde1-4f7b-92dd-ee2c43759543.jpg" />
-    <Content Include="Uploads\Products\d97cfb09-f27d-42aa-80cd-86ed94fbe35f.jpg" />
-    <Content Include="Uploads\Products\f42d4575-9b01-4dad-a7a0-7decfbbc1960.jpg" />
-    <Content Include="Uploads\Silder\00ad0e48-7cde-49cc-ac55-ab71b43dabd5.jpg" />
-    <Content Include="Uploads\Silder\92e707f0-d154-4546-961a-073c79729d96.jpg" />
-    <Content Include="Uploads\Silder\d7dcf7e8-cd47-45cb-bfeb-8339d4581062.jpg" />
-    <Content Include="Uploads\Silder\fda77325-1778-4927-9b22-9d77fbe83c67.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -6030,6 +6007,8 @@
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Areas\Admin\Views\HQ\" />
     <Folder Include="Libraries\plugins\angularjs\plugins\angular-file-upload\uploads\" />
+    <Folder Include="Uploads\Employees\" />
+    <Folder Include="Uploads\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
