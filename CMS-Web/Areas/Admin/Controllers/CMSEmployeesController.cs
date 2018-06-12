@@ -136,7 +136,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 if (!string.IsNullOrEmpty(model.ImageURL))
                 {
-                    model.ImageURL = model.ImageURL.Replace(Commons._PublicImages, "").Replace(Commons.Image200_100, "");
+                    model.ImageURL = model.ImageURL.Replace(Commons._PublicImages, "").Replace("Employees/", "").Replace(Commons.Image200_100, "");
                     backUpURL = model.ImageURL;
                 }
 
@@ -157,9 +157,9 @@ namespace CMS_Web.Areas.Admin.Controllers
                 {
                     if (!string.IsNullOrEmpty(model.ImageURL) && model.PictureByte != null)
                     {
-                        if (System.IO.File.Exists(Server.MapPath("~/Uploads/" + backUpURL)))
+                        if (System.IO.File.Exists(Server.MapPath("~/Uploads/Employees/" + backUpURL)))
                         {
-                            ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath("~/Uploads/" + backUpURL));
+                            ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath("~/Uploads/Employees/" + backUpURL));
                         }
 
                         var path = Server.MapPath("~/Uploads/Employees/" + model.ImageURL);
