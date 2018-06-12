@@ -24,8 +24,9 @@ namespace CMS_Web.Areas.Admin.Controllers
             CMS_ProductsModels model = new CMS_ProductsModels();
             try
             {
-                var _Key = Request["Key"];
+                var _Key = Request["Key"]?? "";
                 var modelCrawler = new CMS_CrawlerModels();
+                modelCrawler.Key = _Key;
                 if (!string.IsNullOrEmpty(_Key))
                 {
                     CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, _Key, 20);
@@ -280,6 +281,20 @@ namespace CMS_Web.Areas.Admin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return new HttpStatusCodeResult(400, ex.Message);
             }
+        }
+
+        public ActionResult ProductDetail(string id,string Key)
+        {
+            var modelCrawler = new CMS_CrawlerModels();
+            try
+            {
+                var model = new PinsModels();
+                CrawlerHelper.Get_Tagged_PinsDetail(ref model, id);
+                CrawlerHelper.Get_Tagged_OrtherPins(ref modelCrawler, Key, 5, "", 1, id);
+                modelCrawler.Pin = model;
+            }
+            catch (Exception) { }
+            return View(modelCrawler);
         }
     }
 }

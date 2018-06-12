@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Sản phẩm - Chi tiết sản phẩm";
+}
+@model CMS_DTO.CMSCrawler.CMS_CrawlerModels
+<style>
+    body {
+        overflow-x: hidden;
+    }
+
+    .info {
+        /*margin-left:20px;*/
+    }
+
+    .detail-view-product .img-responsive {
+        height: 236px;
+    }
+</style>
+<div role="main">
+    <div class="se-pre-con" style="display: none;"></div>
+    <div class="_gridview">
+        <div class="page-title">
+            <!-- BEGIN PAGE BAR -->
+            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Sản phẩm - Chi tiết sản phẩm" } })
+            <!-- END PAGE BAR -->
+        </div>
+        <div class="page-main">
+            <div class="form-group">
+                @if (Model != null && Model.Pin != null && Model.Pin.Images != null && Model.Pin.Images.Count > 0)
+                {
+                    var Image = Model.Pin.Images.OrderByDescending(x => x.width).FirstOrDefault();
+                    <img src="@Image.url" class="img-responsive" alt="@Model.Pin.Domain" style="margin:auto">
+                }
+                
+            </div>
+        </div>
+    </div>
+    <div class="detail-view" style="height:100%;display:inline-block">
+        <fieldset>
+            <legend>Nội dung tương tự</legend>
+        </fieldset>
+        <div class="detail-view-product">
+            @Html.Partial("_ListItem", Model)
+        </div>
+     @*   @Html.Partial("_ListItem", Model.Crawler)*@
+        <!-- detail partial view -->
+    </div>
+</div>

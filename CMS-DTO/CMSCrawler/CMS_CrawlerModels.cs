@@ -10,6 +10,7 @@ namespace CMS_DTO.CMSCrawler
     {
         public List<PinsModels> Pins { get; set; }
         public PinsModels Pin { get; set; }
+        public string Key { get; set; }
         public CMS_CrawlerModels()
         {
             Pins = new List<PinsModels>();
