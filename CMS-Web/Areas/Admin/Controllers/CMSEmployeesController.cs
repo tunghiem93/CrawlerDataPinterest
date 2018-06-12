@@ -121,7 +121,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(CMS_EmployeeModels model)
         {
-            var temp = model.ImageURL;
+            var backUpURL = model.ImageURL;
             try
             {
                 byte[] photoByte = null;
@@ -137,6 +137,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 if (!string.IsNullOrEmpty(model.ImageURL))
                 {
                     model.ImageURL = model.ImageURL.Replace(Commons._PublicImages, "").Replace(Commons.Image200_100, "");
+                    backUpURL = model.ImageURL;
                 }
 
                 if (model.PictureUpload != null && model.PictureUpload.ContentLength > 0)
@@ -156,9 +157,9 @@ namespace CMS_Web.Areas.Admin.Controllers
                 {
                     if (!string.IsNullOrEmpty(model.ImageURL) && model.PictureByte != null)
                     {
-                        if (System.IO.File.Exists(Server.MapPath(temp)))
+                        if (System.IO.File.Exists(Server.MapPath("~/Uploads/" + backUpURL)))
                         {
-                            ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath(temp));
+                            ImageHelper.Me.TryDeleteImageUpdated(Server.MapPath("~/Uploads/" + backUpURL));
                         }
 
                         var path = Server.MapPath("~/Uploads/Employees/" + model.ImageURL);
