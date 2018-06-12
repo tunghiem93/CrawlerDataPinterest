@@ -22,14 +22,31 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult Index()
         {
             CMS_ProductsModels model = new CMS_ProductsModels();
-            model.ListTime = getListTime();
-            model.ListQuantity = getListQuantity();
-             var modelCrawler = new CMS_CrawlerModels();
-            // CrawlerHelper.Get_Tagged_PinsDetail(ref model, "99853316718098587");
-            CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, "car", 20);
-           // var data = new CMS_CrawlerModels();
-            //CrawlerHelper.Get_Tagged_OrtherPins(ref data, "car", 5, "", 1, "99853316718098587");
-            model.Crawler = modelCrawler;
+            try
+            {
+                var _Key = Request["Key"];
+                var modelCrawler = new CMS_CrawlerModels();
+                if (!string.IsNullOrEmpty(_Key))
+                {
+                    CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, _Key, 20);
+                }
+                else
+                {
+                    CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, "car", 20);
+                }
+                model.ListTime = getListTime();
+                model.ListQuantity = getListQuantity();
+                // CrawlerHelper.Get_Tagged_PinsDetail(ref model, "99853316718098587");
+                
+                // var data = new CMS_CrawlerModels();
+                //CrawlerHelper.Get_Tagged_OrtherPins(ref data, "car", 5, "", 1, "99853316718098587");
+                model.Crawler = modelCrawler;
+            }
+            catch(Exception ex)
+            {
+
+            }
+            
             //return View();
             return View(model);
         }
