@@ -1,41 +1,23 @@
-﻿@model List<CMS_DTO.CMSImage.CMS_ImagesModels>
+﻿@model CMS_DTO.CMSCrawler.CMS_CrawlerModels
 @using CMS_Shared
-@if (Model != null && Model.Any())
+@if (Model != null && Model.Pins != null && Model.Pins.Any())
 {
-    for (var i = 0; i < Model.Count; i++)
-    {
-        <div class="col-md-2 ng-image-product text-center" id="image-@Model[i].OffSet">
-            @if (!string.IsNullOrEmpty(Model[i].ImageURL))
-            {
-                if (!string.IsNullOrEmpty(Model[i].Id))
+    <div class="form-group">
+        @foreach (var item in Model.Pins)
                 {
-                    <div class="img-wrap">
-                        <span class="close" onclick="DeleteImageById('@Model[i].Id','@Model[i].ProductId')">&times;</span>
-                        <img class="imageThumb" id="upload-preview-1-@Model[i].OffSet" src="@Model[i].ImageURL" style="width: 100%" />
+                    var ImageUrl = item.Images != null && item.Images.Count > 0 ? item.Images.FirstOrDefault().url : "";
+                    <div class="col-md-2 col-sm-2 col-xs-12" style="margin-bottom:20px">
+                        <a href="#">
+                            <img src="@ImageUrl" class="img-responsive" alt="@item.Domain" height="236">
+                        </a>
+                        <div class="info">
+                           @* <p><span>Link</span> &nbsp;&nbsp; @item.Link</p>*@
+                            <p><span>Ngày crawler</span>&nbsp;&nbsp; @DateTime.Now.ToString("dd/MM/yyyy")</p>
+                            <p><span>Số lượng</span> &nbsp;&nbsp;20</p>
+                            <p><span>Create at</span>&nbsp;&nbsp; @item.Created_At.ToString("dd/MM/yyyy")</p>
+                        </div>
                     </div>
-                }
-                else
-                {
-                    <div class="img-wrap">
-                        <span class="close" onclick="DeleteImage('@Model[i].OffSet')">&times;</span>
-                        <img class="imageThumb" id="upload-preview-1-@Model[i].OffSet" src="@Model[i].ImageURL" style="width: 100%" />
-                    </div>
-                }
-
-            }
-            else
-            {
-                <div class="img-wrap">
-                    <span class="close" onclick="DeleteImage('@Model[i].OffSet')">&times;</span>
-                    <img class="text-center imageThumb" id="upload-preview-1-@Model[i].OffSet" src="@Commons.Image200_100" style="width: 100%" />
-                </div>
-
-            }
-            <input type="hidden" value="@Model[i].ImageURL" name="@string.Format("ListImages[{0}].ImageURL",Model[i].OffSet)" />
-            <input type="hidden" value="@Model[i].ImageName" name="@string.Format("ListImages[{0}].ImageName", Model[i].OffSet)" id="image-name-1-@Model[i].OffSet" />
-            <input type="hidden" name="@string.Format("ListImages[{0}].OffSet", Model[i].OffSet)" id="image-name-1-@Model[i].OffSet" value="@Model[i].OffSet" />
-            @Html.Hidden(string.Format("ListImages[{0}].IsDeleted",Model[i].OffSet),Model[i].IsDeleted,new {@id= "image-IsDelete-1-"+Model[i].OffSet })
-        </div>
-    }
+        }
+    </div>
 }
 

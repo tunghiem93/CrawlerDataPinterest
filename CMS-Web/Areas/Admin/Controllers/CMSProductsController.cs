@@ -1,4 +1,5 @@
-﻿using CMS_DTO.CMSImage;
+﻿using CMS_DTO.CMSCrawler;
+using CMS_DTO.CMSImage;
 using CMS_DTO.CMSProduct;
 using CMS_Shared;
 using CMS_Shared.Utilities;
@@ -23,6 +24,13 @@ namespace CMS_Web.Areas.Admin.Controllers
             CMS_ProductsModels model = new CMS_ProductsModels();
             model.ListTime = getListTime();
             model.ListQuantity = getListQuantity();
+             var modelCrawler = new CMS_CrawlerModels();
+            // CrawlerHelper.Get_Tagged_PinsDetail(ref model, "99853316718098587");
+            CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, "car", 20);
+           // var data = new CMS_CrawlerModels();
+            //CrawlerHelper.Get_Tagged_OrtherPins(ref data, "car", 5, "", 1, "99853316718098587");
+            model.Crawler = modelCrawler;
+            //return View();
             return View(model);
         }
 

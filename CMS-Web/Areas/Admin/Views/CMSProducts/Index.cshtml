@@ -5,6 +5,18 @@
 @{
     ViewBag.Title = "Sản phẩm - Danh sách";
 }
+<style>
+    body{
+        overflow-x:hidden;
+    }
+
+    .info {
+        /*margin-left:20px;*/
+    }
+    .img-responsive{
+        height:236px;
+    }
+</style>
 <div role="main">
     <div class="se-pre-con" style="display: none;"></div>
     <div class="_gridview">
@@ -22,7 +34,7 @@
                 <div class="form-group">
                     <label for="FromDate" class="col-md-1 col-sm-3 col-xs-12 control-label">Thời gian</label>
                     <div class="col-md-3 col-sm-4 col-xs-12 ">
-                        <div class="input-prepend input-group">
+                        <div class="input-prepend input-group" style="width:75%">
                             @Html.DropDownListFor(model => model.TypeTime,
                                 new SelectList(Model.ListTime, "Value", "Text", Model.TypeTime), "",
                                 new
@@ -33,15 +45,16 @@
                                 })
                             @Html.ValidationMessageFor(model => model.TypeTime, null, new { @class = "label" })
                         </div>
+                    </div>
                     <label for="ToDate" class="col-md-1 col-sm-1 col-xs-12 control-label">Số lượng</label>
                     <div class="col-md-3 col-sm-4 col-xs-12 ">
-                        <div class="input-prepend input-group">
+                        <div class="input-prepend input-group" style="width:75%">
                             @Html.DropDownListFor(model => model.TypeQuantity,
                                 new SelectList(Model.ListQuantity, "Value", "Text", Model.TypeQuantity), "",
                                 new
                                 {
                                     @class = "form-control select2_multiple",
-                                    @id = "storeDdlView",
+                                    @id = "storeDdlViewQuantity",
                                     @style = "width:100%;"
                                 })
                             @Html.ValidationMessageFor(model => model.TypeQuantity, null, new { @class = "label" })
@@ -58,15 +71,25 @@
             @*<div class="gridview" style="height:100%;"></div>*@
         </div>
     </div>
-    <div class="detail-view" style="height:100%;">
+    <div class="detail-view" style="height:100%;display:inline-block">
+        @Html.Partial("_ListItem",Model.Crawler)
         <!-- detail partial view -->
-    </div>
     </div>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        LoadGrid();
+        //  LoadGrid();
+
+        $("#storeDdlView").select2({
+            placeholder: '@Html.Raw("Vui lòng chọn")',
+               // allowClear: true
+        });
+
+        $("#storeDdlViewQuantity").select2({
+                placeholder: '@Html.Raw("Vui lòng chọn")',
+               // allowClear: true
+        });
     })
 
 </script>

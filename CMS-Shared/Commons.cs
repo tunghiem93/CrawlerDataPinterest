@@ -17,12 +17,12 @@ namespace CMS_Shared
         public enum EQuantityType
         {
             Done = 0,
-            ZeroToOne = 1,
-            OneToTwo = 2,
-            TwoToThree = 3,
-            ThreeToFour = 4,
-            FourToFive = 5,
-            MoreFive = 6,
+            ZeroToOne = 5,
+            OneToTwo = 10,
+            TwoToThree = 15,
+            ThreeToFour = 20,
+            FourToFive = 25,
+            MoreFive = 30,
         }
         public enum ETimeType
         {

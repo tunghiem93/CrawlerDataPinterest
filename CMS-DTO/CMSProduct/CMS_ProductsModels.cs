@@ -1,4 +1,5 @@
-﻿using CMS_DTO.CMSImage;
+﻿using CMS_DTO.CMSCrawler;
+using CMS_DTO.CMSImage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -30,11 +31,14 @@ namespace CMS_DTO.CMSProduct
         public HttpPostedFileBase[] PictureUpload { get; set; }
         public byte[] PictureByte { get; set; }
         public string ImageURL { get; set; }
-        
+
+        public CMS_CrawlerModels Crawler { get; set; }
+
         public CMS_ProductsModels()
         {
             ListTime = new List<SelectListItem>();
             ListQuantity = new List<SelectListItem>();
+            Crawler = new CMS_CrawlerModels();
         }
     }
 }
