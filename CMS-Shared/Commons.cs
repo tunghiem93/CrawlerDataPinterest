@@ -46,5 +46,9 @@ namespace CMS_Shared
         public static string CompanyTitle = ConfigurationManager.AppSettings["CompanyTitle"];
         public static string HostImage = ConfigurationManager.AppSettings["HostImage"];
         public static string _PublicImages = string.IsNullOrEmpty(ConfigurationManager.AppSettings["PublicImages"]) ? "" : ConfigurationManager.AppSettings["PublicImages"];
+
+        public static string HostApi = ConfigurationManager.AppSettings["HostApi"];
+        public static string HostApiOrtherPin = ConfigurationManager.AppSettings["HostApiOrtherPin"];
+        public static string HostApiPinDetail = ConfigurationManager.AppSettings["HostApiPinDetail"];
     }
 }
