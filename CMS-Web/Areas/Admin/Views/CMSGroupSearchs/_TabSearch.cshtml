@@ -6,7 +6,7 @@
         @Html.Hidden(string.Format("ListKeyResult[{0}].OffSet", Model.OffSet), Model.OffSet)
         @Html.Hidden(string.Format("ListKeyResult[{0}].Status", Model.OffSet), Model.Status, new { @class = "GroupStatus" })
         @Html.Hidden(string.Format("ListKeyResult[{0}].Type", Model.OffSet), Model.Type)
-        <a class="btn btn-default" href="@Url.Action("Index", "CMSProducts", new { Key = Model.KeySearch})">@Html.Raw(Model.KeySearch)</a>
+        <a class="btn btn-link" href="@Url.Action("Index", "CMSProducts", new { Key = Model.KeySearch})">@Html.Raw(Model.KeySearch)</a>
     </td>
     <td style="text-align: center; ">
         @Html.Raw(Model.Quantity)
