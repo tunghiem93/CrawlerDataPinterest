@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace CMS_Web.Areas.Admin.Controllers
 {
-    public class CMSProductsController : HQController
+    public class CMSProductsController : BaseController
     {
         public CMSProductsController()
         {
@@ -20,7 +20,10 @@ namespace CMS_Web.Areas.Admin.Controllers
         // GET: Admin/CMSCategories
         public ActionResult Index()
         {
-            return View();
+            CMS_ProductsModels model = new CMS_ProductsModels();
+            model.ListTime = getListTime();
+            model.ListQuantity = getListQuantity();
+            return View(model);
         }
 
         public ActionResult LoadGrid()

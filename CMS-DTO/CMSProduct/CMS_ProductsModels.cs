@@ -21,12 +21,20 @@ namespace CMS_DTO.CMSProduct
         public DateTime DateCrawler { get; set; }
         public bool IsActive { get; set; }
 
+        public int TypeTime { get; set; }
+        public List<SelectListItem> ListTime { get; set; }
+
+        public int TypeQuantity { get; set; }
+        public List<SelectListItem> ListQuantity { get; set; }
+
         public HttpPostedFileBase[] PictureUpload { get; set; }
         public byte[] PictureByte { get; set; }
         public string ImageURL { get; set; }
         
         public CMS_ProductsModels()
         {
+            ListTime = new List<SelectListItem>();
+            ListQuantity = new List<SelectListItem>();
         }
     }
 }

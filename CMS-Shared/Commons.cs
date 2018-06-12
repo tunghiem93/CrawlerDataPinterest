@@ -26,8 +26,9 @@ namespace CMS_Shared
         }
         public enum ETimeType
         {
-            Done = 0,
-            NotDone = 1,
+            TimeIncrease = 0,
+            TimeReduce = 1,
+            TimeCustom = 2,
         }
         #endregion
 

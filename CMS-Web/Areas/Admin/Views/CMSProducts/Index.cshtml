@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CMS_DTO.CMSProduct.CMS_ProductsModels
+@{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @{
@@ -15,12 +16,51 @@
         <div class="page-main">
             @using (Html.BeginForm("LoadGrid", "CMSProducts", FormMethod.Post, new { @class = "form-horizontal search-form" }))
             {
+                <fieldset>
+                    <legend>Nhóm mục từ khóa quét</legend>
+                </fieldset>
+                <div class="form-group">
+                    <label for="FromDate" class="col-md-1 col-sm-3 col-xs-12 control-label">Thời gian</label>
+                    <div class="col-md-3 col-sm-4 col-xs-12 ">
+                        <div class="input-prepend input-group">
+                            @Html.DropDownListFor(model => model.TypeTime,
+                                new SelectList(Model.ListTime, "Value", "Text", Model.TypeTime), "",
+                                new
+                                {
+                                    @class = "form-control select2_multiple",
+                                    @id = "storeDdlView",
+                                    @style = "width:100%;"
+                                })
+                            @Html.ValidationMessageFor(model => model.TypeTime, null, new { @class = "label" })
+                        </div>
+                    <label for="ToDate" class="col-md-1 col-sm-1 col-xs-12 control-label">Số lượng</label>
+                    <div class="col-md-3 col-sm-4 col-xs-12 ">
+                        <div class="input-prepend input-group">
+                            @Html.DropDownListFor(model => model.TypeQuantity,
+                                new SelectList(Model.ListQuantity, "Value", "Text", Model.TypeQuantity), "",
+                                new
+                                {
+                                    @class = "form-control select2_multiple",
+                                    @id = "storeDdlView",
+                                    @style = "width:100%;"
+                                })
+                            @Html.ValidationMessageFor(model => model.TypeQuantity, null, new { @class = "label" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Board, null, new { @class = "label" })
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <button class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;Load Data</button>
+                        </div>
+                    </div>
+                </div>
             }
             @*<div class="gridview" style="height:100%;"></div>*@
-        </div>      
+        </div>
     </div>
     <div class="detail-view" style="height:100%;">
         <!-- detail partial view -->
+    </div>
     </div>
 </div>
 

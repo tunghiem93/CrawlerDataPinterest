@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace CMS_Web.Areas.Admin.Controllers
 {
     [NuAuth]
-    public class CMSGroupSearchsController : HQController
+    public class CMSGroupSearchsController : BaseController
     {
         // GET: Admin/GroupSearchs
         private GroupSearchFactory _factory;

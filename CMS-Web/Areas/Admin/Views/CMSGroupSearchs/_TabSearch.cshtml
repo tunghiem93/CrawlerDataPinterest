@@ -6,10 +6,10 @@
         @Html.Hidden(string.Format("ListKeyResult[{0}].OffSet", Model.OffSet), Model.OffSet)
         @Html.Hidden(string.Format("ListKeyResult[{0}].Status", Model.OffSet), Model.Status, new { @class = "GroupStatus" })
         @Html.Hidden(string.Format("ListKeyResult[{0}].Type", Model.OffSet), Model.Type)
-        @Html.Display(string.Format("ListKeyResult[{0}].KeySearch", Model.OffSet), Model.KeySearch)
+        @Html.Raw(Model.KeySearch)
     </td>
     <td>
-        @Html.Display(string.Format("ListKeyResult[{0}].Quantity", Model.OffSet), Model.Quantity)
+        @Html.Raw(Model.Quantity)
     </td>
     <td>
         <button>Refresh</button>
