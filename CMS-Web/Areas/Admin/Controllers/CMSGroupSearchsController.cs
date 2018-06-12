@@ -15,58 +15,29 @@ namespace CMS_Web.Areas.Admin.Controllers
     {
         // GET: Admin/GroupSearchs
         private GroupSearchFactory _factory;
+        private List<string> ListItem = null;
         public CMSGroupSearchsController()
         {
             _factory = new GroupSearchFactory();
+            ListItem = new List<string>();
+            ListItem = _factory.GetList().Select(o=>o.KeySearch).ToList();
         }
 
         public ActionResult Index()
         {
             CMS_GroupSearchModels model = new CMS_GroupSearchModels();
+            model.ListKeyResult = _factory.GetList();
+            if (model.ListKeyResult != null && model.ListKeyResult.Any())
+            {
+                int index = 0;
+                model.ListKeyResult.ForEach(o =>
+                {
+                    o.OffSet = index;
+                    index++;
+                });
+            }
             return View(model);
         }
-
-        public ActionResult LoadGrid()
-        {
-            var model = _factory.GetList();
-            return PartialView("../Shared/_ListData", model);
-        }
-
-        public ActionResult Create()
-        {
-            CMS_GroupSearchModels model = new CMS_GroupSearchModels();
-            return PartialView("_Create", model);
-        }
-
-        //[HttpPost]
-        //public ActionResult Create(CMS_GroupSearchModels model)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        //            return PartialView("_Create", model);
-        //        }
-
-        //        var msg = "";
-        //        var result = _factory.CreateOrUpdate(model, ref msg);
-        //        if (result)
-        //        {
-
-        //            return RedirectToAction("Index");
-        //        }
-
-        //        ModelState.AddModelError("FirstName", msg);
-        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        //        return PartialView("_Create", model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        //        return PartialView("_Create", model);
-        //    }
-        //}
 
         public ActionResult AddTabKeySearch(int currentOffset, string KeySearch)
         {
@@ -74,16 +45,44 @@ namespace CMS_Web.Areas.Admin.Controllers
             group.CreatedBy = CurrentUser.UserId;
             group.OffSet = currentOffset;
             group.KeySearch = KeySearch;
+
+            var isCheck = ListItem.Where(o => o.Trim().Contains(group.KeySearch.Trim())).FirstOrDefault();
+            //Call api get quantity and save database
+            if (isCheck == null)
+            {
+                var msg = "";
+                var result = _factory.CreateOrUpdate(group, ref msg);
+                if (result)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.OK);
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        public ActionResult DeleteItem(string ID)
+        {
+            CMS_GroupSearchModels group = new CMS_GroupSearchModels();
             var msg = "";
-            var result = _factory.CreateOrUpdate(group, ref msg);
+            var result = _factory.Delete(ID, ref msg);
             if (result)
             {
-                return PartialView("_TabSearch", group);
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
 
-            ModelState.AddModelError("FirstName", msg);
-            Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            return PartialView("_TabSearch", group);
+        public ActionResult RefreshItem(string ID, string Key)
+        {
+            //Call api get quantity
+            int qty = 7;
+            var msg = "";
+            var result = _factory.Refresh(ID, qty, ref msg);
+            if (result)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
     }
 }

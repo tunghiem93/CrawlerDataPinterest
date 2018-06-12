@@ -22,7 +22,7 @@
                         <span class="add-on input-group-addon"><i class="glyphicon fa fa-search"></i></span>
                         <input type="text" class="form-control" id="idStrSerch" placeholder="Nhập từ khóa tìm kiếm" />
                     </div>
-                    @Html.ValidationMessage("KeySearch", new { @class = "label" })
+                    @Html.ValidationMessage("KeySearch", new { @class = "label label-danger detail-error" })
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-12">
                     @*<a id="btn-add-more-tab" href="#" class="btn btn-primary" onclick="AddMoreTab(this); return false;" style="font-size:16px; color:#34495e;">
@@ -40,10 +40,10 @@
                 <table class="table center-content">
                     <thead style=" background-color: #34495e">
                         <tr style="color: #fff; ">
-                            <th style="width: 50%">Key</th>
-                            <th style="width: 20%">Số Lượng</th>
-                            <th style="width: 20%">Refesh</th>
-                            <th style="width: 10%">Xóa</th>
+                            <th style="width: 50%; text-align: center; ">Key</th>
+                            <th style="width: 20%; text-align: center; ">Số Lượng</th>
+                            <th style="width: 20%; text-align: center; ">Refesh</th>
+                            <th style="width: 10%; text-align: center; ">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,8 +85,19 @@
                 dataType: 'html',
                 success: function (data) {
                     $('#idStrSerch').val('');
+                    location.reload();
+                },
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                complete: function () {
                     $('.se-pre-con').hide();
-                    $("#tr-add-more-tab-keySearch").before(data);
+                },
+                error: function (e) {
+                    if (e.status == 400) {
+                        $(".detail-error").text("Từ khóa của bạn bị trùng. Làm ơn nhập từ khóa khác!");
+                    }
+                    $('.se-pre-con').hide();
                 }
             });
         }
@@ -95,11 +106,59 @@
         }
     }
 
-    function DeleteTabPanelPostal(btn) {
-        var count = $(".KeyRow:visible").length;
-        var tr = $(btn).parents('tr:first');
-        $(tr).find('input.GroupStatus').val(9);
-        $(tr).css('display', 'none');
+    function RefreshTabPanelKey(Id, key) {
+        $.ajax(
+        {
+            url: '@Url.Action("RefreshItem", "CMSGroupSearchs")',
+            type: 'get',
+            data: {
+                ID: Id,
+                Key: key,
+            },
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("không thể xóa Key này!");
+                }
+                $('.se-pre-con').hide();
+            }
+        });        
+    }
+
+    function DeleteTabPanelKey(btn, id) {
+        $.ajax(
+        {
+            url: '@Url.Action("DeleteItem", "CMSGroupSearchs")',
+            type: 'get',
+            data: {
+                ID: id,
+            },
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("không thể xóa Key này!");
+                }
+                $('.se-pre-con').hide();
+            }
+        });        
     }
 
 </script>

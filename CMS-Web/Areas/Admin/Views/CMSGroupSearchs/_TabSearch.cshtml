@@ -6,16 +6,16 @@
         @Html.Hidden(string.Format("ListKeyResult[{0}].OffSet", Model.OffSet), Model.OffSet)
         @Html.Hidden(string.Format("ListKeyResult[{0}].Status", Model.OffSet), Model.Status, new { @class = "GroupStatus" })
         @Html.Hidden(string.Format("ListKeyResult[{0}].Type", Model.OffSet), Model.Type)
-        @Html.Raw(Model.KeySearch)
+        <button>@Html.Raw(Model.KeySearch)</button>
     </td>
-    <td>
+    <td style="text-align: center; ">
         @Html.Raw(Model.Quantity)
     </td>
-    <td>
-        <button>Refresh</button>
+    <td style="text-align: center; ">
+        <button onclick="RefreshTabPanelKey('@Model.Id', '@Model.KeySearch'); return false;">Refresh</button>
     </td>
-    <td width="50px">
-        <a href="#" onclick="DeleteTabPanelPostal(this); return false;" @string.Format("display:{0}", Model.OffSet == -1 ? "none" : "block")" >
+    <td style="text-align: center; ">
+        <a href="#" onclick="DeleteTabPanelKey(this, '@Model.Id'); return false;" @string.Format("display:{0}", Model.OffSet == -1 ? "none" : "block")" >
             <i class="glyphicon glyphicon-minus-sign" style="font-size: 25px; color: red; padding: 5px 0px; "></i>
         </a>
     </td>

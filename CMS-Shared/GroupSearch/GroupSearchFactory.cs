@@ -20,6 +20,7 @@ namespace CMS_Shared.GroupSearch
                     var data = cxt.CMS_GroupSearchs.Select(x => new CMS_GroupSearchModels
                     {
                         Id = x.Id,
+                        KeySearch = x.KeySearch,
                         Quantity = x.Quantity,
                         CreatedBy = x.CreatedBy,
                         CreatedDate = x.CreatedDate,
@@ -84,6 +85,46 @@ namespace CMS_Shared.GroupSearch
                         cxt.Dispose();
                     }
                 }
+            }
+            return result;
+        }
+
+        public bool Delete(string Id, ref string msg)
+        {
+            var result = true;
+            try
+            {
+                using (var cxt = new CMS_Context())
+                {
+                    var e = cxt.CMS_GroupSearchs.Find(Id);
+                    cxt.CMS_GroupSearchs.Remove(e);
+                    cxt.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Không thể xóa nhân viên này";
+                result = false;
+            }
+            return result;
+        }
+
+        public bool Refresh(string Id, int Qty, ref string msg)
+        {
+            var result = true;
+            try
+            {
+                using (var cxt = new CMS_Context())
+                {
+                    var e = cxt.CMS_GroupSearchs.Find(Id);
+                    e.Quantity = Qty;
+                    cxt.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "";
+                result = false;
             }
             return result;
         }
