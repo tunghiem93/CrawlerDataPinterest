@@ -37,7 +37,7 @@ namespace CMS_DTO.CMSEmployee
         public string UpdatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string sStatus { get; set; }
-        public string FullName { get { return this.FirstName + this.LastName; } }
+        public string FullName { get { return this.FirstName + " " + this.LastName; } }
 
         [DataType(DataType.Upload)]
         public HttpPostedFileBase PictureUpload { get; set; }

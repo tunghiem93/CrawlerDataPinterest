@@ -203,10 +203,13 @@ namespace CMS_Web.Areas.Admin.Controllers
         {
             try
             {
-                if (!model.IsSupperAdmin)
+                ModelState.Clear();
+
+                if (model.IsSupperAdmin)
                 {
                     ModelState.AddModelError("FirstName", "Bạn không đủ quyền để xóa thông tin tài khoản!");
                 }
+
                 if (!ModelState.IsValid)
                 {
                     Response.StatusCode = (int)HttpStatusCode.BadRequest;
