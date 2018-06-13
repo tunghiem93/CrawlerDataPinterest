@@ -8,12 +8,9 @@
     <div class="page-header-inner ">
         <!-- BEGIN LOGO -->
         <div class="page-logo">
-            <a href="@Url.Action("Index","Home")">
-                @*<img src="" alt="NAM KHANG" />*@
-               @* <img src="~/Libraries/layouts/layout/img/logo.png" alt="logo" class="logo-default" />*@
-            </a>
-            <div class="menu-toggler sidebar-toggler"> </div>
+            <span class="fa fa-home logo-default" style="color: white; font-size: 17px; ">&nbsp; Công Nghệ CRAWLER </span>
         </div>
+        <div class="menu-toggler sidebar-toggler" style="float: left; "> </div>
         <!-- END LOGO -->
         <!-- BEGIN RESPONSIVE MENU TOGGLER -->
         <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
@@ -345,9 +342,9 @@
                                 }
                                 else
                                 {
-                                    <img src="@user.ImageUrl" alt="" />
+                                    <img src="@user.ImageUrl" alt="" style="border-radius: 100% !important; " />
                                 }
-                                @Html.Raw(user.UserName)
+                                <span style="color: white !important; ">@Html.Raw(user.UserName)</span> 
                             }
 
                         }
@@ -361,7 +358,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Logout", "Home", new { area = "Admin" })"><i class="fa fa-sign-out"></i>Đăng xuất
+                            <a href="@Url.Action("Logout", "Home", new { area = "Admin" })">
+                                <i class="fa fa-sign-out"></i>Đăng xuất
                             </a>
                         </li>
                     </ul>

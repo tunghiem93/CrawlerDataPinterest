@@ -8,8 +8,27 @@
 </style>
 <div class="page-footer">
     <div class="page-footer-inner">
-        2017 - @DateTime.Now.Year &copy; David Tuấn.
-        <a href="javascript:void(0)">voquoctuanqn@gmail.com</a>
+        @{
+            var user = Session["User"] as CMS_DTO.CMSSession.UserSession;
+            if (user != null)
+            {
+                if (user.Email == null || user.Email.Length == 0 || user.UserName == null || user.UserName.Length == 0)
+                {
+                    <div>
+                        2017 - @DateTime.Now.Year &copy; HCM.
+                        <a href="javascript:void(0)">Admin@gmail.com</a>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        2017 - @DateTime.Now.Year &copy; @user.UserName
+                        <a href="javascript:void(0)">@user.Email</a>
+                    </div>
+                }
+            }
+
+        }
     </div>
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>
