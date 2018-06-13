@@ -1,5 +1,6 @@
 ﻿using CMS_DTO.Models;
 using CMS_Entity;
+using CMS_Entity.Entity;
 using CMS_Shared.Utilities;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace CMS_Shared.Factory
                     info.Password = CommonHelper.Encrypt(info.Password);
                     string serverImage = ConfigurationManager.AppSettings["PublicImages"];
 
-                    var emp = _db.CMS_Employees.Where(o => o.Employee_Email == info.Email.ToLower().Trim() && o.Password == info.Password).FirstOrDefault();
+                    var emp = _db.CMS_Employee.Where(o => o.Employee_Email == info.Email.ToLower().Trim() && o.Password == info.Password).FirstOrDefault();
                     if (emp != null)
                     {
                         user = new LoginResponseModel()

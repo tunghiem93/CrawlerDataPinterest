@@ -17,17 +17,17 @@ namespace CMS_Shared.GroupSearch
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_GroupSearchs.Select(x => new CMS_GroupSearchModels
-                    {
-                        Id = x.Id,
-                        KeySearch = x.KeySearch,
-                        Quantity = x.Quantity,
-                        CreatedBy = x.CreatedBy,
-                        CreatedDate = x.CreatedDate,
-                        UpdatedBy = x.UpdatedBy,
-                        UpdatedDate = x.UpdatedDate,
-                    }).ToList();
-                    return data;
+                    //var data = cxt.CMS_GroupSearch.Select(x => new CMS_GroupSearchModels
+                    //{
+                    //    Id = x.Id,
+                    //    KeySearch = x.KeySearch,
+                    //    Quantity = x.Quantity,
+                    //    CreatedBy = x.CreatedBy,
+                    //    CreatedDate = x.CreatedDate,
+                    //    UpdatedBy = x.UpdatedBy,
+                    //    UpdatedDate = x.UpdatedDate,
+                    //}).ToList();
+                    //return data;
                 }
             }
             catch (Exception) { }
@@ -45,31 +45,31 @@ namespace CMS_Shared.GroupSearch
                     {
                         if (string.IsNullOrEmpty(model.Id))
                         {
-                            var _Id = Guid.NewGuid().ToString();
-                            var e = new CMS_GroupSearch
-                            {
-                                Id = _Id,
-                                KeySearch = model.KeySearch,
-                                Quantity = model.Quantity,
-                                CreatedBy = model.CreatedBy,
-                                CreatedDate = DateTime.Now,
-                                UpdatedBy = model.UpdatedBy,
-                                UpdatedDate = DateTime.Now
-                            };
-                            cxt.CMS_GroupSearchs.Add(e);
+                            //var _Id = Guid.NewGuid().ToString();
+                            //var e = new CMS_GroupSearch
+                            //{
+                            //    Id = _Id,
+                            //    KeySearch = model.KeySearch,
+                            //    Quantity = model.Quantity,
+                            //    CreatedBy = model.CreatedBy,
+                            //    CreatedDate = DateTime.Now,
+                            //    UpdatedBy = model.UpdatedBy,
+                            //    UpdatedDate = DateTime.Now
+                            //};
+                            //cxt.CMS_GroupSearchs.Add(e);
                         }
                         else
                         {
-                            var e = cxt.CMS_GroupSearchs.Find(model.Id);
-                            if (e != null)
-                            {
-                                e.KeySearch = model.KeySearch;
-                                e.Quantity = model.Quantity;
-                                e.CreatedBy = model.CreatedBy;
-                                e.CreatedDate = DateTime.Now;
-                                e.UpdatedBy = model.UpdatedBy;
-                                e.UpdatedDate = DateTime.Now;
-                            }
+                            //var e = cxt.CMS_GroupSearchs.Find(model.Id);
+                            //if (e != null)
+                            //{
+                            //    e.KeySearch = model.KeySearch;
+                            //    e.Quantity = model.Quantity;
+                            //    e.CreatedBy = model.CreatedBy;
+                            //    e.CreatedDate = DateTime.Now;
+                            //    e.UpdatedBy = model.UpdatedBy;
+                            //    e.UpdatedDate = DateTime.Now;
+                            //}
                         }
                         cxt.SaveChanges();
                         trans.Commit();
@@ -96,9 +96,9 @@ namespace CMS_Shared.GroupSearch
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var e = cxt.CMS_GroupSearchs.Find(Id);
-                    cxt.CMS_GroupSearchs.Remove(e);
-                    cxt.SaveChanges();
+                    //var e = cxt.CMS_GroupSearchs.Find(Id);
+                    //cxt.CMS_GroupSearchs.Remove(e);
+                    //cxt.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -116,9 +116,9 @@ namespace CMS_Shared.GroupSearch
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var e = cxt.CMS_GroupSearchs.Find(Id);
-                    e.Quantity = Qty;
-                    cxt.SaveChanges();
+                    //var e = cxt.CMS_GroupSearchs.Find(Id);
+                    //e.Quantity = Qty;
+                    //cxt.SaveChanges();
                 }
             }
             catch (Exception ex)

@@ -11,7 +11,7 @@ namespace CMS_Shared.CMSEmployees
 {
     public class CMSEmployeeFactory
     {
-        public bool CreateOrUpdate(CMS_EmployeeModels model , ref string msg)
+        public bool CreateOrUpdate(CMS_EmployeeModels model, ref string msg)
         {
             var result = true;
             using (var cxt = new CMS_Context())
@@ -20,7 +20,7 @@ namespace CMS_Shared.CMSEmployees
                 {
                     try
                     {
-                        if(string.IsNullOrEmpty(model.Id))
+                        if (string.IsNullOrEmpty(model.Id))
                         {
                             var _Id = Guid.NewGuid().ToString();
                             var e = new CMS_Employee
@@ -41,12 +41,12 @@ namespace CMS_Shared.CMSEmployees
                                 UpdatedDate = DateTime.Now,
                                 ImageURL = model.ImageURL
                             };
-                            cxt.CMS_Employees.Add(e);
+                            cxt.CMS_Employee.Add(e);
                         }
                         else
                         {
-                            var e = cxt.CMS_Employees.Find(model.Id);
-                            if(e != null)
+                            var e = cxt.CMS_Employee.Find(model.Id);
+                            if (e != null)
                             {
                                 e.BirthDate = model.BirthDate;
                                 e.UpdatedBy = model.UpdatedBy;
@@ -87,8 +87,8 @@ namespace CMS_Shared.CMSEmployees
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var e = cxt.CMS_Employees.Find(Id);
-                    cxt.CMS_Employees.Remove(e);
+                    var e = cxt.CMS_Employee.Find(Id);
+                    cxt.CMS_Employee.Remove(e);
                     cxt.SaveChanges();
                 }
             }
@@ -106,13 +106,13 @@ namespace CMS_Shared.CMSEmployees
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Employees.Where(x => x.Id.Equals(Id))
+                    var data = cxt.CMS_Employee.Where(x => x.Id.Equals(Id))
                                                 .Select(x => new CMS_EmployeeModels
                                                 {
                                                     Id = x.Id,
-                                                    BirthDate = x.BirthDate,
+                                                    BirthDate = x.BirthDate ?? DateTime.Now,
                                                     CreatedBy = x.CreatedBy,
-                                                    CreatedDate = x.CreatedDate,
+                                                    CreatedDate = x.CreatedDate ?? DateTime.Now,
                                                     Employee_Address = x.Employee_Address,
                                                     Employee_Email = x.Employee_Email,
                                                     Employee_IDCard = x.Employee_IDCard,
@@ -123,7 +123,7 @@ namespace CMS_Shared.CMSEmployees
                                                     LastName = x.LastName,
                                                     Password = x.Password,
                                                     UpdatedBy = x.UpdatedBy,
-                                                    UpdatedDate = x.UpdatedDate,
+                                                    UpdatedDate = x.UpdatedDate ?? DateTime.Now,
                                                     ImageURL = x.ImageURL
                                                 }).FirstOrDefault();
                     return data;
@@ -139,25 +139,25 @@ namespace CMS_Shared.CMSEmployees
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Employees.Select(x => new CMS_EmployeeModels
-                                                {
-                                                    Id = x.Id,
-                                                    BirthDate = x.BirthDate,
-                                                    CreatedBy = x.CreatedBy,
-                                                    CreatedDate = x.CreatedDate,
-                                                    Employee_Address = x.Employee_Address,
-                                                    Employee_Email = x.Employee_Email,
-                                                    Employee_IDCard = x.Employee_IDCard,
-                                                    Employee_Phone = x.Employee_Phone,
-                                                    FirstName = x.FirstName,
-                                                    IsActive = x.IsActive,
-                                                    IsSupperAdmin = x.IsSupperAdmin,
-                                                    LastName = x.LastName,
-                                                    Password = x.Password,
-                                                    UpdatedBy = x.UpdatedBy,
-                                                    UpdatedDate = x.UpdatedDate,
-                                                    ImageURL = x.ImageURL
-                                                }).ToList();
+                    var data = cxt.CMS_Employee.Select(x => new CMS_EmployeeModels
+                    {
+                        Id = x.Id,
+                        BirthDate = x.BirthDate ?? DateTime.Now,
+                        CreatedBy = x.CreatedBy,
+                        CreatedDate = x.CreatedDate ?? DateTime.Now,
+                        Employee_Address = x.Employee_Address,
+                        Employee_Email = x.Employee_Email,
+                        Employee_IDCard = x.Employee_IDCard,
+                        Employee_Phone = x.Employee_Phone,
+                        FirstName = x.FirstName,
+                        IsActive = x.IsActive,
+                        IsSupperAdmin = x.IsSupperAdmin,
+                        LastName = x.LastName,
+                        Password = x.Password,
+                        UpdatedBy = x.UpdatedBy,
+                        UpdatedDate = x.UpdatedDate ?? DateTime.Now,
+                        ImageURL = x.ImageURL
+                    }).ToList();
                     return data;
                 }
             }
