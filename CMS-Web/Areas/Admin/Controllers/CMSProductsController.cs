@@ -48,6 +48,19 @@ namespace CMS_Web.Areas.Admin.Controllers
                             modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.Created_At).ToList();
                             model.TypeTime = Convert.ToInt16(Commons.ETimeType.TimeIncrease);
                         }
+                        else
+                        {
+                            if(Request.Cookies["FromDate"] != null && Request.Cookies["ToDate"] != null)
+                            {
+                                var _FromDate = Convert.ToDateTime(Request.Cookies["FromDate"].Value);
+                                var _ToDate = Convert.ToDateTime(Request.Cookies["ToDate"].Value);
+                                model.TypeTime = Convert.ToInt16(Commons.ETimeType.TimeCustom);
+                                model.FromDate = _FromDate;
+                                model.ToDate = _ToDate;
+                                modelCrawler.Pins = modelCrawler.Pins.Where(x => x.Created_At >= _FromDate && x.Created_At <= _ToDate).ToList();
+                            }
+                           
+                        }
                     }
                 }
                 model.ListTime = getListTime();
@@ -337,6 +350,16 @@ namespace CMS_Web.Areas.Admin.Controllers
                 else if(TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")))
                 {
                     modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.Created_At).ToList();
+                }
+                else
+                {
+                    var _FromDate = Convert.ToDateTime(Request["FromDate"]);
+                    var _ToDate = Convert.ToDateTime(Request["ToDate"]);
+                    Response.Cookies["FromDate"].Value = _FromDate.ToString();
+                    Response.Cookies["FromDate"].Expires = DateTime.Now.AddYears(1); // add expiry time
+                    Response.Cookies["ToDate"].Value = _ToDate.ToString();
+                    Response.Cookies["ToDate"].Expires = DateTime.Now.AddYears(1); // add expiry time
+                    modelCrawler.Pins = modelCrawler.Pins.Where(x => x.Created_At >= _FromDate && x.Created_At <= _ToDate).ToList();
                 }
                 return PartialView("_ListItem", modelCrawler);
             }

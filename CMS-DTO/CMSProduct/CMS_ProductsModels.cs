@@ -44,7 +44,7 @@ namespace CMS_DTO.CMSProduct
             ListQuantity = new List<SelectListItem>();
             Crawler = new CMS_CrawlerModels();
             FromDate = new DateTime(1990, 01, 01);
-            ToDate = new DateTime(1990, 01, 01);
+            ToDate = DateTime.Now;
         }
     }
 }
