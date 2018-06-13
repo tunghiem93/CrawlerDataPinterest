@@ -332,13 +332,31 @@
                 <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 
-                        <img src="~/Libraries/layouts/layout/img/avatar3_small.jpg" class="img-circle" alt="" />
+                        @*<img src="~/Libraries/layouts/layout/img/avatar3_small.jpg" class="img-circle" alt="" />
                         <span class="username username-hide-on-mobile"> David </span>
-                        <i class="fa fa-angle-down"></i>
+                        <i class="fa fa-angle-down"></i>*@
+                        @{
+                            var user = Session["User"] as CMS_DTO.CMSSession.UserSession;
+                            if (user != null)
+                            {
+                                if (user.ImageUrl == null || user.ImageUrl.Length == 0)
+                                {
+                                    <img src="@Url.Content("~/Libraries/layouts/layout/img/avatar3_small.jpg")" alt="" />
+                                }
+                                else
+                                {
+                                    <img src="@user.ImageUrl" alt="" />
+                                }
+                                @Html.Raw(user.UserName)
+                            }
+
+                        }
+                        <span class="fa fa-angle-down"></span>
+
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
                         <li>
-                            <a href="javascript:void(0)">
+                            <a href="@Url.Action("Index", "CMSProfile")">
                                 <i class="fa fa-user"></i> Thông tin
                             </a>
                         </li>

@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Thông tin nhân viên";
+}
+@{
+    var user = Session["User"] as CMS_DTO.CMSSession.UserSession;
+}
+<style>
+    .form-horizontal .control-label {
+        text-align: left !important; /* !important added for priority in SO snippet. */
+    }
+</style>
+
+<div role="main" class="right_col" style="min-height: 508px;">
+
+    <div class="col-md-12 col-sm-12 col-xs-12 x_panel">
+        <div class="x_content">
+            <form class="form-horizontal form-label-left">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                        @*Image:*@
+                    </label>
+                    <div class="col-md-2 col-sm-2 col-xs-12">
+                        <div>
+                            @{
+                                if (user != null)
+                                {
+                                    <img id="upload-preview" src="@user.ImageUrl" height="100" width="100" class="img-circle" />
+                                }
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12 fontLighter">Tên nhân viên:</label>
+                            @if (user != null)
+                            {
+                                <label class="control-label col-md-6 col-sm-6 col-xs-12 fontLighter alignleft">@user.UserName</label>
+                            }
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12 fontLighter">Email: </label>
+                            @if (user != null)
+                            {
+                                <label class="control-label col-md-6 col-sm-6 col-xs-12 fontLighter alignleft" >@user.Email</label>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () { $('tr').attr('height', '30px'); })
+
+
+</script>
