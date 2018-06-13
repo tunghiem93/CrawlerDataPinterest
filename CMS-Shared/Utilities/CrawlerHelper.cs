@@ -469,5 +469,187 @@ namespace CMS_Shared.Utilities
             model = getDataPinterestDetail(url, pinId, ref bookmarks);
             return false;
         }
+
+        public static bool Get_Tagged_HomePins(ref CMS_CrawlerModels model, int limit = 1, string bookmarks_str = null, int page = 1)
+        {
+            if (page > limit) return false;
+            var next_page = false;
+            if (!string.IsNullOrEmpty(bookmarks_str))
+                next_page = true;
+
+            string data = string.Empty;
+            var urlOrg = Commons.HostApi;
+            if (!next_page)
+            {
+                var objJson = new
+                {
+                    options = new
+                    {
+                        field_set_key = "hf_grid",
+                        in_nux = false,
+                        is_react = true,
+                        prependPartner = false,
+                        prependUserNews = false,
+                        repeatRequestBookmark = "",
+                        static_feed =  false
+                    },
+                    context = new
+                    {
+                    },
+                };
+                string input = JsonConvert.SerializeObject(objJson);
+                urlOrg = Commons.HostApiHomePin;
+                string[] pattern = new string[] { "\n", "\r", "\t" };
+                string[] replacements = new string[] { "", "", "" };
+                data = Preg_replace(input, pattern, replacements);
+            }
+            else
+            {
+                var objJson = new
+                {
+                    options = new
+                    {
+                        bookmarks = new string[] {bookmarks_str},
+                        field_set_key = "hf_grid",
+                        in_nux = false,
+                        is_react = true,
+                        prependPartner = false,
+                        prependUserNews = false,
+                        repeatRequestBookmark = "",
+                        static_feed = false
+                    },
+                    context = new
+                    {
+                    },
+                };
+                string input = JsonConvert.SerializeObject(objJson);
+                urlOrg = Commons.HostApiHomePin;
+                string[] pattern = new string[] { "\n", "\r", "\t" };
+                string[] replacements = new string[] { "", "", "" };
+                data = Preg_replace(input, pattern, replacements);
+            }
+
+            data = HttpContext.Current.Server.UrlEncode(data);
+            var timestamp = GetTimestamp(DateTime.Now);
+            var url = urlOrg + "&data=" + data +"&_=" + timestamp;
+            var bookmarks = "";
+            getDataPinterestHome(url, model, "", ref bookmarks);
+
+            if (!string.IsNullOrEmpty(bookmarks))
+            {
+                Get_Tagged_HomePins(ref model, limit, bookmarks, ++page);
+            }
+            return false;
+        }
+
+        public static CMS_CrawlerModels getDataPinterestHome(string url, CMS_CrawlerModels model, string pinId, ref string bookmarks)
+        {
+
+            try
+            {
+                Uri uri = new Uri(url);
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
+                httpWebRequest.Headers["X-Requested-With"] = "XMLHttpRequest";
+                httpWebRequest.Headers["Cookie"] = "_auth=1; csrftoken=dMWi2a6L1DTFUHmyqem0oGrDmteiaETw; _pinterest_sess=\"TWc9PSZsSlA1dUF4QWlRWGRYVGR6Qm9mN3pwczUyUDk4ZDYvckduSjl4N3ZSRHlsU1VmWkhBTUsrMU9KNkxjS3pyUk1zREdDL2Rmb2VuT1dwRDhSTmxTOE1Ja0FjOUtreTJVc0o0SmthQ2xhN3lRa3BQVnRMcUF5dlN0Z255Syt4am56VnQvYVQwT0JyejBCSlk4YzFyQ0pEekZwNSs0YjZnMTBseEIvRkU0Um1XeWthZ1cvNGxpdDVyTEdrSHRzWFVLN244T25TaGVoYy93TGVSRjVxNzl5dnlZV1A5L3NlNnc5MWE4djl0ZjNoeEhqTTNuaGduRnZ2VkF1RTd6V1V3VnBCT3cyMksxMHJIdVE0TVVjc3FmWVozVllzekhpNFRGNDFBTERIVzdkcUNUS3NlWEJFdE1mSXJBbnNPVStHQXJiUWJRSENyVVVKTVJYNit5MkZTMFVNN3ptY09FNmFoaHk3Nk9MdUtuRmdDSWRWRVhPTWYrSXA4dFhlRU1hYW5paFNQMU5OcFNwY2xSZlJHZVlWWU03eHFsNWVmSWRHL0ZtN3NhdU9ubzhpUjZqMzNTTUxwMTlOQWRGa29zVUc1UXFqZ1BUYzhHL3M0YndDY2ZBN2ZMZnJQZTlGbXdPWjg5SXJVOEpUMEtPVnMzcjZPcytOVHRFUnlRUnoyNmJZdjl0YXJlOVp1WGQvM29SSi9xWUwvYmFPcDl5VFl1aEw2ZFBtMHlhZ0g4MXlIMXp1dnFXWWY1VytmY0ZPc0FSMzhqYXdhNTBqQjlYRHJ6OE9CY1ViMmljZkFhQkVydGxyVUtlNis4cnh3R3NPbXVTVjZCZUNTR1NKQ3JpWFJsajBsSEFGcytOMnptN2R2S1BXN1NocTFtZVlKMzF0Y1hyQXNseG9DdzdrQklxNnZXMkk2dXQ4azJJOTR4YWlIUDMvVzAwcmQ0SDVqNnhYc3NlTTNpK0ZHUU9xaUpCOER0N1pQaWFFTUhLRGxpdk1EVDlOYi9DdmRLcTQvdUROekpjRXNJSjVtcEl1bWVLUHhRdTVQQk91L1RWS0w0YkkzZDNwaW5mRnJFakRsck9aNTRBUXVsVFdFWVlTRHJ5OUxBWHdMa0V4Jk1FSHZIUWlQUlE2Q05OZWJydEZrV25SQ2tmND0 = \"; G_ENABLED_IDPS=google; _b=\"ATWTNNfXaINNj5j6VvA6 + rquchpAz7VF + IS8VabE7fJo7ragqOV82ASwCOgxcnxHC5k = \"; pnodepath=\" / 4\"; _ga=GA1.2.1908176321.1528170001; fba=True; cm_sub=none; sessionFunnelEventLogged=1; bei=false";
+                httpWebRequest.Timeout = 100000;
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var answer = streamReader.ReadToEnd();
+                    JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+                    dynamic dobj = jsonSerializer.Deserialize<dynamic>(answer);
+                    if (dobj != null)
+                    {
+                        var resource_data_cache = dobj["resource_response"];
+                        if (resource_data_cache != null)
+                        {
+                            var data = resource_data_cache["data"];
+                            if (data != null)
+                            {
+                                var results = (dynamic)null;
+                                results = data;
+                                if (results != null)
+                                {
+                                    foreach (var item in results)
+                                    {
+                                        var pin = new PinsModels();
+                                        var itemPin = item as Dictionary<string, dynamic>;
+                                        bool flag = true;
+                                        if (itemPin.ContainsKey("domain"))
+                                        {
+                                            pin.Domain = itemPin["domain"];
+                                        }
+                                        else
+                                        {
+                                            flag = false;
+                                        }
+                                        if (itemPin.ContainsKey("id"))
+                                        {
+                                            pin.ID = itemPin["id"];
+                                        }
+                                        else
+                                        {
+                                            flag = false;
+                                        }
+                                        if (itemPin.ContainsKey("link"))
+                                        {
+                                            pin.Link = itemPin["link"];
+                                        }
+                                        else
+                                        {
+                                            flag = false;
+                                        }
+                                        if (itemPin.ContainsKey("created_at"))
+                                        {
+                                            pin.Created_At = DateTime.Parse(itemPin["created_at"], new CultureInfo("en-US", true));
+                                        }
+                                        else
+                                        {
+                                            flag = false;
+                                        }
+                                        if (itemPin.ContainsKey("images"))
+                                        {
+                                            var Images = itemPin["images"] as Dictionary<string, dynamic>;
+                                            if (Images != null)
+                                            {
+                                                foreach (var itemImg in Images)
+                                                {
+                                                    var Image = itemImg.Value;
+                                                    var _ImageModel = new ImageModels()
+                                                    {
+                                                        url = Image["url"],
+                                                        height = Convert.ToInt16(Image["height"]),
+                                                        width = Convert.ToInt16(Image["width"])
+                                                    };
+                                                    pin.Images.Add(_ImageModel);
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            flag = false;
+                                        }
+                                        if (flag)
+                                            model.Pins.Add(pin);
+                                    }
+                                }
+                            }
+
+                            var dataBookmark = dobj["resource"]["options"];
+                            if (dataBookmark != null)
+                            {
+                                bookmarks = dataBookmark["bookmarks"][0];
+                            }
+                        }
+                    }
+
+                    streamReader.Close();
+                    streamReader.Dispose();
+                }
+            }
+            catch (Exception ex) { }
+            return model;
+        }
     }
 }

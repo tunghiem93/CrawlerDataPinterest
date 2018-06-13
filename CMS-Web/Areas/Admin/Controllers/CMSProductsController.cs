@@ -29,18 +29,29 @@ namespace CMS_Web.Areas.Admin.Controllers
                 modelCrawler.Key = _Key;
                 if (!string.IsNullOrEmpty(_Key))
                 {
-                    CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, _Key, 20);
+                    CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, _Key, Commons.PinDefault);
                 }
                 else
                 {
-                    CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, "car", 20);
+                    
+                    CrawlerHelper.Get_Tagged_HomePins(ref modelCrawler, Commons.PinDefault);
+                    if (Request.Cookies["TypeTime"] != null)
+                    {
+                        var _TypeTime = Request.Cookies["TypeTime"].Value.ToString();
+                        if (_TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")))
+                        {
+                            modelCrawler.Pins = modelCrawler.Pins.OrderByDescending(x => x.Created_At).ToList();
+                            model.TypeTime = Convert.ToInt16(Commons.ETimeType.TimeReduce);
+                        }
+                        else if (_TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")))
+                        {
+                            modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.Created_At).ToList();
+                            model.TypeTime = Convert.ToInt16(Commons.ETimeType.TimeIncrease);
+                        }
+                    }
                 }
                 model.ListTime = getListTime();
                 model.ListQuantity = getListQuantity();
-                // CrawlerHelper.Get_Tagged_PinsDetail(ref model, "99853316718098587");
-                
-                // var data = new CMS_CrawlerModels();
-                //CrawlerHelper.Get_Tagged_OrtherPins(ref data, "car", 5, "", 1, "99853316718098587");
                 model.Crawler = modelCrawler;
             }
             catch(Exception ex)
@@ -290,11 +301,47 @@ namespace CMS_Web.Areas.Admin.Controllers
             {
                 var model = new PinsModels();
                 CrawlerHelper.Get_Tagged_PinsDetail(ref model, id);
-                CrawlerHelper.Get_Tagged_OrtherPins(ref modelCrawler, Key, 5, "", 1, id);
+                CrawlerHelper.Get_Tagged_OrtherPins(ref modelCrawler, Key, Commons.PinOrtherDefault, "", 1, id);
                 modelCrawler.Pin = model;
             }
             catch (Exception) { }
             return View(modelCrawler);
+        }
+
+        public ActionResult Search()
+        {
+            try
+            {
+                var _Key = Request["Key"] ?? "";
+                var TypeTime = Request["TypeTime"] ?? "";
+                //cache data
+                if(string.IsNullOrEmpty(_Key))
+                {
+                    Response.Cookies["TypeTime"].Value = TypeTime;
+                    Response.Cookies["TypeTime"].Expires = DateTime.Now.AddYears(1); // add expiry time
+                }
+                var modelCrawler = new CMS_CrawlerModels();
+                modelCrawler.Key = _Key;
+                if (!string.IsNullOrEmpty(_Key))
+                {
+                    CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, _Key, Commons.PinDefault);
+                }
+                else
+                {
+                    CrawlerHelper.Get_Tagged_HomePins(ref modelCrawler, Commons.PinDefault);
+                }
+                if(TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")))
+                {
+                    modelCrawler.Pins = modelCrawler.Pins.OrderByDescending(x => x.Created_At).ToList();
+                }
+                else if(TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")))
+                {
+                    modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.Created_At).ToList();
+                }
+                return PartialView("_ListItem", modelCrawler);
+            }
+            catch (Exception) { }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
     }
 }
