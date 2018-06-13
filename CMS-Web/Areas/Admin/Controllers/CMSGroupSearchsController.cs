@@ -1,5 +1,8 @@
-﻿using CMS_DTO.CMSGroupSearch;
+﻿using CMS_DTO.CMSCrawler;
+using CMS_DTO.CMSGroupSearch;
+using CMS_Shared;
 using CMS_Shared.GroupSearch;
+using CMS_Shared.Utilities;
 using CMS_Web.Web.App_Start;
 using System;
 using System.Collections.Generic;
@@ -75,8 +78,12 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult RefreshItem(string ID, string Key)
         {
             //Call api get quantity
-            int qty = 7;
             var msg = "";
+
+            var modelCrawler = new CMS_CrawlerModels();
+            CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, Key, Commons.PinDefault);
+            int qty = modelCrawler.Pins.Count;
+
             var result = _factory.Refresh(ID, qty, ref msg);
             if (result)
             {
