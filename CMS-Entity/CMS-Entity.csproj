@@ -62,13 +62,21 @@
     <Compile Include="Entity\CMS_Pin.cs" />
     <Compile Include="Entity\CMS_R_GroupKey_KeyWord.cs" />
     <Compile Include="Entity\CMS_R_KeyWord_Pin.cs" />
-    <Compile Include="Entity\sysdiagram.cs" />
+    <Compile Include="Migrations\201806131603143_UpdateEntity.cs" />
+    <Compile Include="Migrations\201806131603143_UpdateEntity.Designer.cs">
+      <DependentUpon>201806131603143_UpdateEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806131603143_UpdateEntity.resx">
+      <DependentUpon>201806131603143_UpdateEntity.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
