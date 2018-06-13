@@ -45,6 +45,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,43 +55,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CMS_Context.cs" />
-    <Compile Include="Entity\CMS_GroupSearch.cs" />
-    <Compile Include="Entity\CMS_Images.cs" />
+    <Compile Include="Entity\CMS_Context.cs" />
     <Compile Include="Entity\CMS_Employee.cs" />
-    <Compile Include="Entity\CMS_EntityBase.cs" />
-    <Compile Include="Mapping\CMS_GroupSearchMap.cs" />
-    <Compile Include="Mapping\CMS_ImagesMap.cs" />
-    <Compile Include="Mapping\CMS_EmployeeMap.cs" />
-    <Compile Include="Migrations\201806080829426_createDb06082018.cs" />
-    <Compile Include="Migrations\201806080829426_createDb06082018.Designer.cs">
-      <DependentUpon>201806080829426_createDb06082018.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806110345139_updatedb06112018.cs" />
-    <Compile Include="Migrations\201806110345139_updatedb06112018.Designer.cs">
-      <DependentUpon>201806110345139_updatedb06112018.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806111107160_updatedb0611.cs" />
-    <Compile Include="Migrations\201806111107160_updatedb0611.Designer.cs">
-      <DependentUpon>201806111107160_updatedb0611.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Entity\CMS_GroupKey.cs" />
+    <Compile Include="Entity\CMS_KeyWord.cs" />
+    <Compile Include="Entity\CMS_Pin.cs" />
+    <Compile Include="Entity\CMS_R_GroupKey_KeyWord.cs" />
+    <Compile Include="Entity\CMS_R_KeyWord_Pin.cs" />
+    <Compile Include="Entity\sysdiagram.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806080829426_createDb06082018.resx">
-      <DependentUpon>201806080829426_createDb06082018.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806110345139_updatedb06112018.resx">
-      <DependentUpon>201806110345139_updatedb06112018.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806111107160_updatedb0611.resx">
-      <DependentUpon>201806111107160_updatedb0611.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
