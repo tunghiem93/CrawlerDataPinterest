@@ -54,6 +54,11 @@ namespace CMS_Web.Areas.Admin.Controllers
             if (isCheck == null)
             {
                 var msg = "";
+                //CrawlerHelper.Get_Tagged_Pins_Count(ref qty, Key, 100);
+                var modelCrawler = new CMS_CrawlerModels();
+                CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, KeySearch, Commons.PinDefault);
+                group.Quantity = modelCrawler.Pins.Count;
+
                 var result = _factory.CreateOrUpdate(group, ref msg);
                 if (result)
                 {
@@ -79,10 +84,11 @@ namespace CMS_Web.Areas.Admin.Controllers
         {
             //Call api get quantity
             var msg = "";
-
+            int qty = 0;
+            //CrawlerHelper.Get_Tagged_Pins_Count(ref qty, Key, 100);
             var modelCrawler = new CMS_CrawlerModels();
             CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, Key, Commons.PinDefault);
-            int qty = modelCrawler.Pins.Count;
+            qty = modelCrawler.Pins.Count;
 
             var result = _factory.Refresh(ID, qty, ref msg);
             if (result)
