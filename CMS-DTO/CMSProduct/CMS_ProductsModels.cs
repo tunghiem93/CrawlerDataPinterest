@@ -33,12 +33,18 @@ namespace CMS_DTO.CMSProduct
         public string ImageURL { get; set; }
 
         public CMS_CrawlerModels Crawler { get; set; }
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FromDate { get; set; }
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime ToDate { get; set; }
 
         public CMS_ProductsModels()
         {
             ListTime = new List<SelectListItem>();
             ListQuantity = new List<SelectListItem>();
             Crawler = new CMS_CrawlerModels();
+            FromDate = new DateTime(1990, 01, 01);
+            ToDate = new DateTime(1990, 01, 01);
         }
     }
 }

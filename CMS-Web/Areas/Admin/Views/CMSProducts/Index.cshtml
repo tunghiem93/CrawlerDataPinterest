@@ -1,4 +1,5 @@
 ﻿@model CMS_DTO.CMSProduct.CMS_ProductsModels
+    @using CMS_Shared
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
@@ -33,22 +34,34 @@
                 </fieldset>
                 <div class="form-group">
                     <label for="FromDate" class="col-md-1 col-sm-3 col-xs-12 control-label">Thời gian</label>
-                    <div class="col-md-3 col-sm-4 col-xs-12 ">
-                        <div class="input-prepend input-group" style="width:75%">
+                    <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
+                        <div class="input-prepend input-group" style="width:100%">
                             @Html.DropDownListFor(model => model.TypeTime,
                                 new SelectList(Model.ListTime, "Value", "Text", Model.TypeTime), "",
                                 new
                                 {
                                     @class = "form-control select2_multiple",
                                     @id = "storeDdlView",
-                                    @style = "width:100%;"
+                                    @style = "width:100%;",
+                                    @onChange = "ChangeDatetime(this);"
                                 })
                             @Html.ValidationMessageFor(model => model.TypeTime, null, new { @class = "label" })
                         </div>
                     </div>
+                    <label for="CustomeFromDate" class="col-md-1 col-sm-3 col-xs-12 control-label clsDate">Từ</label>
+                    <div class="col-md-2 col-sm-3 col-xs-12 clsDate" style="width:13% !important">
+                        @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.FromDate, null, new { @class = "label label-danger" })
+                    </div>
+
+                    <label for="CustomeFromDate" class="col-md-1 col-sm-3 col-xs-12 control-label clsDate">Đến</label>
+                    <div class="col-md-2 col-sm-3 col-xs-12 clsDate" style="width:13% !important">
+                        @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
+                    </div>
                     <label for="ToDate" class="col-md-1 col-sm-1 col-xs-12 control-label">Số lượng</label>
-                    <div class="col-md-3 col-sm-4 col-xs-12 ">
-                        <div class="input-prepend input-group" style="width:75%">
+                    <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
+                        <div class="input-prepend input-group" style="width:100%">
                             @Html.DropDownListFor(model => model.TypeQuantity,
                                 new SelectList(Model.ListQuantity, "Value", "Text", Model.TypeQuantity), "",
                                 new
@@ -62,7 +75,7 @@
                         @Html.ValidationMessageFor(model => model.Board, null, new { @class = "label" })
                     </div>
                     <div class="form-group">
-                        <div class="col-md-2 col-sm-2 col-xs-12">
+                        <div class="col-md-1 col-sm-1 col-xs-12" style="width:4% !important">
                             <button class="btn btn-primary"  id="form-search"><i class="fa fa-search"></i>&nbsp;Load Data</button>
                         </div>
                     </div>
@@ -79,7 +92,19 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        //  LoadGrid();
+        $('.datepicker1').daterangepicker({
+            singleDatePicker: true,
+            calender_style: "picker_2",
+            maxDate: new Date(),
+            //==========
+            showDropdowns: true,
+            locale: {
+                format: 'DD/MM/YYYY',
+                daysOfWeek: ['CN', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'],
+                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+            }
+        }, function (start, end, label) {
+        });
 
         $("#storeDdlView").select2({
             placeholder: '@Html.Raw("Vui lòng chọn")',
@@ -88,6 +113,13 @@
         $("#storeDdlViewQuantity").select2({
                 placeholder: '@Html.Raw("Vui lòng chọn")',
         });
+        if ('@Model.TypeTime' == @Convert.ToInt16(Commons.ETimeType.TimeCustom.ToString("d")))
+        {
+            $(".clsDate").show();
+        }
+        else {
+            $(".clsDate").hide();
+        }
     })
 
     $("#form-search").on("click").submit(function (e) {
@@ -114,4 +146,15 @@
         e.preventDefault();
     });
 
+    function ChangeDatetime(that)
+    {
+        var _value = $(that).val();
+        if (_value == @Commons.ETimeType.TimeCustom.ToString("d"))
+        {
+            $(".clsDate").show();
+        }
+        else {
+            $(".clsDate").hide();
+        }
+    }
 </script>
