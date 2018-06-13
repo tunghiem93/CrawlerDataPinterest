@@ -46,7 +46,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             group.OffSet = currentOffset;
             group.KeySearch = KeySearch;
 
-            var isCheck = ListItem.Where(o => o.Trim().Contains(group.KeySearch.Trim())).FirstOrDefault();
+            var isCheck = ListItem.Where(o => o.Trim() == group.KeySearch.Trim()).FirstOrDefault();
             //Call api get quantity and save database
             if (isCheck == null)
             {
