@@ -48,17 +48,23 @@
                             @Html.ValidationMessageFor(model => model.TypeTime, null, new { @class = "label" })
                         </div>
                     </div>
-                    <label for="CustomeFromDate" class="col-md-1 col-sm-3 col-xs-12 control-label clsDate">Từ</label>
-                    <div class="col-md-2 col-sm-3 col-xs-12 clsDate" style="width:13% !important">
-                        @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
-                        @Html.ValidationMessageFor(model => model.FromDate, null, new { @class = "label label-danger" })
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 clsDate" style="width:26% !important">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.FromDate, null, new { @class = "label label-danger" })
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
+                        </div>
                     </div>
 
-                    <label for="CustomeFromDate" class="col-md-1 col-sm-3 col-xs-12 control-label clsDate">Đến</label>
+                    @*<label for="CustomeFromDate" class="col-md-1 col-sm-3 col-xs-12 control-label clsDate">Đến</label>
                     <div class="col-md-2 col-sm-3 col-xs-12 clsDate" style="width:13% !important">
                         @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
                         @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
-                    </div>
+                    </div>*@
                     <label for="ToDate" class="col-md-1 col-sm-1 col-xs-12 control-label">Số lượng</label>
                     <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
                         <div class="input-prepend input-group" style="width:100%">
