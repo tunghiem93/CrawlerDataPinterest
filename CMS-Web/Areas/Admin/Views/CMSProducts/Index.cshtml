@@ -1,5 +1,5 @@
 ﻿@model CMS_DTO.CMSProduct.CMS_ProductsModels
-    @using CMS_Shared
+@using CMS_Shared
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
@@ -7,17 +7,19 @@
     ViewBag.Title = "Sản phẩm - Danh sách";
 }
 <style>
-    body{
-        overflow-x:hidden;
+    body {
+        overflow-x: hidden;
     }
 
     .info {
         /*margin-left:20px;*/
     }
-    .img-responsive{
-        height:236px;
+
+    .img-responsive {
+        height: 236px;
     }
 </style>
+
 <div role="main">
     <div class="se-pre-con" style="display: none;"></div>
     <div class="_gridview">
@@ -33,39 +35,44 @@
                     <legend>Nhóm mục từ khóa quét</legend>
                 </fieldset>
                 <div class="form-group">
-                    <label for="FromDate" class="col-md-1 col-sm-3 col-xs-12 control-label">Thời gian</label>
-                    <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
-                        <div class="input-prepend input-group" style="width:100%">
-                            @Html.DropDownListFor(model => model.TypeTime,
-                                new SelectList(Model.ListTime, "Value", "Text", Model.TypeTime), "",
-                                new
-                                {
-                                    @class = "form-control select2_multiple",
-                                    @id = "storeDdlView",
-                                    @style = "width:100%;",
-                                    @onChange = "ChangeDatetime(this);"
-                                })
-                            @Html.ValidationMessageFor(model => model.TypeTime, null, new { @class = "label" })
+                    <div class="col-md-3 col-sm-8 col-xs-12">
+                        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 90%">
+                            <i class="fa fa-calendar"></i>&nbsp;
+                            <span></span> <i class="fa fa-caret-down"></i>
                         </div>
                     </div>
+                    @*<label for="FromDate" class="col-md-1 col-sm-3 col-xs-12 control-label">Thời gian</label>
+        <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
+            <div class="input-prepend input-group" style="width:100%">
+                @Html.DropDownListFor(model => model.TypeTime,
+                    new SelectList(Model.ListTime, "Value", "Text", Model.TypeTime), "",
+                    new
+                    {
+                        @class = "form-control select2_multiple",
+                        @id = "storeDdlView",
+                        @style = "width:100%;",
+                        @onChange = "ChangeDatetime(this);"
+                    })
+                @Html.ValidationMessageFor(model => model.TypeTime, null, new { @class = "label" })
+            </div>
+        </div>
 
-                    <div class="col-md-6 col-sm-6 col-xs-12 clsDate" style="width:26% !important">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
-                            @Html.ValidationMessageFor(model => model.FromDate, null, new { @class = "label label-danger" })
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
-                            @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
-                        </div>
-                    </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 clsDate" style="width:26% !important">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.FromDate, null, new { @class = "label label-danger" })
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
+            </div>
+        </div>*@
 
                     @*<label for="CustomeFromDate" class="col-md-1 col-sm-3 col-xs-12 control-label clsDate">Đến</label>
-                    <div class="col-md-2 col-sm-3 col-xs-12 clsDate" style="width:13% !important">
-                        @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
-                        @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
-                    </div>*@
-                    <label for="ToDate" class="col-md-1 col-sm-1 col-xs-12 control-label">Số lượng</label>
+        <div class="col-md-2 col-sm-3 col-xs-12 clsDate" style="width:13% !important">
+            @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+            @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
+        </div>*@
                     <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
                         <div class="input-prepend input-group" style="width:100%">
                             @Html.DropDownListFor(model => model.TypeQuantity,
@@ -82,7 +89,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-1 col-sm-1 col-xs-12" style="width:4% !important">
-                            <button class="btn btn-primary"  id="form-search"><i class="fa fa-search"></i>&nbsp;Load Data</button>
+                            <button class="btn btn-primary" id="form-search"><i class="fa fa-search"></i>&nbsp;Load Data</button>
                         </div>
                     </div>
                 </div>
@@ -101,34 +108,33 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.datepicker1').daterangepicker({
-            singleDatePicker: true,
-            calender_style: "picker_2",
-            maxDate: new Date(),
-            //==========
-            showDropdowns: true,
+        var start = moment().startOf('day');
+        var end = moment().endOf('day');
+
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+        }
+
+        $('#reportrange').daterangepicker({
             locale: {
-                format: 'DD/MM/YYYY',
-                daysOfWeek: ['CN', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy'],
-                monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+                format: 'DD/MM/YYYY'
+            },
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             }
-        }, function (start, end, label) {
+        }, cb).on('show.daterangepicker', function (event, data) {
+            var $container = data.container;
+            $container.children('.calendar.right').after($container.children('.calendar.left'));
         });
 
-        $("#storeDdlView").select2({
-            placeholder: '@Html.Raw("Vui lòng chọn")',
-        });
-
-        $("#storeDdlViewQuantity").select2({
-                placeholder: '@Html.Raw("Vui lòng chọn")',
-        });
-        if ('@Model.TypeTime' == @Convert.ToInt16(Commons.ETimeType.TimeCustom.ToString("d")))
-        {
-            $(".clsDate").show();
-        }
-        else {
-            $(".clsDate").hide();
-        }
+        cb(start, end);
     })
 
     $("#form-search").on("click").submit(function (e) {
@@ -154,16 +160,4 @@
         });
         e.preventDefault();
     });
-
-    function ChangeDatetime(that)
-    {
-        var _value = $(that).val();
-        if (_value == @Commons.ETimeType.TimeCustom.ToString("d"))
-        {
-            $(".clsDate").show();
-        }
-        else {
-            $(".clsDate").hide();
-        }
-    }
 </script>
