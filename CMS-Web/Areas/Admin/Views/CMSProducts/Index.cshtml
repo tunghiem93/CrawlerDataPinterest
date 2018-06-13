@@ -85,7 +85,10 @@
         </div>
     </div>
     <div class="detail-view" style="height:100%;display:inline-block">
-        @Html.Partial("_ListItem",Model.Crawler)
+        <fieldset>
+            <legend>Danh sách kết quả tìm kiếm</legend>
+        </fieldset>
+        @Html.Partial("_ListItem", Model.Crawler)
         <!-- detail partial view -->
     </div>
 </div>
