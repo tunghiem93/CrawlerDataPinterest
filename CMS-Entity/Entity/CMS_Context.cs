@@ -18,7 +18,6 @@ namespace CMS_Entity.Entity
         public virtual DbSet<CMS_Pin> CMS_Pin { get; set; }
         public virtual DbSet<CMS_R_GroupKey_KeyWord> CMS_R_GroupKey_KeyWord { get; set; }
         public virtual DbSet<CMS_R_KeyWord_Pin> CMS_R_KeyWord_Pin { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

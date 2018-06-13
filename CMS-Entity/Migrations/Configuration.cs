@@ -10,6 +10,8 @@ namespace CMS_Entity.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
+
         }
 
         protected override void Seed(CMS_Entity.Entity.CMS_Context context)
