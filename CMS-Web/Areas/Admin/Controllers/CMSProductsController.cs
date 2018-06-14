@@ -66,13 +66,53 @@ namespace CMS_Web.Areas.Admin.Controllers
                 model.ListTime = getListTime();
                 model.ListQuantity = getListQuantity();
                 model.Crawler = modelCrawler;
+                model.Crawler.Pins.ForEach(x =>
+                {
+                    var _Now = DateTime.Now;
+                    if (_Now == x.CreatedDate)
+                    {
+                        var time = _Now.Hour - x.CreatedDate.Hour;
+                        if (time >= 1)
+                            x.LastTime = "Khoảng " + time + " giờ trước";
+                        else
+                            x.LastTime = "Khoảng " +( _Now.Minute - x.CreatedDate.Minute) + "phút trước";
+                    }
+                    else if (_Now > x.CreatedDate)
+                    {
+                        var time = _Now.Year - x.CreatedDate.Year;
+                        if (time > 0)
+                            x.LastTime = "Khoảng " + time + " năm trước";
+                        else
+                        {
+                            time = _Now.Month - x.CreatedDate.Month;
+                            if (time > 0)
+                                x.LastTime = "Khoảng " + time + " tháng trước";
+                            else
+                            {
+                                time = _Now.Day - x.CreatedDate.Day;
+                                if (time > 0)
+                                    x.LastTime = "Khoảng " + time + " ngày trước";
+                                else
+                                {
+                                    time = _Now.Hour - x.CreatedDate.Hour;
+                                    if (time > 0)
+                                    {
+                                        x.LastTime = "Khoảng " + time + "Khoảng giờ trước";
+                                    }
+                                    else
+                                    {
+                                        x.LastTime = "Khoảng "+ (_Now.Minute - x.CreatedDate.Minute) + " phút trước";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
             }
             catch(Exception ex)
             {
 
             }
-            
-            //return View();
             return View(model);
         }
 

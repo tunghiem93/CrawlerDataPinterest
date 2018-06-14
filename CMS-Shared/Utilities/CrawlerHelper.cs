@@ -161,6 +161,7 @@ namespace CMS_Shared.Utilities
                                         var pin = new PinsModels();
                                         var itemPin = item as Dictionary<string, dynamic>;
                                         bool flag = true;
+                                        pin.CreatedDate = DateTime.Now;
                                         if (itemPin.ContainsKey("domain"))
                                         {
                                             pin.Domain = itemPin["domain"];
