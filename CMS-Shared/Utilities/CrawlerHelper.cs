@@ -172,6 +172,9 @@ namespace CMS_Shared.Utilities
                                         if (itemPin.ContainsKey("id"))
                                         {
                                             pin.ID = itemPin["id"];
+                                            var _Repin_Count = 0;
+                                            Get_Tagged_RepinCount(ref _Repin_Count, pin.ID);
+                                            pin.Repin_count = _Repin_Count;
                                         }
                                         else
                                         {
@@ -810,6 +813,90 @@ namespace CMS_Shared.Utilities
             }
             catch (Exception ex) { }
             return count;
+        }
+
+
+        public static int getRePinCount(string url, string pinId, ref string bookmarks)
+        {
+
+            try
+            {
+                Uri uri = new Uri(url);
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
+                httpWebRequest.Headers["X-Requested-With"] = "XMLHttpRequest";
+                httpWebRequest.Headers["Cookie"] = "_auth=1; csrftoken=dMWi2a6L1DTFUHmyqem0oGrDmteiaETw; _pinterest_sess=\"TWc9PSZsSlA1dUF4QWlRWGRYVGR6Qm9mN3pwczUyUDk4ZDYvckduSjl4N3ZSRHlsU1VmWkhBTUsrMU9KNkxjS3pyUk1zREdDL2Rmb2VuT1dwRDhSTmxTOE1Ja0FjOUtreTJVc0o0SmthQ2xhN3lRa3BQVnRMcUF5dlN0Z255Syt4am56VnQvYVQwT0JyejBCSlk4YzFyQ0pEekZwNSs0YjZnMTBseEIvRkU0Um1XeWthZ1cvNGxpdDVyTEdrSHRzWFVLN244T25TaGVoYy93TGVSRjVxNzl5dnlZV1A5L3NlNnc5MWE4djl0ZjNoeEhqTTNuaGduRnZ2VkF1RTd6V1V3VnBCT3cyMksxMHJIdVE0TVVjc3FmWVozVllzekhpNFRGNDFBTERIVzdkcUNUS3NlWEJFdE1mSXJBbnNPVStHQXJiUWJRSENyVVVKTVJYNit5MkZTMFVNN3ptY09FNmFoaHk3Nk9MdUtuRmdDSWRWRVhPTWYrSXA4dFhlRU1hYW5paFNQMU5OcFNwY2xSZlJHZVlWWU03eHFsNWVmSWRHL0ZtN3NhdU9ubzhpUjZqMzNTTUxwMTlOQWRGa29zVUc1UXFqZ1BUYzhHL3M0YndDY2ZBN2ZMZnJQZTlGbXdPWjg5SXJVOEpUMEtPVnMzcjZPcytOVHRFUnlRUnoyNmJZdjl0YXJlOVp1WGQvM29SSi9xWUwvYmFPcDl5VFl1aEw2ZFBtMHlhZ0g4MXlIMXp1dnFXWWY1VytmY0ZPc0FSMzhqYXdhNTBqQjlYRHJ6OE9CY1ViMmljZkFhQkVydGxyVUtlNis4cnh3R3NPbXVTVjZCZUNTR1NKQ3JpWFJsajBsSEFGcytOMnptN2R2S1BXN1NocTFtZVlKMzF0Y1hyQXNseG9DdzdrQklxNnZXMkk2dXQ4azJJOTR4YWlIUDMvVzAwcmQ0SDVqNnhYc3NlTTNpK0ZHUU9xaUpCOER0N1pQaWFFTUhLRGxpdk1EVDlOYi9DdmRLcTQvdUROekpjRXNJSjVtcEl1bWVLUHhRdTVQQk91L1RWS0w0YkkzZDNwaW5mRnJFakRsck9aNTRBUXVsVFdFWVlTRHJ5OUxBWHdMa0V4Jk1FSHZIUWlQUlE2Q05OZWJydEZrV25SQ2tmND0 = \"; G_ENABLED_IDPS=google; _b=\"ATWTNNfXaINNj5j6VvA6 + rquchpAz7VF + IS8VabE7fJo7ragqOV82ASwCOgxcnxHC5k = \"; pnodepath=\" / 4\"; _ga=GA1.2.1908176321.1528170001; fba=True; cm_sub=none; sessionFunnelEventLogged=1; bei=false";
+                httpWebRequest.Timeout = 100000;
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var answer = streamReader.ReadToEnd();
+                    JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+                    dynamic dobj = jsonSerializer.Deserialize<dynamic>(answer);
+                    if (dobj != null)
+                    {
+                        var resource_data_cache = dobj["resource_data_cache"];
+                        if (resource_data_cache != null)
+                        {
+                            var data = resource_data_cache[0]["data"];
+                            if (data != null)
+                            {
+                                var results = (dynamic)null;
+                                results = data;
+                                if (results != null)
+                                {
+                                    var itemPin = results as Dictionary<string, dynamic>;
+                                    if (itemPin.ContainsKey("repin_count"))
+                                    {
+                                        var _Repin_Count = Convert.ToInt16(itemPin["repin_count"]);
+                                        return _Repin_Count;
+                                    }
+                                }
+                            }
+
+                            var dataBookmark = resource_data_cache[0]["response"];
+                            if (dataBookmark != null)
+                            {
+                                bookmarks = dataBookmark["bookmark"];
+                            }
+                        }
+                    }
+
+                    streamReader.Close();
+                    streamReader.Dispose();
+                }
+            }
+            catch (Exception ex) { }
+            return 0;
+        }
+
+        public static bool Get_Tagged_RepinCount(ref int RepinCount, string pinId = "")
+        {
+            string data = string.Empty;
+            var urlOrg = Commons.HostApiOrtherPin;
+            var objJson = new
+            {
+                options = new
+                {
+                    field_set_key = "detailed",
+                    id = pinId,
+                    is_landing_page = false,
+                },
+                context = new
+                {
+                },
+
+            };
+            string input = JsonConvert.SerializeObject(objJson);
+            urlOrg = Commons.HostApiPinDetail + "/pin/" + pinId + "/";
+            string[] pattern = new string[] { "\n", "\r", "\t" };
+            string[] replacements = new string[] { "", "", "" };
+            data = Preg_replace(input, pattern, replacements);
+            var timestamp = GetTimestamp(DateTime.Now);
+            var url = urlOrg + "&data=" + data + "&_=" + timestamp;
+            var bookmarks = "";
+            RepinCount = getRePinCount(url, pinId, ref bookmarks);
+            return false;
         }
 
     }
