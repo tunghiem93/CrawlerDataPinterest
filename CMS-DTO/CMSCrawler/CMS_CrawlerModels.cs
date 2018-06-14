@@ -28,6 +28,7 @@ namespace CMS_DTO.CMSCrawler
         public BoardModels Board { get; set; }
         public List<ImageModels> Images { get; set; }
         public DateTime CreatedDate { get; set; }
+        public DateTime UpdateDate { get; set; }
         public string LastTime { get; set; }
         public PinsModels()
         {
