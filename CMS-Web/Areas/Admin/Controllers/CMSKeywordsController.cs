@@ -17,11 +17,11 @@ namespace CMS_Web.Areas.Admin.Controllers
     public class CMSKeywordsController : BaseController
     {
         // GET: Admin/GroupSearchs
-        private KeywordFactory _factory;
+        private CMSKeywordFactory _factory;
         private List<string> ListItem = null;
         public CMSKeywordsController()
         {
-            _factory = new KeywordFactory();
+            _factory = new CMSKeywordFactory();
             ListItem = new List<string>();
             ListItem = _factory.GetList().Select(o=>o.KeySearch).ToList();
         }
@@ -72,7 +72,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult CrawlerKeyword(string ID, string Key)
         {
             var msg = "";
-            var result = _factory.CrawlData(ID, ref msg);
+            var result = _factory.CrawlData(ID, "Admin", ref msg);
             if (result)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
