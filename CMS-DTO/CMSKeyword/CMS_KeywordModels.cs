@@ -21,7 +21,8 @@ namespace CMS_DTO.CMSKeyword
         public byte Type { get; set; }
         public byte Status { get; set; }
         public int OffSet { get; set; }
-
+        public TimeSpan LastUpdate { get; set; }
+          
         public List<CMS_KeywordModels> ListKeyResult { get; set; }
         public CMS_KeywordModels()
         {

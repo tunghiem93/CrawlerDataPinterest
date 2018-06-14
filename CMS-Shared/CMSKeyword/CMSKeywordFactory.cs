@@ -30,6 +30,7 @@ namespace CMS_Shared.Keyword
                         Sequence = o.Sequence,
                         KeySearch = o.KeyWord,
                         UpdatedDate = o.UpdatedDate,
+                        LastUpdate = (TimeSpan)(DateTime.Now - o.UpdatedDate),
                     }).ToList();
 
                     /* update quantity */
