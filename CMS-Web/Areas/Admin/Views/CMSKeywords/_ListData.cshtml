@@ -25,7 +25,7 @@
                                     <td class="text-left">
                                         <a class="btn btn-link" href="@Url.Action("Index", "CMSProducts", new { Key = item.KeySearch})"><b style="font-size: 15px !important; ">@Html.Raw("[" + item.Sequence + "]" + " " + '"' + item.KeySearch + "..." + '"')</b></a>
                                     </td>
-                                    <td><b>@Html.Raw("Last crawl:" + item.Quantity)</b></td>
+                                    <td><a class="btn btn-link" href="javascript:void(0)"><b style="color: #000 !important; ">@Html.Raw("Last crawler: " + "Total post got:")</b></a><a class="btn btn-link" style="    background-color: #007bff !important; color: #fff !important; ">@item.Quantity</a></td>
                                     <td class="text-right">
                                         <a class="btn btn-sm btn-default" style="color: #17a2b8 !important; border-color: #17a2b8 !important; " onclick="CrawlerKeyword('@item.Id', '@item.KeySearch'); return false;">@Html.Raw("Crawler now")</a>
                                         <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " onclick="Delete('@item.Id', '@item.KeySearch'); return false;">@Html.Raw("Delete")</a>
