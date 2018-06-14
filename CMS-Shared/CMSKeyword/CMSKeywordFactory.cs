@@ -55,7 +55,7 @@ namespace CMS_Shared.Keyword
 
         private string GetDurationFromNow(DateTime? dateUpdate)
         {
-            var ret = "Last Crawler: ";
+            var ret = "";
             try
             {
                 var span = (TimeSpan)(DateTime.Now - dateUpdate);
@@ -77,7 +77,7 @@ namespace CMS_Shared.Keyword
                                     );
 
                 ret += formatted;
-                ret += " ago.";
+                //ret += " ago.";
             }
             catch (Exception ex) { };
             return ret;
