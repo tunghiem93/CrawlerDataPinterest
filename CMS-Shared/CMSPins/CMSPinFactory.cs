@@ -95,7 +95,7 @@ namespace CMS_Shared.CMSEmployees
             return result;
         }
 
-        public bool GetPin(ref List<PinsModels> lstPins, string KeyWordID, ref string msg)
+        public bool GetPin(ref List<PinsModels> lstPins, List<string> lstKeyWordID, ref string msg)
         {
             var result = true;
             lstPins = new List<PinsModels>();
@@ -104,9 +104,7 @@ namespace CMS_Shared.CMSEmployees
             {
                 using (var _db = new CMS_Context())
                 {
-                    if (!string.IsNullOrEmpty(KeyWordID))
-                    {
-                        lstPins = _db.CMS_R_KeyWord_Pin.Where(o => o.KeyWordID == KeyWordID)
+                    lstPins = _db.CMS_R_KeyWord_Pin.Where(o => lstKeyWordID.Contains(o.KeyWordID))
                             .Join(_db.CMS_Pin, kp => kp.PinID, p => p.ID, (kp, p) => p)
                             .Select(o => new PinsModels()
                             {
@@ -126,7 +124,6 @@ namespace CMS_Shared.CMSEmployees
                                 UpdateDate = o.UpdatedDate ?? DateTime.MinValue,
                                 LastTime = CommonHelper.GetDurationFromNow(o.UpdatedDate),
                             }).ToList();
-                    }
                 }
             }
             catch (Exception ex)
