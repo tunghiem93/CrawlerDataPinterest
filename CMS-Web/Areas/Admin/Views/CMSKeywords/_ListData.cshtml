@@ -1,7 +1,16 @@
 ﻿@{
     Layout = null;
     var IsAdmin = @ViewBag.IsAdmin;
+    var Duplicate = @ViewBag.DuplicateKeyword;
 }
+<style>
+    .rowKey td b {
+        font-size: 15px !important;
+    }
+    .linkchange {
+        text-decoration: none !important;
+    }
+</style>
 
 @model List<CMS_DTO.CMSKeyword.CMS_KeywordModels>
 <div class="table-responsive">
@@ -21,12 +30,12 @@
                         {
                             foreach (var item in Model)
                             {
-                                <tr class="odd gradeX">
+                                <tr class="odd gradeX rowKey">
                                     <td class="text-left">
-                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSProducts", new { Key = item.KeySearch})"><b style="font-size: 15px !important; ">@Html.Raw("[" + item.Sequence + "]" + " " + '"' + item.KeySearch + "..." + '"')</b></a>
+                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSProducts", new { Key = item.KeySearch})"><b>@Html.Raw("[" + item.Sequence + "]" + " " + '"' + string.Format("{0}", (item.KeySearch.Length > 25) ? (item.KeySearch.Substring(0, 12) + "...") : item.KeySearch) + '"')</b></a>
                                     </td>
-                                    <td><a class="btn btn-link" href="javascript:void(0)"><b style="color: #000 !important; ">@Html.Raw("Last crawler: " + "Total post got:")</b></a><a class="btn btn-link" style="    background-color: #007bff !important; color: #fff !important; ">@item.Quantity</a></td>
-                                    <td class="text-right">
+                                    <td><a class="btn btn-link linkchange" href="javascript:void(0)" style="color: #000 !important; "><b>@Html.Raw("Last crawler: ")</b><span style="font-size: 14px !important; ">@Html.Raw(item.StrLastUpdate + " ago | ")</span><b>@Html.Raw("Total post got:")</b></a><a class="btn btn-link" style="background-color: #007bff !important; color: #fff !important; ">@item.Quantity</a></td>
+                                    <td class="text-right linkchange">
                                         <a class="btn btn-sm btn-default" style="color: #17a2b8 !important; border-color: #17a2b8 !important; " onclick="CrawlerKeyword('@item.Id', '@item.KeySearch'); return false;">@Html.Raw("Crawler now")</a>
                                         <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " onclick="Delete('@item.Id', '@item.KeySearch'); return false;">@Html.Raw("Delete")</a>
                                         <a class="btn btn-sm btn-danger" onclick="DeleteAll(this, '@item.Id'); return false;">@Html.Raw("Delete and clear posts")</a>
@@ -65,7 +74,6 @@
             }
         },
         "oLanguage": {
-
             "sSearch": "Tìm Kiếm:",
             "sLengthMenu": "Xem _MENU_",
             "sProcessing": "Đang xử lý...",
@@ -90,6 +98,10 @@
     };
 
     $(document).ready(function () {
+        if ('@Duplicate' != '') {
+            alert('Duplicate Keyword. Please enter again!');
+        }
+        $('.duplicatekey').css('display', 'block');
         _tableEmployee = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableEmployee));
     })
 

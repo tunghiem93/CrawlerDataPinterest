@@ -2,9 +2,10 @@
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-@{
+@{ 
     ViewBag.Title = "Sản phẩm - Danh sách";
 }
+
 <div role="main">
     <div class="se-pre-con" style="display: none;"></div>
     <div class="page-title">
@@ -16,20 +17,21 @@
         <div class="page-main">
             @using (Html.BeginForm("LoadGrid", "CMSKeywords", FormMethod.Post, new { @class = "form-horizontal search-form" }))
             {
-            <div class="row" style="margin-bottom:15px;">
-                <div class="form-group">
-                    <div class="control-label col-md-1 col-sm-1 col-xs-12 lineHeight"></div>
-                    <div class="col-md-3 col-sm-3 col-xs-12">
-                        <div class="input-prepend input-group">
-                            <span class="add-on input-group-addon"><i class="glyphicon fa fa-search"></i></span>
-                            <input type="text" name="KeySearch" value="@Model.KeySearch" class="form-control" id="idStrSerch" placeholder="Add keywords..." />
-                        </div>                        
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-plus">&nbsp;Add</i></button>
+                <div class="row" style="margin-bottom:15px;">
+                    <div class="form-group">
+                        <div class="control-label col-md-1 col-sm-1 col-xs-12 lineHeight"></div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="glyphicon fa fa-search"></i></span>
+                                <input type="text" name="KeySearch" value="@Model.KeySearch" class="form-control" id="idStrSerch" placeholder="Add keywords..." />
+                            </div>
+                            @*<label class="label label-danger" style='@string.Format("display:{0}", (user.DuplicateKeyword.Length > 0) ? "block":"none")'>Duplicate Keyword. Please enter again!</label>*@
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus">&nbsp;Add</i></button>
+                        </div>
                     </div>
                 </div>
-            </div>
             }
             <div class="gridview" style="height:100%;"></div>
         </div>
@@ -47,7 +49,7 @@
     $(".search-form").submit(function (e) {
         var key = $("#idStrSerch").val();
         if (key !== "")
-            LoadGrid();
+            LoadGrid();        
         return false;
     });
 
@@ -76,7 +78,7 @@
                 }
                 $('.se-pre-con').hide();
             }
-        });        
+        });
     }
 
     function Delete(btn, id) {
@@ -103,7 +105,7 @@
                 }
                 $('.se-pre-con').hide();
             }
-        });        
+        });
     }
 
     function DeleteAll(btn, id) {
@@ -130,7 +132,7 @@
                 }
                 $('.se-pre-con').hide();
             }
-        });        
+        });
     }
 
 </script>
