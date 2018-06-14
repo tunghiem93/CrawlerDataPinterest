@@ -5,6 +5,7 @@ using CMS_Entity.Entity;
 using CMS_Shared.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -95,7 +96,7 @@ namespace CMS_Shared.CMSEmployees
             return result;
         }
 
-        public bool GetPin(ref List<PinsModels> lstPins, List<string> lstKeyWordID, ref string msg)
+        public bool GetPin(ref List<PinsModels> lstPins, PinFilterDTO filter, ref string msg)
         {
             var result = true;
             lstPins = new List<PinsModels>();
@@ -104,26 +105,62 @@ namespace CMS_Shared.CMSEmployees
             {
                 using (var _db = new CMS_Context())
                 {
-                    lstPins = _db.CMS_R_KeyWord_Pin.Where(o => lstKeyWordID.Contains(o.KeyWordID))
-                            .Join(_db.CMS_Pin, kp => kp.PinID, p => p.ID, (kp, p) => p)
-                            .Select(o => new PinsModels()
-                            {
-                                ID = o.ID,
-                                Link = o.Link,
-                                Domain = o.Domain,
-                                Repin_count = o.Repin_count ?? 0,
-                                Images = new List<ImageModels>()
-                                {
-                                    new ImageModels()
+                    var query = _db.CMS_Pin.Where(o => o.Status != (byte)Commons.EStatus.Deleted);
+
+                    if (filter != null)
+                    {
+                        /* filter by list key words */
+                        var lstPinID = _db.CMS_R_KeyWord_Pin.Where(o => filter.lstKeyWordID.Contains(o.KeyWordID)).Select(o => o.PinID).ToList();
+                        if (lstPinID.Count > 0)
+                            query = query.Where(o => lstPinID.Contains(o.ID));
+
+                        /* filter by create date */
+                        if (filter.CreatedDateFrom != filter.CreatedDateTo && filter.CreatedDateTo != null)
+                        {
+                            query = query.Where(o => DbFunctions.TruncateTime(o.CreatedDate) >= DbFunctions.TruncateTime(filter.CreatedDateFrom)
+                                                && DbFunctions.TruncateTime(o.CreatedDate) <= DbFunctions.TruncateTime(filter.CreatedDateTo));
+                        }
+
+                        /* filter by create at */
+                        if (filter.CreatedDateFrom != filter.CreatedDateTo && filter.CreatedDateTo != null)
+                        {
+                            query = query.Where(o => DbFunctions.TruncateTime(o.Created_At) >= DbFunctions.TruncateTime(filter.CreatedAtFrom)
+                                                && DbFunctions.TruncateTime(o.Created_At) <= DbFunctions.TruncateTime(filter.CreatedAtTo));
+                        }
+
+                        /* filter by pin count */
+                        if (filter.PinCountFrom != null)
+                        {
+                            query = query.Where(o => o.Repin_count >= filter.PinCountFrom);
+                        }
+
+                        if (filter.PinCountTo != null)
+                        {
+                            query = query.Where(o => o.Repin_count <= filter.PinCountTo);
+                        }
+
+                        /* take page size page index */
+                        query = query.OrderBy(o => o.ID).Skip((filter.PageIndex - 1) * filter.PageSize).Take(filter.PageSize);
+                    }
+
+                    lstPins = query.Select(o => new PinsModels()
+                    {
+                        ID = o.ID,
+                        Link = o.Link,
+                        Domain = o.Domain,
+                        Repin_count = o.Repin_count ?? 0,
+                        Images = new List<ImageModels>()
                                     {
-                                        url = o.ImageUrl,
+                                        new ImageModels()
+                                        {
+                                            url = o.ImageUrl,
+                                        },
                                     },
-                                },
-                                Created_At = o.Created_At ?? DateTime.MinValue,
-                                CreatedDate = o.CreatedDate ?? DateTime.MinValue,
-                                UpdateDate = o.UpdatedDate ?? DateTime.MinValue,
-                                LastTime = CommonHelper.GetDurationFromNow(o.UpdatedDate),
-                            }).ToList();
+                        Created_At = o.Created_At ?? DateTime.MinValue,
+                        CreatedDate = o.CreatedDate ?? DateTime.MinValue,
+                        UpdateDate = o.UpdatedDate ?? DateTime.MinValue,
+                        LastTime = CommonHelper.GetDurationFromNow(o.UpdatedDate),
+                    }).ToList();
                 }
             }
             catch (Exception ex)
