@@ -6,18 +6,15 @@
         @Html.Hidden(string.Format("ListKeyResult[{0}].OffSet", Model.OffSet), Model.OffSet)
         @Html.Hidden(string.Format("ListKeyResult[{0}].Status", Model.OffSet), Model.Status, new { @class = "GroupStatus" })
         @Html.Hidden(string.Format("ListKeyResult[{0}].Type", Model.OffSet), Model.Type)
-        <a class="btn btn-link" href="@Url.Action("Index", "CMSProducts", new { Key = Model.KeySearch})">@Html.Raw(Model.KeySearch)</a>
+        <a class="btn btn-link" href="@Url.Action("Index", "CMSProducts", new { Key = Model.KeySearch})">@Html.Raw("[" + Model.Sequence + "]" + Model.KeySearch)</a>
     </td>
     <td style="text-align: center; ">
-        @Html.Raw(Model.Quantity)
+        @Html.Raw("Last crawl:" + Model.Quantity)
     </td>
     <td style="text-align: center; ">
-        <button onclick="RefreshTabPanelKey('@Model.Id', '@Model.KeySearch'); return false;">Refresh</button>
-    </td>
-    <td style="text-align: center; ">
-        <a href="#" onclick="DeleteTabPanelKey(this, '@Model.Id'); return false;" @string.Format("display:{0}", Model.OffSet == -1 ? "none" : "block")" >
-            <i class="glyphicon glyphicon-minus-sign" style="font-size: 25px; color: red; padding: 5px 0px; "></i>
-        </a>
+        <a class="btn btn-sm btn-outline-info" onclick="RefreshTabPanelKey('@Model.Id', '@Model.KeySearch'); return false;">@Html.Raw("Crawler now")</a>
+        <a class="btn btn-sm btn-secondary" onclick="Delete('@Model.Id', '@Model.KeySearch'); return false;">@Html.Raw("Delete")</a>
+        <a class="btn btn-sm btn-danger" onclick="DeleteAll(this, '@Model.Id'); return false;">@Html.Raw("Delete and clear posts")</a>
     </td>
 </tr>
 

@@ -24,16 +24,24 @@ namespace CMS_Shared.Keyword
                 using (var _db = new CMS_Context())
                 {
                     /* get all key word */
-                    var data = _db.CMS_R_KeyWord_Pin
+                    var listCount = _db.CMS_R_KeyWord_Pin
                         .Join(_db.CMS_KeyWord.Where(o=> o.Status == (byte)Commons.EStatus.Active), kp => kp.KeyWordID, k => k.ID, (kp, k) => new { kp, k })
                         .GroupBy(o => o.k)
                         .Select(o => new CMS_KeywordModels()
                         {
                             Id = o.Key.ID,
-                            Sequence = o.Key.Sequence,
-                            KeySearch = o.Key.KeyWord,
                             Quantity = o.Count(),
                         }).ToList();
+                    var data = _db.CMS_KeyWord.Where(o => o.Status == (byte)Commons.EStatus.Active).Select(o => new CMS_KeywordModels()
+                    {
+                        Id = o.ID,
+                        Sequence = o.Sequence,
+                        KeySearch = o.KeyWord,
+                    }).ToList();
+                    data.ForEach(o =>
+                    {
+                        o.Quantity = listCount.Where(c => c.Id == o.Id).Select(c => c.Quantity).FirstOrDefault();
+                    });
                     return data;
                 }
             }

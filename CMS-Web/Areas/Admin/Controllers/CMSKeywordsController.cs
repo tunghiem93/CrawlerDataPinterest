@@ -29,46 +29,58 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult Index()
         {
             CMS_KeywordModels model = new CMS_KeywordModels();
-            model.ListKeyResult = _factory.GetList();
-            if (model.ListKeyResult != null && model.ListKeyResult.Any())
-            {
-                int index = 0;
-                model.ListKeyResult.ForEach(o =>
-                {
-                    o.OffSet = index;
-                    index++;
-                });
-            }
             return View(model);
         }
 
-        public ActionResult AddTabKeySearch(int currentOffset, string KeySearch)
+        public ActionResult LoadGrid(CMS_KeywordModels item)
         {
-            CMS_KeywordModels group = new CMS_KeywordModels();
-            group.CreatedBy = CurrentUser.UserId;
-            group.OffSet = currentOffset;
-            group.KeySearch = KeySearch;
-
-            var isCheck = ListItem.Where(o => o.Trim() == group.KeySearch.Trim()).FirstOrDefault();
-            //Call api get quantity and save database
-            if (isCheck == null)
+            try
             {
                 var msg = "";
-                //CrawlerHelper.Get_Tagged_Pins_Count(ref qty, Key, 100);
-                var modelCrawler = new CMS_CrawlerModels();
-                CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, KeySearch, Commons.PinDefault);
-                group.Quantity = modelCrawler.Pins.Count;
-
-                var result = _factory.CreateOrUpdate(group, ref msg);
-                if (result)
+                bool isCheck = true;
+                if (item.KeySearch != null && item.KeySearch.Length > 0)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.OK);
+                    var temp = ListItem.Where(o => o.Trim() == item.KeySearch.Trim()).FirstOrDefault();
+                    if (temp == null)
+                    {
+                        //CrawlerHelper.Get_Tagged_Pins_Count(ref qty, Key, 100);
+                        //var modelCrawler = new CMS_CrawlerModels();
+                        //CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, item.KeySearch, Commons.PinDefault);
+                        //item.Quantity = modelCrawler.Pins.Count;
+                        var result = _factory.CreateOrUpdate(item, ref msg);
+                        if (!result)
+                        {
+                            isCheck = false;
+                        }                        
+                    }
                 }
+                if (isCheck)
+                {                    
+                    var model = _factory.GetList();
+                    return PartialView("_ListData", model);
+                }
+                else
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            catch (Exception e)
+            {
+                //_logger.Error("Keyword_Search: " + e);
+                return new HttpStatusCodeResult(400, e.Message);
+            }            
+        }
+        
+        public ActionResult CrawlerKeyword(string ID, string Key)
+        {
+            var msg = "";
+            var result = _factory.CrawlData(ID, ref msg);
+            if (result)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        public ActionResult DeleteItem(string ID)
+        public ActionResult Delete(string ID)
         {
             CMS_KeywordModels group = new CMS_KeywordModels();
             var msg = "";
@@ -80,10 +92,11 @@ namespace CMS_Web.Areas.Admin.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        public ActionResult RefreshItem(string ID, string Key)
+        public ActionResult DeleteAll(string ID)
         {
+            CMS_KeywordModels group = new CMS_KeywordModels();
             var msg = "";
-            var result = _factory.CrawlData(ID, ref msg);
+            var result = _factory.DeleteAndRemoveDB(ID, ref msg);
             if (result)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
