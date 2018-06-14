@@ -21,6 +21,8 @@ namespace CMS_Entity.Entity
         [StringLength(100)]
         public string Name { get; set; }
 
+        public int Sequence { get; set; }
+
         public int Status { get; set; }
 
         [StringLength(60)]
