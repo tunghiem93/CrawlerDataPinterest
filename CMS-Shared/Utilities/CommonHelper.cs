@@ -52,26 +52,59 @@ namespace CMS_Shared.Utilities
 
         public static string RemoveUnicode(string text)
         {
-            string[] arr1 = new string[] { "á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ",
-    "đ",
-    "é","è","ẻ","ẽ","ẹ","ê","ế","ề","ể","ễ","ệ",
-    "í","ì","ỉ","ĩ","ị",
-    "ó","ò","ỏ","õ","ọ","ô","ố","ồ","ổ","ỗ","ộ","ơ","ớ","ờ","ở","ỡ","ợ",
-    "ú","ù","ủ","ũ","ụ","ư","ứ","ừ","ử","ữ","ự",
-    "ý","ỳ","ỷ","ỹ","ỵ",};
-            string[] arr2 = new string[] { "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a",
-    "d",
-    "e","e","e","e","e","e","e","e","e","e","e",
-    "i","i","i","i","i",
-    "o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o",
-    "u","u","u","u","u","u","u","u","u","u","u",
-    "y","y","y","y","y",};
+            string[] arr1 = new string[] {  "á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ",
+                                            "đ",
+                                            "é","è","ẻ","ẽ","ẹ","ê","ế","ề","ể","ễ","ệ",
+                                            "í","ì","ỉ","ĩ","ị",
+                                            "ó","ò","ỏ","õ","ọ","ô","ố","ồ","ổ","ỗ","ộ","ơ","ớ","ờ","ở","ỡ","ợ",
+                                            "ú","ù","ủ","ũ","ụ","ư","ứ","ừ","ử","ữ","ự",
+                                            "ý","ỳ","ỷ","ỹ","ỵ",};
+            string[] arr2 = new string[] {  "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a",
+                                            "d",
+                                            "e","e","e","e","e","e","e","e","e","e","e",
+                                            "i","i","i","i","i",
+                                            "o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o",
+                                            "u","u","u","u","u","u","u","u","u","u","u",
+                                            "y","y","y","y","y",};
             for (int i = 0; i < arr1.Length; i++)
             {
                 text = text.Replace(arr1[i], arr2[i]);
                 text = text.Replace(arr1[i].ToUpper(), arr2[i].ToUpper());
             }
             return text;
+        }
+
+        public static string GetDurationFromNow(DateTime? dateUpdate)
+        {
+            var ret = "";
+            try
+            {
+                var span = (TimeSpan)(DateTime.Now - dateUpdate);
+                /* get total day */
+                int totalDay = span.Days;
+
+                /* get total year */
+                int years = totalDay / 365;
+                totalDay -= (years * 365);
+
+                /* get total months */
+                int months = totalDay / 30;
+                totalDay -= (months * 30);
+
+                /* string format */
+                string formatted = string.Format("{0}{1}{2}{3}{4}",
+                                    years > 0 ? string.Format("{0:0} year{1} ", years, years == 1 ? String.Empty : "s") : string.Empty,
+                                    months > 0 ? string.Format("{0:0} month{1} ", months, months == 1 ? String.Empty : "s") : string.Empty,
+                                    totalDay > 0 ? string.Format("{0:0} day{1} ", totalDay, totalDay == 1 ? String.Empty : "s") : string.Empty,
+                                    years > 0 ? "" : span.Hours > 0 ? string.Format("{0:0} hour{1} ", span.Hours, span.Hours == 1 ? String.Empty : "s") : string.Empty,
+                                    months > 0 ? "" : span.Minutes > 0 ? string.Format("{0:0} minute{1} ", span.Minutes, span.Minutes == 1 ? String.Empty : "s") : string.Empty
+                                    );
+
+                ret += formatted;
+                //ret += " ago.";
+            }
+            catch (Exception ex) { };
+            return ret;
         }
     }
 }

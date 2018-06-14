@@ -44,43 +44,13 @@ namespace CMS_Shared.Keyword
                     data.ForEach(o =>
                     {
                         o.Quantity = listCount.Where(c => c.Id == o.Id).Select(c => c.Quantity).FirstOrDefault();
-                        o.StrLastUpdate = GetDurationFromNow(o.UpdatedDate);
+                        o.StrLastUpdate = CommonHelper.GetDurationFromNow(o.UpdatedDate);
                     });
                     return data;
                 }
             }
             catch (Exception ex) { }
             return null;
-        }
-
-        private string GetDurationFromNow(DateTime? dateUpdate)
-        {
-            var ret = "";
-            try
-            {
-                var span = (TimeSpan)(DateTime.Now - dateUpdate);
-
-                int totalDay = span.Days;
-                int years = totalDay / 365;
-                totalDay -= (years * 365);
-
-                int months = totalDay / 30;
-                totalDay -= (months * 30);
-
-                string formatted = string.Format("{0}{1}{2}{3}{4}{5}",
-                                    years > 0 ? string.Format("{0:0} year{1}, ", years, years == 1 ? String.Empty : "s") : string.Empty,
-                                    months > 0 ? string.Format("{0:0} month{1}, ", months, months == 1 ? String.Empty : "s") : string.Empty,
-                                    totalDay > 0 ? string.Format("{0:0} day{1}, ", totalDay, totalDay == 1 ? String.Empty : "s") : string.Empty,
-                                    span.Hours > 0 ? string.Format("{0:0} hour{1}, ", span.Hours, span.Hours == 1 ? String.Empty : "s") : string.Empty,
-                                    span.Minutes > 0 ? string.Format("{0:0} minute{1}, ", span.Minutes, span.Minutes == 1 ? String.Empty : "s") : string.Empty,
-                                    span.Seconds > 0 ? string.Format("{0:0} second{1}", span.Seconds, span.Seconds == 1 ? String.Empty : "s") : string.Empty
-                                    );
-
-                ret += formatted;
-                //ret += " ago.";
-            }
-            catch (Exception ex) { };
-            return ret;
         }
 
         public bool CreateOrUpdate(CMS_KeywordModels model, ref string msg)
