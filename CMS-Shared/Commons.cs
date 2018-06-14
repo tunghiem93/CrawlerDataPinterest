@@ -30,6 +30,13 @@ namespace CMS_Shared
             TimeReduce = 1,
             TimeCustom = 2,
         }
+
+        public enum EStatus
+        {
+            Active = 1,
+            Inactive = 2,
+            Deleted = 9,
+        }
         #endregion
 
         public static int WidthProduct = Convert.ToInt16(ConfigurationManager.AppSettings["WidthProduct"]);

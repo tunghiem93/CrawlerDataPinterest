@@ -72,7 +72,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         {
             CMS_KeywordModels group = new CMS_KeywordModels();
             var msg = "";
-            var result = _factory.Delete(ID, ref msg);
+            var result = _factory.Delete(ID, "Admin", ref msg);
             if (result)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
@@ -82,15 +82,8 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult RefreshItem(string ID, string Key)
         {
-            //Call api get quantity
             var msg = "";
-            int qty = 0;
-            //CrawlerHelper.Get_Tagged_Pins_Count(ref qty, Key, 100);
-            var modelCrawler = new CMS_CrawlerModels();
-            CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, Key, Commons.PinDefault);
-            qty = modelCrawler.Pins.Count;
-
-            var result = _factory.Refresh(ID, qty, ref msg);
+            var result = _factory.CrawlData(ID, ref msg);
             if (result)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);

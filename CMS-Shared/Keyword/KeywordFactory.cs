@@ -1,24 +1,31 @@
-﻿using CMS_DTO.CMSKeyword;
+﻿using CMS_DTO.CMSCrawler;
+using CMS_DTO.CMSKeyword;
 using CMS_Entity;
 using CMS_Entity.Entity;
+using CMS_Shared.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CMS_Shared.Keyword
 {
     public class KeywordFactory
     {
+
+        private static Semaphore m_Semaphore = new Semaphore(1, 1); /* semaphore for create key, craw data */
+
         public List<CMS_KeywordModels> GetList()
         {
             try
             {
                 using (var _db = new CMS_Context())
                 {
+                    /* get all key word */
                     var data = _db.CMS_R_KeyWord_Pin
-                        .Join(_db.CMS_KeyWord, kp => kp.KeyWordID, k => k.ID, (kp, k) => new { kp, k })
+                        .Join(_db.CMS_KeyWord.Where(o=> o.Status == (byte)Commons.EStatus.Active), kp => kp.KeyWordID, k => k.ID, (kp, k) => new { kp, k })
                         .GroupBy(o => o.k)
                         .Select(o => new CMS_KeywordModels()
                         {
@@ -37,93 +44,138 @@ namespace CMS_Shared.Keyword
         public bool CreateOrUpdate(CMS_KeywordModels model, ref string msg)
         {
             var result = true;
-            using (var cxt = new CMS_Context())
+            using (var _db = new CMS_Context())
             {
-                using (var trans = cxt.Database.BeginTransaction())
+                m_Semaphore.WaitOne();
+                using (var trans = _db.Database.BeginTransaction())
                 {
                     try
                     {
                         if (string.IsNullOrEmpty(model.Id))
                         {
-                            //var _Id = Guid.NewGuid().ToString();
-                            //var e = new CMS_GroupSearch
-                            //{
-                            //    Id = _Id,
-                            //    KeySearch = model.KeySearch,
-                            //    Quantity = model.Quantity,
-                            //    CreatedBy = model.CreatedBy,
-                            //    CreatedDate = DateTime.Now,
-                            //    UpdatedBy = model.UpdatedBy,
-                            //    UpdatedDate = DateTime.Now
-                            //};
-                            //cxt.CMS_GroupSearchs.Add(e);
+                            /* check dup old key */
+                            var checkDup = _db.CMS_KeyWord.Where(o => o.KeyWord == model.KeySearch).FirstOrDefault();
+
+                            if (checkDup == null)
+                            {
+                                /* get current seq */
+                                var curSeq = _db.CMS_KeyWord.OrderByDescending(o => o.Sequence).Select(o => o.Sequence).FirstOrDefault();
+
+                                /* add new record */
+                                var newKey = new CMS_KeyWord()
+                                {
+                                    ID = Guid.NewGuid().ToString(),
+                                    KeyWord = model.KeySearch,
+                                    Status = (byte)Commons.EStatus.Active,
+                                    CreatedBy = model.CreatedBy,
+                                    CreatedDate = DateTime.Now,
+                                    UpdatedBy = model.CreatedBy,
+                                    UpdatedDate = DateTime.Now,
+                                    Sequence = ++curSeq,
+                                };
+                                _db.CMS_KeyWord.Add(newKey);
+                            }
+                            else if (checkDup.Status != (byte)Commons.EStatus.Active) /* re-active old key */
+                            {
+                                checkDup.Status = (byte)Commons.EStatus.Active;
+                                checkDup.UpdatedBy = model.CreatedBy;
+                                checkDup.UpdatedDate = DateTime.Now;
+                            }
+                            else /* duplicate key word */
+                            {
+                                msg = "Duplicate key word.";
+                            }
+
+                            _db.SaveChanges();
+                            trans.Commit();
                         }
                         else
                         {
-                            //var e = cxt.CMS_GroupSearchs.Find(model.Id);
-                            //if (e != null)
-                            //{
-                            //    e.KeySearch = model.KeySearch;
-                            //    e.Quantity = model.Quantity;
-                            //    e.CreatedBy = model.CreatedBy;
-                            //    e.CreatedDate = DateTime.Now;
-                            //    e.UpdatedBy = model.UpdatedBy;
-                            //    e.UpdatedDate = DateTime.Now;
-                            //}
+                            msg = "Unable to edit key word.";
                         }
-                        cxt.SaveChanges();
-                        trans.Commit();
                     }
                     catch (Exception ex)
                     {
-                        msg = "Vui lòng kiểm tra đường truyền";
+                        msg = "Check connection, please!";
                         result = false;
                         trans.Rollback();
                     }
                     finally
                     {
-                        cxt.Dispose();
+                        _db.Dispose();
+                        m_Semaphore.Release();
                     }
                 }
             }
             return result;
         }
 
-        public bool Delete(string Id, ref string msg)
+        public bool Delete(string Id, string createdBy, ref string msg)
         {
             var result = true;
             try
             {
-                using (var cxt = new CMS_Context())
+                using (var _db = new CMS_Context())
                 {
-                    //var e = cxt.CMS_GroupSearchs.Find(Id);
-                    //cxt.CMS_GroupSearchs.Remove(e);
-                    //cxt.SaveChanges();
+                    var key = _db.CMS_KeyWord.Where(o => o.ID == Id).FirstOrDefault();
+
+                    key.Status = (byte)Commons.EStatus.Deleted;
+                    key.UpdatedDate = DateTime.Now;
+                    key.UpdatedBy = createdBy;
+
+                    _db.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                msg = "Không thể xóa nhân viên này";
+                msg = "Can't delete this key words.";
                 result = false;
             }
             return result;
         }
 
-        public bool Refresh(string Id, int Qty, ref string msg)
+        public bool DeleteAndRemoveDB(string Id, ref string msg)
         {
             var result = true;
             try
             {
-                using (var cxt = new CMS_Context())
+                using (var _db = new CMS_Context())
                 {
-                    //var e = cxt.CMS_KeyWord.Find(Id);
-                    //e.Quantity = Qty;
-                    //cxt.SaveChanges();
+                    var e = _db.CMS_KeyWord.Find(Id);
+                    _db.CMS_KeyWord.Remove(e);
+                    _db.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                msg = "";
+                msg = "Can't delete this key words.";
+                result = false;
+            }
+            return result;
+        }
+
+
+
+        public bool CrawlData(string Id, ref string msg)
+        {
+            var result = true;
+            try
+            {
+                using (var _db = new CMS_Context())
+                {
+                    /* get key by ID */
+                    var key = _db.CMS_KeyWord.Where(o => o.ID == Id).Select(o => o.KeyWord).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(key))
+                    {
+                        /* call drawler api to crawl data */
+                        var modelCrawler = new CMS_CrawlerModels();
+                        CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, key, Commons.PinDefault);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Crawl data is unsuccessfully.";
                 result = false;
             }
             return result;
