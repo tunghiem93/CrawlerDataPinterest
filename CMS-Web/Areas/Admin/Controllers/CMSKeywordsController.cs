@@ -1,7 +1,7 @@
 ﻿using CMS_DTO.CMSCrawler;
-using CMS_DTO.CMSGroupSearch;
+using CMS_DTO.CMSKeyword;
 using CMS_Shared;
-using CMS_Shared.GroupSearch;
+using CMS_Shared.Keyword;
 using CMS_Shared.Utilities;
 using CMS_Web.Web.App_Start;
 using System;
@@ -14,21 +14,21 @@ using System.Web.Mvc;
 namespace CMS_Web.Areas.Admin.Controllers
 {
     [NuAuth]
-    public class CMSGroupSearchsController : BaseController
+    public class CMSKeywordsController : BaseController
     {
         // GET: Admin/GroupSearchs
-        private GroupSearchFactory _factory;
+        private KeywordFactory _factory;
         private List<string> ListItem = null;
-        public CMSGroupSearchsController()
+        public CMSKeywordsController()
         {
-            _factory = new GroupSearchFactory();
+            _factory = new KeywordFactory();
             ListItem = new List<string>();
             ListItem = _factory.GetList().Select(o=>o.KeySearch).ToList();
         }
 
         public ActionResult Index()
         {
-            CMS_GroupSearchModels model = new CMS_GroupSearchModels();
+            CMS_KeywordModels model = new CMS_KeywordModels();
             model.ListKeyResult = _factory.GetList();
             if (model.ListKeyResult != null && model.ListKeyResult.Any())
             {
@@ -44,7 +44,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult AddTabKeySearch(int currentOffset, string KeySearch)
         {
-            CMS_GroupSearchModels group = new CMS_GroupSearchModels();
+            CMS_KeywordModels group = new CMS_KeywordModels();
             group.CreatedBy = CurrentUser.UserId;
             group.OffSet = currentOffset;
             group.KeySearch = KeySearch;
@@ -70,7 +70,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult DeleteItem(string ID)
         {
-            CMS_GroupSearchModels group = new CMS_GroupSearchModels();
+            CMS_KeywordModels group = new CMS_KeywordModels();
             var msg = "";
             var result = _factory.Delete(ID, ref msg);
             if (result)

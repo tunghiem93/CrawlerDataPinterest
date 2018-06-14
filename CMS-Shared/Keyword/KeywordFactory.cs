@@ -1,4 +1,4 @@
-﻿using CMS_DTO.CMSGroupSearch;
+﻿using CMS_DTO.CMSKeyword;
 using CMS_Entity;
 using CMS_Entity.Entity;
 using System;
@@ -7,34 +7,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CMS_Shared.GroupSearch
+namespace CMS_Shared.Keyword
 {
-    public class GroupSearchFactory
+    public class KeywordFactory
     {
-        public List<CMS_GroupSearchModels> GetList()
+        public List<CMS_KeywordModels> GetList()
         {
             try
             {
-                using (var cxt = new CMS_Context())
+                using (var _db = new CMS_Context())
                 {
-                    //var data = cxt.CMS_GroupSearch.Select(x => new CMS_GroupSearchModels
-                    //{
-                    //    Id = x.Id,
-                    //    KeySearch = x.KeySearch,
-                    //    Quantity = x.Quantity,
-                    //    CreatedBy = x.CreatedBy,
-                    //    CreatedDate = x.CreatedDate,
-                    //    UpdatedBy = x.UpdatedBy,
-                    //    UpdatedDate = x.UpdatedDate,
-                    //}).ToList();
-                    //return data;
+                    var data = _db.CMS_R_KeyWord_Pin
+                        .Join(_db.CMS_KeyWord, kp => kp.KeyWordID, k => k.ID, (kp, k) => new { kp, k })
+                        .GroupBy(o => o.k)
+                        .Select(o => new CMS_KeywordModels()
+                        {
+                            Id = o.Key.ID,
+                            Sequence = o.Key.Sequence,
+                            KeySearch = o.Key.KeyWord,
+                            Quantity = o.Count(),
+                        }).ToList();
+                    return data;
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex) { }
             return null;
         }
 
-        public bool CreateOrUpdate(CMS_GroupSearchModels model, ref string msg)
+        public bool CreateOrUpdate(CMS_KeywordModels model, ref string msg)
         {
             var result = true;
             using (var cxt = new CMS_Context())
@@ -116,7 +116,7 @@ namespace CMS_Shared.GroupSearch
             {
                 using (var cxt = new CMS_Context())
                 {
-                    //var e = cxt.CMS_GroupSearchs.Find(Id);
+                    //var e = cxt.CMS_KeyWord.Find(Id);
                     //e.Quantity = Qty;
                     //cxt.SaveChanges();
                 }
