@@ -31,6 +31,12 @@ namespace CMS_Shared
             TimeCustom = 2,
         }
 
+        public enum EPinType
+        {
+            PinIncrease = 0,
+            PinReduce = 1,
+        }
+
         public enum EStatus
         {
             Active = 1,

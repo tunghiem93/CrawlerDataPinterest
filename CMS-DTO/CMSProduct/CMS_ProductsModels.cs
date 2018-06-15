@@ -23,11 +23,12 @@ namespace CMS_DTO.CMSProduct
         public bool IsActive { get; set; }
 
         public int TypeTime { get; set; }
+        public int TypePin { get; set; }
         public List<SelectListItem> ListTime { get; set; }
-
+        public List<string> listKeywords { get; set; }
         public int TypeQuantity { get; set; }
         public List<SelectListItem> ListQuantity { get; set; }
-
+        public List<SelectListItem> ListRePin { get; set; }
         public HttpPostedFileBase[] PictureUpload { get; set; }
         public byte[] PictureByte { get; set; }
         public string ImageURL { get; set; }
@@ -45,6 +46,7 @@ namespace CMS_DTO.CMSProduct
             Crawler = new CMS_CrawlerModels();
             FromDate = new DateTime(1990, 01, 01);
             ToDate = DateTime.Now;
+            listKeywords = new List<string>();
         }
     }
 }

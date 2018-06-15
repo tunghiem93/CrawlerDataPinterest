@@ -1,6 +1,7 @@
 ﻿using CMS_DTO.CMSBase;
 using CMS_DTO.CMSSession;
 using CMS_Shared;
+using CMS_Shared.Keyword;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,23 @@ namespace CMS_Web.Areas.Admin.Controllers
             var _lstTime = new List<SelectListItem>() {
                 new SelectListItem() {Text="Thời gian giảm dần",Value=Commons.ETimeType.TimeReduce.ToString("d") },
                 new SelectListItem() {Text="Thời gian tăng dần",Value=Commons.ETimeType.TimeIncrease.ToString("d")},
-                new SelectListItem() {Text="Custom",Value=Commons.ETimeType.TimeCustom.ToString("d")},
+                //new SelectListItem() {Text="Custom",Value=Commons.ETimeType.TimeCustom.ToString("d")},
             };
             
             return _lstTime;
         }
+
+        public List<SelectListItem> getListRepinCount()
+        {
+            var _lstTime = new List<SelectListItem>() {
+                new SelectListItem() {Text="Pin giảm dần",Value=Commons.EPinType.PinReduce.ToString("d") },
+                new SelectListItem() {Text="Pin tăng dần",Value=Commons.EPinType.PinIncrease.ToString("d")},
+                //new SelectListItem() {Text="Custom",Value=Commons.ETimeType.TimeCustom.ToString("d")},
+            };
+
+            return _lstTime;
+        }
+
         public List<SelectListItem> getListQuantity()
         {
             var _lstQuantity = new List<SelectListItem>() {
@@ -44,6 +57,25 @@ namespace CMS_Web.Areas.Admin.Controllers
                 new SelectListItem() { Text = "> 500", Value = Commons.EQuantityType.MoreFive.ToString("d") },
             };
             return _lstQuantity;
+        }
+
+        public List<SelectListItem> getListKeyword()
+        {
+            var _fac = new CMSKeywordFactory();
+            var data = _fac.GetList();
+            var lstKeyword = new List<SelectListItem>();
+            if(data != null && data.Any())
+            {
+                foreach(var item in data)
+                {
+                    lstKeyword.Add(new SelectListItem
+                    {
+                        Value = item.Id,
+                        Text = item.KeySearch
+                    });
+                }
+            }
+            return lstKeyword;
         }
     }
 }

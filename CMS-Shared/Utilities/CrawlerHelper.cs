@@ -874,7 +874,7 @@ namespace CMS_Shared.Utilities
         public static bool Get_Tagged_RepinCount(ref int RepinCount, string pinId = "")
         {
             string data = string.Empty;
-            var urlOrg = Commons.HostApiOrtherPin;
+            var urlOrg = Commons.HostApiPinDetail;
             var objJson = new
             {
                 options = new

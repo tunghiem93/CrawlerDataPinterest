@@ -106,5 +106,23 @@ namespace CMS_Shared.Utilities
             catch (Exception ex) { };
             return ret;
         }
+
+        public static List<string> ParseStringToList(string input = "",char[] separator = null)
+        {
+            var lstString = new List<string>();
+            try
+            {
+                if(!string.IsNullOrEmpty(input) && separator != null)
+                {
+                    var data = input.Split(separator);
+                    foreach(var item in data)
+                    {
+                        lstString.Add(item); 
+                    }
+                }
+            }
+            catch (Exception) { }
+            return lstString;
+        }
     }
 }

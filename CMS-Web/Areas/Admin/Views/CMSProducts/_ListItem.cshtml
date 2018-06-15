@@ -1,5 +1,6 @@
 ﻿@model CMS_DTO.CMSCrawler.CMS_CrawlerModels
 @using CMS_Shared
+@using CMS_Shared.Utilities
 <style>
     p{
         margin:10px 0 !important;
@@ -18,7 +19,7 @@
                         <div class="info">
                             <p>@string.Format("{0}", !string.IsNullOrEmpty(item.Domain) && item.Domain.Length > 25 ? item.Domain.Substring(0,25) + "..." : item.Domain)</p>
                             <p><span>Ngày crawler</span>&nbsp;&nbsp; @DateTime.Now.ToString("dd/MM/yyyy")</p>
-                            <p>@item.LastTime</p>
+                            <p>Khoảng @CommonHelper.GetDurationFromNow(item.CreatedDate)</p>
                             <p><span>Số lượng</span> &nbsp;&nbsp;@item.Repin_count</p>
                             <p><span>Create at</span>&nbsp;&nbsp; @item.Created_At.ToString("dd/MM/yyyy")</p>
                         </div>

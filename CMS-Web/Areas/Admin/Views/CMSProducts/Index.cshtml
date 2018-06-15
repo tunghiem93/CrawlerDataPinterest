@@ -41,38 +41,24 @@
                             <span></span> <i class="fa fa-caret-down"></i>
                         </div>
                     </div>
-                    @*<label for="FromDate" class="col-md-1 col-sm-3 col-xs-12 control-label">Thời gian</label>
-        <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
-            <div class="input-prepend input-group" style="width:100%">
-                @Html.DropDownListFor(model => model.TypeTime,
-                    new SelectList(Model.ListTime, "Value", "Text", Model.TypeTime), "",
-                    new
-                    {
-                        @class = "form-control select2_multiple",
-                        @id = "storeDdlView",
-                        @style = "width:100%;",
-                        @onChange = "ChangeDatetime(this);"
-                    })
-                @Html.ValidationMessageFor(model => model.TypeTime, null, new { @class = "label" })
-            </div>
-        </div>
 
-        <div class="col-md-6 col-sm-6 col-xs-12 clsDate" style="width:26% !important">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.FromDate, null, new { @class = "label label-danger" })
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
-                @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
-            </div>
-        </div>*@
+
+                    @*<div class="col-md-6 col-sm-6 col-xs-12 clsDate" style="width:26% !important">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.FromDate, null, new { @class = "label label-danger" })
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
+                            </div>
+                        </div>*@
 
                     @*<label for="CustomeFromDate" class="col-md-1 col-sm-3 col-xs-12 control-label clsDate">Đến</label>
-        <div class="col-md-2 col-sm-3 col-xs-12 clsDate" style="width:13% !important">
-            @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
-            @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
-        </div>*@
+                        <div class="col-md-2 col-sm-3 col-xs-12 clsDate" style="width:13% !important">
+                            @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
+                        </div>*@
                     <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
                         <div class="input-prepend input-group" style="width:100%">
                             @Html.DropDownListFor(model => model.TypeQuantity,
@@ -87,6 +73,53 @@
                         </div>
                         @Html.ValidationMessageFor(model => model.Board, null, new { @class = "label" })
                     </div>
+
+                    @*<label for="FromDate" class="col-md-1 col-sm-3 col-xs-12 control-label">Thời gian</label>*@
+                    <div class="col-md-2 col-sm-2 col-xs-12 " style="width:15% !important">
+                        <div class="input-prepend input-group" style="width:100%">
+                            @Html.DropDownListFor(model => model.TypeTime,
+                    new SelectList(Model.ListTime, "Value", "Text", Model.TypeTime), "",
+                    new
+                    {
+                        @class = "form-control select2_multiple",
+                        @id = "storeDdlView",
+                        @style = "width:100%;",
+                        //@onChange = "ChangeDatetime(this);"
+                    })
+                            @Html.ValidationMessageFor(model => model.TypeTime, null, new { @class = "label" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
+                        <div class="input-prepend input-group" style="width:100%">
+                            @Html.DropDownListFor(model => model.TypePin,
+                    new SelectList(Model.ListRePin, "Value", "Text", Model.TypePin), "",
+                    new
+                    {
+                        @class = "form-control select2_multiple",
+                        @id = "storeDdlViewPin",
+                        @style = "width:100%;",
+                        //@onChange = "ChangeDatetime(this);"
+                    })
+                            @Html.ValidationMessageFor(model => model.TypePin, null, new { @class = "label" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 col-sm-2 col-xs-12 " style="width:20% !important">
+                        <div class="input-prepend input-group" style="width:100%">
+                            @Html.DropDownListFor(model => model.listKeywords,
+                    new SelectList(@ViewBag.Keywords, "Value", "Text", Model.listKeywords), "Vui lòng chọn keywords",
+                    new
+                    {
+                        @class = "form-control select2_multiple",
+                        @id = "KeywordsDdl",
+                        @style = "width : 100%;",
+                        @multiple = "multiple",
+                    })
+                            @Html.ValidationMessageFor(model => model.listKeywords, null, new { @class = "label label-danger" })
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <div class="col-md-1 col-sm-1 col-xs-12" style="width:4% !important">
                             <button class="btn btn-primary" id="form-search"><i class="fa fa-search"></i>&nbsp;Load Data</button>
@@ -108,6 +141,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+            console.log(picker.startDate.format('YYYY-MM-DD'));
+            console.log(picker.endDate.format('YYYY-MM-DD'));
+        });
+
+
         var start = moment().startOf('day');
         var end = moment().endOf('day');
 
@@ -135,29 +174,62 @@
         });
 
         cb(start, end);
+
+        $("#storeDdlViewQuantity").select2({
+            placeholder: "Làm ơn chọn thể loại",
+            //allowClear: true
+        });
+
+        $("#storeDdlView").select2({
+            placeholder: "Làm ơn chọn thể loại",
+            //allowClear: true
+        });
+
+        $("#storeDdlViewPin").select2({
+
+        })
+
+        $("#KeywordsDdl").select2({
+            placeholder: "Vui lòng chọn keyword",
+            multiple: true,
+        });
+        var selectedValues = [];
+        @if(Model.listKeywords != null && Model.listKeywords.Count > 0)
+        {
+            for(int i = 0; i < Model.listKeywords.Count;i++)
+            {
+                <text>
+                    selectedValues.push('@Model.listKeywords[i]');
+                </text>
+            }
+        }
+                    console.log(selectedValues);
+                    $("#KeywordsDdl").val(selectedValues).trigger('change');
+                   // $("#KeywordsDdl").select2('val', ['afb6348d-e489-4872-8781-74408f01074b','e9f088c7-88dc-4250-9eca-3376010c1e3e']);
+        
     })
 
-    $("#form-search").on("click").submit(function (e) {
-        $.ajax({
-            beforeSend: function () {
-                $('.se-pre-con').show();
-            },
-            url: $(this).attr('action'),
-            type: "post",
-            dataType: 'html',
-            data: new FormData(this),
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                $('.detail-view').html(data);
-            },
-            complete: function () {
-                $('.se-pre-con').hide();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-              //  $(".detail-view").html(jqXHR.responseText);
-            }
-        });
-        e.preventDefault();
-    });
+            $("#form-search").on("click").submit(function (e) {
+                $.ajax({
+                    beforeSend: function () {
+                        $('.se-pre-con').show();
+                    },
+                    url: $(this).attr('action'),
+                    type: "post",
+                    dataType: 'html',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        $('.detail-view').html(data);
+                    },
+                    complete: function () {
+                        $('.se-pre-con').hide();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        //  $(".detail-view").html(jqXHR.responseText);
+                    }
+                });
+                e.preventDefault();
+            });
 </script>
