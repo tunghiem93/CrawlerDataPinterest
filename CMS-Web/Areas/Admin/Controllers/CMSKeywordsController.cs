@@ -53,9 +53,13 @@ namespace CMS_Web.Areas.Admin.Controllers
                             isCheck = false;
                         }                        
                     }
+                    else
+                    {
+                        ViewBag.DuplicateKeyword = "Duplicate Keyword!";
+                    }
                 }
                 if (isCheck)
-                {                    
+                {
                     var model = _factory.GetList();
                     return PartialView("_ListData", model);
                 }
