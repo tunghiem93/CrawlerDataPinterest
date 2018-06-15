@@ -18,6 +18,10 @@
     .img-responsive {
         height: 236px;
     }
+
+    .select2-selection--single .select2-selection__placeholder {
+        color: #73879C !important;
+    }
 </style>
 
 <div role="main">
@@ -61,6 +65,8 @@
                         </div>*@
                     <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
                         <div class="input-prepend input-group" style="width:100%">
+                            @Html.HiddenFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off",@id="txtToDate" })
+                            @Html.HiddenFor(model => model.FromDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off",@id="txtFromDate" })
                             @Html.DropDownListFor(model => model.TypeQuantity,
                                 new SelectList(Model.ListQuantity, "Value", "Text", Model.TypeQuantity), "",
                                 new
@@ -175,7 +181,7 @@
         cb(start, end);
 
         $("#storeDdlViewQuantity").select2({
-            placeholder: "Làm ơn chọn thể loại",
+            placeholder: "Số lượng",
             //allowClear: true
         });
 
@@ -189,7 +195,7 @@
         })
 
         $("#KeywordsDdl").select2({
-            placeholder: "Vui lòng chọn keyword",
+            placeholder: "Keyword",
             multiple: true,
         });
         var selectedValues = [];
@@ -208,7 +214,12 @@
         
     })
 
-            $("#form-search").on("click").submit(function (e) {
+    $("#form-search").on("click").submit(function (e) {
+        var startDate = $('#reportrange').data('daterangepicker').startDate.format("DD/MM/YYYY");
+        var endDate = $('#reportrange').data('daterangepicker').endDate.format("DD/MM/YYYY");
+        console.log(startDate + " " + endDate);
+        $("[id=txtToDate]").val(endDate);
+        $("[id=txtFromDate]").val(startDate);
                 $.ajax({
                     beforeSend: function () {
                         $('.se-pre-con').show();

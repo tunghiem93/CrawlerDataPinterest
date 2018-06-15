@@ -27,7 +27,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             CMS_ProductsModels model = new CMS_ProductsModels();
             try
             {
-                var _Key = Request["Key"]?? "";
+                var _Key = Request["keywordID"] ?? "";
                 var FilterModel = new PinFilterDTO();
                 FilterModel.PageIndex = 1;
                 FilterModel.PageSize = 1000;
@@ -101,8 +101,13 @@ namespace CMS_Web.Areas.Admin.Controllers
 #endregion
                 model.ListTime = getListTime();
                 model.ListQuantity = getListQuantity();
-                model.ListRePin = getListRepinCount();
+               // model.ListRePin = getListRepinCount();
                 ViewBag.Keywords = getListKeyword();
+                if(!string.IsNullOrEmpty(_Key))
+                {
+                    FilterModel.lstKeyWordID.Add(_Key);
+                    model.listKeywords.Add(_Key);
+                }
                 var _pinModels = new List<PinsModels>();
                 var msg = "";
                 var result = _fac.GetPin(ref _pinModels, FilterModel, ref msg);
@@ -390,7 +395,12 @@ namespace CMS_Web.Areas.Admin.Controllers
                // var _Key = Request["Key"] ?? "";
                 var TypeTime = Request["TypeTime"] ?? "";
               //  var TypePin = Request["TypePin"] ?? "";
-                var TypeQuantity = Convert.ToInt32(Request["TypeQuantity"]);
+                var _TypeQuantity = Request["TypeQuantity"];
+                int TypeQuantity = -1;
+                if (!string.IsNullOrEmpty(_TypeQuantity))
+                {
+                    TypeQuantity = Convert.ToInt16(_TypeQuantity);
+                }
                 var Keywords = Request["listKeywords"] ?? null;
                 char[] separator = new char[] { ',' };
                 var ListKeyword = CommonHelper.ParseStringToList(Keywords, separator);
@@ -478,7 +488,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 return PartialView("_ListItem", modelCrawler);
             }
-            catch (Exception) { }
+            catch (Exception ex) { }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
     }
