@@ -24,7 +24,14 @@
             </div>
             <div class="portlet-body">
                 <table class="table table-striped table-bordered table-hover dt-responsive" id="sample_3">
-                    <thead style="display: none !important; "></thead>
+                    <thead style="display: none !important; ">
+                        <tr>
+                            <th lass="text-left">Name</th>
+                            <th lass="text-left">Last Crawl</th>
+                            <th lass="text-left">Total post</th>
+                            <th lass="text-left">Action</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         @if (Model != null && Model.Any())
                         {
@@ -34,7 +41,16 @@
                                     <td class="text-left">
                                         <a class="btn btn-link" href="@Url.Action("Index", "CMSProducts", new { keywordID = item.Id})" target="_blank"><b>@Html.Raw("[" + item.Sequence + "]" + " " + '"' + string.Format("{0}", (item.KeySearch.Length > 25) ? (item.KeySearch.Substring(0, 12) + "...") : item.KeySearch) + '"')</b></a>
                                     </td>
-                                    <td><a class="btn btn-link linkchange" href="@Url.Action("Index", "CMSProducts", new { keywordID = item.Id})" target="_blank" style="color: #000 !important; "><b>@Html.Raw("Last crawler: ")</b><span style="font-size: 14px !important; ">@Html.Raw(item.StrLastUpdate + " ago | ")</span><b>@Html.Raw("Total post got:")</b></a><a class="btn btn-link" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts", new { keywordID = item.Id})" target="_blank">@item.Quantity</a></td>
+                                    <td>
+                                        <a class="btn btn-link linkchange" href="@Url.Action("Index", "CMSProducts", new { keywordID = item.Id})" target="_blank" style="color: #000 !important; ">
+                                            <b>@Html.Raw("Last crawl: ")</b>
+                                            <span style="font-size: 14px !important; ">@Html.Raw(item.StrLastUpdate + " ago  ")</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <b>@Html.Raw("Total post got:")</b>
+                                        <a class="btn btn-link" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts", new { keywordID = item.Id})" target="_blank">@item.Quantity</a>
+                                    </td>
                                     <td class="text-right linkchange">
                                         <a class="btn btn-sm btn-default cls-@item.Id" style="color: #17a2b8 !important; border-color: #17a2b8 !important; " onclick="CrawlerKeyword('@item.Id', '@item.KeySearch'); return false;">@Html.Raw("Crawler now")</a>
                                         <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " onclick="Delete('@item.Id', '@item.KeySearch'); return false;">@Html.Raw("Delete")</a>
@@ -85,8 +101,8 @@
         },
         "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
         "lengthMenu": [
-            [6, 15, 20, -1],
-            [6, 15, 20, "All"] // change per page values here
+            [6, 15, 20, 20, -1],
+            [6, 15, 20, 20, "All"] // change per page values here
         ],
         "pageLength": 6,
         "columnDefs": [
