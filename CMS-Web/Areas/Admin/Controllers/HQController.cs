@@ -48,7 +48,6 @@ namespace CMS_Web.Areas.Admin.Controllers
         public List<SelectListItem> getListQuantity()
         {
             var _lstQuantity = new List<SelectListItem>() {
-                new SelectListItem() { Text = "...", Value = Commons.EQuantityType.Done.ToString("d") },
                 new SelectListItem() { Text = "0 - 100", Value = Commons.EQuantityType.ZeroToOne.ToString("d") },
                 new SelectListItem() { Text = "100 - 200", Value = Commons.EQuantityType.OneToTwo.ToString("d") },
                 new SelectListItem() { Text = "200 - 300", Value = Commons.EQuantityType.TwoToThree.ToString("d") },
