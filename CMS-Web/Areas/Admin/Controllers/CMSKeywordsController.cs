@@ -45,10 +45,6 @@ namespace CMS_Web.Areas.Admin.Controllers
                     var temp = ListItem.Where(o => o.Trim() == item.KeySearch.Trim()).FirstOrDefault();
                     if (temp == null)
                     {
-                        //CrawlerHelper.Get_Tagged_Pins_Count(ref qty, Key, 100);
-                        //var modelCrawler = new CMS_CrawlerModels();
-                        //CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, item.KeySearch, Commons.PinDefault);
-                        //item.Quantity = modelCrawler.Pins.Count;
                         var result = _factory.CreateOrUpdate(item, ref msg);
                         if (!result)
                         {
@@ -89,7 +85,6 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult Delete(string ID)
         {
-            CMS_KeywordModels group = new CMS_KeywordModels();
             var msg = "";
             var result = _factory.Delete(ID, "Admin", ref msg);
             if (result)
@@ -101,7 +96,6 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult DeleteAll(string ID)
         {
-            CMS_KeywordModels group = new CMS_KeywordModels();
             var msg = "";
             var result = _factory.DeleteAndRemoveDB(ID, ref msg);
             if (result)
