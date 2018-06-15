@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -77,7 +78,8 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult CrawlerKeyword(string ID, string Key)
         {
             var msg = "";
-            var result = _factory.CrawlData(ID, "Admin", ref msg);
+            new Thread(() => { _factory.CrawlData(ID, "Admin", ref msg); }).Start();
+            var result = true;
             if (result)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
