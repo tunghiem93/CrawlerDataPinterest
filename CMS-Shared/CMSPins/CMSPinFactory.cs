@@ -50,6 +50,7 @@ namespace CMS_Shared.CMSEmployees
                             Repin_count = pin.Repin_count,
                             ImageUrl = pin.Images.Select(o => o.url).First(),
                             Created_At = pin.Created_At,
+                            Domain = pin.Domain,
                             Status = (byte)Commons.EStatus.Active,
                             CreatedBy = createdBy,
                             CreatedDate = DateTime.Now,
