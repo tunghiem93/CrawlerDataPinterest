@@ -29,6 +29,8 @@ namespace CMS_Shared
             TimeIncrease = 0,
             TimeReduce = 1,
             TimeCustom = 2,
+            PinIncrease = 3,
+            PinReduce = 4,
         }
 
         public enum EPinType

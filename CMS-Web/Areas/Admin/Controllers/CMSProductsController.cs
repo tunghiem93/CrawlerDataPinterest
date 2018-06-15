@@ -31,110 +31,102 @@ namespace CMS_Web.Areas.Admin.Controllers
                 var FilterModel = new PinFilterDTO();
                 FilterModel.PageIndex = 1;
                 FilterModel.PageSize = 1000;
-                if (Request.Cookies["FromDate"] != null)
-                {
-                    var _FromDate = Convert.ToDateTime(Request.Cookies["FromDate"].Value);
-                    FilterModel.CreatedAtFrom = _FromDate;
-                }
-                if(Request.Cookies["ToDate"] != null)
-                {
-                    var _ToDate = Convert.ToDateTime(Request.Cookies["ToDate"].Value);
-                    FilterModel.CreatedAtTo = _ToDate;
-                }
-                string TypeTime = "", TypePin = "";
-                if (Request.Cookies["TypeTime"] != null)
-                {
-                    TypeTime = Request.Cookies["TypeTime"].Value;
-                    model.TypeTime = Convert.ToInt16(TypeTime);
-                }
-                if (Request.Cookies["TypePin"] != null)
-                {
-                    TypePin = Request.Cookies["TypePin"].Value;
-                    model.TypePin = Convert.ToInt16(TypePin);
-                }
+                # region "Comment"
+                //if (Request.Cookies["FromDate"] != null)
+                //{
+                //    var _FromDate = Convert.ToDateTime(Request.Cookies["FromDate"].Value);
+                //    FilterModel.CreatedAtFrom = _FromDate;
+                //}
+                //if(Request.Cookies["ToDate"] != null)
+                //{
+                //    var _ToDate = Convert.ToDateTime(Request.Cookies["ToDate"].Value);
+                //    FilterModel.CreatedAtTo = _ToDate;
+                //}
+                //string TypeTime = "", TypePin = "";
+                //if (Request.Cookies["TypeTime"] != null)
+                //{
+                //    TypeTime = Request.Cookies["TypeTime"].Value;
+                //    model.TypeTime = Convert.ToInt16(TypeTime);
+                //}
+                //if (Request.Cookies["TypePin"] != null)
+                //{
+                //    TypePin = Request.Cookies["TypePin"].Value;
+                //    model.TypePin = Convert.ToInt16(TypePin);
+                //}
 
-                if (Request.Cookies["TypeQuantity"] != null)
-                {
-                    var RepinCount = Request.Cookies["TypeQuantity"].Value.ToString();
-                    if(RepinCount == Commons.EQuantityType.ZeroToOne.ToString("d"))
-                    {
-                        FilterModel.PinCountFrom = 0;
-                        FilterModel.PinCountTo = 100;
-                    }
+                //if (Request.Cookies["TypeQuantity"] != null)
+                //{
+                //    var RepinCount = Request.Cookies["TypeQuantity"].Value.ToString();
+                //    if(RepinCount == Commons.EQuantityType.ZeroToOne.ToString("d"))
+                //    {
+                //        FilterModel.PinCountFrom = 0;
+                //        FilterModel.PinCountTo = 100;
+                //    }
 
-                    if (RepinCount == Commons.EQuantityType.OneToTwo.ToString("d"))
-                    {
-                        FilterModel.PinCountFrom = 100;
-                        FilterModel.PinCountTo = 200;
-                    }
-                    if (RepinCount == Commons.EQuantityType.TwoToThree.ToString("d"))
-                    {
-                        FilterModel.PinCountFrom = 200;
-                        FilterModel.PinCountTo = 300;
-                    }
-                    if (RepinCount == Commons.EQuantityType.ThreeToFour.ToString("d"))
-                    {
-                        FilterModel.PinCountFrom = 300;
-                        FilterModel.PinCountTo = 400;
-                    }
-                    if (RepinCount == Commons.EQuantityType.FourToFive.ToString("d"))
-                    {
-                        FilterModel.PinCountFrom = 400;
-                        FilterModel.PinCountTo = 500;
-                    }
-                    if (RepinCount == Commons.EQuantityType.MoreFive.ToString("d"))
-                    {
-                        FilterModel.PinCountFrom = 500;
-                    }
-                    model.TypeQuantity = Convert.ToInt16(RepinCount);
-                }
+                //    if (RepinCount == Commons.EQuantityType.OneToTwo.ToString("d"))
+                //    {
+                //        FilterModel.PinCountFrom = 100;
+                //        FilterModel.PinCountTo = 200;
+                //    }
+                //    if (RepinCount == Commons.EQuantityType.TwoToThree.ToString("d"))
+                //    {
+                //        FilterModel.PinCountFrom = 200;
+                //        FilterModel.PinCountTo = 300;
+                //    }
+                //    if (RepinCount == Commons.EQuantityType.ThreeToFour.ToString("d"))
+                //    {
+                //        FilterModel.PinCountFrom = 300;
+                //        FilterModel.PinCountTo = 400;
+                //    }
+                //    if (RepinCount == Commons.EQuantityType.FourToFive.ToString("d"))
+                //    {
+                //        FilterModel.PinCountFrom = 400;
+                //        FilterModel.PinCountTo = 500;
+                //    }
+                //    if (RepinCount == Commons.EQuantityType.MoreFive.ToString("d"))
+                //    {
+                //        FilterModel.PinCountFrom = 500;
+                //    }
+                //    model.TypeQuantity = Convert.ToInt16(RepinCount);
+                //}
 
-                if(Request.Cookies["Keywords"] != null)
-                {
-                    var Keywords = Request.Cookies["Keywords"].Value;
-                    char[] separator = new char[] { ',' };
-                    var ListKeyword = CommonHelper.ParseStringToList(Keywords, separator);
-                    FilterModel.lstKeyWordID = ListKeyword;
-                    model.listKeywords = ListKeyword;
-                }
-
+                //if(Request.Cookies["Keywords"] != null)
+                //{
+                //    var Keywords = Request.Cookies["Keywords"].Value;
+                //    char[] separator = new char[] { ',' };
+                //    var ListKeyword = CommonHelper.ParseStringToList(Keywords, separator);
+                //    FilterModel.lstKeyWordID = ListKeyword;
+                //    model.listKeywords = ListKeyword;
+                //}
+#endregion
                 model.ListTime = getListTime();
                 model.ListQuantity = getListQuantity();
                 model.ListRePin = getListRepinCount();
                 ViewBag.Keywords = getListKeyword();
                 var _pinModels = new List<PinsModels>();
                 var msg = "";
-                var result =  _fac.GetPin(ref _pinModels, FilterModel, ref msg);
+                var result = _fac.GetPin(ref _pinModels, FilterModel, ref msg);
                 if(result)
                 {
-                    model.Crawler.Pins = _pinModels;
-                    
-                    if (TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")) && TypePin.Equals(Commons.EPinType.PinReduce.ToString("d")))
-                    {
-                        model.Crawler.Pins = model.Crawler.Pins.OrderByDescending(x => x.Created_At).ThenByDescending(x => x.Repin_count).ToList();
-                    }
-                    else if (TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")) && TypePin.Equals(Commons.EPinType.PinIncrease.ToString("d")))
-                    {
-                        model.Crawler.Pins = model.Crawler.Pins.OrderBy(x => x.Created_At).ThenBy(x => x.Repin_count).ToList();
-                    }
-                    else if (TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")))
-                    {
-                        model.Crawler.Pins = model.Crawler.Pins.OrderByDescending(x => x.Created_At).ToList();
-                    }
-                    else if (TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")))
-                    {
-                        model.Crawler.Pins = model.Crawler.Pins.OrderBy(x => x.Created_At).ToList();
-                    }
-                    else if (TypePin.Equals(Commons.EPinType.PinReduce.ToString("d")))
-                    {
-                        model.Crawler.Pins = model.Crawler.Pins.OrderByDescending(x => x.Repin_count).ToList();
-                    }
-                    else if (TypePin.Equals(Commons.EPinType.PinIncrease.ToString("d")))
-                    {
-                        model.Crawler.Pins = model.Crawler.Pins.OrderBy(x => x.Repin_count).ToList();
-                    }
-
-                    
+                    model.Crawler.Pins = _pinModels.OrderBy(x => x.Created_At).ToList();
+                    #region "Comment"
+                    //if (TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")))
+                    //{
+                    //    model.Crawler.Pins = model.Crawler.Pins.OrderByDescending(x => x.Created_At).ToList();
+                    //}
+                    //else if (TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")))
+                    //{
+                    //    model.Crawler.Pins = model.Crawler.Pins.OrderBy(x => x.Created_At).ToList();
+                    //}
+                    //else if (TypePin.Equals(Commons.ETimeType.PinReduce.ToString("d")))
+                    //{
+                    //    model.Crawler.Pins = model.Crawler.Pins.OrderByDescending(x => x.Repin_count).ToList();
+                    //}
+                    //else if (TypePin.Equals(Commons.ETimeType.PinIncrease.ToString("d")))
+                    //{
+                    //    model.Crawler.Pins = model.Crawler.Pins.OrderBy(x => x.Repin_count).ToList();
+                    //}
+#endregion
                 } 
             }
             catch(Exception ex)
@@ -397,31 +389,31 @@ namespace CMS_Web.Areas.Admin.Controllers
                 FilterModel.PageSize = 1000;
                // var _Key = Request["Key"] ?? "";
                 var TypeTime = Request["TypeTime"] ?? "";
-                var TypePin = Request["TypePin"] ?? "";
+              //  var TypePin = Request["TypePin"] ?? "";
                 var TypeQuantity = Convert.ToInt32(Request["TypeQuantity"]);
                 var Keywords = Request["listKeywords"] ?? null;
                 char[] separator = new char[] { ',' };
                 var ListKeyword = CommonHelper.ParseStringToList(Keywords, separator);
                 var _FromDate = Convert.ToDateTime(Request["FromDate"]) ;
                 var _ToDate = Convert.ToDateTime(Request["ToDate"]);
-                
+                #region "comment"
                 //cache data
-                Response.Cookies["TypeTime"].Value = TypeTime.ToString();
-                Response.Cookies["TypeTime"].Expires = DateTime.Now.AddYears(1); // add expiry time
+                //Response.Cookies["TypeTime"].Value = TypeTime.ToString();
+                //Response.Cookies["TypeTime"].Expires = DateTime.Now.AddYears(1); // add expiry time
 
-                Response.Cookies["TypePin"].Value = TypePin.ToString();
-                Response.Cookies["TypePin"].Expires = DateTime.Now.AddYears(1); // add expiry time
+                //Response.Cookies["TypePin"].Value = TypePin.ToString();
+                //Response.Cookies["TypePin"].Expires = DateTime.Now.AddYears(1); // add expiry time
 
-                Response.Cookies["FromDate"].Value = _FromDate.ToString();
-                Response.Cookies["FromDate"].Expires = DateTime.Now.AddYears(1); // add expiry time
-                Response.Cookies["ToDate"].Value = _ToDate.ToString();
-                Response.Cookies["ToDate"].Expires = DateTime.Now.AddYears(1); // add expiry time
-                if(TypeQuantity != 0)
-                {
-                    Response.Cookies["TypeQuantity"].Value = TypeQuantity.ToString();
-                    Response.Cookies["TypeQuantity"].Expires = DateTime.Now.AddYears(1); // add expiry time
-                }
-
+                //Response.Cookies["FromDate"].Value = _FromDate.ToString();
+                //Response.Cookies["FromDate"].Expires = DateTime.Now.AddYears(1); // add expiry time
+                //Response.Cookies["ToDate"].Value = _ToDate.ToString();
+                //Response.Cookies["ToDate"].Expires = DateTime.Now.AddYears(1); // add expiry time
+                //if(TypeQuantity != 0)
+                //{
+                //    Response.Cookies["TypeQuantity"].Value = TypeQuantity.ToString();
+                //    Response.Cookies["TypeQuantity"].Expires = DateTime.Now.AddYears(1); // add expiry time
+                //}
+#endregion
                 FilterModel.CreatedAtFrom = _FromDate;
                 FilterModel.CreatedAtTo = _ToDate;
                 if (TypeQuantity.ToString() == Commons.EQuantityType.ZeroToOne.ToString("d"))
@@ -429,7 +421,6 @@ namespace CMS_Web.Areas.Admin.Controllers
                     FilterModel.PinCountFrom = 0;
                     FilterModel.PinCountTo = 100;
                 }
-
                 if (TypeQuantity.ToString() == Commons.EQuantityType.OneToTwo.ToString("d"))
                 {
                     FilterModel.PinCountFrom = 100;
@@ -458,10 +449,9 @@ namespace CMS_Web.Areas.Admin.Controllers
                 if (ListKeyword != null && ListKeyword.Count > 0)
                 {
                     FilterModel.lstKeyWordID = ListKeyword;
-                    Response.Cookies["Keywords"].Value = Keywords.ToString();
-                    Response.Cookies["Keywords"].Expires = DateTime.Now.AddYears(1); // add expiry time
+                   // Response.Cookies["Keywords"].Value = Keywords.ToString();
+                  //  Response.Cookies["Keywords"].Expires = DateTime.Now.AddYears(1); // add expiry time
                 }
-                    
                 var modelCrawler = new CMS_CrawlerModels();
                 var _pinModels = new List<PinsModels>();
                 var msg = "";
@@ -469,15 +459,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 if (result)
                 {
                     modelCrawler.Pins = _pinModels;
-                    if (TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")) && TypePin.Equals(Commons.EPinType.PinReduce.ToString("d")))
-                    {
-                        modelCrawler.Pins = modelCrawler.Pins.OrderByDescending(x => x.Created_At).ThenByDescending(x => x.Repin_count).ToList();
-                    }
-                    else if (TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")) && TypePin.Equals(Commons.EPinType.PinIncrease.ToString("d")))
-                    {
-                        modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.Created_At).ThenBy(x => x.Repin_count).ToList();
-                    }
-                    else if (TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")))
+                    if (TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")))
                     {
                         modelCrawler.Pins = modelCrawler.Pins.OrderByDescending(x => x.Created_At).ToList();
                     }
@@ -485,17 +467,15 @@ namespace CMS_Web.Areas.Admin.Controllers
                     {
                         modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.Created_At).ToList();
                     }
-                    else if (TypePin.Equals(Commons.EPinType.PinReduce.ToString("d")))
+                    else if (TypeTime.Equals(Commons.ETimeType.PinReduce.ToString("d")))
                     {
                         modelCrawler.Pins = modelCrawler.Pins.OrderByDescending(x => x.Repin_count).ToList();
                     }
-                    else if (TypePin.Equals(Commons.EPinType.PinIncrease.ToString("d")))
+                    else if (TypeTime.Equals(Commons.ETimeType.PinIncrease.ToString("d")))
                     {
                         modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.Repin_count).ToList();
                     }
                 }
-                
-                
                 return PartialView("_ListItem", modelCrawler);
             }
             catch (Exception) { }
