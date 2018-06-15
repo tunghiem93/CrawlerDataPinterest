@@ -2,6 +2,7 @@
 using CMS_DTO.CMSKeyword;
 using CMS_Entity;
 using CMS_Entity.Entity;
+using CMS_Shared.CMSEmployees;
 using CMS_Shared.Utilities;
 using System;
 using System.Collections.Generic;
@@ -180,13 +181,18 @@ namespace CMS_Shared.Keyword
                     if (keyWord != null)
                     {
                         /* call drawler api to crawl data */
-                        //var modelCrawler = new CMS_CrawlerModels();
-                        //CrawlerHelper.Get_Tagged_Pins(ref modelCrawler, key, Commons.PinDefault);
+                        var model = new CMS_CrawlerModels();
+                        CMSPinFactory _fac = new CMSPinFactory();
+                        CrawlerHelper.Get_Tagged_Pins(ref model, keyWord.KeyWord, Commons.PinDefault);
+                        var res = _fac.CreateOrUpdate(model.Pins, keyWord.ID, createdBy, ref msg);
 
-                        /* update crawer date */
-                        keyWord.UpdatedDate = DateTime.Now;
-                        keyWord.UpdatedBy = createdBy;
-                        _db.SaveChanges();
+                        if (res)
+                        {
+                            /* update crawer date */
+                            keyWord.UpdatedDate = DateTime.Now;
+                            keyWord.UpdatedBy = createdBy;
+                            _db.SaveChanges();
+                        }
                     }
                 }
             }

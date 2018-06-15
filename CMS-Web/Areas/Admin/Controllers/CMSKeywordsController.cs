@@ -19,12 +19,10 @@ namespace CMS_Web.Areas.Admin.Controllers
     {
         // GET: Admin/GroupSearchs
         private CMSKeywordFactory _factory;
-        private CMSPinFactory _fac;
         private List<string> ListItem = null;
         public CMSKeywordsController()
         {
             _factory = new CMSKeywordFactory();
-            _fac = new CMSPinFactory();
             ListItem = new List<string>();
             ListItem = _factory.GetList().Select(o=>o.KeySearch).ToList();
         }
@@ -79,9 +77,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult CrawlerKeyword(string ID, string Key)
         {
             var msg = "";
-            var model = new CMS_CrawlerModels();
-            CrawlerHelper.Get_Tagged_Pins(ref model, Key, Commons.PinDefault);
-            var result = _fac.CreateOrUpdate(model.Pins, ID, "", ref msg);
+            var result = _factory.CrawlData(ID, "Admin", ref msg);
             if (result)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);

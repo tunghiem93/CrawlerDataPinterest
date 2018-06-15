@@ -34,9 +34,13 @@ namespace CMS_Shared.CMSEmployees
                     /* update pin */
                     foreach (var uPin in lstPinUpdate)
                     {
-                        uPin.Repin_count = lstPin.Where(o => o.ID == uPin.ID).Select(o => o.Repin_count).FirstOrDefault();
-                        uPin.UpdatedBy = createdBy;
-                        uPin.UpdatedDate = DateTime.Now;
+                        var repin_count = lstPin.Where(o => o.ID == uPin.ID).Select(o => o.Repin_count).FirstOrDefault();
+                        if (repin_count != uPin.Repin_count)
+                        {
+                            uPin.Repin_count = repin_count;
+                            uPin.UpdatedBy = createdBy;
+                            uPin.UpdatedDate = DateTime.Now;
+                        }
                     }
 
                     /* insert new pin */
@@ -111,9 +115,14 @@ namespace CMS_Shared.CMSEmployees
                     if (filter != null)
                     {
                         /* filter by list key words */
-                        var lstPinID = _db.CMS_R_KeyWord_Pin.Where(o => filter.lstKeyWordID.Contains(o.KeyWordID)).Select(o => o.PinID).ToList();
-                        if (lstPinID.Count > 0)
-                            query = query.Where(o => lstPinID.Contains(o.ID));
+                        if (filter.lstKeyWordID != null)
+                        {
+                            if (filter.lstKeyWordID.Count > 0)
+                            {
+                                var lstPinID = _db.CMS_R_KeyWord_Pin.Where(o => filter.lstKeyWordID.Contains(o.KeyWordID)).Select(o => o.PinID).ToList();
+                                query = query.Where(o => lstPinID.Contains(o.ID));
+                            }
+                        }
 
                         /* filter by create date */
                         if (filter.CreatedDateFrom != filter.CreatedDateTo && filter.CreatedDateTo != null)
