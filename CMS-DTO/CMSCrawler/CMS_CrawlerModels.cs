@@ -56,4 +56,17 @@ namespace CMS_DTO.CMSCrawler
         public int width { get; set; }
         public int height { get; set; }
     }
+
+    public class PinFilterDTO
+    {
+        public List<string> lstKeyWordID { get; set; }
+        public DateTime? CreatedDateFrom { get; set; }
+        public DateTime? CreatedDateTo { get; set; }
+        public DateTime? CreatedAtFrom { get; set; }
+        public DateTime? CreatedAtTo { get; set; }
+        public int? PinCountFrom { get; set; }
+        public int? PinCountTo { get; set; }
+        public int PageSize { get; set; }
+        public int PageIndex { get; set; }
+    }
 }
