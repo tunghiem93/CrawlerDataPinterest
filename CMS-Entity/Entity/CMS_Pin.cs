@@ -17,7 +17,6 @@ namespace CMS_Entity.Entity
         [StringLength(60)]
         public string ID { get; set; }
 
-        [Required]
         [StringLength(256)]
         public string Link { get; set; }
 

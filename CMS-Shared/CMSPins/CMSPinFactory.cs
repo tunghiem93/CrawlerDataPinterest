@@ -159,7 +159,7 @@ namespace CMS_Shared.CMSEmployees
                         Created_At = o.Created_At ?? DateTime.MinValue,
                         CreatedDate = o.CreatedDate ?? DateTime.MinValue,
                         UpdateDate = o.UpdatedDate ?? DateTime.MinValue,
-                        LastTime = CommonHelper.GetDurationFromNow(o.UpdatedDate),
+                        //LastTime = CommonHelper.GetDurationFromNow(o.UpdatedDate),
                     }).ToList();
                 }
             }
