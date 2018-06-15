@@ -54,6 +54,8 @@
     });
 
     function CrawlerKeyword(Id, key) {
+        $('.cls-' + Id).text('Crawling...');
+        $('.cls-' + Id).css({ "background-color": "wheat", "border-color": "wheat" });
         $.ajax(
         {
             url: '@Url.Action("CrawlerKeyword", "CMSKeywords")',
@@ -67,16 +69,16 @@
                 location.reload();
             },
             beforeSend: function () {
-                $('.se-pre-con').show();
+                //$('.se-pre-con').show();
             },
             complete: function () {
-                $('.se-pre-con').hide();
+                //$('.se-pre-con').hide();
             },
             error: function (e) {
                 if (e.status == 400) {
                     $(".detail-error").text("không thể xóa Key này!");
                 }
-                $('.se-pre-con').hide();
+                //$('.se-pre-con').hide();
             }
         });
     }
@@ -97,7 +99,7 @@
                 $('.se-pre-con').show();
             },
             complete: function () {
-                $('.se-pre-con').hide();
+                //$('.se-pre-con').hide();
             },
             error: function (e) {
                 if (e.status == 400) {
@@ -124,7 +126,7 @@
                 $('.se-pre-con').show();
             },
             complete: function () {
-                $('.se-pre-con').hide();
+                //$('.se-pre-con').hide();
             },
             error: function (e) {
                 if (e.status == 400) {
