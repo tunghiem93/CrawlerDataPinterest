@@ -17,7 +17,7 @@ namespace CMS_Entity.Entity
         [StringLength(60)]
         public string ID { get; set; }
 
-        [StringLength(500)]
+        [StringLength(2000)]
         public string Link { get; set; }
 
         [Required]
@@ -26,7 +26,7 @@ namespace CMS_Entity.Entity
 
         public int? Repin_count { get; set; }
 
-        [StringLength(256)]
+        [StringLength(2000)]
         public string ImageUrl { get; set; }
 
         public DateTime? Created_At { get; set; }
