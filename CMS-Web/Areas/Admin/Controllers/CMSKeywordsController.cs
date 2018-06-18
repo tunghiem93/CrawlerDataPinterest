@@ -82,6 +82,17 @@ namespace CMS_Web.Areas.Admin.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
+        public ActionResult RemoveKeyFromGroup(string KeyID, string GroupKeyID)
+        {
+            var msg = "";
+            var result = _factory.RemoveKeyFromGroup(KeyID, GroupKeyID, ref msg);
+            if (result)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
 
         public ActionResult CrawlerKeyword(string ID, string Key)
         {

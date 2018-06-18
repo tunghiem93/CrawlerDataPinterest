@@ -43,7 +43,9 @@
                                     </td>
                                     <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
                                     <td class="text-left linkchange">
-                                        <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " onclick="Delete(this, '@item.Id'); return false;">@Html.Raw("Delete")</a>                                    </td>
+                                        <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " onclick="Delete(this, '@item.Id'); return false;">@Html.Raw("Delete")</a>                                    
+                                        <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " href="@Url.Action("Edit", "CMSGroupKeywords", new { id = item.Id})">@Html.Raw("Edit")</a>
+                                    </td>
                                 </tr>
                             }
                         }

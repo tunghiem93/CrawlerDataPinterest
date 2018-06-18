@@ -213,6 +213,37 @@ namespace CMS_Shared.Keyword
             return result;
         }
 
+        public bool RemoveKeyFromGroup(string KeyId, string GroupKeyID, ref string msg)
+        {
+            var result = true;
+            using (var _db = new CMS_Context())
+            {
+                using (var trans = _db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        /* add new record */
+                        var checkRemove = _db.CMS_R_GroupKey_KeyWord.Where(o => o.KeyWordID == KeyId && o.GroupKeyID == GroupKeyID).FirstOrDefault();
+                        checkRemove.Status = (byte)Commons.EStatus.Deleted;
+                        checkRemove.UpdatedDate = DateTime.Now;
+                        _db.SaveChanges();
+                        trans.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        msg = "Check connection, please!";
+                        result = false;
+                        trans.Rollback();
+                    }
+                    finally
+                    {
+                        _db.Dispose();
+                    }
+                }
+            }
+            return result;
+        }
+
         public bool CrawlData(string Id, string createdBy, ref string msg)
         {
             var result = true;

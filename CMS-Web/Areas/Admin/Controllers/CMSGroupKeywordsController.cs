@@ -1,6 +1,7 @@
 ﻿using CMS_DTO.CMSGroupKeywords;
 using CMS_DTO.CMSKeyword;
 using CMS_Shared.CMSGroupKeywords;
+using CMS_Shared.Keyword;
 using CMS_Web.Web.App_Start;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,12 @@ namespace CMS_Web.Areas.Admin.Controllers
     {
         // GET: Admin/GroupSearchs
         private CMSGroupKeywordsFactory _factory;
+        private CMSKeywordFactory _keyFac;
         private List<string> ListItem = null;
         public CMSGroupKeywordsController()
         {
             _factory = new CMSGroupKeywordsFactory();
+            _keyFac = new CMSKeywordFactory();
             ListItem = new List<string>();
             ListItem = _factory.GetList().Select(o => o.Name).ToList();
         }
@@ -77,6 +80,13 @@ namespace CMS_Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(string Id)
+        {
+            var model = _keyFac.GetList(Id);
+            return PartialView("_Edit", model);
         }
     }
 }
