@@ -33,7 +33,7 @@ namespace CMS_Entity.Entity
         [StringLength(60)]
         public string UpdatedBy { get; set; }
 
-        public DateTime? UpdatedDated { get; set; }
+        public DateTime? UpdatedDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_R_GroupKey_KeyWord> CMS_R_GroupKey_KeyWord { get; set; }
