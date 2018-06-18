@@ -80,5 +80,24 @@ namespace CMS_Web.Areas.Admin.Controllers
             }
             return lstKeyword;
         }
+
+        public List<SelectListItem> getListGroupKeyword()
+        {
+            var _fac = new CMSKeywordFactory();
+            var data = _fac.GetList();
+            var lstKeyword = new List<SelectListItem>();
+            if (data != null && data.Any())
+            {
+                foreach (var item in data)
+                {
+                    lstKeyword.Add(new SelectListItem
+                    {
+                        Value = item.Id,
+                        Text = item.KeySearch
+                    });
+                }
+            }
+            return lstKeyword;
+        }
     }
 }

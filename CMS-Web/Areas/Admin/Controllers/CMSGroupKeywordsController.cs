@@ -10,11 +10,11 @@ using System.Web.Mvc;
 namespace CMS_Web.Areas.Admin.Controllers
 {
     [NuAuth]
-    public class CMSListKeywordsController : Controller
+    public class CMSGroupKeywordsController : Controller
     {
         private CMSGroupKeywordFactory _factory;
 
-        public CMSListKeywordsController()
+        public CMSGroupKeywordsController()
         {
             _factory = new CMSGroupKeywordFactory();
         }

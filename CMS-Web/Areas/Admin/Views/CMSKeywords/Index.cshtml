@@ -42,6 +42,8 @@
 </div>
 
 <script type="text/javascript">
+    var keyID = "";
+
     $(document).ready(function () {
         LoadGrid();
     });
@@ -137,4 +139,38 @@
         });
     }
 
+    function GetKeyID(KeyId) {
+        keyID = KeyId;         
+    }
+
+    function AddKeyToGroup(e) {
+        debugger;
+        var GroupKeyId = $('#groupDdlView').val();
+        if (keyID != null && keyID.length > 0) {
+            $.ajax(
+            {
+                url: '@Url.Action("AddKeyToGroup", "CMSKeywords")',
+                type: 'get',
+                data: {
+                    KeyID: keyID,
+                    GroupKeyID: GroupKeyId
+                },
+                dataType: 'html',
+                success: function (data) {
+                },
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                complete: function () {
+                    $('.se-pre-con').hide();
+                },
+                    error: function (e) {
+                        if (e.status == 400) {
+                            alert("không thể thêm Key này!");
+                        }
+                    $('.se-pre-con').hide();
+                }
+            });
+        }        
+    }
 </script>

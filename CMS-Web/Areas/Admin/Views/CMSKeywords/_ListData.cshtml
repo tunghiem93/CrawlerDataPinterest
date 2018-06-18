@@ -7,6 +7,7 @@
     .rowKey td b {
         font-size: 15px !important;
     }
+
     .linkchange {
         text-decoration: none !important;
     }
@@ -29,7 +30,7 @@
                             <th class="text-left">Name</th>
                             <th class="text-left">Last Crawl</th>
                             <th class="text-left">Total post</th>
-                            <th class="text-left">Ngày tạo</th>
+                            <th class="text-left">Post day</th>
                             <th class="text-left">Action</th>
                         </tr>
                     </thead>
@@ -52,8 +53,13 @@
                                         <b>@Html.Raw("Total post got:")</b>
                                         <a class="btn btn-link" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts", new { keywordID = item.Id})" target="_blank">@item.Quantity</a>
                                     </td>
-                                    <td>@string.Format("{0}",item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
+                                    <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
                                     <td class="text-right linkchange">
+                                        <a id="" onclick="GetKeyID('@item.Id')" class="btn btn-primary btn-sm" style="background-color: #337ab7; color: #fff; " data-id="@item.Id"
+                                           data-toggle="modal" @*data-backdrop="static"*@ data-target=".bs-example-modal-order-form-Keyword">
+                                            <i class="fa fa-plus-square" style="font-size:14px;"></i>
+                                            <span>Group</span>
+                                        </a>
                                         <a class="btn btn-sm btn-default cls-@item.Id" style="color: #17a2b8 !important; border-color: #17a2b8 !important; " onclick="CrawlerKeyword('@item.Id', '@item.KeySearch'); return false;">@Html.Raw("Crawl now")</a>
                                         <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " onclick="Delete(this, '@item.Id'); return false;">@Html.Raw("Delete")</a>
                                         <a class="btn btn-sm btn-danger" onclick="DeleteAll(this, '@item.Id'); return false;">@Html.Raw("Delete and clear posts")</a>
@@ -66,6 +72,47 @@
             </div>
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+
+@*Modal Group keyword*@
+<div class="modal fade bs-example-modal-order-form-Keyword" id="modal-choose-order-from-Keyword" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style="width: 25%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style=" text-align: left;">Add group Keyword</h4>
+            </div>
+            <div id="div-postal-code" class="modal-body scroll" style="padding-top: 10px; ">
+                <table class="table center-content">
+                    <thead style=" background-color: #34495e">
+                        <tr style="color: #fff; ">
+                            <th>Group keyword</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="tr-add-more-tab-wallet">
+                            <td style="padding-top:12px; text-align:left" colspan="7">
+                                <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                    <div class="input-prepend input-group" style="width:100%">
+                                        @Html.DropDownList("key", new SelectList(ViewBag.ListGroupKey, "Value", "Text"), "",
+                                new
+                                {
+                                    @class = "form-control select2_multiple",
+                                    @id = "groupDdlView",
+                                    @style = "width:100%;",
+                                })
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="modal-footer" style="text-align:right;">
+                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="AddKeyToGroup(this)" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -120,6 +167,11 @@
             alert('Duplicate Keyword. Please enter again!');
         }
         _tableEmployee = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableEmployee));
+
+        $("#groupDdlView").select2({
+            placeholder: "Add to a group",
+            //allowClear: true
+        });
     })
 
     function ShowView(url) {

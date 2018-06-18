@@ -168,7 +168,25 @@ namespace CMS_Shared.Keyword
             return result;
         }
 
-
+        public bool AddKeyToGroup(string Id, string GroupKeyID, ref string msg)
+        {
+            var result = true;
+            try
+            {
+                using (var _db = new CMS_Context())
+                {
+                    var e = _db.CMS_KeyWord.Find(Id);
+                    _db.CMS_KeyWord.Remove(e);
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Can't add this key words.";
+                result = false;
+            }
+            return result;
+        }
 
         public bool CrawlData(string Id, string createdBy, ref string msg)
         {

@@ -26,6 +26,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             _factory = new CMSKeywordFactory();
             ListItem = new List<string>();
             ListItem = _factory.GetList().Select(o=>o.KeySearch).ToList();
+            ViewBag.ListGroupKey = getListGroupKeyword();
         }
 
         public ActionResult Index()
@@ -70,7 +71,18 @@ namespace CMS_Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(400, e.Message);
             }            
         }
-        
+
+        public ActionResult AddKeyToGroup(string KeyID, string GroupKeyID)
+        {
+            var msg = "";
+            var result = _factory.AddKeyToGroup(KeyID, GroupKeyID, ref msg);
+            if (result)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
         public ActionResult CrawlerKeyword(string ID, string Key)
         {
             var msg = "";
