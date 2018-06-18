@@ -72,6 +72,7 @@ namespace CMS_DTO.CMSCrawler
 
         public PinFilterDTO()
         {
+            LstGroupID = new List<string>();
             LstKeyWordID = new List<string>();
         }
     }

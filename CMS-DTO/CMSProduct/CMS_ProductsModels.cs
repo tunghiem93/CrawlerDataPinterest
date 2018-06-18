@@ -26,6 +26,7 @@ namespace CMS_DTO.CMSProduct
         public int TypePin { get; set; }
         public List<SelectListItem> ListTime { get; set; }
         public List<string> listKeywords { get; set; }
+        public List<string> listGroups { get; set; }
         public int TypeQuantity { get; set; }
         public List<SelectListItem> ListQuantity { get; set; }
         public List<SelectListItem> ListRePin { get; set; }
@@ -47,6 +48,7 @@ namespace CMS_DTO.CMSProduct
             FromDate = new DateTime(1990, 01, 01);
             ToDate = DateTime.Now;
             listKeywords = new List<string>();
+            listGroups = new List<string>();
         }
     }
 }
