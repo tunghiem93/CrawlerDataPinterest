@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMS_Shared.CMSListKeyword
 {
-    public class CMSListKeywordFactory
+    public class CMSGroupKeywordFactory
     {
     }
 }

@@ -12,11 +12,11 @@ namespace CMS_Web.Areas.Admin.Controllers
     [NuAuth]
     public class CMSListKeywordsController : Controller
     {
-        private CMSListKeywordFactory _factory;
+        private CMSGroupKeywordFactory _factory;
 
         public CMSListKeywordsController()
         {
-            _factory = new CMSListKeywordFactory();
+            _factory = new CMSGroupKeywordFactory();
         }
 
         // GET: Admin/CMSListKeywords

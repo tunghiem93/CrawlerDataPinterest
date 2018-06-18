@@ -37,16 +37,16 @@
                                         @item.KeySearch
                                     </td>
                                     <td class="text-center"> @item.CreatedDate </td>
-                                    <td class="text-center">
+                                    @*<td class="text-center">
                                         <a href="javascript:void(0)"
-                                           onclick='ShowView("@Url.Action("View","CMSEmployees",new { Id=item.Id})")'
+                                           onclick='ShowView("@Url.Action("View","CMSGroupKeywords",new { Id=item.Id})")'
                                            class="btn btn-primary btn-xs view details"><i class="fa fa-eye"></i>&nbsp;Xem</a>
                                         <a href="javascript:void(0)"
-                                           onclick='ShowView("@Url.Action("Edit","CMSEmployees",new { Id=item.Id})")'
+                                           onclick='ShowView("@Url.Action("Edit","CMSGroupKeywords",new { Id=item.Id})")'
                                            class="btn btn-info btn-xs edit details"><i class="fa fa-edit"></i>&nbsp;Sửa</a>
                                         <a href="javascript:void(0)"
-                                                   onclick='ShowView("@Url.Action("Delete","CMSEmployees",new { Id=item.Id})")' class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
-                                    </td>
+                                                   onclick='ShowView("@Url.Action("Delete","CMSGroupKeywords",new { Id=item.Id})")' class="btn btn-danger btn-xs delete details"><i class="fa fa-trash-o"></i>&nbsp;Xóa</a>
+                                    </td>*@
                                 </tr>
                             }
                         }
