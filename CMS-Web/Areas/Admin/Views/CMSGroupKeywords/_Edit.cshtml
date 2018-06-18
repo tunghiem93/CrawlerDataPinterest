@@ -1,9 +1,10 @@
 ﻿    @model List<CMS_DTO.CMSKeyword.CMS_KeywordModels>
     @{
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     }
     @{
-    ViewBag.Title = "Nhóm từ khóa - Danh sách";
+        var groupID = @ViewBag.GroupID;
+        ViewBag.Title = "Nhóm từ khóa - Danh sách";
     }
     <div role="main">
         <div class="se-pre-con" style="display: none;"></div>
@@ -11,7 +12,7 @@
             <div class="page-title">
                 <!-- BEGIN PAGE BAR -->
                 @Html.Partial("_breadcrumb", new Dictionary<string, string>
-                    { { "A", "Trang chủ" }, { "B", "Nhóm từ khóa - Danh sách" } })
+                    { { "A", "Trang chủ" }, { "B", "Từ khóa trong nhóm - Danh sách" } })
                     <!-- END PAGE BAR -->
             </div>
             <div class="page-main">
@@ -21,7 +22,7 @@
                         <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-cogs"></i>Nhóm từ khóa
+                                    <i class="fa fa-cogs"></i>Từ khóa trong nhóm
                                 </div>
                             </div>
                             <div class="portlet-body">
@@ -55,7 +56,7 @@
                                                         <a class="btn btn-link" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action(" Index", "CMSProducts" , new { keywordID=item.Id})" target="_blank">@item.Quantity</a>
                                                     </td>
                                                     <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
-                                                    <td class="text-right linkchange">
+                                                    <td class="text-left linkchange">
                                                         <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " onclick="Delete(this, '@item.Id'); return false;">@Html.Raw("Delete")</a>
                                                     </td>
                                                 </tr>
@@ -126,34 +127,33 @@
         $(document).ready(function () {
             _tableEmployee = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableEmployee));
         });
-
+        
         function Delete(btn, Keyid) {
-            alert("abc");
             $.ajax(
-                {
-                    url: '@Url.Action("RemoveKeyFromGroup", "CMSKeywords")',
-                    type: 'get',
-                    data: {
-                        KeyId: Keyid,
-                        GroupKeyID: groupID,
-                    },
-                    dataType: 'html',
-                    success: function (data) {
-                        location.reload();
-                    },
-                    beforeSend: function () {
-                        $('.se-pre-con').show();
-                    },
-                    complete: function () {
-                        //$('.se-pre-con').hide();
-                    },
-                    error: function (e) {
-                        if (e.status == 400) {
-                            $(".detail-error").text("không thể xóa key này!");
-                        }
-                        $('.se-pre-con').hide();
+            {
+                url: '@Url.Action("RemoveKeyFromGroup", "CMSKeywords")',
+                type: 'get',
+                data: {
+                    KeyId: Keyid,
+                    GroupKeyID: '@groupID',
+                },
+                dataType: 'html',
+                success: function (data) {
+                    location.reload();
+                },
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                complete: function () {
+                    //$('.se-pre-con').hide();
+                },
+                error: function (e) {
+                    if (e.status == 400) {
+                        $(".detail-error").text("không thể xóa key này!");
                     }
-                });
+                    $('.se-pre-con').hide();
+                }
+            });
         }
         
     </script>
