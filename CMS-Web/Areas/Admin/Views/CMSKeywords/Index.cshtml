@@ -144,7 +144,6 @@
     }
 
     function AddKeyToGroup(e) {
-        debugger;
         var GroupKeyId = $('#groupDdlView').val();
         if (keyID != null && keyID.length > 0) {
             $.ajax(
@@ -161,12 +160,13 @@
                 beforeSend: function () {
                     $('.se-pre-con').show();
                 },
-                complete: function () {
+                    complete: function () {
+                        alert('Keyword save successful!')
                     $('.se-pre-con').hide();
                 },
                     error: function (e) {
                         if (e.status == 400) {
-                            alert("không thể thêm Key này!");
+                            alert("Can not save Keyword!");
                         }
                     $('.se-pre-con').hide();
                 }
