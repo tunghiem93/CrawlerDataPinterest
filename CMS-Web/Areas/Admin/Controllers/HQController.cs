@@ -1,6 +1,7 @@
 ﻿using CMS_DTO.CMSBase;
 using CMS_DTO.CMSSession;
 using CMS_Shared;
+using CMS_Shared.CMSGroupKeywords;
 using CMS_Shared.Keyword;
 using System;
 using System.Collections.Generic;
@@ -83,21 +84,21 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public List<SelectListItem> getListGroupKeyword()
         {
-            var _fac = new CMSKeywordFactory();
+            var _fac = new CMSGroupKeywordsFactory();
             var data = _fac.GetList();
-            var lstKeyword = new List<SelectListItem>();
+            var lstGroupKeyword = new List<SelectListItem>();
             if (data != null && data.Any())
             {
                 foreach (var item in data)
                 {
-                    lstKeyword.Add(new SelectListItem
+                    lstGroupKeyword.Add(new SelectListItem
                     {
                         Value = item.Id,
-                        Text = item.KeySearch
+                        Text = item.Name
                     });
                 }
             }
-            return lstKeyword;
+            return lstGroupKeyword;
         }
     }
 }
