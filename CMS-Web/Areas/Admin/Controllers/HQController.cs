@@ -66,6 +66,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public List<SelectListItem> getListKeyword()
         {
             var _fac = new CMSKeywordFactory();
+            var _facGroup = new CMSGroupKeywordsFactory();
             var data = _fac.GetList();
             var lstKeyword = new List<SelectListItem>();
             if(data != null && data.Any())
@@ -99,6 +100,21 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
             }
             return lstGroupKeyword;
+        }
+
+        public List<string> getListKeyWordByGroup(string GroupId)
+        {
+            var _fac = new CMSKeywordFactory();
+            var data = _fac.GetList(GroupId);
+            var lstString = new List<string>();
+            if(data != null && data.Any())
+            {
+                foreach(var item in data)
+                {
+                    lstString.Add(item.Id);
+                }
+            }
+            return lstString;
         }
     }
 }

@@ -112,7 +112,9 @@ namespace CMS_Web.Areas.Admin.Controllers
                 if (!string.IsNullOrEmpty(_Group))
                 {
                     FilterModel.LstGroupID.Add(_Group);
-                    model.listGroups.Add(_Group);
+                    
+                    var _lstKeywords = getListKeyWordByGroup(_Group);
+                    model.listKeywords.AddRange(_lstKeywords);
                 }
 
                 var _pinModels = new List<PinsModels>();
