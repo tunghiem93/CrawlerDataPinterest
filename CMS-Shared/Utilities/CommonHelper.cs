@@ -74,7 +74,7 @@ namespace CMS_Shared.Utilities
             return text;
         }
 
-        public static string GetDurationFromNow(DateTime? dateUpdate)
+        public static string GetDurationFromNow_Full(DateTime? dateUpdate)
         {
             var ret = "";
             try
@@ -98,6 +98,39 @@ namespace CMS_Shared.Utilities
                                     totalDay > 0 ? string.Format("{0:0} day{1} ", totalDay, totalDay == 1 ? String.Empty : "s") : string.Empty,
                                     years > 0 ? "" : span.Hours > 0 ? string.Format("{0:0} hour{1} ", span.Hours, span.Hours == 1 ? String.Empty : "s") : string.Empty,
                                     months > 0 ? "" : span.Minutes > 0 ? string.Format("{0:0} minute{1} ", span.Minutes, span.Minutes == 1 ? String.Empty : "s") : string.Empty
+                                    );
+
+                ret += formatted;
+                //ret += " ago.";
+            }
+            catch (Exception ex) { };
+            return ret;
+        }
+
+        public static string GetDurationFromNow(DateTime? dateUpdate)
+        {
+            var ret = "";
+            try
+            {
+                var span = (TimeSpan)(DateTime.Now - dateUpdate);
+                /* get total day */
+                int totalDay = span.Days;
+
+                /* get total year */
+                int years = totalDay / 365;
+                totalDay -= (years * 365);
+
+                /* get total months */
+                int months = totalDay / 30;
+                totalDay -= (months * 30);
+
+                /* string format */
+                string formatted = string.Format("{0}{1}{2}{3}{4}",
+                                    years > 0 ? string.Format("{0:0}y ", years) : string.Empty,
+                                    months > 0 ? string.Format("{0:0}m ", months) : string.Empty,
+                                    totalDay > 0 ? string.Format("{0:0}d ", totalDay) : string.Empty,
+                                    years > 0 ? "" : span.Hours > 0 ? string.Format("{0:0}h ", span.Hours) : string.Empty,
+                                    months > 0 ? "" : span.Minutes > 0 ? string.Format("{0:0}min ", span.Minutes) : string.Empty
                                     );
 
                 ret += formatted;

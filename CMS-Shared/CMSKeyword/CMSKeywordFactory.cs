@@ -206,18 +206,30 @@ namespace CMS_Shared.Keyword
                 using (var trans = _db.Database.BeginTransaction())
                 {
                     try
-                    {   
+                    {
                         /* add new record */
-                        var newGroupKey = new CMS_R_GroupKey_KeyWord()
+                        var checkExist = _db.CMS_R_GroupKey_KeyWord.Where(o => o.KeyWordID == KeyId && o.GroupKeyID == GroupKeyID).FirstOrDefault();
+                        if (checkExist != null)
                         {
-                            ID = Guid.NewGuid().ToString(),
-                            GroupKeyID = GroupKeyID,
-                            KeyWordID = KeyId,
-                            Status = (byte)Commons.EStatus.Active,
-                            CreatedDate = DateTime.Now,
-                            UpdatedDate = DateTime.Now,
-                        };
-                        _db.CMS_R_GroupKey_KeyWord.Add(newGroupKey);
+                            if (checkExist.Status != (byte)Commons.EStatus.Active)
+                            {
+                                checkExist.Status = (byte)Commons.EStatus.Active;
+                                checkExist.UpdatedDate = DateTime.Now;
+                            }
+                        }
+                        else /* add new */
+                        {
+                            var newGroupKey = new CMS_R_GroupKey_KeyWord()
+                            {
+                                ID = Guid.NewGuid().ToString(),
+                                GroupKeyID = GroupKeyID,
+                                KeyWordID = KeyId,
+                                Status = (byte)Commons.EStatus.Active,
+                                CreatedDate = DateTime.Now,
+                                UpdatedDate = DateTime.Now,
+                            };
+                            _db.CMS_R_GroupKey_KeyWord.Add(newGroupKey);
+                        }
 
                         _db.SaveChanges();
                         trans.Commit();

@@ -50,8 +50,9 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <b>@Html.Raw("Total post got:")</b>
+                                        @*<b>@Html.Raw("Total post got:")</b>*@
                                         <a class="btn btn-link" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts", new { keywordID = item.Id})" target="_blank">@item.Quantity</a>
+                                        <b>@Html.Raw("Pins")</b>
                                     </td>
                                     <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
                                     <td class="text-right linkchange">
@@ -95,12 +96,12 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12 ">
                                     <div class="input-prepend input-group" style="width:100%">
                                         @Html.DropDownList("key", new SelectList(ViewBag.ListGroupKey, "Value", "Text"), "",
-                                new
-                                {
-                                    @class = "form-control select2_multiple",
-                                    @id = "groupDdlView",
-                                    @style = "width:100%;",
-                                })
+                                        new
+                                        {
+                                            @class = "form-control select2_multiple",
+                                            @id = "groupDdlView",
+                                            @style = "width:100%;",
+                                        })
                                     </div>
                                 </div>
                             </td>
@@ -150,8 +151,8 @@
         },
         "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
         "lengthMenu": [
-            [6, 15, 20, 20, -1],
-            [6, 15, 20, 20, "All"] // change per page values here
+            [6, 15, 20, -1],
+            [6, 15, 20, "All"] // change per page values here
         ],
         "pageLength": 6,
         "columnDefs": [
