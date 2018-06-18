@@ -31,6 +31,8 @@ namespace CMS_Shared
             TimeCustom = 2,
             PinIncrease = 3,
             PinReduce = 4,
+            ToolIncrease = 5,
+            ToolReduce = 6,
         }
 
         public enum EPinType
@@ -69,5 +71,7 @@ namespace CMS_Shared
         public static string HostApiHomePin = ConfigurationManager.AppSettings["HostApiHomePin"];
         public static int PinDefault = Convert.ToInt16(ConfigurationManager.AppSettings["PinDefault"]);
         public static int PinOrtherDefault = Convert.ToInt16(ConfigurationManager.AppSettings["PinOrtherDefault"]);
+        public static int PageIndex = Convert.ToInt16(ConfigurationManager.AppSettings["PageIndex"]);
+        public static int PageSize = Convert.ToInt16(ConfigurationManager.AppSettings["PageSize"]);
     }
 }
