@@ -168,22 +168,41 @@ namespace CMS_Shared.Keyword
             return result;
         }
 
-        public bool AddKeyToGroup(string Id, string GroupKeyID, ref string msg)
+        public bool AddKeyToGroup(string KeyId, string GroupKeyID, ref string msg)
         {
             var result = true;
-            try
+            using (var _db = new CMS_Context())
             {
-                using (var _db = new CMS_Context())
+                using (var trans = _db.Database.BeginTransaction())
                 {
-                    var e = _db.CMS_KeyWord.Find(Id);
-                    _db.CMS_KeyWord.Remove(e);
-                    _db.SaveChanges();
+                    try
+                    {   
+                        /* add new record */
+                        var newGroupKey = new CMS_R_GroupKey_KeyWord()
+                        {
+                            ID = Guid.NewGuid().ToString(),
+                            GroupKeyID = GroupKeyID,
+                            KeyWordID = KeyId,
+                            Status = (byte)Commons.EStatus.Active,
+                            CreatedDate = DateTime.Now,
+                            UpdatedDate = DateTime.Now,
+                        };
+                        _db.CMS_R_GroupKey_KeyWord.Add(newGroupKey);
+
+                        _db.SaveChanges();
+                        trans.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        msg = "Check connection, please!";
+                        result = false;
+                        trans.Rollback();
+                    }
+                    finally
+                    {
+                        _db.Dispose();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                msg = "Can't add this key words.";
-                result = false;
             }
             return result;
         }
