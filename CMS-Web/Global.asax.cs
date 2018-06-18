@@ -16,6 +16,7 @@ namespace CMS_Web
     {
         protected void Application_Start()
         {
+            log4net.Config.XmlConfigurator.Configure();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -28,6 +29,7 @@ namespace CMS_Web
             newCulture.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             newCulture.DateTimeFormat.DateSeparator = "/";
             Thread.CurrentThread.CurrentCulture = newCulture;
+
         }
 
         void Application_AcquireRequestState(object sender, EventArgs e)
