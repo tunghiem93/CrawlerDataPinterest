@@ -31,6 +31,7 @@ namespace CMS_Shared.Keyword
                         Sequence = o.Sequence,
                         KeySearch = o.KeyWord,
                         UpdatedDate = o.UpdatedDate,
+                        CreatedDate = o.CreatedDate
                     }).ToList();
 
                     /* update quantity */
@@ -184,6 +185,21 @@ namespace CMS_Shared.Keyword
                         var model = new CMS_CrawlerModels();
                         CMSPinFactory _fac = new CMSPinFactory();
                         CrawlerHelper.Get_Tagged_Pins(ref model, keyWord.KeyWord, Commons.PinDefault);
+                        if (model != null && model.Pins != null && model.Pins.Any())
+                        {
+                            var _Temp = new CMS_CrawlerModels();
+                            foreach (var item in model.Pins)
+                            {
+                                var modelOrther = new CMS_CrawlerModels();
+                                CrawlerHelper.Get_Tagged_OrtherPins(ref modelOrther, keyWord.KeyWord, Commons.PinOrtherDefault, "", 1, item.ID);
+                                if (modelOrther != null && modelOrther.Pins != null && modelOrther.Pins.Any())
+                                {
+                                    _Temp.Pins.AddRange(modelOrther.Pins);
+                                }
+                                modelOrther = null;
+                            }
+                            model.Pins.AddRange(_Temp.Pins);
+                        }
                         var res = _fac.CreateOrUpdate(model.Pins, keyWord.ID, createdBy, ref msg);
 
                         if (res)

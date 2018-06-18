@@ -105,7 +105,7 @@ namespace CMS_Shared.Utilities
                 data = Preg_replace(input, pattern, replacements);
             }
 
-            data = HttpContext.Current.Server.UrlEncode(data);
+           // data = HttpContext.Current.Server.UrlEncode(data);
             var timestamp = GetTimestamp(DateTime.Now);
             var url = urlOrg + "&data=" + data + "" + path + "&_=" + timestamp;
             var bookmarks = "";
@@ -173,6 +173,8 @@ namespace CMS_Shared.Utilities
                                         if (itemPin.ContainsKey("id"))
                                         {
                                             pin.ID = itemPin["id"];
+
+                                            // get Repin_Count
                                             var _Repin_Count = 0;
                                             Get_Tagged_RepinCount(ref _Repin_Count, pin.ID);
                                             pin.Repin_count = _Repin_Count;
@@ -220,7 +222,10 @@ namespace CMS_Shared.Utilities
                                             flag = false;
                                         }
                                         if (flag)
+                                        {
                                             model.Pins.Add(pin);
+                                        }
+                                            
                                     }
                                 }
                             }
@@ -533,7 +538,7 @@ namespace CMS_Shared.Utilities
                 data = Preg_replace(input, pattern, replacements);
             }
 
-            data = HttpContext.Current.Server.UrlEncode(data);
+           // data = HttpContext.Current.Server.UrlEncode(data);
             var timestamp = GetTimestamp(DateTime.Now);
             var url = urlOrg + "&data=" + data +"&_=" + timestamp;
             var bookmarks = "";
@@ -745,7 +750,7 @@ namespace CMS_Shared.Utilities
                 data = Preg_replace(input, pattern, replacements);
             }
 
-            data = HttpContext.Current.Server.UrlEncode(data);
+            //data = HttpContext.Current.Server.UrlEncode(data);
             var timestamp = GetTimestamp(DateTime.Now);
             var url = urlOrg + "&data=" + data + "" + path + "&_=" + timestamp;
             var bookmarks = "";

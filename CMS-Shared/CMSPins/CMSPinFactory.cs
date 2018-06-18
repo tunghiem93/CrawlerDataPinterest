@@ -26,6 +26,8 @@ namespace CMS_Shared.CMSEmployees
             {
                 using (var _db = new CMS_Context())
                 {
+                    lstPin = lstPin.GroupBy(x => x.ID).Select(x => x.First()).ToList();
+                    lstPin = lstPin.Where(x => !string.IsNullOrEmpty(x.ID) && x.ID.Length <= 60).ToList();
                     var lstPinID = lstPin.Select(o => o.ID).ToList();
                     var lstPinUpdate = _db.CMS_Pin.Where(o => lstPinID.Contains(o.ID)).ToList();
                     var lstPinUpdateID = lstPinUpdate.Select(o => o.ID).ToList();
@@ -61,10 +63,12 @@ namespace CMS_Shared.CMSEmployees
                             UpdatedBy = createdBy,
                             UpdatedDate = DateTime.Now,
                         });
+
                     }
                     if (listInsertDB.Count > 0)
                         _db.CMS_Pin.AddRange(listInsertDB);
 
+                    //_db.SaveChanges();
                     /* TABLE KEYWORD_PIN */
                     var lstKeyWrd_Pin_Exist = _db.CMS_R_KeyWord_Pin.Where(o => o.KeyWordID == KeyWordID && lstPinID.Contains(o.PinID)).Select(o => o.PinID).ToList();
                     var lstKeyWrd_Pin_New = lstPinID.Where(o => !lstKeyWrd_Pin_Exist.Contains(o)).ToList();
@@ -82,8 +86,6 @@ namespace CMS_Shared.CMSEmployees
 
                     if (lstKeyWrd_Pin_InsertBD.Count > 0)
                         _db.CMS_R_KeyWord_Pin.AddRange(lstKeyWrd_Pin_InsertBD);
-
-
                     // save db 
                     _db.SaveChanges();
                 }
@@ -132,7 +134,7 @@ namespace CMS_Shared.CMSEmployees
                         }
 
                         /* filter by create at */
-                        if (filter.CreatedDateFrom != filter.CreatedDateTo && filter.CreatedDateTo != null)
+                        if (filter.CreatedAtFrom != filter.CreatedAtTo && filter.CreatedAtTo != null)
                         {
                             query = query.Where(o => DbFunctions.TruncateTime(o.Created_At) >= DbFunctions.TruncateTime(filter.CreatedAtFrom)
                                                 && DbFunctions.TruncateTime(o.Created_At) <= DbFunctions.TruncateTime(filter.CreatedAtTo));

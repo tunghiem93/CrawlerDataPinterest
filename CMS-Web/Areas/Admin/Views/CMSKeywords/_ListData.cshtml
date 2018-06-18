@@ -24,12 +24,13 @@
             </div>
             <div class="portlet-body">
                 <table class="table table-striped table-bordered table-hover dt-responsive" id="sample_3">
-                    <thead style="display: none !important; ">
+                    <thead @*style="display: none !important; "*@>
                         <tr>
-                            <th lass="text-left">Name</th>
-                            <th lass="text-left">Last Crawl</th>
-                            <th lass="text-left">Total post</th>
-                            <th lass="text-left">Action</th>
+                            <th class="text-left">Name</th>
+                            <th class="text-left">Last Crawl</th>
+                            <th class="text-left">Total post</th>
+                            <th class="text-left">Ngày tạo</th>
+                            <th class="text-left">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,6 +52,7 @@
                                         <b>@Html.Raw("Total post got:")</b>
                                         <a class="btn btn-link" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts", new { keywordID = item.Id})" target="_blank">@item.Quantity</a>
                                     </td>
+                                    <td>@string.Format("{0}",item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
                                     <td class="text-right linkchange">
                                         <a class="btn btn-sm btn-default cls-@item.Id" style="color: #17a2b8 !important; border-color: #17a2b8 !important; " onclick="CrawlerKeyword('@item.Id', '@item.KeySearch'); return false;">@Html.Raw("Crawl now")</a>
                                         <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " onclick="Delete(this, '@item.Id'); return false;">@Html.Raw("Delete")</a>
@@ -106,10 +108,10 @@
         ],
         "pageLength": 6,
         "columnDefs": [
-            { "orderable": false, "targets": [2] },
+            { "orderable": false, "targets": [0,1,2,4] },
         ],
         "order": [
-            [0, "asc"]
+            [3, "asc"]
         ]
     };
 

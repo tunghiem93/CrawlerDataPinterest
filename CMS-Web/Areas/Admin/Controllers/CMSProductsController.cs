@@ -29,8 +29,8 @@ namespace CMS_Web.Areas.Admin.Controllers
             {
                 var _Key = Request["keywordID"] ?? "";
                 var FilterModel = new PinFilterDTO();
-                FilterModel.PageIndex = 1;
-                FilterModel.PageSize = 1000;
+                FilterModel.PageIndex = Commons.PageIndex;
+                FilterModel.PageSize = Commons.PageSize;
                 # region "Comment"
                 //if (Request.Cookies["FromDate"] != null)
                 //{
@@ -390,8 +390,10 @@ namespace CMS_Web.Areas.Admin.Controllers
             try
             {
                 var FilterModel = new PinFilterDTO();
-                FilterModel.PageIndex = 1;
-                FilterModel.PageSize = 1000;
+                FilterModel.PageIndex = Commons.PageIndex;
+                FilterModel.PageSize = Commons.PageSize;
+                FilterModel.CreatedDateFrom = null;
+                FilterModel.CreatedDateTo = null;
                // var _Key = Request["Key"] ?? "";
                 var TypeTime = Request["TypeTime"] ?? "";
               //  var TypePin = Request["TypePin"] ?? "";
@@ -484,6 +486,14 @@ namespace CMS_Web.Areas.Admin.Controllers
                     else if (TypeTime.Equals(Commons.ETimeType.PinIncrease.ToString("d")))
                     {
                         modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.Repin_count).ToList();
+                    }
+                    else if (TypeTime.Equals(Commons.ETimeType.ToolReduce.ToString("d")))
+                    {
+                        modelCrawler.Pins = modelCrawler.Pins.OrderByDescending(x => x.CreatedDate).ToList();
+                    }
+                    else if (TypeTime.Equals(Commons.ETimeType.ToolIncrease.ToString("d")))
+                    {
+                        modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.CreatedDate).ToList();
                     }
                 }
                 return PartialView("_ListItem", modelCrawler);

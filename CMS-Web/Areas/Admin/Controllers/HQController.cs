@@ -26,8 +26,10 @@ namespace CMS_Web.Areas.Admin.Controllers
         public List<SelectListItem> getListTime()
         {
             var _lstTime = new List<SelectListItem>() {
-                new SelectListItem() {Text="Thời gian giảm dần",Value=Commons.ETimeType.TimeReduce.ToString("d") },
-                new SelectListItem() {Text="Thời gian tăng dần",Value=Commons.ETimeType.TimeIncrease.ToString("d")},
+                new SelectListItem() {Text="Mới nhất theo pin",Value=Commons.ETimeType.TimeReduce.ToString("d") },
+                new SelectListItem() {Text="Cũ nhất theo pin",Value=Commons.ETimeType.TimeIncrease.ToString("d")},
+                new SelectListItem() {Text="Mới nhất theo tool",Value=Commons.ETimeType.ToolReduce.ToString("d") },
+                new SelectListItem() {Text="Cũ nhất theo tool",Value=Commons.ETimeType.ToolIncrease.ToString("d")},
                 new SelectListItem() {Text="Pin giảm dần",Value=Commons.ETimeType.PinReduce.ToString("d") },
                 new SelectListItem() {Text="Pin tăng dần",Value=Commons.ETimeType.PinIncrease.ToString("d")},
                 //new SelectListItem() {Text="Custom",Value=Commons.ETimeType.TimeCustom.ToString("d")},
