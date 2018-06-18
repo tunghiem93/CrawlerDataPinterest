@@ -36,7 +36,7 @@ namespace CMS_Shared.Keyword
 
                     if (!string.IsNullOrEmpty(groupID)) /* filter by group ID */
                     {
-                        var listKeyID = _db.CMS_R_GroupKey_KeyWord.Where(o => o.GroupKeyID == groupID && o.Status == (byte)Commons.EStatus.Deleted).Select(o => o.KeyWordID).ToList();
+                        var listKeyID = _db.CMS_R_GroupKey_KeyWord.Where(o => o.GroupKeyID == groupID && o.Status != (byte)Commons.EStatus.Deleted).Select(o => o.KeyWordID).ToList();
                         data = data.Where(o => listKeyID.Contains(o.Id)).ToList();
                     }
 
