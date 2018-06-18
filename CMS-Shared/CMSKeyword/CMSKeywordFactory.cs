@@ -246,6 +246,8 @@ namespace CMS_Shared.Keyword
 
         public bool CrawlData(string Id, string createdBy, ref string msg)
         {
+            NSLog.Logger.Info("CrawlData:", Id);
+
             var result = true;
             try
             {
@@ -291,6 +293,8 @@ namespace CMS_Shared.Keyword
                 msg = "Crawl data is unsuccessfully.";
                 result = false;
             }
+            NSLog.Logger.Info("ResponseCrawlData: " + Id, result);
+
             return result;
         }
     }
