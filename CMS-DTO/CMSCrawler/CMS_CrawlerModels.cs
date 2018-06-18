@@ -59,7 +59,8 @@ namespace CMS_DTO.CMSCrawler
 
     public class PinFilterDTO
     {
-        public List<string> lstKeyWordID { get; set; }
+        public List<string> LstGroupID { get; set; }
+        public List<string> LstKeyWordID { get; set; }
         public DateTime? CreatedDateFrom { get; set; }
         public DateTime? CreatedDateTo { get; set; }
         public DateTime? CreatedAtFrom { get; set; }
@@ -71,7 +72,7 @@ namespace CMS_DTO.CMSCrawler
 
         public PinFilterDTO()
         {
-            lstKeyWordID = new List<string>();
+            LstKeyWordID = new List<string>();
         }
     }
 }

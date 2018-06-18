@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CMS_DTO.CMSGroupKeywords.CMS_GroupKeywordsModels
+@{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @{
@@ -15,6 +16,20 @@
         <div class="page-main">
             @using (Html.BeginForm("LoadGrid", "CMSGroupKeywords", FormMethod.Post, new { @class = "form-horizontal search-form" }))
             {
+                <div class="row" style="margin-bottom:15px;">
+                    <div class="form-group">
+                        <div class="control-label col-md-1 col-sm-1 col-xs-12 lineHeight"></div>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon"><i class="glyphicon fa fa-search"></i></span>
+                                <input type="text" name="Name" value="@Model.Name" class="form-control" id="idStrSerch" placeholder="Add Group..." />
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus">&nbsp;Add</i></button>
+                        </div>
+                    </div>
+                </div>
             }
             <div class="gridview" style="height:100%;"></div>
         </div>      
@@ -25,7 +40,42 @@
 </div>
 
 <script type="text/javascript">
-    $(function () {
+    $(document).ready(function () {
         LoadGrid();
     });
+
+    $(".search-form").submit(function (e) {
+        var key = $("#idStrSerch").val();
+        if (key !== "")
+            LoadGrid();
+        return false;
+    });
+
+    function Delete(btn, id) {
+        $.ajax(
+        {
+            url: '@Url.Action("Delete", "CMSGroupKeywords")',
+            type: 'get',
+            data: {
+                ID: id,
+            },
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                //$('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("không thể xóa group này!");
+                }
+                $('.se-pre-con').hide();
+            }
+        });
+    }
+    
 </script>

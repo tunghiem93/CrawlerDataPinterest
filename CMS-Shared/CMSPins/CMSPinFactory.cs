@@ -116,12 +116,27 @@ namespace CMS_Shared.CMSEmployees
 
                     if (filter != null)
                     {
-                        /* filter by list key words */
-                        if (filter.lstKeyWordID != null)
+                        /* filter by list GROUP key words */
+                        if (filter.LstGroupID != null)
                         {
-                            if (filter.lstKeyWordID.Count > 0)
+                            if (filter.LstGroupID.Count > 0)
                             {
-                                var lstPinID = _db.CMS_R_KeyWord_Pin.Where(o => filter.lstKeyWordID.Contains(o.KeyWordID)).Select(o => o.PinID).ToList();
+                                var lstKeyID = _db.CMS_R_GroupKey_KeyWord.Where(o => filter.LstGroupID.Contains(o.GroupKeyID) && o.Status != (byte)Commons.EStatus.Deleted).Select(o => o.KeyWordID).ToList();
+                                if(lstKeyID.Count > 0)
+                                {
+                                    if (filter.LstKeyWordID == null)
+                                        filter.LstKeyWordID = new List<string>();
+                                    filter.LstKeyWordID.AddRange(lstKeyID);
+                                }
+                            }
+                        }
+
+                        /* filter by list key words */
+                        if (filter.LstKeyWordID != null)
+                        {
+                            if (filter.LstKeyWordID.Count > 0)
+                            {
+                                var lstPinID = _db.CMS_R_KeyWord_Pin.Where(o => filter.LstKeyWordID.Contains(o.KeyWordID)).Select(o => o.PinID).ToList();
                                 query = query.Where(o => lstPinID.Contains(o.ID));
                             }
                         }

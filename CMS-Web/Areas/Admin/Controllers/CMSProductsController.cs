@@ -28,6 +28,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             try
             {
                 var _Key = Request["keywordID"] ?? "";
+                var _Group = Request["GroupID"] ?? "";
                 var FilterModel = new PinFilterDTO();
                 FilterModel.PageIndex = Commons.PageIndex;
                 FilterModel.PageSize = Commons.PageSize;
@@ -105,9 +106,15 @@ namespace CMS_Web.Areas.Admin.Controllers
                 ViewBag.Keywords = getListKeyword();
                 if(!string.IsNullOrEmpty(_Key))
                 {
-                    FilterModel.lstKeyWordID.Add(_Key);
+                    FilterModel.LstKeyWordID.Add(_Key);
                     model.listKeywords.Add(_Key);
                 }
+                if (!string.IsNullOrEmpty(_Group))
+                {
+                    FilterModel.LstGroupID.Add(_Group);
+                    model.listKeywords.Add(_Key);
+                }
+
                 var _pinModels = new List<PinsModels>();
                 var msg = "";
                 var result = _fac.GetPin(ref _pinModels, FilterModel, ref msg);
@@ -460,7 +467,7 @@ namespace CMS_Web.Areas.Admin.Controllers
 
                 if (ListKeyword != null && ListKeyword.Count > 0)
                 {
-                    FilterModel.lstKeyWordID = ListKeyword;
+                    FilterModel.LstKeyWordID = ListKeyword;
                    // Response.Cookies["Keywords"].Value = Keywords.ToString();
                   //  Response.Cookies["Keywords"].Expires = DateTime.Now.AddYears(1); // add expiry time
                 }
