@@ -127,15 +127,15 @@
             _tableEmployee = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableEmployee));
         });
 
-        function Delete(btn, id) {
+        function Delete(btn, Keyid) {
             alert("abc");
             $.ajax(
                 {
                     url: '@Url.Action("RemoveKeyFromGroup", "CMSKeywords")',
                     type: 'get',
                     data: {
-                        KeyId = id,
-                        GroupKeyID = groupID,
+                        KeyId: Keyid,
+                        GroupKeyID: groupID,
                     },
                     dataType: 'html',
                     success: function (data) {
@@ -155,9 +155,5 @@
                     }
                 });
         }
-
-        function ShowView(url) {
-            ShowViewOrEdit(url);
-        }
-
+        
     </script>
