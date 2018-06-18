@@ -71,7 +71,7 @@ namespace CMS_Shared.CMSGroupKeywords
                             if (checkDup == null)
                             {
                                 /* get current seq */
-                                var curSeq = _db.CMS_KeyWord.OrderByDescending(o => o.Sequence).Select(o => o.Sequence).FirstOrDefault();
+                                var curSeq = _db.CMS_GroupKey.OrderByDescending(o => o.Sequence).Select(o => o.Sequence).FirstOrDefault();
 
                                 /* add new record */
                                 var newGroup = new CMS_GroupKey()
@@ -129,13 +129,22 @@ namespace CMS_Shared.CMSGroupKeywords
             {
                 using (var _db = new CMS_Context())
                 {
-                    var key = _db.CMS_GroupKey.Where(o => o.ID == Id).FirstOrDefault();
+                    var group = _db.CMS_GroupKey.Where(o => o.ID == Id).FirstOrDefault();
 
-                    if (key != null)
+                    if (group != null)
                     {
-                        key.Status = (byte)Commons.EStatus.Deleted;
-                        key.UpdatedDate = DateTime.Now;
-                        key.UpdatedBy = createdBy;
+                        group.Status = (byte)Commons.EStatus.Deleted;
+                        group.UpdatedDate = DateTime.Now;
+                        group.UpdatedBy = createdBy;
+
+                        /* loop list group key */
+                        var listGroupKey = _db.CMS_R_GroupKey_KeyWord.Where(o => o.GroupKeyID == group.ID).ToList();
+                        listGroupKey.ForEach(o =>
+                        {
+                            o.Status = (byte)Commons.EStatus.Deleted;
+                            o.UpdatedDate = DateTime.Now;
+                            o.UpdatedBy = createdBy;
+                        });
 
                         _db.SaveChanges();
                     }
