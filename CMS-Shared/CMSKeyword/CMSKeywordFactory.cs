@@ -18,7 +18,7 @@ namespace CMS_Shared.Keyword
 
         private static Semaphore m_Semaphore = new Semaphore(1, 1); /* semaphore for create key, craw data */
 
-        public List<CMS_KeywordModels> GetList()
+        public List<CMS_KeywordModels> GetList(string groupID = "")
         {
             try
             {
@@ -33,6 +33,12 @@ namespace CMS_Shared.Keyword
                         UpdatedDate = o.UpdatedDate,
                         CreatedDate = o.CreatedDate
                     }).ToList();
+
+                    if (!string.IsNullOrEmpty(groupID)) /* filter by group ID */
+                    {
+                        var listKeyID = _db.CMS_R_GroupKey_KeyWord.Where(o => o.GroupKeyID == groupID && o.Status == (byte)Commons.EStatus.Deleted).Select(o => o.KeyWordID).ToList();
+                        data = data.Where(o => listKeyID.Contains(o.Id)).ToList();
+                    }
 
                     /* update quantity */
                     var listCount = _db.CMS_R_KeyWord_Pin
@@ -60,9 +66,9 @@ namespace CMS_Shared.Keyword
             var result = true;
             using (var _db = new CMS_Context())
             {
-                m_Semaphore.WaitOne();
                 using (var trans = _db.Database.BeginTransaction())
                 {
+                    m_Semaphore.WaitOne();
                     try
                     {
                         if (string.IsNullOrEmpty(model.Id))
