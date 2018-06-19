@@ -293,33 +293,41 @@ namespace CMS_Shared.Keyword
                     var keyWord = _db.CMS_KeyWord.Where(o => o.ID == Id).FirstOrDefault();
                     if (keyWord != null)
                     {
-                        /* call drawler api to crawl data */
-                        var model = new CMS_CrawlerModels();
-                        CMSPinFactory _fac = new CMSPinFactory();
-                        CrawlerHelper.Get_Tagged_Pins(ref model, keyWord.KeyWord, Commons.PinDefault);
-                        if (model != null && model.Pins != null && model.Pins.Any())
-                        {
-                            var _Temp = new CMS_CrawlerModels();
-                            foreach (var item in model.Pins)
-                            {
-                                var modelOrther = new CMS_CrawlerModels();
-                                CrawlerHelper.Get_Tagged_OrtherPins(ref modelOrther, keyWord.KeyWord, Commons.PinOrtherDefault, "", 1, item.ID);
-                                if (modelOrther != null && modelOrther.Pins != null && modelOrther.Pins.Any())
-                                {
-                                    _Temp.Pins.AddRange(modelOrther.Pins);
-                                }
-                                modelOrther = null;
-                            }
-                            model.Pins.AddRange(_Temp.Pins);
-                        }
-                        var res = _fac.CreateOrUpdate(model.Pins, keyWord.ID, createdBy, ref msg);
-
-                        if (res)
+                        /* check time span crawl */
+                        var timeSpanCrawl = DateTime.Now - keyWord.UpdatedDate;
+                        if(timeSpanCrawl.Value.TotalMinutes > 5) /* 5min to crawl data again */
                         {
                             /* update crawer date */
+                            var bkTime = keyWord.UpdatedDate;
                             keyWord.UpdatedDate = DateTime.Now;
                             keyWord.UpdatedBy = createdBy;
                             _db.SaveChanges();
+
+                            /* call drawler api to crawl data */
+                            var model = new CMS_CrawlerModels();
+                            CMSPinFactory _fac = new CMSPinFactory();
+                            CrawlerHelper.Get_Tagged_Pins(ref model, keyWord.KeyWord, Commons.PinDefault);
+                            if (model != null && model.Pins != null && model.Pins.Any())
+                            {
+                                foreach (var item in model.Pins)
+                                {
+                                    CrawlerHelper.Get_Tagged_OrtherPins(ref model, keyWord.KeyWord, Commons.PinOrtherDefault, "", 1, item.ID);
+                                }
+                            }
+                            var res = _fac.CreateOrUpdate(model.Pins, keyWord.ID, createdBy, ref msg);
+
+                            if (res == false)
+                            {
+                                /* back to last crawl data */
+                                keyWord.UpdatedDate = bkTime;
+                                _db.SaveChanges();
+                                result = false;
+                            }
+                            else
+                            {
+                                keyWord.UpdatedDate = DateTime.Now;
+                                _db.SaveChanges();
+                            }
                         }
                     }
                 }
