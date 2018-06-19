@@ -128,9 +128,9 @@ namespace CMS_Shared.Utilities
                 string formatted = string.Format("{0}{1}{2}{3}{4}",
                                     years > 0 ? string.Format("{0:0}y ", years) : string.Empty,
                                     months > 0 ? string.Format("{0:0}m ", months) : string.Empty,
-                                    totalDay > 0 ? string.Format("{0:0}d ", totalDay) : string.Empty,
-                                    years > 0 ? "" : span.Hours > 0 ? string.Format("{0:0}h ", span.Hours) : string.Empty,
-                                    months > 0 ? "" : span.Minutes > 0 ? string.Format("{0:0}min ", span.Minutes) : string.Empty
+                                    years > 0 ? "" : totalDay > 0 ? string.Format("{0:0}d ", totalDay) : string.Empty,
+                                    months > 0 ? "" : span.Hours > 0 ? string.Format("{0:0}h ", span.Hours) : string.Empty,
+                                    totalDay > 0 ? "" : span.Minutes > 0 ? string.Format("{0:0}min ", span.Minutes) : string.Empty
                                     );
 
                 ret += formatted;
@@ -140,17 +140,17 @@ namespace CMS_Shared.Utilities
             return ret;
         }
 
-        public static List<string> ParseStringToList(string input = "",char[] separator = null)
+        public static List<string> ParseStringToList(string input = "", char[] separator = null)
         {
             var lstString = new List<string>();
             try
             {
-                if(!string.IsNullOrEmpty(input) && separator != null)
+                if (!string.IsNullOrEmpty(input) && separator != null)
                 {
                     var data = input.Split(separator);
-                    foreach(var item in data)
+                    foreach (var item in data)
                     {
-                        lstString.Add(item); 
+                        lstString.Add(item);
                     }
                 }
             }
