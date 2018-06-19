@@ -127,7 +127,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 byte[] photoByte = null;
                 if (!model.Password.Trim().ToLower().Equals(model.ConfirmPassword.ToString().Trim().ToLower()))
                 {
-                    ModelState.AddModelError("ConfirmPassword", "Làm ơn xác nhận lại mật khẩu!");
+                    ModelState.AddModelError("ConfirmPassword", "Wrong password!");
                 }
                 if (!ModelState.IsValid)
                 {

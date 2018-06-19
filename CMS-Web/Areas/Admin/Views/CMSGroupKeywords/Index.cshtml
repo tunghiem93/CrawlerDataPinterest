@@ -3,14 +3,14 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @{
-    ViewBag.Title = "Nhóm từ khóa - Danh sách";
+    ViewBag.Title = "Group key - List data";
 }
 <div role="main">
     <div class="se-pre-con" style="display: none;"></div>
     <div class="_gridview">
         <div class="page-title">
             <!-- BEGIN PAGE BAR -->
-            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Nhóm từ khóa - Danh sách" } })
+            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Home Page" }, { "B", "Group key words - List data" } })
             <!-- END PAGE BAR -->
         </div>
         <div class="page-main">
@@ -71,7 +71,7 @@
             },
             error: function (e) {
                 if (e.status == 400) {
-                    $(".detail-error").text("không thể xóa group này!");
+                    $(".detail-error").text("Unable to delete this group!");
                 }
                 $('.se-pre-con').hide();
             }

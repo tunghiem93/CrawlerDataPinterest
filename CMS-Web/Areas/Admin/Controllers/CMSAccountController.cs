@@ -99,7 +99,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không chính xác!");
+                        ModelState.AddModelError("", "ID or Password is incorrect!");
                         return View(model);
                     }
                 }

@@ -3,14 +3,14 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @{ 
-    ViewBag.Title = "keyword - Danh sách";
+    ViewBag.Title = "keyword - list data";
 }
 
 <div role="main">
     <div class="se-pre-con" style="display: none;"></div>
     <div class="page-title">
         <!-- BEGIN PAGE BAR -->
-        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Danh sách - Keywords" } })
+        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Home page" }, { "B", "List data - Keywords" } })
         <!-- END PAGE BAR -->
     </div>
     <div class="page-main">
@@ -78,7 +78,7 @@
             },
             error: function (e) {
                 if (e.status == 400) {
-                    $(".detail-error").text("không thể xóa Key này!");
+                    $(".detail-error").text("Unable to crawl this key!");
                 }
                 //$('.se-pre-con').hide();
             }
@@ -105,7 +105,7 @@
             },
             error: function (e) {
                 if (e.status == 400) {
-                    $(".detail-error").text("không thể xóa Key này!");
+                    $(".detail-error").text("Unable to delete this key!");
                 }
                 $('.se-pre-con').hide();
             }
@@ -132,7 +132,7 @@
             },
             error: function (e) {
                 if (e.status == 400) {
-                    $(".detail-error").text("không thể xóa Key này!");
+                    $(".detail-error").text("Unable to delete this key!");
                 }
                 $('.se-pre-con').hide();
             }

@@ -6,7 +6,7 @@
 
     @{
         var groupID = Model.Id;
-        ViewBag.Title = "Nhóm từ khóa - Danh sách";
+        ViewBag.Title = "Group key word - list data";
     }
     <div role="main">
         <div class="se-pre-con" style="display: none;"></div>
@@ -14,7 +14,7 @@
             <div class="page-title">
                 <!-- BEGIN PAGE BAR -->
                 @Html.Partial("_breadcrumb", new Dictionary<string, string>
-                    { { "A", "Trang chủ" }, { "B", "Từ khóa trong nhóm - Danh sách" } })
+                    { { "A", "Home page" }, { "B", "Key word in group - List data" } })
                     <!-- END PAGE BAR -->
             </div>
             <div class="page-main">
@@ -24,7 +24,7 @@
                         <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-cogs"></i>@Html.Raw("Từ khóa trong nhóm \"" +  Model.Name + "\"")
+                                    <i class="fa fa-cogs"></i>@Html.Raw("Key words in group \"" +  Model.Name + "\"")
                                 </div>
                             </div>
                             <div class="portlet-body">
@@ -159,7 +159,7 @@
                 },
                 error: function (e) {
                     if (e.status == 400) {
-                        $(".detail-error").text("không thể xóa key này!");
+                        $(".detail-error").text("Unable to delete this key!");
                     }
                     $('.se-pre-con').hide();
                 }

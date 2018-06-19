@@ -2,14 +2,14 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @{
-    ViewBag.Title = "Nhân viên - Danh sách";
+    ViewBag.Title = "Employees";
 }
 <div role="main">
     <div class="se-pre-con" style="display: none;"></div>
     <div class="_gridview">
         <div class="page-title">
             <!-- BEGIN PAGE BAR -->
-            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Nhân viên - Danh sách" } })
+            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Home page" }, { "B", "List Employees" } })
             <!-- END PAGE BAR -->
         </div>
         <div class="page-main">
