@@ -373,16 +373,34 @@ var Layout = function () {
     };
 
     // Handles sidebar toggler to close/hide the sidebar.
+
+
+    //var handleFixedSidebarHoverEffect = function () {
+    //    var body = $('body');
+    //    if (body.hasClass('page-sidebar-fixed')) {
+    //        $('.page-sidebar').on('mouseenter', function () {
+    //            if (body.hasClass('page-sidebar-closed')) {
+    //                $(this).find('.page-sidebar-menu').removeClass('page-sidebar-menu-closed');
+    //            }
+    //        }).on('mouseleave', function () {
+    //            if (body.hasClass('page-sidebar-closed')) {
+    //                $(this).find('.page-sidebar-menu').addClass('page-sidebar-menu-closed');
+    //            }
+    //        });
+    //    }
+    //};
+
+    //Edit by Tu 19/06/2018
     var handleFixedSidebarHoverEffect = function () {
         var body = $('body');
         if (body.hasClass('page-sidebar-fixed')) {
             $('.page-sidebar').on('mouseenter', function () {
                 if (body.hasClass('page-sidebar-closed')) {
-                    $(this).find('.page-sidebar-menu').removeClass('page-sidebar-menu-closed');
+                    $(this).find('.page-sidebar-menu').addClass('page-sidebar-menu-closed');
                 }
             }).on('mouseleave', function () {
                 if (body.hasClass('page-sidebar-closed')) {
-                    $(this).find('.page-sidebar-menu').addClass('page-sidebar-menu-closed');
+                    $(this).find('.page-sidebar-menu').removeClass('page-sidebar-menu-closed');
                 }
             });
         }
