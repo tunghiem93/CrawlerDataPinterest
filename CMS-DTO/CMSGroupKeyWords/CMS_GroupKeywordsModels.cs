@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS_DTO.CMSKeyword;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,9 +23,11 @@ namespace CMS_DTO.CMSGroupKeywords
         public int OffSet { get; set; }
         public string StrLastUpdate { get; set; }
         public List<CMS_GroupKeywordsModels> ListGroupResult { get; set; }
+        public List<CMS_KeywordModels> ListKeyOnGroup { get; set; }
 
         public CMS_GroupKeywordsModels()
         {
+            ListKeyOnGroup = new List<CMS_KeywordModels>();
         }
     }
 }
