@@ -106,7 +106,7 @@ namespace CMS_Shared.CMSEmployees
             return result;
         }
 
-        public bool GetPin(ref List<PinsModels> lstPins, PinFilterDTO filter, ref string msg)
+        public bool GetPin(ref List<PinsModels> lstPins, ref int totalPin, PinFilterDTO filter, ref string msg)
         {
             var result = true;
             lstPins = new List<PinsModels>();
@@ -169,8 +169,37 @@ namespace CMS_Shared.CMSEmployees
                             query = query.Where(o => o.Repin_count <= filter.PinCountTo);
                         }
 
-                        /* take page size page index */
-                        query = query.OrderBy(o => o.ID).Skip((filter.PageIndex - 1) * filter.PageSize).Take(filter.PageSize);
+                        /* get total pin */
+                        totalPin = query.Count();
+
+                        /* order data */
+                        if (filter.TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")))
+                        {
+                            query = query.OrderByDescending(x => x.Created_At).ThenBy(o=> o.ID);
+                        }
+                        else if (filter.TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")))
+                        {
+                            query = query.OrderBy(x => x.Created_At).ThenBy(o => o.ID);
+                        }
+                        else if (filter.TypeTime.Equals(Commons.ETimeType.PinReduce.ToString("d")))
+                        {
+                            query = query.OrderByDescending(x => x.Repin_count).ThenBy(o => o.ID);
+                        }
+                        else if (filter.TypeTime.Equals(Commons.ETimeType.PinIncrease.ToString("d")))
+                        {
+                            query = query.OrderBy(x => x.Repin_count).ThenBy(o => o.ID);
+                        }
+                        else if (filter.TypeTime.Equals(Commons.ETimeType.ToolReduce.ToString("d")))
+                        {
+                            query = query.OrderByDescending(x => x.CreatedDate).ThenBy(o => o.ID);
+                        }
+                        else if (filter.TypeTime.Equals(Commons.ETimeType.ToolIncrease.ToString("d")))
+                        {
+                            query = query.OrderBy(x => x.CreatedDate).ThenBy(o => o.ID);
+                        }
+
+                        /* get by page size - page index */
+                        query = query.Skip((filter.PageIndex - 1) * filter.PageSize).Take(filter.PageSize);
                     }
 
                     lstPins = query.Select(o => new PinsModels()
