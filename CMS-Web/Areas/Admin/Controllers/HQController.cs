@@ -27,8 +27,8 @@ namespace CMS_Web.Areas.Admin.Controllers
         public List<SelectListItem> getListTime()
         {
             var _lstTime = new List<SelectListItem>() {
-                new SelectListItem() {Text="Latest on Pin",Value=Commons.ETimeType.TimeReduce.ToString("d") },
-                new SelectListItem() {Text="Oldest pin",Value=Commons.ETimeType.TimeIncrease.ToString("d")},
+                new SelectListItem() {Text="Latest on Pinterest",Value=Commons.ETimeType.TimeReduce.ToString("d") },
+                new SelectListItem() {Text="Oldest on Pinterest",Value=Commons.ETimeType.TimeIncrease.ToString("d")},
                 new SelectListItem() {Text="Latest on tool",Value=Commons.ETimeType.ToolReduce.ToString("d") },
                 new SelectListItem() {Text="Oldest on tool",Value=Commons.ETimeType.ToolIncrease.ToString("d")},
                 new SelectListItem() {Text="Repin reduce",Value=Commons.ETimeType.PinReduce.ToString("d") },

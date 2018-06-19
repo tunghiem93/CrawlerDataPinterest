@@ -4,7 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @{
-    ViewBag.Title = "Sản phẩm - Danh sách";
+    ViewBag.Title = "Pin data";
 }
 <style>
     body {
@@ -17,7 +17,6 @@
 
     .img-responsive {
         height: 236px;
-        margin:auto;
     }
 
     .select2-selection--single .select2-selection__placeholder {
@@ -30,14 +29,14 @@
     <div class="_gridview">
         <div class="page-title">
             <!-- BEGIN PAGE BAR -->
-            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Trang chủ" }, { "B", "Sản phẩm - Danh sách" } })
+            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Home page" }, { "B", "Pin data" } })
             <!-- END PAGE BAR -->
         </div>
         <div class="page-main">
             @using (Html.BeginForm("Search", "CMSProducts", FormMethod.Get, new { @class = "form-horizontal search-form", @id = "form-search" }))
             {
                 <fieldset>
-                    <legend>Nhóm mục từ khóa quét</legend>
+                    <legend>Filter Pin data by: </legend>
                 </fieldset>
                 <div class="form-group">
                     <div class="col-md-3 col-sm-8 col-xs-12">
@@ -101,7 +100,7 @@
                     <div class="col-md-4 col-sm-4 col-xs-12 ">
                         <div class="input-prepend input-group" style="width:100%">
                             @Html.DropDownListFor(model => model.listKeywords,
-                    new SelectList(@ViewBag.Keywords, "Value", "Text", Model.listKeywords), "Vui lòng chọn keywords",
+                    new SelectList(@ViewBag.Keywords, "Value", "Text", Model.listKeywords), "Please select Key Words",
                     new
                     {
                         @class = "form-control select2_multiple",
@@ -125,7 +124,7 @@
     </div>
     <div class="detail-view" style="height:100%;display:inline-block">
         <fieldset>
-            <legend>Danh sách kết quả tìm kiếm</legend>
+            <legend>List matched data:</legend>
         </fieldset>
         <input type="hidden" id="txtPageIndex" value="1" />
        <div class="detail-view-grid">
@@ -183,12 +182,12 @@
         cb(start, end);
 
         $("#storeDdlViewQuantity").select2({
-            placeholder: "Số lượng",
+            placeholder: "Repin count",
             allowClear: true
         });
 
         $("#storeDdlView").select2({
-            placeholder: "Làm ơn chọn thể loại",
+            placeholder: "Sort data by",
             //allowClear: true
         });
 
