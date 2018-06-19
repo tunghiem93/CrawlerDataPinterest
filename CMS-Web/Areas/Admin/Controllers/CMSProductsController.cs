@@ -32,6 +32,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 var FilterModel = new PinFilterDTO();
                 FilterModel.PageIndex = Commons.PageIndex;
                 FilterModel.PageSize = Commons.PageSize;
+                FilterModel.TypeTime = Commons.ETimeType.TimeIncrease.ToString("d");
                 # region "Comment"
                 //if (Request.Cookies["FromDate"] != null)
                 //{
