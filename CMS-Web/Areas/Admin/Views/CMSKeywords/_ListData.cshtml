@@ -11,6 +11,12 @@
     .linkchange {
         text-decoration: none !important;
     }
+    .table .btn {
+        margin-right: -5px !important;
+    }
+    .linkPins {
+        padding: 2px 6px !important;
+    }
 </style>
 
 @model List<CMS_DTO.CMSKeyword.CMS_KeywordModels>
@@ -51,8 +57,8 @@
                                     </td>
                                     <td>
                                         @*<b>@Html.Raw("Total post got:")</b>*@
-                                        <a class="btn btn-link" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts", new { keywordID = item.Id})" target="_blank">@item.Quantity</a>
-                                        <b>@Html.Raw("Pins")</b>
+                                        <a class="btn btn-link linkPins" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts", new { keywordID = item.Id})" target="_blank">@item.Quantity</a>
+                                        <b>&nbsp;&nbsp;@Html.Raw("Pins")</b>
                                     </td>
                                     <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
                                     <td class="text-right linkchange">
