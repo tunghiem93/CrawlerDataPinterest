@@ -19,7 +19,7 @@
                             </a>
                         </div>
                         <div class="info">
-                            <div class="info-domain" style="background-color:#cce5ff;border-radius:5px !important;height:100px">
+                            <div class="info-domain" style="background-color:#cce5ff;border-radius:5px !important;height:70px">
                                 &nbsp;&nbsp;<a href="@string.Format("{0}",string.IsNullOrEmpty(item.Link) ? "javascript:void(0)" : item.Link)" style="color:#004085;font-weight:bold" target="_blank" title="@item.Link">@string.Format("{0}", !string.IsNullOrEmpty(item.Domain) && item.Domain.Length > 20 ? item.Domain.Substring(0, 20) + "..." : item.Domain)</a>
                                 <p>&nbsp;&nbsp; @item.Created_At.ToString("dd/MM/yyyy")</p>
                             </div>
