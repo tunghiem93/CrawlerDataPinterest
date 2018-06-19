@@ -8,6 +8,15 @@
         var groupID = Model.Id;
         ViewBag.Title = "Group key word - list data";
     }
+<style>
+    .table .btn {
+        margin-right: -5px !important;
+    }
+
+    .linkPins {
+        padding: 2px 6px !important;
+    }
+</style>
     <div role="main">
         <div class="se-pre-con" style="display: none;"></div>
         <div class="_gridview">
@@ -62,12 +71,12 @@
                                                     </td>
                                                     <td>
                                                         @*<b>@Html.Raw("Total post got:")</b>*@
-                                                        <a class="btn btn-link" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts" , new { keywordID=item.Id})" target="_blank">@item.Quantity</a>
-                                                        <b>@Html.Raw("pins")</b>
+                                                        <a class="btn btn-link linkPins" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts" , new { keywordID=item.Id})" target="_blank">@item.Quantity</a>
+                                                        <b>&nbsp;&nbsp;@Html.Raw("pins")</b>
                                                     </td>
                                                     <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
                                                     <td class="text-left linkchange">
-                                                        <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " onclick="Delete(this, '@item.Id'); return false;">@Html.Raw("Delete")</a>
+                                                        <a class="btn btn-sm btn-danger" style="color: #fff !important; " onclick="Delete(this, '@item.Id'); return false;">@Html.Raw("Delete")</a>
                                                     </td>
                                                 </tr>
                                             }
