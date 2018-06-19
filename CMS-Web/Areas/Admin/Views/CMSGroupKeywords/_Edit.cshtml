@@ -44,7 +44,7 @@
                                             <th class="text-left">Last Crawl</th>
                                             <th class="text-left">Total post</th>
                                             <th class="text-left">Created day</th>
-                                            <th class="text-left">Action</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -75,7 +75,7 @@
                                                         <b>&nbsp;&nbsp;@Html.Raw("pins")</b>
                                                     </td>
                                                     <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
-                                                    <td class="text-left linkchange">
+                                                    <td class="text-center linkchange">
                                                         <a class="btn btn-sm btn-danger" style="color: #fff !important; " onclick="Delete(this, '@item.Id'); return false;">@Html.Raw("Delete")</a>
                                                     </td>
                                                 </tr>
@@ -137,6 +137,7 @@
             "pageLength": 6,
             "columnDefs": [
                 { "orderable": false, "targets": [0, 1, 2, 4] },
+                { "width": "8%", "targets": [4] },
             ],
             "order": [
                 [3, "asc"]
