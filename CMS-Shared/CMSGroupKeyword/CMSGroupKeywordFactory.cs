@@ -1,5 +1,6 @@
 ﻿using CMS_DTO.CMSGroupKeywords;
 using CMS_Entity.Entity;
+using CMS_Shared.Keyword;
 using CMS_Shared.Utilities;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,33 @@ namespace CMS_Shared.CMSGroupKeywords
                         o.Quantity = listCount.Where(c => c.Id == o.Id).Select(c => c.Quantity).FirstOrDefault();
                         o.StrLastUpdate = CommonHelper.GetDurationFromNow(o.UpdatedDate);
                     });
+
+                    return data;
+                }
+            }
+            catch (Exception ex) { }
+            return null;
+        }
+
+        public CMS_GroupKeywordsModels GetDetail(string id)
+        {
+            try
+            {
+                using (var _db = new CMS_Context())
+                {
+                    /* get all key word */
+                    var data = _db.CMS_GroupKey.Where(o => o.Status == (byte)Commons.EStatus.Active && o.ID == id).Select(o => new CMS_GroupKeywordsModels()
+                    {
+                        Id = o.ID,
+                        Sequence = o.Sequence,
+                        Name = o.Name,
+                        UpdatedDate = o.UpdatedDate,
+                        CreatedDate = o.CreatedDate
+                    }).FirstOrDefault();
+
+                    /* update quantity */
+                    CMSKeywordFactory keyFac = new CMSKeywordFactory();
+                    data.ListKeyOnGroup = keyFac.GetList(id);
 
                     return data;
                 }

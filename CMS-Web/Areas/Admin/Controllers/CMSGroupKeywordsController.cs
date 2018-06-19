@@ -85,8 +85,8 @@ namespace CMS_Web.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(string Id)
         {
-            ViewBag.GroupID = Id;
-            var model = _keyFac.GetList(Id);
+            
+            var model = _factory.GetDetail(Id);
             return PartialView("_Edit", model);
         }
     }

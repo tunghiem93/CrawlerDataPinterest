@@ -1,9 +1,11 @@
-﻿    @model List<CMS_DTO.CMSKeyword.CMS_KeywordModels>
+﻿    @model CMS_DTO.CMSGroupKeywords.CMS_GroupKeywordsModels
+    
     @{
         Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     }
+
     @{
-        var groupID = @ViewBag.GroupID;
+        var groupID = Model.Id;
         ViewBag.Title = "Nhóm từ khóa - Danh sách";
     }
     <div role="main">
@@ -22,7 +24,7 @@
                         <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-cogs"></i>Từ khóa trong nhóm
+                                    <i class="fa fa-cogs"></i>@Html.Raw("Từ khóa trong nhóm \"" +  Model.Name + "\"")
                                 </div>
                             </div>
                             <div class="portlet-body">
@@ -32,14 +34,14 @@
                                             <th class="text-left">Name</th>
                                             <th class="text-left">Last Crawl</th>
                                             <th class="text-left">Total post</th>
-                                            <th class="text-left">Post day</th>
+                                            <th class="text-left">Created day</th>
                                             <th class="text-left">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (Model != null && Model.Any())
+                                        @if (Model != null && Model.ListKeyOnGroup.Any())
                                         {
-                                            foreach (var item in Model)
+                                            foreach (var item in Model.ListKeyOnGroup)
                                             {
                                                 <tr class="odd gradeX rowKey">
                                                     <td class="text-left">
@@ -48,12 +50,20 @@
                                                     <td>
                                                         <a class="btn btn-link linkchange" href="@Url.Action(" Index", "CMSProducts" , new { keywordID=item.Id})" target="_blank" style="color: #000 !important; ">
                                                             <b>@Html.Raw("Last crawl: ")</b>
-                                                            <span style="font-size: 14px !important; ">@Html.Raw(item.StrLastUpdate + " ago  ")</span>
+                                                            @if (string.IsNullOrEmpty(item.StrLastUpdate))
+                                                            {
+                                                                <span style="font-size: 14px !important; ">@Html.Raw("now")</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span style="font-size: 14px !important; ">@Html.Raw(item.StrLastUpdate + " ago  ")</span>
+                                                            }
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <b>@Html.Raw("Total post got:")</b>
+                                                        @*<b>@Html.Raw("Total post got:")</b>*@
                                                         <a class="btn btn-link" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts" , new { keywordID=item.Id})" target="_blank">@item.Quantity</a>
+                                                        <b>@Html.Raw("pins")</b>
                                                     </td>
                                                     <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
                                                     <td class="text-left linkchange">
