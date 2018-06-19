@@ -309,9 +309,10 @@ namespace CMS_Shared.Keyword
                             CrawlerHelper.Get_Tagged_Pins(ref model, keyWord.KeyWord, Commons.PinDefault);
                             if (model != null && model.Pins != null && model.Pins.Any())
                             {
-                                foreach (var item in model.Pins)
+                                var listPinID = model.Pins.Select(o => o.ID).ToList();
+                                foreach (var pinID in listPinID)
                                 {
-                                    CrawlerHelper.Get_Tagged_OrtherPins(ref model, keyWord.KeyWord, Commons.PinOrtherDefault, "", 1, item.ID);
+                                    CrawlerHelper.Get_Tagged_OrtherPins(ref model, keyWord.KeyWord, Commons.PinOrtherDefault, "", 1, pinID);
                                 }
                             }
                             var res = _fac.CreateOrUpdate(model.Pins, keyWord.ID, createdBy, ref msg);
