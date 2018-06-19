@@ -13,16 +13,21 @@
         @foreach (var item in Model.Pins)
                 {
                     var ImageUrl = item.Images != null && item.Images.Count > 0 ? item.Images.FirstOrDefault().url : "";
-                    <div class="col-md-2 col-sm-2 col-xs-12" style="margin-bottom:20px">
-                        <a href="https://www.pinterest.com/pin/@item.ID/" target="_blank">
-                            <img src="@ImageUrl" class="img-responsive" alt="@item.Domain" height="236">
-                        </a>
+                    <div class="col-md-2 col-sm-2 col-xs-12" style="margin-bottom:20px;padding-top:10px;border:1px solid rgba(0,0,0,.1);width:15.5% !important;margin-right:20px;border-radius:5px !important;">
+                        <div style="margin-bottom:10px;">
+                            <a href="https://www.pinterest.com/pin/@item.ID/" target="_blank">
+                                <img src="@ImageUrl" class="img-responsive" alt="@item.Domain" height="236" style="border-radius:5px !important">
+                            </a>
+                        </div>
                         <div class="info">
-                            <p>@string.Format("{0}", !string.IsNullOrEmpty(item.Domain) && item.Domain.Length > 25 ? item.Domain.Substring(0,25) + "..." : item.Domain)</p>
-                            <p><span>Ngày crawler</span>&nbsp;&nbsp; @DateTime.Now.ToString("dd/MM/yyyy")</p>
-                            <p>Khoảng @CommonHelper.GetDurationFromNow(item.CreatedDate)</p>
-                            <p><span>Số lượng</span> &nbsp;&nbsp;@item.Repin_count</p>
-                            <p><span>Create at</span>&nbsp;&nbsp; @item.Created_At.ToString("dd/MM/yyyy")</p>
+                            <div class="info-domain" style="background-color:#cce5ff;border-radius:5px !important">
+                                &nbsp;&nbsp;<a href="@string.Format("{0}",string.IsNullOrEmpty(item.Link) ? "javascript:void(0)" : item.Link)" style="color:#004085;font-weight:bold" target="_blank" title="@item.Link">@string.Format("{0}", !string.IsNullOrEmpty(item.Domain) && item.Domain.Length > 25 ? item.Domain.Substring(0, 25) + "..." : item.Domain)</a>
+                                <p>&nbsp;&nbsp; @item.Created_At.ToString("dd/MM/yyyy")</p>
+                            </div>
+                            @*<p><span>Ngày crawler</span>&nbsp;&nbsp; @DateTime.Now.ToString("dd/MM/yyyy")</p>*@
+                            <p style="background-color:#d4edda;height:30px;line-height:30px;border-radius:5px !important">&nbsp;&nbsp; About @CommonHelper.GetDurationFromNow(item.CreatedDate)</p>
+                            <p style="background-color:#f8d7da;height:30px;line-height:30px;border-radius:5px !important">&nbsp;&nbsp;<span>RePin:</span> &nbsp;&nbsp;<span style="color:#721c24;font-weight:bold">@item.Repin_count</span> </p>
+                            
                         </div>
                     </div>
         }
