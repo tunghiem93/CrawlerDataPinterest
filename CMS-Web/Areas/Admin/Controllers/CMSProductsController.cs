@@ -394,6 +394,54 @@ namespace CMS_Web.Areas.Admin.Controllers
             return View(modelCrawler);
         }
 
+        public ActionResult LoadScroll(PinFilterDTO pinFilter)
+        {
+            try
+            {
+                if(pinFilter.LstKeyWordID != null && pinFilter.LstKeyWordID.Count > 0)
+                {
+                    if (string.IsNullOrEmpty(pinFilter.LstKeyWordID[0]))
+                        pinFilter.LstKeyWordID = null;
+                }
+                var modelCrawler = new CMS_CrawlerModels();
+                var _pinModels = new List<PinsModels>();
+                var msg = "";
+                pinFilter.PageSize = Commons.PageSize;
+                var result = _fac.GetPin(ref _pinModels, pinFilter, ref msg);
+                if (result)
+                {
+                    modelCrawler.Pins = _pinModels;
+                    if (pinFilter.TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")))
+                    {
+                        modelCrawler.Pins = modelCrawler.Pins.OrderByDescending(x => x.Created_At).ToList();
+                    }
+                    else if (pinFilter.TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")))
+                    {
+                        modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.Created_At).ToList();
+                    }
+                    else if (pinFilter.TypeTime.Equals(Commons.ETimeType.PinReduce.ToString("d")))
+                    {
+                        modelCrawler.Pins = modelCrawler.Pins.OrderByDescending(x => x.Repin_count).ToList();
+                    }
+                    else if (pinFilter.TypeTime.Equals(Commons.ETimeType.PinIncrease.ToString("d")))
+                    {
+                        modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.Repin_count).ToList();
+                    }
+                    else if (pinFilter.TypeTime.Equals(Commons.ETimeType.ToolReduce.ToString("d")))
+                    {
+                        modelCrawler.Pins = modelCrawler.Pins.OrderByDescending(x => x.CreatedDate).ToList();
+                    }
+                    else if (pinFilter.TypeTime.Equals(Commons.ETimeType.ToolIncrease.ToString("d")))
+                    {
+                        modelCrawler.Pins = modelCrawler.Pins.OrderBy(x => x.CreatedDate).ToList();
+                    }
+                }
+                return PartialView("_ListItem", modelCrawler);
+            }
+            catch (Exception) { }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
         public ActionResult Search()
         {
             try

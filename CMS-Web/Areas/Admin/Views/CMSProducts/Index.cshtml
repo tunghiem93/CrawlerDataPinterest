@@ -65,6 +65,7 @@
                         </div>*@
                     <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
                         <div class="input-prepend input-group" style="width:100%">
+                            <input type="hidden" id="IsLoadData" value="0" />
                             @Html.HiddenFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off",@id="txtToDate" })
                             @Html.HiddenFor(model => model.FromDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off",@id="txtFromDate" })
                             @Html.DropDownListFor(model => model.TypeQuantity,
@@ -96,20 +97,6 @@
                         </div>
                     </div>
 
-                    @*<div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
-                        <div class="input-prepend input-group" style="width:100%">
-                            @Html.DropDownListFor(model => model.TypePin,
-                    new SelectList(Model.ListRePin, "Value", "Text", Model.TypePin), "",
-                    new
-                    {
-                        @class = "form-control select2_multiple",
-                        @id = "storeDdlViewPin",
-                        @style = "width:100%;",
-                    })
-                            @Html.ValidationMessageFor(model => model.TypePin, null, new { @class = "label" })
-                        </div>
-                    </div>*@
-
                     <div class="col-md-4 col-sm-4 col-xs-12 ">
                         <div class="input-prepend input-group" style="width:100%">
                             @Html.DropDownListFor(model => model.listKeywords,
@@ -139,7 +126,10 @@
         <fieldset>
             <legend>Danh sách kết quả tìm kiếm</legend>
         </fieldset>
-        @Html.Partial("_ListItem", Model.Crawler)
+        <input type="hidden" id="txtPageIndex" value="1" />
+       <div class="detail-view-grid">
+           @Html.Partial("_ListItem", Model.Crawler)
+       </div>
         <!-- detail partial view -->
     </div>
 </div>
@@ -151,6 +141,17 @@
             console.log(picker.endDate.format('YYYY-MM-DD'));
         });
 
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                //if ($(".pagenum:last").val() <= $(".rowcount").val()) {
+                //    var pagenum = parseInt($(".pagenum:last").val()) + 1;
+                //    getresult('getresult.php?page=' + pagenum);
+                //}
+                var _pageIndex = parseInt($("#txtPageIndex").val()) + 1;
+                $("#txtPageIndex").val(_pageIndex);
+                LoadScroll(_pageIndex);
+            }
+        });
 
         var start = moment().startOf('day');
         var end = moment().endOf('day');
@@ -214,9 +215,92 @@
         
     })
 
+    function LoadScroll(_pageIndex) {
+        var startDate = $('#reportrange').data('daterangepicker').startDate.format("DD/MM/YYYY");
+        var endDate = $('#reportrange').data('daterangepicker').endDate.format("DD/MM/YYYY");
+        var TypeQuantity = $("#storeDdlViewQuantity").val();
+        var TypeTime = $("#storeDdlView").val();
+        var LstKeyWordID = $("#KeywordsDdl").val();
+        var FilterModel = {
+            CreatedAtFrom: startDate,
+            CreatedAtTo: endDate,
+            PinCountFrom: null,
+            PinCountTo: null,
+            PageIndex: _pageIndex,
+            LstKeyWordID: [],
+            TypeTime: TypeTime,
+        };
+        if (TypeQuantity == @Commons.EQuantityType.ZeroToOne.ToString("d")) {
+            FilterModel.PinCountFrom = 0;
+            FilterModel.PinCountTo = 100;
+        }
+        if (TypeQuantity == @Commons.EQuantityType.OneToTwo.ToString("d")) {
+            FilterModel.PinCountFrom = 100;
+            FilterModel.PinCountTo = 200;
+        }
+        if (TypeQuantity == @Commons.EQuantityType.TwoToThree.ToString("d")) {
+            FilterModel.PinCountFrom = 200;
+            FilterModel.PinCountTo = 300;
+        }
+        if (TypeQuantity == @Commons.EQuantityType.ThreeToFour.ToString("d")) {
+            FilterModel.PinCountFrom = 300;
+            FilterModel.PinCountTo = 400;
+        }
+        if (TypeQuantity == @Commons.EQuantityType.FourToFive.ToString("d")) {
+            FilterModel.PinCountFrom = 400;
+            FilterModel.PinCountTo = 500;
+        }
+        if (TypeQuantity == @Commons.EQuantityType.MoreFive.ToString("d")) {
+            FilterModel.PinCountFrom = 500;
+        }
+        if (LstKeyWordID != null && LstKeyWordID.length > 0)
+        {
+            console.log(FilterModel);
+            FilterModel.LstKeyWordID = LstKeyWordID;
+        }
+        var IsLoadData = parseInt($("[id=IsLoadData]").val());
+        if (IsLoadData == 0)
+        {
+            FilterModel = {
+                CreatedAtFrom: null,
+                CreatedAtTo: null,
+                PinCountFrom: null,
+                PinCountTo: null,
+                PageIndex: _pageIndex,
+                LstKeyWordID: [],
+                TypeTime: TypeTime,
+            };
+        }
+        $.ajax({
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            url: '@Url.Action("LoadScroll","CMSProducts")',
+            type: "post",
+            dataType: 'html',
+            data: {
+                pinFilter: FilterModel
+            },
+           // processData: false,
+          //  contentType: false,
+            success: function (data) {
+                $('.detail-view-grid').append(data);
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                //  $(".detail-view").html(jqXHR.responseText);
+            }
+        });
+        
+    }
+
     $("#form-search").on("click").submit(function (e) {
         var startDate = $('#reportrange').data('daterangepicker').startDate.format("DD/MM/YYYY");
         var endDate = $('#reportrange').data('daterangepicker').endDate.format("DD/MM/YYYY");
+        $("[id=IsLoadData]").val(1);// set flag click button load data
+        $("[id=txtPageIndex]").val(1);
         console.log(startDate + " " + endDate);
         $("[id=txtToDate]").val(endDate);
         $("[id=txtFromDate]").val(startDate);
@@ -231,7 +315,7 @@
                     processData: false,
                     contentType: false,
                     success: function (data) {
-                        $('.detail-view').html(data);
+                        $('.detail-view-grid').html(data);
                     },
                     complete: function () {
                         $('.se-pre-con').hide();

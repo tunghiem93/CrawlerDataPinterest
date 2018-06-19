@@ -69,6 +69,7 @@ namespace CMS_DTO.CMSCrawler
         public int? PinCountTo { get; set; }
         public int PageSize { get; set; }
         public int PageIndex { get; set; }
+        public string TypeTime { get; set; }
 
         public PinFilterDTO()
         {
