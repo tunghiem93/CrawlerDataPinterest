@@ -95,6 +95,8 @@ namespace CMS_Shared.CMSEmployees
             {
                 msg = "CreateOrUpdate Pin with exception.";
                 result = false;
+                NSLog.Logger.Error("ErrorCreateOrUpdatePin:" + KeyWordID, ex);
+
             }
 
             finally

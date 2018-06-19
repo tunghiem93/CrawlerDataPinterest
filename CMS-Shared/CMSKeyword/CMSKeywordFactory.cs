@@ -327,6 +327,7 @@ namespace CMS_Shared.Keyword
             catch (Exception ex)
             {
                 msg = "Crawl data is unsuccessfully.";
+                NSLog.Logger.Error("ErrorCrawlData: " + Id, ex);
                 result = false;
             }
             NSLog.Logger.Info("ResponseCrawlData: " + Id, result);
