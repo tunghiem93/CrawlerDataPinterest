@@ -287,6 +287,7 @@ namespace CMS_Shared.Keyword
             NSLog.Logger.Info("CrawlData:", Id);
             CommonHelper.WriteLog("CrawlData: " + Id);
             CommonHelper.WriteLogs("CrawlerData : " + Id);
+            LogHelper.WriteLogs("CrawlerData: " + Id, "");
             var result = true;
             try
             {
@@ -344,9 +345,11 @@ namespace CMS_Shared.Keyword
 
                 NSLog.Logger.Error("ErrorCrawlData: " + Id, ex);
                 CommonHelper.WriteLog("ErrorCrawlData: " + Id + "\nException:"+ ex.ToString());
+                LogHelper.WriteLogs("ErrorCrawlData: " + Id, ex.ToString());
             }
             NSLog.Logger.Info("ResponseCrawlData: " + Id, result);
             CommonHelper.WriteLog("ResponseCrawlData: " + Id);
+            LogHelper.WriteLogs("ResponseCrawlData: " + Id, result.ToString());
 
             return result;
         }
