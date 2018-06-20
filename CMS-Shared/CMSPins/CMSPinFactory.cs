@@ -97,6 +97,7 @@ namespace CMS_Shared.CMSEmployees
                 result = false;
                 NSLog.Logger.Error("ErrorCreateOrUpdatePin:" + KeyWordID, ex);
 
+                CommonHelper.WriteLog("ErrorCreateOrUpdatePin " + KeyWordID +" \nException: " +ex.ToString());
             }
 
             finally
@@ -104,6 +105,7 @@ namespace CMS_Shared.CMSEmployees
                 m_Semaphore.Release();
             }
             NSLog.Logger.Info("ResponseCreateOrUpdatePin:" + KeyWordID, result);
+            CommonHelper.WriteLog("ResponseCreateOrUpdatePin: " + KeyWordID);
 
             return result;
         }

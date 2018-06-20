@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CMS_Shared.Utilities
 {
@@ -156,6 +158,21 @@ namespace CMS_Shared.Utilities
             }
             catch (Exception) { }
             return lstString;
+        }
+
+        public static void WriteLog(string _input)
+        {
+            try
+            {
+                string Path = AppDomain.CurrentDomain.BaseDirectory + "\\fileLog.txt";
+                var str = new
+                {
+                    DateTime = DateTime.Now,
+                    Msg = _input,
+                };
+                File.AppendAllText(Path, str.ToString() + Environment.NewLine);
+            }
+            catch (Exception) { }
         }
     }
 }

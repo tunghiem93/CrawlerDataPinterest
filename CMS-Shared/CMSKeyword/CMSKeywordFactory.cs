@@ -285,6 +285,7 @@ namespace CMS_Shared.Keyword
         public bool CrawlData(string Id, string createdBy, ref string msg)
         {
             NSLog.Logger.Info("CrawlData:", Id);
+            CommonHelper.WriteLog("CrawlData: " + Id);
 
             var result = true;
             try
@@ -338,10 +339,13 @@ namespace CMS_Shared.Keyword
             catch (Exception ex)
             {
                 msg = "Crawl data is unsuccessfully.";
-                NSLog.Logger.Error("ErrorCrawlData: " + Id, ex);
                 result = false;
+
+                NSLog.Logger.Error("ErrorCrawlData: " + Id, ex);
+                CommonHelper.WriteLog("ErrorCrawlData: " + Id + "\nException:"+ ex.ToString());
             }
             NSLog.Logger.Info("ResponseCrawlData: " + Id, result);
+            CommonHelper.WriteLog("ResponseCrawlData: " + Id);
 
             return result;
         }
