@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
-
+using System.Web;
 namespace CMS_Shared.Utilities
 {
     public class CommonHelper
@@ -173,6 +173,19 @@ namespace CMS_Shared.Utilities
                 File.AppendAllText(Path, str.ToString() + Environment.NewLine);
             }
             catch (Exception) { }
+        }
+
+        public static void WriteLogs(string _input)
+        {
+            try
+            {
+                string path = HttpContext.Current.Server.MapPath("~/logs/fileLog.txt");
+                StreamWriter SW = new StreamWriter(path);
+                SW.Flush();
+                SW.WriteLine(_input);
+                SW.Close();
+            }
+            catch(Exception ex) { }
         }
     }
 }

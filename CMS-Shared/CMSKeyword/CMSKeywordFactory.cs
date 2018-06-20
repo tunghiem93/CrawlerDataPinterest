@@ -286,7 +286,7 @@ namespace CMS_Shared.Keyword
         {
             NSLog.Logger.Info("CrawlData:", Id);
             CommonHelper.WriteLog("CrawlData: " + Id);
-
+            CommonHelper.WriteLogs("CrawlerData : " + Id);
             var result = true;
             try
             {
@@ -318,6 +318,7 @@ namespace CMS_Shared.Keyword
                                     CrawlerHelper.Get_Tagged_OrtherPins(ref model, keyWord.KeyWord, Commons.PinOrtherDefault, "", 1, pinID);
                                 }
                             }
+                            CommonHelper.WriteLogs("Crawler Success !!!");
                             var res = _fac.CreateOrUpdate(model.Pins, keyWord.ID, createdBy, ref msg);
 
                             if (res == false)
