@@ -170,23 +170,25 @@ namespace CMS_Shared.Keyword
             {
                 using (var _db = new CMS_Context())
                 {
-                    var e = _db.CMS_KeyWord.Find(Id);
-
                     /* remove list group key*/
                     var listGroupKey = _db.CMS_R_GroupKey_KeyWord.Where(o => o.KeyWordID == Id).ToList();
 
                     /* remove list Key pin */
                     var listKeyPin = _db.CMS_R_KeyWord_Pin.Where(o => o.KeyWordID == Id).ToList();
 
-                    /* remove list pin */
-                    var listPinID = listKeyPin.GroupBy(o => o.PinID).Select(o => new { ID = o.Key, Count = o.Count() }).Where(o => o.Count <= 1).Select(o => o.ID).ToList();
-                    var listPin = _db.CMS_Pin.Where(o => listPinID.Contains(o.ID)).ToList();
-
-                    /* remove and save change db*/
                     _db.CMS_R_GroupKey_KeyWord.RemoveRange(listGroupKey);
                     _db.CMS_R_KeyWord_Pin.RemoveRange(listKeyPin);
+                    _db.SaveChanges();
+                    
+                    /* remove list pin */
+                    var listPinID = _db.CMS_R_KeyWord_Pin.Select(o => o.PinID).ToList();
+                    var listPin = _db.CMS_Pin.Where(o => !listPinID.Contains(o.ID)).ToList();
+
+                    /* remove key */
+                    var key = _db.CMS_KeyWord.Where(o => o.ID == Id).FirstOrDefault();
+                    
                     _db.CMS_Pin.RemoveRange(listPin);
-                    _db.CMS_KeyWord.Remove(e);
+                    _db.CMS_KeyWord.Remove(key);
                     _db.SaveChanges();
                 }
             }
