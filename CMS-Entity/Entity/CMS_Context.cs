@@ -18,7 +18,7 @@ namespace CMS_Entity.Entity
         public virtual DbSet<CMS_Pin> CMS_Pin { get; set; }
         public virtual DbSet<CMS_R_GroupKey_KeyWord> CMS_R_GroupKey_KeyWord { get; set; }
         public virtual DbSet<CMS_R_KeyWord_Pin> CMS_R_KeyWord_Pin { get; set; }
-
+        public virtual DbSet<CMS_Log> CMS_Log { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CMS_Employee>()
@@ -151,6 +151,18 @@ namespace CMS_Entity.Entity
 
             modelBuilder.Entity<CMS_R_KeyWord_Pin>()
                 .Property(e => e.UpdatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CMS_Log>()
+                .Property(e => e.ID)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CMS_Log>()
+                .Property(e => e.Decription)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CMS_Log>()
+                .Property(e => e.JsonContent)
                 .IsUnicode(false);
         }
     }
