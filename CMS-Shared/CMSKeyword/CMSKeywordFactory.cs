@@ -82,15 +82,16 @@ namespace CMS_Shared.Keyword
                                 var curSeq = _db.CMS_KeyWord.OrderByDescending(o => o.Sequence).Select(o => o.Sequence).FirstOrDefault();
 
                                 /* add new record */
+                                var dateTimeNow = DateTime.Now;
                                 var newKey = new CMS_KeyWord()
                                 {
                                     ID = Guid.NewGuid().ToString(),
                                     KeyWord = model.KeySearch,
                                     Status = (byte)Commons.EStatus.Active,
                                     CreatedBy = model.CreatedBy,
-                                    CreatedDate = DateTime.Now,
+                                    CreatedDate = dateTimeNow,
                                     UpdatedBy = model.CreatedBy,
-                                    UpdatedDate = DateTime.Now,
+                                    UpdatedDate = dateTimeNow,
                                     Sequence = ++curSeq,
                                 };
                                 _db.CMS_KeyWord.Add(newKey);
@@ -299,7 +300,7 @@ namespace CMS_Shared.Keyword
                     {
                         /* check time span crawl */
                         var timeSpanCrawl = DateTime.Now - keyWord.UpdatedDate;
-                        if(timeSpanCrawl.Value.TotalMinutes > 5) /* 5min to crawl data again */
+                        if(timeSpanCrawl.Value.TotalMinutes > 5 || keyWord.UpdatedDate == keyWord.CreatedDate) /* 5min to crawl data again */
                         {
                             /* update crawer date */
                             var bkTime = keyWord.UpdatedDate;
