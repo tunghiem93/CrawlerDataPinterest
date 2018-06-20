@@ -179,7 +179,7 @@ namespace CMS_Shared.Utilities
         {
             try
             {
-                string path = HttpContext.Current.Server.MapPath("~/logs/fileLog.txt");
+                string path = System.Web.Hosting.HostingEnvironment.MapPath("~/logs/fileLog.txt");
                 StreamWriter SW = new StreamWriter(path);
                 SW.Flush();
                 SW.WriteLine(_input);
