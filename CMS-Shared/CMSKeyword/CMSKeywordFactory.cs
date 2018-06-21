@@ -289,8 +289,8 @@ namespace CMS_Shared.Keyword
         public bool CrawlData(string Id, string createdBy, ref string msg)
         {
             NSLog.Logger.Info("CrawlData:", Id);
-            CommonHelper.WriteLog("CrawlData: " + Id);
-            CommonHelper.WriteLogs("CrawlerData : " + Id);
+            //CommonHelper.WriteLog("CrawlData: " + Id);
+            //CommonHelper.WriteLogs("CrawlerData : " + Id);
             LogHelper.WriteLogs("CrawlerData: " + Id, "");
             var result = true;
             try
@@ -318,10 +318,14 @@ namespace CMS_Shared.Keyword
                             if (model != null && model.Pins != null && model.Pins.Any())
                             {
                                 var listPinID = model.Pins.Select(o => o.ID).ToList();
-                                foreach (var pinID in listPinID)
+                                Parallel.ForEach(listPinID, pinID =>
                                 {
                                     CrawlerHelper.Get_Tagged_OrtherPins(ref model, keyWord.KeyWord, Commons.PinOrtherDefault, "", 1, pinID);
-                                }
+                                });
+                                //foreach (var pinID in listPinID)
+                                //{
+                                //    CrawlerHelper.Get_Tagged_OrtherPins(ref model, keyWord.KeyWord, Commons.PinOrtherDefault, "", 1, pinID);
+                                //}
                             }
                             CommonHelper.WriteLogs("Crawler Success !!!");
                             var res = _fac.CreateOrUpdate(model.Pins, keyWord.ID, createdBy, ref msg);
@@ -348,11 +352,11 @@ namespace CMS_Shared.Keyword
                 result = false;
 
                 NSLog.Logger.Error("ErrorCrawlData: " + Id, ex);
-                CommonHelper.WriteLog("ErrorCrawlData: " + Id + "\nException:"+ ex.ToString());
+                //CommonHelper.WriteLog("ErrorCrawlData: " + Id + "\nException:"+ ex.ToString());
                 LogHelper.WriteLogs("ErrorCrawlData: " + Id, JsonConvert.SerializeObject(ex));
             }
             NSLog.Logger.Info("ResponseCrawlData: " + Id, result);
-            CommonHelper.WriteLog("ResponseCrawlData: " + Id);
+            //CommonHelper.WriteLog("ResponseCrawlData: " + Id);
             LogHelper.WriteLogs("ResponseCrawlData: " + Id, result.ToString());
 
             return result;

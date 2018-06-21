@@ -29,6 +29,7 @@ namespace CMS_Shared.CMSEmployees
             {
                 using (var _db = new CMS_Context())
                 {
+                    _db.Database.CommandTimeout = 500;
                     lstPin = lstPin.GroupBy(x => x.ID).Select(x => x.First()).ToList();
                     lstPin = lstPin.Where(x => !string.IsNullOrEmpty(x.ID) && x.ID.Length <= 60).ToList();
                     var lstPinID = lstPin.Select(o => o.ID).ToList();

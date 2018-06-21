@@ -1,6 +1,7 @@
 ﻿using CMS_DTO.CMSSession;
 using CMS_DTO.Models;
 using CMS_Shared.Factory;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -89,7 +90,16 @@ namespace CMS_Web.Areas.Admin.Controllers
                         userSession.RememberMe = model.RememberMe;
 
                         Session.Add("User", userSession);
-                        //
+
+                        // create cookie user
+                        string myObjectJson = JsonConvert.SerializeObject(userSession);  //new JavaScriptSerializer().Serialize(userSession);
+                        HttpCookie userCookie = new HttpCookie("UserCookie");
+                        userCookie.Expires = DateTime.Now.AddDays(1);
+                        userCookie.Value = Server.UrlEncode(myObjectJson);
+                        HttpContext.Response.Cookies.Add(userCookie);
+
+
+
                         if (!string.IsNullOrEmpty(mController))
                             return RedirectToAction("Index", mController, new { area = "Admin" });
                         if (returnUrl == null)
