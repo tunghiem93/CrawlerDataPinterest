@@ -171,6 +171,8 @@ namespace CMS_Shared.Keyword
             {
                 using (var _db = new CMS_Context())
                 {
+                    _db.Database.CommandTimeout = 500;
+
                     /* remove list group key*/
                     var listGroupKey = _db.CMS_R_GroupKey_KeyWord.Where(o => o.KeyWordID == Id).ToList();
 
@@ -346,7 +348,7 @@ namespace CMS_Shared.Keyword
 
                 NSLog.Logger.Error("ErrorCrawlData: " + Id, ex);
                 CommonHelper.WriteLog("ErrorCrawlData: " + Id + "\nException:"+ ex.ToString());
-                LogHelper.WriteLogs("ErrorCrawlData: " + Id, ex.ToString());
+                LogHelper.WriteLogs("ErrorCrawlData: " + Id, JsonConvert.SerializeObject(ex));
             }
             NSLog.Logger.Info("ResponseCrawlData: " + Id, result);
             CommonHelper.WriteLog("ResponseCrawlData: " + Id);

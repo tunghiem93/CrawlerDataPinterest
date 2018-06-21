@@ -3,6 +3,7 @@ using CMS_DTO.CMSEmployee;
 using CMS_Entity;
 using CMS_Entity.Entity;
 using CMS_Shared.Utilities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -99,7 +100,7 @@ namespace CMS_Shared.CMSEmployees
                 NSLog.Logger.Error("ErrorCreateOrUpdatePin:" + KeyWordID, ex);
 
                 CommonHelper.WriteLog("ErrorCreateOrUpdatePin " + KeyWordID +" \nException: " +ex.ToString());
-                LogHelper.WriteLogs("ErrorCreateOrUpdatePin: " + KeyWordID, ex.ToString());
+                LogHelper.WriteLogs("ErrorCreateOrUpdatePin: " + KeyWordID, JsonConvert.SerializeObject(ex));
             }
 
             finally
