@@ -28,6 +28,13 @@ namespace CMS_Shared.Utilities
                     };
                     _db.CMS_Log.Add(logData);
                     _db.SaveChanges();
+
+                    _db.Database.CommandTimeout = 500;
+
+                    /* delete log from 7 day ago */
+                    _db.Database.ExecuteSqlCommand(
+                        "delete CMS_Log where  CreatedDate < DATEADD(DAY,-7,getdate())"
+                        );
                 }
             }
             catch (Exception ex)
