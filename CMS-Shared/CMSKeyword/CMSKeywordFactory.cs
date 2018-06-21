@@ -204,6 +204,44 @@ namespace CMS_Shared.Keyword
             return result;
         }
 
+        public bool DeleteAndRemoveDBCommand(string Id, ref string msg)
+        {
+            var result = true;
+            try
+            {
+                using (var _db = new CMS_Context())
+                {
+                    _db.Database.CommandTimeout = 500;
+
+                    /* delete keyword_pin */
+                    _db.Database.ExecuteSqlCommand(
+                        "delete CMS_R_KeyWord_Pin where  KeyWordID = \'" + Id + "\'"
+                        );
+
+                    /* delete pin */
+                    _db.Database.ExecuteSqlCommand(
+                        "delete CMS_Pin where ID not in (select PinID from CMS_R_KeyWord_Pin)"
+                        );
+
+                    /* delete group_key */
+                    _db.Database.ExecuteSqlCommand(
+                        "delete CMS_R_GroupKey_KeyWord where KeyWordID = \'" + Id + "\'"
+                        );
+
+                    /* delete key */
+                    _db.Database.ExecuteSqlCommand(
+                        "delete CMS_KeyWord where ID = \'" + Id + "\'"
+                        );
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Can't delete this key words.";
+                result = false;
+            }
+            return result;
+        }
+
         public bool AddKeyToGroup(string KeyId, string GroupKeyID, ref string msg)
         {
             var result = true;

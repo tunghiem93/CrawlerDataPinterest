@@ -120,7 +120,9 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult DeleteAll(string ID)
         {
             var msg = "";
-            var result = _factory.DeleteAndRemoveDB(ID, ref msg);
+            //var result = _factory.DeleteAndRemoveDB(ID, ref msg);
+            var result = _factory.DeleteAndRemoveDBCommand(ID, ref msg);
+            
             if (result)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
