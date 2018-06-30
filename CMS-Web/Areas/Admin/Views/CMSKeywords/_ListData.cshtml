@@ -69,7 +69,7 @@
                                         </a>
                                         <a class="btn btn-sm btn-default cls-@item.Id" style="color: #17a2b8 !important; border-color: #17a2b8 !important; " onclick="CrawlerKeyword('@item.Id', '@item.KeySearch'); return false;">@Html.Raw("Crawl now")</a>
                                         <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " onclick="Delete(this, '@item.Id'); return false;">@Html.Raw("Delete")</a>
-                                        <a class="btn btn-sm btn-danger" onclick="DeleteAll(this, '@item.Id'); return false;">@Html.Raw("Delete and clear posts")</a>
+                                        <a class="btn btn-sm btn-danger" onclick="DeleteAndClearPost(this, '@item.Id'); return false;">@Html.Raw("Delete and clear posts")</a>
                                     </td>
                                 </tr>
                             }

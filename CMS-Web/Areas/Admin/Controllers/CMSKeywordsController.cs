@@ -93,7 +93,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-
+        #region For row
         public ActionResult CrawlerKeyword(string ID, string Key)
         {
             var msg = "";
@@ -117,17 +117,56 @@ namespace CMS_Web.Areas.Admin.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        public ActionResult DeleteAll(string ID)
+        public ActionResult DeleteAndClearPost(string ID)
         {
             var msg = "";
             //var result = _factory.DeleteAndRemoveDB(ID, ref msg);
             var result = _factory.DeleteAndRemoveDBCommand(ID, ref msg);
-            
+
             if (result)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
+        #endregion
+
+        #region For All
+        public ActionResult CrawlerKeywordAll(string ID, string Key)
+        {
+            var msg = "";
+            new Thread(() => { _factory.CrawlData(ID, "Admin", ref msg); }).Start();
+            var result = true;
+            if (result)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        public ActionResult DeleteAll()
+        {
+            var msg = "";
+            var result = true; //= _factory.Delete("Admin", ref msg);
+            if (result)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        public ActionResult DeleteAndClearPostAll()
+        {
+            var msg = "";
+            //var result = _factory.DeleteAndRemoveDB(ID, ref msg);
+            var result = true; // _factory.DeleteAndRemoveDBCommand(ID, ref msg);
+
+            if (result)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+        #endregion
     }
 }
