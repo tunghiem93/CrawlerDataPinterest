@@ -1,0 +1,57 @@
+﻿@model CMS_DTO.CMSEmployee.CMS_EmployeeModels
+
+@if (Model != null && Model.ListKeywords != null && Model.ListKeywords.Count > 0)
+{
+    for (int i = 0; i < Model.ListKeywords.Count; i++)
+    {
+        <tr data-id="@Model.ListKeywords[i].Id" class="mediate-key key_">
+            <td width="10%">
+                @Html.TextBox(string.Format("ListKeywords[{0}].Sequence", Model.ListKeywords[i].OffSet), Model.ListKeywords[i].Sequence, new { @class = "form-control input-number text-center clsSequence", @readonly = "readonly", @maxlength = 2, @Value = Model.ListKeywords[i].Sequence })
+            </td>
+            <td>
+                <div class="input-group input-group-sm col-md-8" style="margin:0 auto; width: 90%;">
+                    @Html.TextBox(string.Format("ListKeywords[{0}].KeySearch", Model.ListKeywords[i].OffSet), Model.ListKeywords[i].KeySearch, new { @class = "form-control clsKeySerch", @readonly = "readonly", @Value = Model.ListKeywords[i].KeySearch })
+
+                    @Html.Hidden(string.Format("ListKeywords[{0}].OffSet", Model.ListKeywords[i].OffSet), Model.ListKeywords[i].OffSet, new { @Value = Model.ListKeywords[i].OffSet })
+
+                    @Html.Hidden(string.Format("ListKeywords[{0}].Status", Model.ListKeywords[i].OffSet), Model.ListKeywords[i].Status, new { @class = "DishStatus", @Value = Model.ListKeywords[i].Status })
+                    <span class="input-group-btn">
+                        <button data-toggle="modal" data-target="#modal-choose-key_@Model.ListKeywords[i].Id" data-whatever="@Model.ListKeywords[i].OffSet" class="btn btn-primary" type="button">
+                            <i class="glyphicon glyphicon-list"></i>
+                        </button>
+                    </span>
+                </div>
+            </td>
+            <td width="10%">
+                <a href="#" onclick="DeleteModifier(this); return false;">
+                    <i class="glyphicon glyphicon-minus-sign" style="font-size: 25px; color: red; padding: 5px 0px; "></i>
+                </a>
+            </td>
+        </tr>
+    }
+}
+
+<script>
+    (function ($) {
+        $.fn.numberFormat = function () {
+            this.each(function (i) {
+                $(this).change(function (e) {
+                    if (isNaN(parseFloat(this.value))) return;
+                    this.value = parseFloat(this.value).toFixed(2);
+                });
+            });
+            return this; //for chaining
+        }
+    })(jQuery);
+    $(document).ready(function () {
+        $(function () {
+            $('.number').numberFormat();
+        });
+        //===============
+        $(".number").each(function (i) {
+            if (isNaN(parseFloat(this.value)))
+                return;
+            this.value = parseFloat(this.value).toFixed(2);
+        });    
+    });
+</script>

@@ -1,6 +1,8 @@
 ﻿using CMS_DTO.CMSEmployee;
+using CMS_DTO.CMSKeyword;
 using CMS_Shared;
 using CMS_Shared.CMSEmployees;
+using CMS_Shared.Keyword;
 using CMS_Shared.Utilities;
 using CMS_Web.Web.App_Start;
 using System;
@@ -17,9 +19,11 @@ namespace CMS_Web.Areas.Admin.Controllers
     public class CMSEmployeesController : HQController
     {
         private CMSEmployeeFactory _factory;
+        private CMSKeywordFactory _facKeyword;
         public CMSEmployeesController()
         {
             _factory = new CMSEmployeeFactory();
+            _facKeyword = new CMSKeywordFactory();
             ViewBag.IsAdmin = CurrentUser.IsSuperAdmin;
         }
         // GET: Admin/CMSCategories
@@ -43,7 +47,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult Create()
         {
             CMS_EmployeeModels model = new CMS_EmployeeModels();
-            model.IsActive = true;
+            model.IsActive = true;            
             return PartialView("_Create", model);
         }
 
@@ -229,6 +233,39 @@ namespace CMS_Web.Areas.Admin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return PartialView("_Delete", model);
             }
+        }
+        public ActionResult LoadKeywords()
+        {
+            CMS_EmployeeModels model = new CMS_EmployeeModels();
+            model.ListKeywords = _facKeyword.GetList();
+            if (model.ListKeywords != null && model.ListKeywords.Any())
+            {
+                int index = 0;
+                model.ListKeywords.ForEach(o => {
+                    o.OffSet = index++;
+                });
+            }
+            return PartialView("_TableChooseKeywords", model);
+        }
+
+        public ActionResult AddKeywords(KeyOnGroupModels data)
+        {
+            CMS_EmployeeModels model = new CMS_EmployeeModels();
+            if (data.ListKeywordOnGroup != null && data.ListKeywordOnGroup.Count() > 0)
+                model.ListKeywords = new List<CMS_KeywordModels>();
+
+            for (int i = 0; i < data.ListKeywordOnGroup.Count(); i++)
+            {
+                CMS_KeywordModels key = new CMS_KeywordModels();
+                key.OffSet = data.CurrentOffset;
+                key.Id = data.ListKeywordOnGroup[i].KeyID;
+                key.KeySearch = data.ListKeywordOnGroup[i].KeyName;
+                key.Sequence = data.ListKeywordOnGroup[i].Seq;
+                model.ListKeywords.Add(key);
+                data.CurrentOffset++;
+            }
+
+            return PartialView("_TabKeywords", model);
         }
     }
 }

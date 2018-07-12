@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS_DTO.CMSKeyword;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,22 +12,22 @@ namespace CMS_DTO.CMSEmployee
     public class CMS_EmployeeModels
     {
         public string Id { get; set; }
-        [Required(ErrorMessage ="Vui lòng nhập họ tên")]
-        [MaxLength(50,ErrorMessage ="Họ tên tối đa 50 kí tự")]
+        [Required(ErrorMessage = "Vui lòng nhập họ tên")]
+        [MaxLength(50, ErrorMessage = "Họ tên tối đa 50 kí tự")]
         public string FirstName { get; set; }
-        [Required(ErrorMessage ="Vui lòng nhập tên")]
-        [MaxLength(20,ErrorMessage ="Tên tối đa 20 kí tự")]
+        [Required(ErrorMessage = "Vui lòng nhập tên")]
+        [MaxLength(20, ErrorMessage = "Tên tối đa 20 kí tự")]
         public string LastName { get; set; }
         public string Employee_Address { get; set; }
         [RegularExpression("([0-9]+)", ErrorMessage = "Vui lòng nhập số")]
         public string Employee_Phone { get; set; }
-        [Required(ErrorMessage ="Vui lòng nhập e-mail")]
+        [Required(ErrorMessage = "Vui lòng nhập e-mail")]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail không hợp lệ")]
         public string Employee_Email { get; set; }
         public string Employee_IDCard { get; set; }
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
-        [Required(ErrorMessage ="Vui lòng nhập mật khẩu")]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
         public string Password { get; set; }
         [Required(ErrorMessage = "Làm ơn xác nhận lại mật khẩu!")]
         public string ConfirmPassword { get; set; }
@@ -44,9 +45,29 @@ namespace CMS_DTO.CMSEmployee
 
         public byte[] PictureByte { get; set; }
         public string ImageURL { get; set; }
+
+        public List<CMS_KeywordModels> ListKeywords { get; set; }
         public CMS_EmployeeModels()
         {
             BirthDate = new DateTime(1990, 01, 01);
+            ListKeywords = new List<CMS_KeywordModels>();
         }
+    }
+
+    public class KeyOnGroupModels
+    {
+        public int CurrentOffset { get; set; }
+        public List<Keyword> ListKeywordOnGroup { get; set; }
+        public KeyOnGroupModels()
+        {
+            ListKeywordOnGroup = new List<Keyword>();
+        }
+    }
+
+    public class Keyword
+    {
+        public string KeyID { get; set; }
+        public string KeyName { get; set; }
+        public int Seq { get; set; }
     }
 }

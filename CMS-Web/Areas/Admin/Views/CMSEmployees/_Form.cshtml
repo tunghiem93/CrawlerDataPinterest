@@ -5,7 +5,7 @@
     Html.EnableUnobtrusiveJavaScript(true);
     var _ID = Model.Id;
 }
-@Html.HiddenFor(model =>model.Id)
+@Html.HiddenFor(model => model.Id)
 @if (!string.IsNullOrEmpty(_ID))
 {
     @Html.Hidden("ImageURL", Model.ImageURL)
@@ -105,10 +105,134 @@
                 <label>@Html.CheckBoxFor(model => model.IsActive, new { @class = "icheck" })</label>
             </div>
         </div>
+
+        @*author process keywords*@
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">@Html.Raw("Choose Keywords")</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <!-- Table Mediate Modifier -->
+                <div id="divKeywords">
+                    <table class="table center-content">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #ddd;">
+                                <th>@Html.Raw("Quantity")</th>
+                                <th style="width: 25%; text-align: center;  ">@Html.Raw("keywords")</th>
+                            </tr>
+                        </thead>
+                        <tbody style="max-height:500px; overflow-y:auto; overflow-x:hidden !important;">
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control input-number text-center clsSequence" readonly value=" @string.Format("{0}", Model.ListKeywords != null ? Model.ListKeywords.Count().ToString() : "0") " />
+                                </td>
+                                <td style="text-align: center; ">
+                                    <a class="btn btn-primary" onclick="ShowModalAddKeywords(this)"><i class="fa fa-plus-square" style="font-size:14px;"></i><span>&nbsp;@Html.Raw("Add keywords")</span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                @Html.ValidationMessage("MsgKeyword", new { @class = "col-md-offset-2 col-md-10 label" })
+            </div>
+        </div>
     </fieldset>
 </div>
+
+<!-- Modal Add Keywords-->
+<div class="modal fade" id="modalKey" tabindex="-1" role="dialog" aria-labelledby="modalKeyLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Html.Raw("Add keywords")</h4>
+            </div>
+            <div class="modal-body scroll popupTabConent">
+                <div class="form-group-sm">
+                    <table class="table center-content">
+                        <thead>
+                            <tr style="background-color:#34495e; color:#fff;">
+                                <th width="10%">@Html.Raw("Sequence")</th>
+                                <th style="text-align: center; ">@Html.Raw("Keyword")</th>
+                                <th width="10%"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="body-keys">
+                            @if (Model.ListKeywords != null && Model.ListKeywords.Count > 0)
+                            {
+                                for (int i = 0; i < Model.ListKeywords.Count; i++)
+                                {
+                                    @Html.Partial("_TabKeywords", Model.ListKeywords[i])
+                                }
+                            }
+                            <tr id="tr-add-more-key">
+                                <td colspan="4" style="padding-top:12px; text-align:left">
+                                    <a href="#" data-toggle="modal" data-target="#modal-choose-keys"
+                                       class="a-fnb" data-whatever="2"
+                                       style="font-size:14px; color:#34495e; text-decoration: none; ">
+                                        <i class="fa fa-plus-square" style="font-size:14px;"></i>
+                                        <span>@Html.Raw("Add more")</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span></span>
+                <button class="btn btn-danger" @*onclick="PasteHtml($(this).parents('.modal-content:first').find('table > tbody'));"*@ data-dismiss="modal">@Html.Raw("Cancel")</button>
+                <button id="btn-save-key" type="button" class="btn btn-primary" data-dismiss="modal">@Html.Raw("Save Changes")</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Choose Modifier-->
+<div class="modal fade second cls-modal-chosse-key" id="modal-choose-keys" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Html.Raw("Choose Keyword(s)")</h4>
+            </div>
+            <div class="modal-body scroll popupTabKey">
+                <div class="form-group">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control col-md-10" placeholder="@Html.Raw("Enter Keyword Name to search"))"
+                                   onkeypress="HandleKeyPress(event)" id="txtSearchKey" />
+                            <div class="input-group-btn">
+                                <button type="button" onclick="SearchKeyword(this); return false;" class="btn bg-fnb">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group-sm">
+                    <table class="table table-striped table-hover marginbottomTable">
+                        <thead>
+                            <tr style="background-color:#34495e; color:#fff;">
+                                <th style="width:1%;"><input type="checkbox" id="chkAllRule_" onchange="ToogleCheckAll(this, '#list-keywords')"></th>
+                                <th>@Html.Raw("Keyword Name")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div id="tbl-choose-keys" class="form-group-sm">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal">@Html.Raw("Cancel")</button>
+                <button onclick="AddKeywords(this)" type="button" class="btn btn-primary">@Html.Raw("Add")</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="@Url.Content("~/Scripts/InputCustom.js")"></script>
 <script type="text/javascript">
+    var btnGlobal;
+    var listItem;
+
     $(document).ready(function () {
         $('.datepicker1').daterangepicker({
             singleDatePicker: true,
@@ -130,5 +254,217 @@
 
     function showPictureUpload() {
         $('[id=urlImage]').click();
+    }
+
+    function ShowModalAddKeywords(btn) {
+        var modal = $("#modalKey");
+        $(modal).modal({
+            keyboard: false,
+            show: true,
+            //backdrop: false
+        });
+        //CopyHtml($(btn).parents('tr:first').find('table > tbody > tr'));
+        $('.popupTabConent').css({ "overflow": "auto", "height": $(window).height() - 200 + "px" });
+    }
+
+    $("#modal-choose-keys").on('show.bs.modal', function (event) {
+        $('#chkAllRule_').attr('checked', false);
+        btnGlobal = $(event.relatedTarget); // Button that triggered the modal
+        ////=========
+        //var OffSet = btnGlobal.data('whatever');
+        listItem = [];
+        $('.key_' + ':visible').each(function (index, value) {
+            listItem.push($(this).attr('data-id'));
+        });
+        $('#txtSearchKey').val('');
+        ////==========
+        //$("#tbl-choose-dishes_").html('');
+        $('.popupTabKey').css({ "overflow": "auto", "margin-left": "10px", "height": $(window).height() - 210 + "px" });
+        $('.cls-modal-chosse-key .modal-content').css({ "margin-left": "10px" });
+        LoadKeywords("#tbl-choose-keys");
+    });
+
+    function LoadKeywords(container) {
+        $.ajax({
+            url: '@Url.Action("LoadKeywords", "CMSEmployees")',
+            type: 'get',
+            data: { },
+            dataType: 'html',
+            traditional: true,
+            error: function (e) {
+            },
+            success: function (data) {
+                debugger;
+                $(container).html(data);
+                //ResizeModal(container, 300);
+                $('.SpecificItems').each(function (index, value) {
+                    var dataId = $(this).attr('data-id');
+                    if (listItem.indexOf(dataId) != -1) {
+                        $(this).addClass('hide');//.hide();
+                    }
+                });
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            }
+        });
+    }
+
+    function SearchKeyword(btn) {
+        var keySearch = $(btn).parents('div.form-group:first').find('input').val().toLowerCase();
+        var trs = $(btn).parents('.modal-body:first').find('tbody tr');
+
+        var arrKeySearch = keySearch.split(' ');
+        if (keySearch != '') {
+            for (var i = 0; i < trs.length; i++) {
+                var name = $.trim($(trs[i]).find('td:last').text());
+                for (var j = 0; j < arrKeySearch.length; j++) {
+                    if (name.toLowerCase().indexOf(arrKeySearch[j]) != -1) {
+                        if ($(trs[i]).css('display') == 'none')
+                            $(trs[i]).css('display', 'table-row');
+                        break;
+                    }
+                    else
+                        if ($(trs[i]).css('display') == 'table-row')
+                            $(trs[i]).css('display', 'none');
+                }
+            }
+        }
+        else {
+            $(trs).each(function (e) {
+                if ($(this).css('display') == 'none')
+                    $(this).css('display', 'table-row');
+            });
+        }
+    }
+
+    function AddKeywords(btn) {
+        var groupOffSet = $(btnGlobal).parents('tr:last').find('input[name*="OffSet"]').val();
+        var currentOffset = $(btnGlobal).parents('table:first > tbody').find('tr').length - 1;
+        var trs = $(btn).parents('.modal').find('.modal-body table tbody tr');
+        var data = [];
+        for (var i = 0; i < trs.length; i++) {
+            var tr = trs[i];
+            if ($(tr).find('td input[type="checkbox"]').prop('checked')) {
+                var KeyID = $(tr).attr('data-id');
+                var Name = $(tr).find('td .hidName').val();
+                var Seq = parseInt($(tr).find('td .hidSeq').val());
+                var Keyword = {
+                    KeyID: KeyID,
+                    KeyName: Name,
+                    Seq: Seq,
+                }
+                data.push(Keyword);
+            }
+        }
+
+        var KeyOnGroupModels = {
+            CurrentOffset: currentOffset,
+            ListKeywordOnGroup: data,
+        }
+
+        if (data.length > 0) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddKeywords", "CMSEmployees")',
+                traditional: true,
+                data: JSON.stringify(KeyOnGroupModels),
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (data) {
+                    $(btnGlobal).parents('tr:first').before(data);
+                    $(btn).parents('.modal:first').modal('hide');
+                    //========
+                    $('.popupTabConent').css({ "overflow": "auto", "height": $(window).height() - 200 + "px" });
+                },
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                complete: function () {
+                    $('.se-pre-con').hide();
+                }
+            });
+        }
+    }
+
+
+    function DeleteModifier(btn) {
+        //var result = confirm("Are you sure ?");
+        var tr = $(btn).parents('tr:first');
+        //if (result)
+        //{
+        $(tr).find('input.DishStatus').val(9);
+        $(tr).css('display', 'none');
+        //}
+    }
+
+    //var HtmlCloned = '';
+    //function CopyHtml(container) {
+    //    debugger;
+    //    HtmlCloned = $(container).clone();
+    //}
+    //function PasteHtml(container) {
+    //    debugger;
+    //    $(container).html(HtmlCloned);
+    //}
+
+    var countchild = 0;
+    var countAll = 0;
+    function TickCheckBoxFor(td, offset) {
+        countchild = parseFloat(countchild) + 1;
+        var tr = $(td).parents('tr:first');
+        $(tr).find('input[type=checkbox]').prop('checked', !$(tr).find('input[type=checkbox]').prop('checked'))
+        $('.chldItemOngroup').find('input[type=checkbox]').prop('checked');
+
+        countAll = $('#list-keywords').find("tr:visible").length;
+        countchild = $('#list-keywords').find("tr:visible").find("input[type='checkbox']:checked").length;
+        if (countchild === countAll) {
+            $('#chkAllRule_').prop('checked', true);
+        } else {
+            $('#chkAllRule_').prop('checked', false);
+        }
+    }
+
+    function TickCheckBoxForChild(td, offset) {
+        var tr = $(td).parents('tr:first');
+        $(tr).find('input[type=checkbox]').prop('checked', !$(tr).find('input[type=checkbox]').prop('checked'))
+        TickCheckBoxFor(td, offset);
+    }
+
+    function ToogleCheckAll(e, containElementSelector) {
+        checkAll = $(e).prop("checked");
+        $(containElementSelector).find("tr:visible").find("input[type='checkbox']").prop("checked", checkAll);
+        if ($(e).prop('id') != 'select-all') {
+            ToggleBtnDelete();
+        }
+    }
+
+    function ToggleBtnDelete() {
+        var totalRow = $(".gridview tbody input[type='checkbox']").length;
+        var totalChecked = $(".gridview tbody input[type='checkbox']:checked").length;
+
+        if (totalRow == totalChecked) {
+            $("#chb-checkall").prop('checked', true);
+        } else {
+            $("#chb-checkall").prop('checked', false);
+        }
+    }
+
+    function HandleKeyPress(e) {
+        var key = e.keyCode || e.which;
+        if (key == 13) {
+            e.preventDefault();
+        }
+    }
+
+    function ResizeModal(element, h) {
+        var heightElement = $(element).height() + 100;
+        var heightMain = $(window).height();
+        if (heightElement > heightMain) {
+            $(element).css({ "overflow": "auto", "height": heightMain - h + "px" })
+        }
     }
 </script>

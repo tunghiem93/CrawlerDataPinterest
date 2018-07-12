@@ -1,0 +1,33 @@
+﻿@model CMS_DTO.CMSEmployee.CMS_EmployeeModels
+
+@if (Model.ListKeywords != null && Model.ListKeywords.Count > 0)
+{
+    <table class="table table-striped table-hover">
+        @*<thead>
+                <tr style="background-color:#34495e; color:#fff;">
+                    <th style="width:1%;"><input type="checkbox" onchange="ToogleCheckAll(this, '#list-modifiers')"></th>
+                    <th>Modifier's Name</th>
+                </tr>
+            </thead>*@
+        <tbody id="list-keywords">
+            @for (int i = 0; i < Model.ListKeywords.Count; i++)
+            {
+                <tr data-id="@Model.ListKeywords[i].Id" style="cursor:pointer;" class="SpecificItems">
+                    <td style="width:1%;">
+                        @Html.CheckBoxFor(model => model.ListKeywords[i].Checked, new { @class = "chldItemOngroup", @onClick = "TickCheckBoxForChild(this, " + Model.Id + ")" })
+                        @Html.HiddenFor(model => model.ListKeywords[i].KeySearch, new { @class = "hidName" })
+                        @Html.HiddenFor(model => model.ListKeywords[i].Sequence, new { @class = "hidSeq" })
+                    </td>
+                    <td onclick="TickCheckBoxFor(this, '@Model.Id')"> @Model.ListKeywords[i].KeySearch </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<script>
+    function TickCheckBox(td) {
+        var tr = $(td).parents('tr:first');
+        $(tr).find('input[type=checkbox]').prop('checked', !$(tr).find('input[type=checkbox]').prop('checked'))
+    }
+</script>
