@@ -107,7 +107,7 @@
         </div>
 
         @*author process keywords*@
-        <div class="form-group">
+        @*<div class="form-group">
             <label class="control-label col-md-2 col-sm-2 col-xs-12 lineHeight fontLighter">@Html.Raw("Choose Keywords")</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <!-- Table Mediate Modifier -->
@@ -133,12 +133,12 @@
                 </div>
                 @Html.ValidationMessage("MsgKeyword", new { @class = "col-md-offset-2 col-md-10 label" })
             </div>
-        </div>
+        </div>*@
     </fieldset>
 </div>
 
 <!-- Modal Add Keywords-->
-<div class="modal fade" id="modalKey" tabindex="-1" role="dialog" aria-labelledby="modalKeyLabel" data-backdrop="static" data-keyboard="false">
+@*<div class="modal fade" id="modalKey" tabindex="-1" role="dialog" aria-labelledby="modalKeyLabel" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -178,15 +178,15 @@
             </div>
             <div class="modal-footer">
                 <span></span>
-                <button class="btn btn-danger" @*onclick="PasteHtml($(this).parents('.modal-content:first').find('table > tbody'));"*@ data-dismiss="modal">@Html.Raw("Cancel")</button>
+                <button class="btn btn-danger" @*onclick="PasteHtml($(this).parents('.modal-content:first').find('table > tbody'));"@ data-dismiss="modal">@Html.Raw("Cancel")</button>
                 <button id="btn-save-key" type="button" class="btn btn-primary" data-dismiss="modal">@Html.Raw("Save Changes")</button>
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <!-- Modal Choose Modifier-->
-<div class="modal fade second cls-modal-chosse-key" id="modal-choose-keys" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+@*<div class="modal fade second cls-modal-chosse-key" id="modal-choose-keys" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -225,7 +225,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 
 <script src="@Url.Content("~/Scripts/InputCustom.js")"></script>
