@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    var user = Session["User"] as CMS_DTO.CMSSession.UserSession;
 }
 
 <!-- BEGIN SIDEBAR -->
@@ -36,19 +37,46 @@
                 </a>
             </li>
 
-            <li class="nav-item active">
-                <a href="@Url.Action("Index","CMSKeywords")" class="nav-link nav-toggle">
-                    <i class="fa fa-key"></i>
-                    <span class="title">Keywords</span>
-                </a>
-            </li>
+            @{if (!user.IsSuperAdmin)
+                {
+                    <li class="nav-item active">
+                        <a href="javascript:void(0)" onclick="alert('You are not authorized to access!')" class="nav-link nav-toggle">
+                            <i class="fa fa-key"></i>
+                            <span class="title">Keywords</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item active">
+                        <a href="@Url.Action("Index","CMSKeywords")" class="nav-link nav-toggle">
+                            <i class="fa fa-key"></i>
+                            <span class="title">Keywords</span>
+                        </a>
+                    </li>
+                }
+            }
 
-            <li class="nav-item active">
-                <a href="@Url.Action("Index","CMSGroupKeywords")" class="nav-link nav-toggle">
-                    <i class="fa fa-group"></i>
-                    <span class="title">Group Keywords</span>
-                </a>
-            </li>
+            @{if (!user.IsSuperAdmin)
+                {
+                    <li class="nav-item active">
+                        <a href="javascript:void(0)" onclick="alert('You are not authorized to access!')" class="nav-link nav-toggle">
+                            <i class="fa fa-group"></i>
+                            <span class="title">Group Keywords</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item active">
+                        <a href="@Url.Action("Index","CMSGroupKeywords")" class="nav-link nav-toggle">
+                            <i class="fa fa-group"></i>
+                            <span class="title">Group Keywords</span>
+                        </a>
+                    </li>
+                }
+            }
+            
         </ul>
         <!-- END SIDEBAR MENU -->
         <!-- END SIDEBAR MENU -->
