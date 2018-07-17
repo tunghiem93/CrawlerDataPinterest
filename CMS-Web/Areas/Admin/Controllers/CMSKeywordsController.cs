@@ -132,10 +132,10 @@ namespace CMS_Web.Areas.Admin.Controllers
         #endregion
 
         #region For All
-        public ActionResult CrawlerKeywordAll(string ID, string Key)
+        public ActionResult KeywordCrawlAll(string ID, string Key)
         {
             var msg = "";
-            new Thread(() => { _factory.CrawlData(ID, "Admin", ref msg); }).Start();
+            new Thread(() => { _factory.CrawlAllKeyWords("Admin", ref msg); }).Start();
             var result = true;
             if (result)
             {
@@ -147,7 +147,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult DeleteAll()
         {
             var msg = "";
-            var result = true; //= _factory.Delete("Admin", ref msg);
+            var result = _factory.DeleteAll("Admin", ref msg);
             if (result)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
@@ -158,8 +158,7 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult DeleteAndClearPostAll()
         {
             var msg = "";
-            //var result = _factory.DeleteAndRemoveDB(ID, ref msg);
-            var result = true; // _factory.DeleteAndRemoveDBCommand(ID, ref msg);
+            var result = _factory.DeleteAndRemoveDBAll(ref msg);
 
             if (result)
             {

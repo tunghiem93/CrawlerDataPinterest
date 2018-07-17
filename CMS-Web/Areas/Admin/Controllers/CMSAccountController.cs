@@ -62,17 +62,21 @@ namespace CMS_Web.Areas.Admin.Controllers
             else
                 return View(model);
         }
+
         [HttpPost]
         [AllowAnonymous]
         public ActionResult Index(LoginRequestModel model, string returnUrl = null)
         {
             try
             {
+                NSLog.Logger.Info("index");
                 if (Session["User"] != null)
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
 
                 if (ModelState.IsValid)
                 {
+                    NSLog.Logger.Info("IsValid");
+
                     UserFactory factoy = new UserFactory();
 
                     LoginResponseModel User = UserFactory.Instance.Login(model);
@@ -109,17 +113,23 @@ namespace CMS_Web.Areas.Admin.Controllers
                     }
                     else
                     {
+                        NSLog.Logger.Info("AddModelError");
+
                         ModelState.AddModelError("", "ID or Password is incorrect!");
                         return View(model);
                     }
                 }
                 else
                 {
+                    NSLog.Logger.Info("IsValid else");
+
                     return View(model);// Return Error page
                 }
             }
             catch (Exception ex)
             {
+                NSLog.Logger.Error("Error", ex);
+
                 return new HttpStatusCodeResult(400, ex.Message);
             }
         }

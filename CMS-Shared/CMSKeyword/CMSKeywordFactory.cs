@@ -18,6 +18,7 @@ namespace CMS_Shared.Keyword
     {
 
         private static Semaphore m_Semaphore = new Semaphore(1, 1); /* semaphore for create key, craw data */
+        private static Semaphore m_SemaphoreCrawlAll = new Semaphore(1, 1); /* semaphore for create key, craw data */
 
         public List<CMS_KeywordModels> GetList(string groupID = "")
         {
@@ -403,6 +404,99 @@ namespace CMS_Shared.Keyword
             //CommonHelper.WriteLog("ResponseCrawlData: " + Id);
             LogHelper.WriteLogs("ResponseCrawlData: " + Id, result.ToString());
 
+            return result;
+        }
+
+        public bool CrawlAllKeyWords(string createdBy, ref string msg)
+        {
+            LogHelper.WriteLogs("CrawlAllKeyWords", "");
+            var result = true;
+            try
+            {
+                m_SemaphoreCrawlAll.WaitOne();
+                using (var _db = new CMS_Context())
+                {
+                    var keyWords = _db.CMS_KeyWord.Where(o => o.Status == (byte)Commons.EStatus.Active).OrderBy(o => o.CreatedDate).ToList();
+                    foreach (var key in keyWords)
+                    {
+                        CrawlData(key.ID, createdBy, ref msg);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Crawl data is unsuccessfully.";
+                result = false;
+
+                LogHelper.WriteLogs("ErrorCrawlAllKeyWords:", JsonConvert.SerializeObject(ex));
+            }
+            finally
+            {
+                m_SemaphoreCrawlAll.Release();
+            };
+            LogHelper.WriteLogs("ResponseCrawlAllKeyWords", result.ToString());
+
+            return result;
+        }
+
+        public bool DeleteAll(string createdBy, ref string msg)
+        {
+            var result = true;
+            try
+            {
+                using (var _db = new CMS_Context())
+                {
+                    var keys = _db.CMS_KeyWord.Where(o => o.Status == (byte)Commons.EStatus.Active).ToList();
+                    var keyIDs = keys.Select(o => o.ID).ToList();
+                    var keyGroupKeyDB = _db.CMS_R_GroupKey_KeyWord.Where(o => keyIDs.Contains(o.KeyWordID)).ToList();
+
+                    /* delete key */
+                    keys.ForEach(key =>
+                    {
+                        key.Status = (byte)Commons.EStatus.Deleted;
+                        key.UpdatedDate = DateTime.Now;
+                        key.UpdatedBy = createdBy;
+                    });
+
+                    /* delete group key */
+                    keyGroupKeyDB.ForEach(o =>
+                    {
+                        o.Status = (byte)Commons.EStatus.Deleted;
+                        o.UpdatedDate = DateTime.Now;
+                        o.UpdatedBy = createdBy;
+                    });
+
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Can't delete this key words.";
+                result = false;
+            }
+            return result;
+        }
+
+        public bool DeleteAndRemoveDBAll(ref string msg)
+        {
+            var result = true;
+            try
+            {
+                using (var _db = new CMS_Context())
+                {
+                    var keys = _db.CMS_KeyWord.Select(o => o.ID).ToList();
+                    foreach (var keyID in keys)
+                    {
+                        DeleteAndRemoveDBCommand(keyID, ref msg);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Can't delete data.";
+                result = false;
+            }
             return result;
         }
     }

@@ -32,7 +32,7 @@
                                 <tr>
                                     <td>
                                         <button type="submit" class="btn btn-primary" style="margin-right: -5px; "><i class="fa fa-plus-square" style="font-size:14px; "></i><span>&nbsp; Add</span></button>
-                                        <a class="btn btn-default cls-" style="color: #17a2b8 !important; border-color: #17a2b8 !important; margin-right: -5px;" onclick="CrawlerKeywordAll(this); return false;">@Html.Raw("Crawl all now")</a>
+                                        <a class="btn btn-default cls-CrawlAll" style="color: #17a2b8 !important; border-color: #17a2b8 !important; margin-right: -5px;" onclick="KeywordCrawlAll(this); return false;">@Html.Raw("Crawl all now")</a>
                                         <a class="btn btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; margin-right: -5px;" onclick="DeleteAll(this); return false;">@Html.Raw("Delete all")</a>
                                         <a class="btn btn-danger" onclick="DeleteAndClearPostAll(this); return false;">@Html.Raw("Delete and clear all posts")</a>
                                     </td>
@@ -64,12 +64,12 @@
         return false;
     });
 
-    function CrawlerKeywordAll(btn) {
-        $('.cls-' + Id).text('Crawling...');
-        $('.cls-' + Id).css({ "background-color": "wheat", "border-color": "wheat" });
+    function KeywordCrawlAll(btn) {
+        $('.cls-CrawlAll').text('Crawling...');
+        $('.cls-CrawlAll').css({ "background-color": "wheat", "border-color": "wheat" });
         $.ajax(
         {
-            url: '@Url.Action("CrawlerKeywordAll", "CMSKeywords")',
+            url: '@Url.Action("KeywordCrawlAll", "CMSKeywords")',
             type: 'get',
             data: { },
             dataType: 'html',
@@ -84,7 +84,7 @@
             },
             error: function (e) {
                 if (e.status == 400) {
-                    $(".detail-error").text("Unable to crawl this key!");
+                    $(".detail-error").text("Unable to crawl this Fanpage!");
                 }
                 //$('.se-pre-con').hide();
             }
@@ -109,7 +109,7 @@
             },
             error: function (e) {
                 if (e.status == 400) {
-                    $(".detail-error").text("Unable to delete this key!");
+                    $(".detail-error").text("Unable to delete this Fanpage!");
                 }
                 $('.se-pre-con').hide();
             }
@@ -134,7 +134,7 @@
             },
             error: function (e) {
                 if (e.status == 400) {
-                    $(".detail-error").text("Unable to delete this key!");
+                    $(".detail-error").text("Unable to delete this Fanpage!");
                 }
                 $('.se-pre-con').hide();
             }
