@@ -6,6 +6,7 @@ using CMS_Shared.CMSEmployees;
 using CMS_Shared.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -400,7 +401,26 @@ namespace CMS_Web.Areas.Admin.Controllers
         {
             try
             {
-                if(pinFilter.LstKeyWordID != null && pinFilter.LstKeyWordID.Count > 0)
+                if (!string.IsNullOrEmpty(pinFilter.Url))
+                {
+                    NameValueCollection QueryString = CommonHelper.GetQueryParameters(pinFilter.Url);
+                    var _Key = QueryString["keywordID"] ?? "";
+                    var _Group = QueryString["GroupID"] ?? "";
+
+                    if (!string.IsNullOrEmpty(_Key))
+                    {
+                        pinFilter.LstKeyWordID.Add(_Key);
+                    }
+                    if (!string.IsNullOrEmpty(_Group))
+                    {
+                        pinFilter.LstGroupID.Add(_Group);
+
+                        var _lstKeywords = getListKeyWordByGroup(_Group);
+                        pinFilter.LstKeyWordID.AddRange(_lstKeywords);
+                    }
+                }
+
+                if (pinFilter.LstKeyWordID != null && pinFilter.LstKeyWordID.Count > 0)
                 {
                     if (string.IsNullOrEmpty(pinFilter.LstKeyWordID[0]))
                         pinFilter.LstKeyWordID = null;

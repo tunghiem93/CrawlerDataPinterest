@@ -222,6 +222,7 @@
         var TypeQuantity = $("#storeDdlViewQuantity").val();
         var TypeTime = $("#storeDdlView").val();
         var LstKeyWordID = $("#KeywordsDdl").val();
+        var _url = window.location.href;
         var FilterModel = {
             CreatedAtFrom: startDate,
             CreatedAtTo: endDate,
@@ -230,6 +231,7 @@
             PageIndex: _pageIndex,
             LstKeyWordID: [],
             TypeTime: TypeTime,
+            Url: _url
         };
         if (TypeQuantity == @Commons.EQuantityType.ZeroToOne.ToString("d")) {
             FilterModel.PinCountFrom = 0;
@@ -270,6 +272,7 @@
                 PageIndex: _pageIndex,
                 LstKeyWordID: [],
                 TypeTime: TypeTime,
+                Url: _url
             };
         }
         $.ajax({

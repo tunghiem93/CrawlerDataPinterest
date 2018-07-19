@@ -32,7 +32,11 @@ namespace CMS_Web.Areas.Admin.Controllers
 
                 FormsAuthentication.SignOut();
                 Session.Remove("User");
-
+                HttpCookie currentUserCookie = HttpContext.Request.Cookies["UserCookie"];
+                HttpContext.Response.Cookies.Remove("UserCookie");
+                currentUserCookie.Expires = DateTime.Now.AddDays(-10);
+                currentUserCookie.Value = null;
+                HttpContext.Response.SetCookie(currentUserCookie);
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
             catch (Exception ex)
