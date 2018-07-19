@@ -70,6 +70,7 @@ namespace CMS_DTO.CMSCrawler
         public int PageSize { get; set; }
         public int PageIndex { get; set; }
         public string TypeTime { get; set; }
+        public string Url { get; set; }
 
         public PinFilterDTO()
         {
