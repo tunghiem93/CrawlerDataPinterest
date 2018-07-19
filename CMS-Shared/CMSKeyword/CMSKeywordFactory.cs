@@ -184,14 +184,14 @@ namespace CMS_Shared.Keyword
                     _db.CMS_R_GroupKey_KeyWord.RemoveRange(listGroupKey);
                     _db.CMS_R_KeyWord_Pin.RemoveRange(listKeyPin);
                     _db.SaveChanges();
-                    
+
                     /* remove list pin */
                     var listPinID = _db.CMS_R_KeyWord_Pin.Select(o => o.PinID).ToList();
                     var listPin = _db.CMS_Pin.Where(o => !listPinID.Contains(o.ID)).ToList();
 
                     /* remove key */
                     var key = _db.CMS_KeyWord.Where(o => o.ID == Id).FirstOrDefault();
-                    
+
                     _db.CMS_Pin.RemoveRange(listPin);
                     _db.CMS_KeyWord.Remove(key);
                     _db.SaveChanges();
@@ -342,7 +342,7 @@ namespace CMS_Shared.Keyword
                     {
                         /* check time span crawl */
                         var timeSpanCrawl = DateTime.Now - keyWord.UpdatedDate;
-                        if(timeSpanCrawl.Value.TotalMinutes > 5 || keyWord.UpdatedDate == keyWord.CreatedDate) /* 5min to crawl data again */
+                        if (timeSpanCrawl.Value.TotalMinutes > 5 || keyWord.UpdatedDate == keyWord.CreatedDate) /* 5min to crawl data again */
                         {
                             /* update crawer date */
                             var bkTime = keyWord.UpdatedDate;
@@ -413,6 +413,8 @@ namespace CMS_Shared.Keyword
             var result = true;
             try
             {
+                new Thread(() => { var auto = AutoSingleton.Instance; }).Start();
+
                 m_SemaphoreCrawlAll.WaitOne();
                 using (var _db = new CMS_Context())
                 {
@@ -421,7 +423,6 @@ namespace CMS_Shared.Keyword
                     {
                         CrawlData(key.ID, createdBy, ref msg);
                     }
-
                 }
             }
             catch (Exception ex)
