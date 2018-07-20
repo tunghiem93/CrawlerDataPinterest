@@ -69,14 +69,11 @@ namespace CMS_Web.Areas.Admin.Controllers
         {
             try
             {
-                NSLog.Logger.Info("index");
                 if (Session["User"] != null)
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
 
                 if (ModelState.IsValid)
                 {
-                    NSLog.Logger.Info("IsValid");
-
                     UserFactory factoy = new UserFactory();
 
                     LoginResponseModel User = UserFactory.Instance.Login(model);
@@ -84,6 +81,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                     bool isValid = (User != null && !string.IsNullOrEmpty(User.EmployeeID));
                     if (isValid)
                     {
+                        /* add user session */
                         UserSession userSession = new UserSession();
                         userSession.UserId = User.EmployeeID;
                         userSession.Email = User.EmployeeEmail;
@@ -101,8 +99,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                         userCookie.Expires = DateTime.Now.AddDays(1);
                         userCookie.Value = Server.UrlEncode(myObjectJson);
                         HttpContext.Response.Cookies.Add(userCookie);
-
-
+                        
 
                         if (!string.IsNullOrEmpty(mController))
                             return RedirectToAction("Index", mController, new { area = "Admin" });
@@ -121,15 +118,12 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
                 else
                 {
-                    NSLog.Logger.Info("IsValid else");
-
                     return View(model);// Return Error page
                 }
             }
             catch (Exception ex)
             {
                 NSLog.Logger.Error("Error", ex);
-
                 return new HttpStatusCodeResult(400, ex.Message);
             }
         }

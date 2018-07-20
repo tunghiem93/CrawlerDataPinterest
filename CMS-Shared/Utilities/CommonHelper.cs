@@ -162,34 +162,6 @@ namespace CMS_Shared.Utilities
             return lstString;
         }
 
-        public static void WriteLog(string _input)
-        {
-            try
-            {
-                string Path = AppDomain.CurrentDomain.BaseDirectory + "\\fileLog.txt";
-                var str = new
-                {
-                    DateTime = DateTime.Now,
-                    Msg = _input,
-                };
-                File.AppendAllText(Path, str.ToString() + Environment.NewLine);
-            }
-            catch (Exception) { }
-        }
-
-        public static void WriteLogs(string _input)
-        {
-            try
-            {
-                string path = System.Web.Hosting.HostingEnvironment.MapPath("~/logs/fileLog.txt");
-                StreamWriter SW = new StreamWriter(path);
-                SW.Flush();
-                SW.WriteLine(_input);
-                SW.Close();
-            }
-            catch(Exception ex) { }
-        }
-
         public static NameValueCollection GetQueryParameters(string dataWithQuery)
         {
             NameValueCollection result = new NameValueCollection();

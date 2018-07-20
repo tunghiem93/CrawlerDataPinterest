@@ -329,10 +329,7 @@ namespace CMS_Shared.Keyword
 
         public bool CrawlData(string Id, string createdBy, ref string msg)
         {
-            NSLog.Logger.Info("CrawlData:", Id);
-            //CommonHelper.WriteLog("CrawlData: " + Id);
-            //CommonHelper.WriteLogs("CrawlerData : " + Id);
-            LogHelper.WriteLogs("CrawlerData: " + Id, "");
+            NSLog.Logger.Info("CrawlData", Id);
             var result = true;
             try
             {
@@ -350,6 +347,7 @@ namespace CMS_Shared.Keyword
                             var bkTime = keyWord.UpdatedDate;
                             keyWord.UpdatedDate = DateTime.Now;
                             keyWord.UpdatedBy = createdBy;
+                            keyWord.KeyWord = keyWord.KeyWord.Trim();
                             _db.SaveChanges();
 
                             /* call drawler api to crawl data */
@@ -370,12 +368,7 @@ namespace CMS_Shared.Keyword
                                 {
                                     CrawlerHelper.Get_Tagged_OrtherPins(ref model, searchStr, Commons.PinOrtherDefault, "", 1, pinID);
                                 });
-                                //foreach (var pinID in listPinID)
-                                //{
-                                //    CrawlerHelper.Get_Tagged_OrtherPins(ref model, keyWord.KeyWord, Commons.PinOrtherDefault, "", 1, pinID);
-                                //}
                             }
-                            CommonHelper.WriteLogs("Crawler Success !!!");
                             var res = _fac.CreateOrUpdate(model.Pins, keyWord.ID, createdBy, ref msg);
 
                             if (res == false)
@@ -393,26 +386,23 @@ namespace CMS_Shared.Keyword
                         }
                     }
                 }
+
+                NSLog.Logger.Info("ResponseCrawlData: " + Id, result);
             }
             catch (Exception ex)
             {
                 msg = "Crawl data is unsuccessfully.";
                 result = false;
-
                 NSLog.Logger.Error("ErrorCrawlData: " + Id, ex);
-                //CommonHelper.WriteLog("ErrorCrawlData: " + Id + "\nException:"+ ex.ToString());
-                LogHelper.WriteLogs("ErrorCrawlData: " + Id, JsonConvert.SerializeObject(ex));
             }
-            NSLog.Logger.Info("ResponseCrawlData: " + Id, result);
-            //CommonHelper.WriteLog("ResponseCrawlData: " + Id);
-            LogHelper.WriteLogs("ResponseCrawlData: " + Id, result.ToString());
 
             return result;
         }
 
         public bool CrawlAllKeyWords(string createdBy, ref string msg)
         {
-            LogHelper.WriteLogs("CrawlAllKeyWords", "");
+            NSLog.Logger.Info("CrawlAllKeyWords");
+
             var result = true;
             try
             {
@@ -427,19 +417,19 @@ namespace CMS_Shared.Keyword
                         CrawlData(key.ID, createdBy, ref msg);
                     }
                 }
+
+                NSLog.Logger.Info("ResponseCrawlAllKeyWords", result);
             }
             catch (Exception ex)
             {
                 msg = "Crawl data is unsuccessfully.";
                 result = false;
-
-                LogHelper.WriteLogs("ErrorCrawlAllKeyWords:", JsonConvert.SerializeObject(ex));
+                NSLog.Logger.Error("ErrorCrawlAllKeyWords", ex);
             }
             finally
             {
                 m_SemaphoreCrawlAll.Release();
             };
-            LogHelper.WriteLogs("ResponseCrawlAllKeyWords", result.ToString());
 
             return result;
         }

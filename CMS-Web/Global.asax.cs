@@ -21,6 +21,7 @@ namespace CMS_Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            NSLog.Logger.Info("Application_Start", DateTime.UtcNow.AddHours(7));
         }
 
         protected void Application_BeginRequest(Object sender, EventArgs e)

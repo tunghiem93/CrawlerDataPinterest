@@ -48,7 +48,7 @@ namespace CMS_Shared.Utilities
             /* set timer event */
             System.Timers.Timer aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            aTimer.Interval = 60 * 1000; /* (second*1000) = milisecond */
+            aTimer.Interval = 300 * 1000; /* (second*1000) = milisecond */
             aTimer.Enabled = true;
         }
 
@@ -59,10 +59,8 @@ namespace CMS_Shared.Utilities
             {
 
             }
-            catch (Exception ex) { LogHelper.WriteLogs("ErrorTimer", ""); };
-
-            /* log data */
-            LogHelper.WriteLogs("Timer", "");
+            catch (Exception ex) { NSLog.Logger.Error("ErrorOnTimedEvent", ex); };
+            NSLog.Logger.Info("OnTimedEvent");
         }
         
         

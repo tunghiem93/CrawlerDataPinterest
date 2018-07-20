@@ -94,6 +94,7 @@ namespace CMS_Shared.CMSGroupKeywords
                         if (string.IsNullOrEmpty(model.Id))
                         {
                             /* check dup old key */
+                            model.Name = model.Name.Trim();
                             var checkDup = _db.CMS_GroupKey.Where(o => o.Name.Trim() == model.Name.Trim()).FirstOrDefault();
 
                             if (checkDup == null)
