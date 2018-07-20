@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace CMS_Shared.Keyword
 {
@@ -76,6 +77,7 @@ namespace CMS_Shared.Keyword
                         if (string.IsNullOrEmpty(model.Id))
                         {
                             /* check dup old key */
+                            model.KeySearch = model.KeySearch.Trim();
                             var checkDup = _db.CMS_KeyWord.Where(o => o.KeyWord == model.KeySearch).FirstOrDefault();
 
                             if (checkDup == null)
@@ -359,13 +361,14 @@ namespace CMS_Shared.Keyword
                                 Pass: pitool.org79
                             */
                             CrawlerHelper._Cookies = "_b = \"AS+B1gn0GdpGgLQl83JubKX1bG19kiuUUvX8lnvITKDHNq2tJcgqXNIQ0cLN+kjq4KM=\"; _pinterest_pfob = enabled; _ga = GA1.2.229901352.1528170174; pnodepath = \"/pin4\"; fba = True; G_ENABLED_IDPS = google; bei = false; logged_out = True; sessionFunnelEventLogged = 1; cm_sub = denied; _auth = 1; csrftoken = fkrSitmDb4vW2kT1G3GfOkcC8mPvl0kV; _pinterest_sess = \"TWc9PSZWaE0xeDZOVm4yL3Yva0VSazRkRjlHR013bk9mdVJBcU9zVEtEOUhXVjhKSFZmZUEreWJiNDYrV3FubVRoVzdqdDF0dmtDcXErcFF6MmlXQUQ3RDVzWERCWTZYZUt4eXMzemkvOGlXRFZQT1J6MjkwampOZlVJUFEvTnNkTUZYMkJ3dGxPTTRKaVIwdGNJY2h1MUhaSHlFT3djd0huNHE0YmtiTTBZR3dVTVB3d0RyYVE4UC8rMjZCYWo2eTJLNGJVSHR6KzRENjlWVE0rNFMxNWdGMUtVL0VtL2RDZktiUFg3M1Y2Z2dEbllPeUxFR3FOdEd6SUJSRTlBMWs1YkJnbTBlWHhwcC9pMmlqRmoydlh0V2VQSGYvYk1zeXlSM2dIU1dmUXIyRWVxWVBPdTYzbHFjcVhYRWRBT0FTQ3VBNmdWMm5QUlREZDdSY2ZQeE1NWklqSUZxNDllVHF1WUVzRFRrRjBXQnZCMVBGTlYxT0UzM1daeHFOUnBBTzliMzFJdmovQ1hQR2Vvc1pkTHNxL1FjT3FrWllTR1d6VHFrd2g5cFBFMmswM3dIa0dOOHVCbGd6aVlKUkJlZlZNeWVyRTBYREcrQVFlUTdRc1NqMlFlQ3RvaWlZMjJXZ1RURmIxNDA2d2JTODRGNk9BYWpoRzVJTUhLMkJ4UDJGb0NmN0NOQXpmZ0FoR08xcElmWmh5S29OeGRadFpDVWR1RGw3ZzZGRS81SlU4UlhSUVlIWm4wRzRJMGFVaTQzdGI3T2ovSCtHR2ZSWlk0M1RCN2JXSmZJRFdQUUpZWVpRMW5ta0pMbXgwT2NZckZJcHg0RTJrTjJlZWJIdXFSdkdJTWNXc2d3NHpXdzFTRGhKVkN4YmY4SCtJaTdSQSt0K2dhc1VDc0tkNnJIeVFhb3BHeDd6OUwvamZsanRKV0ZYNGFmZWFQNGlqNFVqekVFcGUreHU4UGVqZXRuMFVDNE1QbkFuWnJ6YzNjMTF3dVNZUHJ2MjBwMi8xeXNwbnczMlpSa3cvbzVPQUhQSyswNlU4Y2JQaThxNWN1NWtHVm83SWc0YjJVVW1tUWZYcHpWR2RCYS8wRE0yb2RtNUs0NzRteFp4JjVhOXZDbjB5RGtxL1lROE5WOVNDMjB4c1dMND0=\"";
-                            CrawlerHelper.Get_Tagged_Pins(ref model, keyWord.KeyWord, Commons.PinDefault);
+                            var searchStr = HttpUtility.UrlEncode(keyWord.KeyWord);
+                            CrawlerHelper.Get_Tagged_Pins(ref model, searchStr, Commons.PinDefault);
                             if (model != null && model.Pins != null && model.Pins.Any())
                             {
                                 var listPinID = model.Pins.Select(o => o.ID).ToList();
                                 Parallel.ForEach(listPinID, pinID =>
                                 {
-                                    CrawlerHelper.Get_Tagged_OrtherPins(ref model, keyWord.KeyWord, Commons.PinOrtherDefault, "", 1, pinID);
+                                    CrawlerHelper.Get_Tagged_OrtherPins(ref model, searchStr, Commons.PinOrtherDefault, "", 1, pinID);
                                 });
                                 //foreach (var pinID in listPinID)
                                 //{
