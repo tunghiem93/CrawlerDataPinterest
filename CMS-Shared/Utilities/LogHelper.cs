@@ -23,7 +23,7 @@ namespace CMS_Shared.Utilities
                     {
                         ID = Guid.NewGuid().ToString(),
                         Decription = description,
-                        CreatedDate = DateTime.Now,
+                        CreatedDate = DateTime.UtcNow.AddHours(7),
                         JsonContent = jsonContent.Substring(0, Math.Min(3900, jsonContent.Length)),
                     };
                     _db.CMS_Log.Add(logData);
