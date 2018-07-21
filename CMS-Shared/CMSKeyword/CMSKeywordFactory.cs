@@ -396,6 +396,7 @@ namespace CMS_Shared.Keyword
             {
                 msg = "Crawl data is unsuccessfully.";
                 result = false;
+                LogHelper.WriteLogs("ErrorCrawlData: " + Id, JsonConvert.SerializeObject(ex));
                 NSLog.Logger.Error("ErrorCrawlData: " + Id, ex);
             }
 
@@ -405,6 +406,7 @@ namespace CMS_Shared.Keyword
         public bool CrawlAllKeyWords(string createdBy, ref string msg)
         {
             NSLog.Logger.Info("CrawlAllKeyWords");
+            LogHelper.WriteLogs("CrawllAllKeyWords", "");
             var result = true;
             try
             {

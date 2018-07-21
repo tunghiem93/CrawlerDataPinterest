@@ -20,7 +20,7 @@ namespace CMS_Shared.CMSEmployees
 
         public bool CreateOrUpdate(List<PinsModels> lstPin, string KeyWordID, string createdBy, ref string msg)
         {
-            NSLog.Logger.Info("CreateOrUpdatePin: " + KeyWordID);
+            NSLog.Logger.Info("CreateOrUpdatePin: " + lstPin);
             var result = true;
 
             m_Semaphore.WaitOne();
@@ -97,6 +97,7 @@ namespace CMS_Shared.CMSEmployees
             {
                 msg = "CreateOrUpdate Pin with exception.";
                 result = false;
+                LogHelper.WriteLogs("ErrorCreateOrUpdatePin: " + KeyWordID, JsonConvert.SerializeObject(ex));
                 NSLog.Logger.Error("ErrorCreateOrUpdatePin: " + KeyWordID, ex);
             }
 
