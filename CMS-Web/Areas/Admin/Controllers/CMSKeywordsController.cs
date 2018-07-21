@@ -135,7 +135,9 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult KeywordCrawlAll(string ID, string Key)
         {
             var msg = "";
-            _factory.CrawlAllKeyWords("Admin", ref msg);
+            //_factory.CrawlAllKeyWords("Admin", ref msg);
+            new Thread(() => { _factory.CrawlAllKeyWords("Admin", ref msg); }).Start();
+
             var result = true;
             if (result)
             {

@@ -122,7 +122,7 @@ namespace CMS_Shared.Utilities
 
         public static CMS_CrawlerModels getDataPinterest(string url, CMS_CrawlerModels model, string pinId, ref string bookmarks)
         {
-
+            dynamic dataLog = null;
             try
             {
                 Uri uri = new Uri(url);
@@ -147,6 +147,7 @@ namespace CMS_Shared.Utilities
                         if (resource_data_cache != null)
                         {
                             var data = resource_data_cache[0]["data"];
+                            dataLog = data;
                             if (data != null)
                             {
                                 var results = (dynamic)null;
@@ -258,7 +259,9 @@ namespace CMS_Shared.Utilities
             }
             catch (Exception ex)
             {
-                NSLog.Logger.Error("ErrorgetDataPinterest" + "\n url: " + url + "\nBookmarks:" + bookmarks, ex);
+                NSLog.Logger.Info("ErrorGetDataPinterest: " +pinId, dataLog);
+                NSLog.Logger.Info("ErrorGetDataPinterest: " +pinId, ex);
+
             }
             return model;
         }

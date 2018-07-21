@@ -329,7 +329,7 @@ namespace CMS_Shared.Keyword
 
         public bool CrawlData(string Id, string createdBy, ref string msg)
         {
-            NSLog.Logger.Info("CrawlData", Id);
+            NSLog.Logger.Info("CrawlData: " + Id);
             var result = true;
             try
             {
@@ -349,33 +349,36 @@ namespace CMS_Shared.Keyword
                             keyWord.UpdatedBy = createdBy;
                             keyWord.KeyWord = keyWord.KeyWord.Trim();
                             _db.SaveChanges();
-
-                            /* call drawler api to crawl data */
-                            var model = new CMS_CrawlerModels();
-                            CMSPinFactory _fac = new CMSPinFactory();
-
+                            
                             /* cookies 
                                 User: chivietarsenal@gmail.com
                                 Pass: pitool.org79
                             */
                             CrawlerHelper._Cookies = "_b = \"AS+B1gn0GdpGgLQl83JubKX1bG19kiuUUvX8lnvITKDHNq2tJcgqXNIQ0cLN+kjq4KM=\"; _pinterest_pfob = enabled; _ga = GA1.2.229901352.1528170174; pnodepath = \"/pin4\"; fba = True; G_ENABLED_IDPS = google; bei = false; logged_out = True; sessionFunnelEventLogged = 1; cm_sub = denied; _auth = 1; csrftoken = fkrSitmDb4vW2kT1G3GfOkcC8mPvl0kV; _pinterest_sess = \"TWc9PSZWaE0xeDZOVm4yL3Yva0VSazRkRjlHR013bk9mdVJBcU9zVEtEOUhXVjhKSFZmZUEreWJiNDYrV3FubVRoVzdqdDF0dmtDcXErcFF6MmlXQUQ3RDVzWERCWTZYZUt4eXMzemkvOGlXRFZQT1J6MjkwampOZlVJUFEvTnNkTUZYMkJ3dGxPTTRKaVIwdGNJY2h1MUhaSHlFT3djd0huNHE0YmtiTTBZR3dVTVB3d0RyYVE4UC8rMjZCYWo2eTJLNGJVSHR6KzRENjlWVE0rNFMxNWdGMUtVL0VtL2RDZktiUFg3M1Y2Z2dEbllPeUxFR3FOdEd6SUJSRTlBMWs1YkJnbTBlWHhwcC9pMmlqRmoydlh0V2VQSGYvYk1zeXlSM2dIU1dmUXIyRWVxWVBPdTYzbHFjcVhYRWRBT0FTQ3VBNmdWMm5QUlREZDdSY2ZQeE1NWklqSUZxNDllVHF1WUVzRFRrRjBXQnZCMVBGTlYxT0UzM1daeHFOUnBBTzliMzFJdmovQ1hQR2Vvc1pkTHNxL1FjT3FrWllTR1d6VHFrd2g5cFBFMmswM3dIa0dOOHVCbGd6aVlKUkJlZlZNeWVyRTBYREcrQVFlUTdRc1NqMlFlQ3RvaWlZMjJXZ1RURmIxNDA2d2JTODRGNk9BYWpoRzVJTUhLMkJ4UDJGb0NmN0NOQXpmZ0FoR08xcElmWmh5S29OeGRadFpDVWR1RGw3ZzZGRS81SlU4UlhSUVlIWm4wRzRJMGFVaTQzdGI3T2ovSCtHR2ZSWlk0M1RCN2JXSmZJRFdQUUpZWVpRMW5ta0pMbXgwT2NZckZJcHg0RTJrTjJlZWJIdXFSdkdJTWNXc2d3NHpXdzFTRGhKVkN4YmY4SCtJaTdSQSt0K2dhc1VDc0tkNnJIeVFhb3BHeDd6OUwvamZsanRKV0ZYNGFmZWFQNGlqNFVqekVFcGUreHU4UGVqZXRuMFVDNE1QbkFuWnJ6YzNjMTF3dVNZUHJ2MjBwMi8xeXNwbnczMlpSa3cvbzVPQUhQSyswNlU4Y2JQaThxNWN1NWtHVm83SWc0YjJVVW1tUWZYcHpWR2RCYS8wRE0yb2RtNUs0NzRteFp4JjVhOXZDbjB5RGtxL1lROE5WOVNDMjB4c1dMND0=\"";
                             var searchStr = HttpUtility.UrlEncode(keyWord.KeyWord);
+
+                            /* get first class result */
+                            var model = new CMS_CrawlerModels();
+                            CMSPinFactory _fac = new CMSPinFactory();
                             CrawlerHelper.Get_Tagged_Pins(ref model, searchStr, Commons.PinDefault);
                             if (model != null && model.Pins != null && model.Pins.Any())
                             {
+                                /* get second class result */
                                 var listPinID = model.Pins.Select(o => o.ID).ToList();
                                 Parallel.ForEach(listPinID, pinID =>
                                 {
                                     CrawlerHelper.Get_Tagged_OrtherPins(ref model, searchStr, Commons.PinOrtherDefault, "", 1, pinID);
                                 });
                             }
+
+                            /* create or update pin */
                             var res = _fac.CreateOrUpdate(model.Pins, keyWord.ID, createdBy, ref msg);
 
                             if (res == false)
                             {
                                 /* back to last crawl data */
-                                keyWord.UpdatedDate = bkTime;
-                                _db.SaveChanges();
+                                //keyWord.UpdatedDate = bkTime;
+                                //_db.SaveChanges();
                                 result = false;
                             }
                             else
@@ -402,21 +405,22 @@ namespace CMS_Shared.Keyword
         public bool CrawlAllKeyWords(string createdBy, ref string msg)
         {
             NSLog.Logger.Info("CrawlAllKeyWords");
-
             var result = true;
             try
             {
-                new Thread(() => { var auto = AutoSingleton.Instance; }).Start();
+                //new Thread(() => { var auto = AutoSingleton.Instance; }).Start();
 
                 m_SemaphoreCrawlAll.WaitOne();
                 using (var _db = new CMS_Context())
                 {
-                    var keyWords = _db.CMS_KeyWord.Where(o => o.Status == (byte)Commons.EStatus.Active).OrderBy(o => o.CreatedDate).ToList();
+                    var keyWords = _db.CMS_KeyWord.Where(o => o.Status == (byte)Commons.EStatus.Active).OrderBy(o => o.Sequence).ToList();
                     foreach (var key in keyWords)
                     {
+                        LogHelper.WriteLogs("KeyWords", key.Sequence.ToString());
                         CrawlData(key.ID, createdBy, ref msg);
                     }
                 }
+                LogHelper.WriteLogs("CrawlAllKeyWords", "finish");
 
                 NSLog.Logger.Info("ResponseCrawlAllKeyWords", result);
             }
