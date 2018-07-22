@@ -23,6 +23,10 @@
     .select2-selection--single .select2-selection__placeholder {
         color: #73879C !important;
     }
+    .fa-caret-down {
+        line-height: 18px !important;
+        float: right !important;
+    }
 </style>
 
 <div role="main">
@@ -173,7 +177,8 @@
                 'Last 7 Days': [moment().subtract(6, 'days'), moment()],
                 'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'All Time': [moment().subtract(100, 'years').startOf('month'), moment()]
             }
         }, cb).on('show.daterangepicker', function (event, data) {
             var $container = data.container;
