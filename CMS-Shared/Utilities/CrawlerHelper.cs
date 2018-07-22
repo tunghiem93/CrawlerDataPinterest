@@ -110,7 +110,7 @@ namespace CMS_Shared.Utilities
             var timestamp = GetTimestamp(DateTime.Now);
             var url = urlOrg + "&data=" + data + "" + path + "&_=" + timestamp;
             var bookmarks = "";
-            getDataPinterest(url, model, "", ref bookmarks);
+            getDataPinterest(url, ref model, "", ref bookmarks);
 
             if (!string.IsNullOrEmpty(bookmarks))
             {
@@ -120,7 +120,7 @@ namespace CMS_Shared.Utilities
             return false;
         }
 
-        public static CMS_CrawlerModels getDataPinterest(string url, CMS_CrawlerModels model, string pinId, ref string bookmarks)
+        public static CMS_CrawlerModels getDataPinterest(string url, ref CMS_CrawlerModels model, string pinId, ref string bookmarks)
         {
             dynamic dataLog = null;
             try
@@ -141,13 +141,13 @@ namespace CMS_Shared.Utilities
                     var answer = streamReader.ReadToEnd();
                     JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
                     dynamic dobj = jsonSerializer.Deserialize<dynamic>(answer);
+                    dataLog = dobj;
                     if (dobj != null)
                     {
                         var resource_data_cache = dobj["resource_data_cache"];
                         if (resource_data_cache != null)
                         {
                             var data = resource_data_cache[0]["data"];
-                            dataLog = data;
                             if (data != null)
                             {
                                 var results = (dynamic)null;
@@ -181,8 +181,8 @@ namespace CMS_Shared.Utilities
                                             pin.ID = itemPin["id"];
 
                                             /* check exist pin */
-                                            var checkExist = model.Pins.Where(o => o.ID == pin.ID).FirstOrDefault();
-                                            if (checkExist == null) /* new pin */
+                                            var checkExist = model.Pins.Where(o => o.ID == pin.ID).Any();
+                                            if (checkExist == false) /* new pin */
                                             {
                                                 // get Repin_Count
                                                 var _Repin_Count = 0;
@@ -248,7 +248,8 @@ namespace CMS_Shared.Utilities
                             var dataBookmark = resource_data_cache[0]["response"];
                             if (dataBookmark != null)
                             {
-                                bookmarks = dataBookmark["bookmark"];
+                                if (dataBookmark.ContainsKey("bookmark"))
+                                    bookmarks = dataBookmark["bookmark"];
                             }
                         }
                     }
@@ -354,7 +355,7 @@ namespace CMS_Shared.Utilities
             var timestamp = GetTimestamp(DateTime.Now);
             var url = urlOrg + "&data=" + data + "&_=" + timestamp;
             var bookmarks = "";
-            getDataPinterest(url, model, pinId, ref bookmarks);
+            getDataPinterest(url, ref model, pinId, ref bookmarks);
 
             if (!string.IsNullOrEmpty(bookmarks))
             {
@@ -684,7 +685,7 @@ namespace CMS_Shared.Utilities
             return model;
         }
         
-        public static int getRePinCount(string url, string pinId, ref string bookmarks)
+        public static int getRePinCount(string url, string pinId)
         {
 
             try
@@ -723,12 +724,6 @@ namespace CMS_Shared.Utilities
                                     }
                                 }
                             }
-
-                            var dataBookmark = resource_data_cache[0]["response"];
-                            if (dataBookmark != null)
-                            {
-                                bookmarks = dataBookmark["bookmark"];
-                            }
                         }
                     }
 
@@ -764,8 +759,7 @@ namespace CMS_Shared.Utilities
             data = Preg_replace(input, pattern, replacements);
             var timestamp = GetTimestamp(DateTime.Now);
             var url = urlOrg + "&data=" + data + "&_=" + timestamp;
-            var bookmarks = "";
-            RepinCount = getRePinCount(url, pinId, ref bookmarks);
+            RepinCount = getRePinCount(url, pinId);
             return false;
         }
 

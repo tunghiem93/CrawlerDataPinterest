@@ -20,7 +20,7 @@ namespace CMS_Shared.CMSEmployees
 
         public bool CreateOrUpdate(List<PinsModels> lstPin, string KeyWordID, string createdBy, ref string msg)
         {
-            NSLog.Logger.Info("CreateOrUpdatePin: " + lstPin);
+            NSLog.Logger.Info("CreateOrUpdatePin: " + KeyWordID, lstPin);
             var result = true;
 
             m_Semaphore.WaitOne();
