@@ -69,6 +69,7 @@ namespace CMS_Shared
         public static string HostApiOrtherPin = ConfigurationManager.AppSettings["HostApiOrtherPin"];
         public static string HostApiPinDetail = ConfigurationManager.AppSettings["HostApiPinDetail"];
         public static string HostApiHomePin = ConfigurationManager.AppSettings["HostApiHomePin"];
+        public static string HostApiBoard = ConfigurationManager.AppSettings["HostApiBoard"];
         public static int PinDefault = Convert.ToInt16(ConfigurationManager.AppSettings["PinDefault"]);
         public static int PinOrtherDefault = Convert.ToInt16(ConfigurationManager.AppSettings["PinOrtherDefault"]);
         public static int PageIndex = Convert.ToInt16(ConfigurationManager.AppSettings["PageIndex"]);
