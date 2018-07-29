@@ -27,10 +27,10 @@
                                 </div>
                                 <div class="">
                                     @*<span class="add-on input-group-addon"><i class="glyphicon fa fa-search"></i></span>*@
-                                    <input type="text" name="Account" value="@Model.Account" id="idStrAccount" class="form-control" placeholder="Facebook email, phone..." />
+                                    <input type="text" name="Account" value="@Model.Account" id="idStrAccount" class="form-control" placeholder="Account..." />
                                 </div>
                                 <div class="">
-                                    <input type="text" name="Password" value="@Model.Password" id="idStrPass" class="form-control" placeholder="Password..." />
+                                    <input type="text" name="Cookies" value="@Model.Cookies" id="idStrCookies" class="form-control" placeholder="Cookies..." />
                                 </div>
 
                                 @*<label class="label label-danger" style='@string.Format("display:{0}", (user.DuplicateKeyword.Length > 0) ? "block":"none")'>Duplicate Keyword. Please enter again!</label>*@
@@ -56,8 +56,8 @@
 
     $(".search-form").submit(function (e) {
         var account = $("#idStrAccount").val();
-        var pass = $('#idStrPass').val();
-        if (account !== "" && pass !== "")
+        var cookies = $('#idStrCookies').val();
+        if (account !== "" && cookies !== "")
             LoadGrid();        
         return false;
     });

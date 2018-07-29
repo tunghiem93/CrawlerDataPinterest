@@ -25,14 +25,16 @@ namespace CMS_Shared.CMSAccount
 
                             if (checkDup == null)
                             {
-                                var curSeq = cxt.CMS_Account.OrderByDescending(o => o.Sequence).Select(o => o.Sequence).FirstOrDefault();
+                                var curSeq = cxt.CMS_Account.OrderByDescending(o => o.Sequence).Select(o => o.Sequence).FirstOrDefault() == null ? 0 : cxt.CMS_Account.OrderByDescending(o => o.Sequence).Select(o => o.Sequence).FirstOrDefault();
 
                                 var dateTimeNow = DateTime.Now;
                                 var newAccount = new CMS_Account()
                                 {
                                     Id = Guid.NewGuid().ToString(),
                                     Name = model.Account,
-                                    Status = (byte)Commons.EErrorStatus.AccPending,
+                                    Cookies = model.Cookies,
+                                    IsActive = model.IsActive,
+                                    Status = (byte)Commons.EStatus.Active,
                                     CreatedBy = model.CreatedBy,
                                     CreatedDate = dateTimeNow,
                                     UpdatedBy = model.CreatedBy,
@@ -105,8 +107,11 @@ namespace CMS_Shared.CMSAccount
                         Id = x.Id,
                         CreatedBy = x.CreatedBy,
                         CreatedDate = x.CreatedDate ?? DateTime.Now,
+                        IsActive = x.IsActive,
+                        Sequence = x.Sequence ?? 0,
                         Status = x.Status ?? (byte)Commons.EStatus.Inactive,
                         Account = x.Name,
+                        Cookies = x.Cookies,
                         UpdatedBy = x.UpdatedBy,
                         UpdatedDate = x.UpdatedDate ?? DateTime.Now,
                     }).ToList();

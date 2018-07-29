@@ -38,7 +38,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             {
                 var msg = "";
                 bool isCheck = true;
-                if (item.Account != null && item.Account.Length > 0 && item.Password != null && item.Password.Length > 0)
+                if (item.Account != null && item.Account.Length > 0 && item.Cookies != null && item.Cookies.Length > 0)
                 {
                     var temp = ListItem.Where(o => o.Trim() == item.Account.Trim()).FirstOrDefault();
                     if (temp == null)

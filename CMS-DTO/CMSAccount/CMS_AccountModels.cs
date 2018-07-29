@@ -13,10 +13,16 @@ namespace CMS_DTO.CMSAccount
         public int Status { get; set; }
         public string Account { get; set; }
         public string Password { get; set; }
+        public string Cookies { get; set; }
         public bool IsActive { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
-    }
+
+        public CMS_AccountModels()
+        {
+            IsActive = true;
+        }
+    }    
 }
