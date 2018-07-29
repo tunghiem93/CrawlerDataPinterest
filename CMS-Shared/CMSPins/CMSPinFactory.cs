@@ -66,8 +66,9 @@ namespace CMS_Shared.CMSEmployees
                             CreatedDate = DateTime.Now,
                             UpdatedBy = createdBy,
                             UpdatedDate = DateTime.Now,
+                            BoardID = pin.Board != null ? pin.Board.id : null,
+                            BoardName = pin.Board != null ? pin.Board.name : null,
                         });
-
                     }
                     if (listInsertDB.Count > 0)
                         _db.CMS_Pin.AddRange(listInsertDB);
@@ -223,6 +224,8 @@ namespace CMS_Shared.CMSEmployees
                         Created_At = o.Created_At ?? DateTime.MinValue,
                         CreatedDate = o.CreatedDate ?? DateTime.MinValue,
                         UpdateDate = o.UpdatedDate ?? DateTime.MinValue,
+                        BoardID = o.BoardID,
+                        BoardName = o.BoardName
                         //LastTime = CommonHelper.GetDurationFromNow(o.UpdatedDate),
                     }).ToList();
                 }
