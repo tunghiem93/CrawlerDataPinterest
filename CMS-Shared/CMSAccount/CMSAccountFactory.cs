@@ -30,7 +30,7 @@ namespace CMS_Shared.CMSAccount
                                 var dateTimeNow = DateTime.Now;
                                 var newAccount = new CMS_Account()
                                 {
-                                    ID = Guid.NewGuid().ToString(),
+                                    Id = Guid.NewGuid().ToString(),
                                     Name = model.Account,
                                     Status = (byte)Commons.EErrorStatus.AccPending,
                                     CreatedBy = model.CreatedBy,
@@ -102,7 +102,7 @@ namespace CMS_Shared.CMSAccount
                 {
                     var data = cxt.CMS_Account.Select(x => new CMS_AccountModels
                     {
-                        Id = x.ID,
+                        Id = x.Id,
                         CreatedBy = x.CreatedBy,
                         CreatedDate = x.CreatedDate ?? DateTime.Now,
                         Status = x.Status ?? (byte)Commons.EStatus.Inactive,
@@ -123,7 +123,7 @@ namespace CMS_Shared.CMSAccount
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Account.Where(w => w.ID.Equals(accountID)).Select(x => x.Cookies).FirstOrDefault();
+                    var data = cxt.CMS_Account.Where(w => w.Id.Equals(accountID)).Select(x => x.Cookies).FirstOrDefault();
                     return data;
                 }
             }
