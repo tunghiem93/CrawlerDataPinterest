@@ -12,11 +12,13 @@
         @foreach (var item in Model.Pins)
         {
             var ImageUrl = item.Images != null && item.Images.Count > 0 ? item.Images.FirstOrDefault().url : "";
-            <div class="col-md-2 col-sm-2 col-xs-12" style="margin-bottom:20px;padding-top:10px;border:1px solid rgba(0,0,0,.1);border-radius:5px !important;">
+            <div class="col-md-2 col-sm-2 col-xs-12" style="margin-bottom:20px;padding-top:10px;border:1px solid rgba(0,0,0,.1);border-radius:5px !important; " id="@item.ID">
                 <div style="margin-bottom:10px;">
-                    <a href="https://www.pinterest.com/pin/@item.ID/" target="_blank">
-                        <img src="@ImageUrl" class="img-responsive" alt="@item.Domain" height="236" style="border-radius:5px !important">
-                    </a>
+                    <a class="fa fa-remove" style="right: 9px; position: absolute; font-size: 25px; background-color: red; color: #fff; padding: 5px; text-decoration: none;" title="Delete" onclick="DeletePin('@item.ID')"></a>
+                        <a href="https://www.pinterest.com/pin/@item.ID/" target="_blank">
+                            <img src="@ImageUrl" class="img-responsive" alt="@item.Domain" height="236" style="border-radius:5px !important">
+
+                        </a>
                 </div>
                 <div class="info" style=" padding-bottom: 5px;">
                     <div class="info-domain" style="background-color:#cce5ff;border-radius:5px !important;height:50px">
@@ -61,6 +63,37 @@
                     alert("This Board already exists!");
                 }
                 $('.se-pre-con').hide();
+            }
+        });
+    }
+
+    function DeletePin(id) {
+        $.ajax(
+        {
+            url: '@Url.Action("DeletePin", "CMSProducts")',
+            type: 'get',
+            data: {
+                ID: id
+            },
+            dataType: 'html',
+            success: function () {
+                $('#' + id).hide();
+                $('.se-pre-con').hide();
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            },
+            error: function (e) {
+            if (e.status == 400) {
+                alert("Can not delete this Pin!");
+            }
+            else {
+                $('#' + id).hide();
+            }
+            $('.se-pre-con').hide();
             }
         });
     }

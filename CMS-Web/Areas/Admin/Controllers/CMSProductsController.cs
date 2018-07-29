@@ -379,5 +379,16 @@ namespace CMS_Web.Areas.Admin.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
+
+        public ActionResult DeletePin(string ID)
+        {
+            var msg = "";
+            var result = _fac.HidePin(ID, "Admin", ref msg);
+            if (result)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
     }
 }
