@@ -34,18 +34,18 @@
     <div class="_gridview">
         <div class="page-title">
             <!-- BEGIN PAGE BAR -->
-            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Home page" }, { "B", "Pin data" } })
+            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Home page" }, { "B", "Pin data of Boards" } })
             <!-- END PAGE BAR -->
         </div>
         <div class="page-main">
-            @using (Html.BeginForm("Search", "CMSProducts", FormMethod.Get, new { @class = "form-horizontal search-form", @id = "form-search" }))
+            @using (Html.BeginForm("Search", "CMSBoardProducts", FormMethod.Get, new { @class = "form-horizontal search-form", @id = "form-search" }))
             {
                 <fieldset>
                     <legend>Filter Pin data by: </legend>
                 </fieldset>
                 <div class="form-group">
                     <div class="col-md-3 col-sm-8 col-xs-12">
-                        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 90%">
+                        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 8px 10px; border: 1px solid #ccc; width: 85%">
                             <i class="fa fa-calendar"></i>&nbsp;
                             <span></span> <i class="fa fa-caret-down"></i>
                         </div>

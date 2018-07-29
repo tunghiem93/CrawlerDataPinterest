@@ -1,0 +1,266 @@
+﻿@model CMS_DTO.CMSBoard.CMS_BoardModels
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Board - list data";
+}
+
+<div role="main">
+    <div class="se-pre-con" style="display: none;"></div>
+    <div class="page-title">
+        <!-- BEGIN PAGE BAR -->
+        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Home page" }, { "B", "List data - Boards" } })
+        <!-- END PAGE BAR -->
+    </div>
+    <div class="page-main">
+        <div class="page-main">
+            @using (Html.BeginForm("LoadGrid", "CMSBoards", FormMethod.Post, new { @class = "form-horizontal search-form" }))
+            {
+                <div style="margin-bottom:15px;">
+                    <div class="form-group">
+                        <div class="control-label col-md-1 col-sm-1 col-xs-12 lineHeight"></div>
+                        <div class="col-md-6 col-sm-6 col-xs-12" style="margin-right: -32px !important; display: inline-flex;">
+                            <button type="submit" class="btn btn-primary form-inline" style="margin-right: -5px; "><i class="fa fa-plus-square" style="font-size:14px; "></i><span>&nbsp; Add</span></button>
+                            <input type="text" name="KeySearch" value="@Model.name" class="form-control form-inline" id="idStrSerch" placeholder="Add keywords..." />
+                            @Html.DropDownListFor(model => model.AccountID,
+                            new SelectList(@ViewBag.ListAccount, "Value", "Text", Model.AccountID), "",
+                            new
+                            {
+                                @class = "form-control form-inline select2_multiple",
+                                @id = "storeDdlView",
+                                @style = "width:100%;",
+                            })
+                        </div>
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <table>
+                                <tr>
+                                    <td style="display:inline-flex">
+                                        <a class="btn btn-default form-inline cls-CrawlAll" style="color: #17a2b8 !important; border-color: #17a2b8 !important; margin-right: -5px;" onclick="BoardCrawlAll(this); return false;">@Html.Raw("Crawl all now")</a>
+                                        <a class="btn btn-default form-inline" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; margin-right: -5px;" onclick="DeleteAll(this); return false;">@Html.Raw("Delete all")</a>
+                                        <a class="btn btn-danger form-inline" onclick="DeleteAndClearPostAll(this); return false;">@Html.Raw("Delete and clear all posts")</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="gridview" style="height:100%;"></div>
+        </div>
+    </div>
+    <div class="detail-view" style="height:100%;">
+        <!-- detail partial view -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    var keyID = "";
+
+    $(document).ready(function () {
+        LoadGrid();
+    });
+
+    $(".search-form").submit(function (e) {
+        var key = $("#idStrSerch").val();
+        if (key !== "")
+            LoadGrid();
+        return false;
+    });
+
+    function BoardCrawlAll(btn) {
+        $('.cls-CrawlAll').text('Crawling...');
+        $('.cls-CrawlAll').css({ "background-color": "wheat", "border-color": "wheat" });
+        $.ajax(
+        {
+            url: '@Url.Action("BoardCrawlAll", "CMSBoards")',
+            type: 'get',
+            data: { },
+            dataType: 'html',
+            success: function (data) {
+                //location.reload();
+            },
+            beforeSend: function () {
+                //$('.se-pre-con').show();
+            },
+            complete: function () {
+                //$('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("Unable to crawl this Board!");
+                }
+                //$('.se-pre-con').hide();
+            }
+        });
+    }
+
+    function DeleteAll(btn) {
+        $.ajax(
+        {
+            url: '@Url.Action("DeleteAll", "CMSBoards")',
+            type: 'get',
+            data: { },
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                //$('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("Unable to delete this Board!");
+                }
+                $('.se-pre-con').hide();
+            }
+        });
+    }
+
+    function DeleteAndClearPostAll(btn) {
+        $.ajax(
+        {
+            url: '@Url.Action("DeleteAndClearPostAll", "CMSBoards")',
+            type: 'get',
+            data: { },
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                //$('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("Unable to delete this Board!");
+                }
+                $('.se-pre-con').hide();
+            }
+        });
+    }
+
+    function CrawlerBoard(Id, key) {
+        $('.cls-' + Id).text('Crawling...');
+        $('.cls-' + Id).css({ "background-color": "wheat", "border-color": "wheat" });
+        $.ajax(
+        {
+            url: '@Url.Action("CrawlerBoard", "CMSBoards")',
+            type: 'get',
+            data: {
+                ID: Id,
+                Key: key,
+            },
+            dataType: 'html',
+            success: function (data) {
+                //location.reload();
+            },
+            beforeSend: function () {
+                //$('.se-pre-con').show();
+            },
+            complete: function () {
+                //$('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("Unable to crawl this Board!");
+                }
+                //$('.se-pre-con').hide();
+            }
+        });
+    }
+
+    function Delete(btn, id) {
+        $.ajax(
+        {
+            url: '@Url.Action("Delete", "CMSBoards")',
+            type: 'get',
+            data: {
+                ID: id,
+            },
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                //$('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("Unable to delete this Board!");
+                }
+                $('.se-pre-con').hide();
+            }
+        });
+    }
+
+    function DeleteAndClearPost(btn, id) {
+        $.ajax(
+        {
+            url: '@Url.Action("DeleteAndClearPost", "CMSBoards")',
+            type: 'get',
+            data: {
+                ID: id,
+            },
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                //$('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("Unable to delete this Board!");
+                }
+                $('.se-pre-con').hide();
+            }
+        });
+    }
+
+    function GetKeyID(KeyId) {
+        keyID = KeyId;
+    }
+
+    function AddBoardToGroup(e) {
+        var GroupKeyId = $('#groupDdlView').val();
+        if (keyID != null && keyID.length > 0) {
+            $.ajax(
+            {
+                url: '@Url.Action("AddBoardToGroup", "CMSBoards")',
+                type: 'get',
+                data: {
+                    KeyID: keyID,
+                    GroupKeyID: GroupKeyId
+                },
+                dataType: 'html',
+                success: function (data) {
+                },
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                    complete: function () {
+                        alert('Board save successful!')
+                    $('.se-pre-con').hide();
+                },
+                    error: function (e) {
+                        if (e.status == 400) {
+                            alert("Can not save Board!");
+                        }
+                    $('.se-pre-con').hide();
+                }
+            });
+        }
+    }
+</script>
