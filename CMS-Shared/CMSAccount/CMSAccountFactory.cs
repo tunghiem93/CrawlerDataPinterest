@@ -179,7 +179,7 @@ namespace CMS_Shared.CMSAccount
                         //    e.IsActive = !e.IsActive;
                         //}
 
-                        //e.IsActive = !e.IsActive ?? true;
+                        e.IsActive = !e.IsActive;
                     }
 
                     cxt.SaveChanges();
