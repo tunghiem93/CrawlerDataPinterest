@@ -194,7 +194,7 @@ namespace CMS_Shared.CMSBoard
 
                     /* delete pin */
                     _db.Database.ExecuteSqlCommand(
-                        "delete CMS_Pin where ID not in (SELECT PinID FROM (SELECT PinID FROM CMS_R_KeyWord_Pin UNION SELECT PinID FROM CMS_R_Board_Pin) A;)"
+                        "delete CMS_Pin where ID not in (SELECT PinID FROM (SELECT PinID FROM CMS_R_KeyWord_Pin UNION SELECT PinID FROM CMS_R_Board_Pin) A)"
                         );
 
                     /* delete group_board */
