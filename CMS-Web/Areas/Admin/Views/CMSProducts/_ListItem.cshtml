@@ -10,26 +10,59 @@
 {
     <div class="form-group">
         @foreach (var item in Model.Pins)
-                {
-                    var ImageUrl = item.Images != null && item.Images.Count > 0 ? item.Images.FirstOrDefault().url : "";
-                    <div class="col-md-2 col-sm-2 col-xs-12" style="margin-bottom:20px;padding-top:10px;border:1px solid rgba(0,0,0,.1);border-radius:5px !important;">
-                        <div style="margin-bottom:10px;">
-                            <a href="https://www.pinterest.com/pin/@item.ID/" target="_blank">
-                                <img src="@ImageUrl" class="img-responsive" alt="@item.Domain" height="236" style="border-radius:5px !important">
-                            </a>
-                        </div>
-                        <div class="info" style=" padding-bottom: 5px;">
-                            <div class="info-domain" style="background-color:#cce5ff;border-radius:5px !important;height:50px">
-                                &nbsp;&nbsp;<a href="@string.Format("{0}",string.IsNullOrEmpty(item.Link) ? "javascript:void(0)" : item.Link)" style="color:#004085;font-weight:bold" target="_blank" title="@item.Link">@string.Format("{0}", !string.IsNullOrEmpty(item.Domain) && item.Domain.Length > 20 ? item.Domain.Substring(0, 20) + "..." : item.Domain)</a>
-                                <p>&nbsp;&nbsp; @item.Created_At.ToString("dd/MM/yyyy")</p>
-                            </div>
-                            @*<p><span>Ngày crawler</span>&nbsp;&nbsp; @DateTime.Now.ToString("dd/MM/yyyy")</p>*@
-                            <p style="background-color:#d4edda;height:35px;line-height:35px;border-radius:5px !important">&nbsp;&nbsp; About @CommonHelper.GetDurationFromNow(item.CreatedDate)</p>
-                            <p style="background-color:#f8d7da;height:35px;line-height:35px;border-radius:5px !important">&nbsp;&nbsp;<span>RePin:</span> &nbsp;&nbsp;<span style="color:#721c24;font-weight:bold">@item.Repin_count</span> </p>
-                            
-                        </div>
+        {
+            var ImageUrl = item.Images != null && item.Images.Count > 0 ? item.Images.FirstOrDefault().url : "";
+            <div class="col-md-2 col-sm-2 col-xs-12" style="margin-bottom:20px;padding-top:10px;border:1px solid rgba(0,0,0,.1);border-radius:5px !important;">
+                <div style="margin-bottom:10px;">
+                    <a href="https://www.pinterest.com/pin/@item.ID/" target="_blank">
+                        <img src="@ImageUrl" class="img-responsive" alt="@item.Domain" height="236" style="border-radius:5px !important">
+                    </a>
+                </div>
+                <div class="info" style=" padding-bottom: 5px;">
+                    <div class="info-domain" style="background-color:#cce5ff;border-radius:5px !important;height:50px">
+                        &nbsp;&nbsp;<a href="@string.Format("{0}",string.IsNullOrEmpty(item.Link) ? "javascript:void(0)" : item.Link)" style="color:#004085;font-weight:bold" target="_blank" title="@item.Link">@string.Format("{0}", !string.IsNullOrEmpty(item.Domain) && item.Domain.Length > 20 ? item.Domain.Substring(0, 20) + "..." : item.Domain)</a>
+                        <p>&nbsp;&nbsp; @item.Created_At.ToString("dd/MM/yyyy")</p>
                     </div>
+                    @*<p><span>Ngày crawler</span>&nbsp;&nbsp; @DateTime.Now.ToString("dd/MM/yyyy")</p>*@
+                    <p style="background-color:#d4edda;height:35px;line-height:35px;border-radius:5px !important">&nbsp;&nbsp; About @CommonHelper.GetDurationFromNow(item.CreatedDate)</p>
+                    <p style="background-color:#f8d7da;height:35px;line-height:35px;border-radius:5px !important">&nbsp;&nbsp;<span>RePin:</span> &nbsp;&nbsp;<span style="color:#721c24;font-weight:bold">@item.Repin_count</span> </p>
+                    @if (item.Board != null && item.Board.Name != null)
+                    {
+                    <p title="@string.Format("{0}", !string.IsNullOrEmpty(item.Board.Name) ? item.Board.Name : "No Board")" style="background-color:#ccc;height:35px;line-height:35px;border-radius:5px !important"><span></span> &nbsp;&nbsp;<span style="color:#721c24;font-weight:bold">@string.Format("{0}", !string.IsNullOrEmpty(item.Board.Name) && item.Board.Name .Length > 17 ? item.Board.Name.Substring(0, 17) + "..." : "No Board")</span><a onclick="SendToBoard('@item.Board.Id', '@item.Board.Name')" title="Send to Boards Manager" style="text-decoration: none; float: right; padding-right: 3px; ">&nbsp;<span class="fa fa-share-square-o"></span></a> </p>
+                    } 
+                </div>
+            </div>
         }
     </div>
 }
+
+<script type="text/javascript">
+    function SendToBoard(id, board) {
+        $.ajax(
+        {
+            url: '@Url.Action("SendToBoard", "CMSProducts")',
+            type: 'get',
+            data: {
+                ID: id,
+                Board: board
+            },
+            dataType: 'html',
+            success: function () {
+                $('.se-pre-con').hide();
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    alert("This Board already exists!");
+                }
+                $('.se-pre-con').hide();
+            }
+        });
+    }
+</script>
 
