@@ -27,6 +27,7 @@ namespace CMS_Entity.Entity
         public int? Status { get; set; }
 
         public int? State { get; set; }
+        public int? Sequence { get; set; }
 
         public DateTime? CreatedDate { get; set; }
 
