@@ -1,6 +1,7 @@
 ﻿using CMS_DTO.CMSCrawler;
 using CMS_DTO.CMSKeyword;
 using CMS_Shared;
+using CMS_Shared.CMSAccount;
 using CMS_Shared.CMSEmployees;
 using CMS_Shared.Keyword;
 using CMS_Shared.Utilities;
@@ -20,10 +21,12 @@ namespace CMS_Web.Areas.Admin.Controllers
     {
         // GET: Admin/GroupSearchs
         private CMSKeywordFactory _factory;
+        private CMSAccountFactory _facAcc;
         private List<string> ListItem = null;
         public CMSKeywordsController()
         {
             _factory = new CMSKeywordFactory();
+            _facAcc = new CMSAccountFactory();
             ListItem = new List<string>();
             ListItem = _factory.GetList().Select(o=>o.KeySearch).ToList();
             ViewBag.ListGroupKey = getListGroupKeyword();
@@ -32,6 +35,20 @@ namespace CMS_Web.Areas.Admin.Controllers
         public ActionResult Index()
         {
             CMS_KeywordModels model = new CMS_KeywordModels();
+            List<SelectListItem> lstAcc = new List<SelectListItem>();
+            var lstAccount = _facAcc.GetList();
+            if (lstAccount != null && lstAccount.Any())
+            {
+                lstAccount.ForEach(o =>
+                {
+                    lstAcc.Add(new SelectListItem
+                    {
+                        Value = o.Id,
+                        Text = o.Account
+                    });
+                });
+            }
+            ViewBag.ListAccount = lstAcc;
             return View(model);
         }
 
@@ -58,8 +75,8 @@ namespace CMS_Web.Areas.Admin.Controllers
                     }
                 }
                 if (isCheck)
-                {
-                    var model = _factory.GetList();
+                {                    
+                    var model = _factory.GetList();                    
                     return PartialView("_ListData", model);
                 }
                 else

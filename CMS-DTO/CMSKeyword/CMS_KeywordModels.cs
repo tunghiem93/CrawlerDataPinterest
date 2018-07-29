@@ -22,9 +22,10 @@ namespace CMS_DTO.CMSKeyword
         public byte Status { get; set; }
         public int OffSet { get; set; }
         public string StrLastUpdate { get; set; }
-        public bool Checked { get; set; }
+        public bool Checked { get; set; }        
 
         public List<CMS_KeywordModels> ListKeyResult { get; set; }
+        public string AccountID { get; set; }
         public CMS_KeywordModels()
         {
             ListKeyResult = new List<CMS_KeywordModels>();
