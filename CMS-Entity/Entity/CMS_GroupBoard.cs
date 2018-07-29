@@ -21,6 +21,7 @@ namespace CMS_Entity.Entity
         public string Name { get; set; }
 
         public int? Status { get; set; }
+        public int Sequence { get; set; }
 
         [StringLength(60)]
         public string CreatedBy { get; set; }
