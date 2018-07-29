@@ -1,7 +1,9 @@
-﻿using CMS_DTO.CMSCrawler;
+﻿using CMS_DTO.CMSBoard;
+using CMS_DTO.CMSCrawler;
 using CMS_DTO.CMSImage;
 using CMS_DTO.CMSProduct;
 using CMS_Shared;
+using CMS_Shared.CMSBoard;
 using CMS_Shared.CMSEmployees;
 using CMS_Shared.Utilities;
 using System;
@@ -18,9 +20,11 @@ namespace CMS_Web.Areas.Admin.Controllers
     public class CMSProductsController : BaseController
     {
         private CMSPinFactory _fac;
+        private CMSBoardFactory _facBoard;
         public CMSProductsController()
         {
             _fac = new CMSPinFactory();
+            _facBoard = new CMSBoardFactory();
         }
         // GET: Admin/CMSCategories
         public ActionResult Index()
@@ -363,8 +367,12 @@ namespace CMS_Web.Areas.Admin.Controllers
 
         public ActionResult SendToBoard(string ID, string Board)
         {
+            CMS_BoardModels model = new CMS_BoardModels();
+            model.id = ID;
+            model.name = Board;
+            model.description = "Get Board from Product";
             var msg = "";
-            var result = true; // _fac.SendToBoard(ID, Board, ref msg);
+            var result = _facBoard.CreateOrUpdate(model, ref msg);
             if (result)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
