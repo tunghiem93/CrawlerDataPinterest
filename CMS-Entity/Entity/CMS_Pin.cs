@@ -47,7 +47,7 @@ namespace CMS_Entity.Entity
         [StringLength(60)]
         public string BoardID { get; set; }
 
-        [StringLength(250)]
+        [StringLength(1000)]
         public string BoardName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

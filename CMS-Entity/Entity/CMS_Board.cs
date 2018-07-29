@@ -18,7 +18,7 @@ namespace CMS_Entity.Entity
         [StringLength(60)]
         public string ID { get; set; }
 
-        [StringLength(250)]
+        [StringLength(1000)]
         public string BoardName { get; set; }
         public string OwnerName { get; set; }
         public string Description { get; set; }

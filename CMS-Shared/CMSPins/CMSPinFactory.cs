@@ -24,88 +24,122 @@ namespace CMS_Shared.CMSEmployees
             var result = true;
 
             m_Semaphore.WaitOne();
-            try
+            using (var _db = new CMS_Context())
             {
-                using (var _db = new CMS_Context())
+                using (var trans = _db.Database.BeginTransaction())
                 {
-                    _db.Database.CommandTimeout = 500;
-                    lstPin = lstPin.GroupBy(x => x.ID).Select(x => x.First()).ToList();
-                    lstPin = lstPin.Where(x => !string.IsNullOrEmpty(x.ID) && x.ID.Length <= 60).ToList();
-                    var lstPinID = lstPin.Select(o => o.ID).ToList();
-                    var lstPinUpdate = _db.CMS_Pin.Where(o => lstPinID.Contains(o.ID)).ToList();
-                    var lstPinUpdateID = lstPinUpdate.Select(o => o.ID).ToList();
-                    var lstPinInsert = lstPin.Where(o => !lstPinUpdateID.Contains(o.ID)).ToList();
-
-                    /* update pin */
-                    lstPinUpdate = lstPinUpdate.Where(o => o.Status == (byte)Commons.EStatus.Active).ToList();
-                    foreach (var uPin in lstPinUpdate)
+                    try
                     {
-                        var repin_count = lstPin.Where(o => o.ID == uPin.ID).Select(o => o.Repin_count).FirstOrDefault();
-                        if (repin_count != uPin.Repin_count)
+                        _db.Database.CommandTimeout = 500;
+                        lstPin = lstPin.GroupBy(x => x.ID).Select(x => x.First()).ToList();
+                        lstPin = lstPin.Where(x => !string.IsNullOrEmpty(x.ID) && x.ID.Length <= 60).ToList();
+                        var lstPinID = lstPin.Select(o => o.ID).ToList();
+                        var lstPinUpdate = _db.CMS_Pin.Where(o => lstPinID.Contains(o.ID)).ToList();
+                        var lstPinUpdateID = lstPinUpdate.Select(o => o.ID).ToList();
+                        var lstPinInsert = lstPin.Where(o => !lstPinUpdateID.Contains(o.ID)).ToList();
+
+                        /* update pin */
+                        lstPinUpdate = lstPinUpdate.Where(o => o.Status == (byte)Commons.EStatus.Active).ToList();
+                        foreach (var uPin in lstPinUpdate)
                         {
-                            uPin.Repin_count = repin_count;
-                            uPin.UpdatedBy = createdBy;
-                            uPin.UpdatedDate = DateTime.Now;
+                            var repin_Board = lstPin.Where(o => o.ID == uPin.ID).Select(o => new { Repin_count = o.Repin_count, BoardID = o.Board != null ? o.Board.id : null , BoardName = o.Board != null ? o.Board.name : null }).FirstOrDefault();
+                            if (repin_Board.Repin_count != uPin.Repin_count)
+                            {
+                                uPin.Repin_count = repin_Board.Repin_count;
+                                uPin.UpdatedBy = createdBy;
+                                uPin.UpdatedDate = DateTime.Now;
+                                uPin.BoardID = repin_Board.BoardID;
+                                uPin.BoardName = repin_Board.BoardName;
+                            }
                         }
-                    }
 
-                    /* insert new pin */
-                    var listInsertDB = new List<CMS_Pin>();
-                    foreach (var pin in lstPinInsert)
-                    {
-                        listInsertDB.Add(new CMS_Pin()
+                        /* insert new pin */
+                        var listInsertDB = new List<CMS_Pin>();
+                        foreach (var pin in lstPinInsert)
                         {
-                            ID = pin.ID,
-                            Link = pin.Link,
-                            Repin_count = pin.Repin_count,
-                            ImageUrl = pin.Images.Select(o => o.url).First(),
-                            Created_At = pin.Created_At,
-                            Domain = pin.Domain,
+                            listInsertDB.Add(new CMS_Pin()
+                            {
+                                ID = pin.ID,
+                                Link = pin.Link,
+                                Repin_count = pin.Repin_count,
+                                ImageUrl = pin.Images.Select(o => o.url).First(),
+                                Created_At = pin.Created_At,
+                                Domain = pin.Domain,
+                                Status = (byte)Commons.EStatus.Active,
+                                CreatedBy = createdBy,
+                                CreatedDate = DateTime.Now,
+                                UpdatedBy = createdBy,
+                                UpdatedDate = DateTime.Now,
+                                BoardID = pin.Board != null ? pin.Board.id : null,
+                                BoardName = pin.Board != null ? pin.Board.name : null,
+                            });
+                        }
+                        if (listInsertDB.Count > 0)
+                            _db.CMS_Pin.AddRange(listInsertDB);
+                        /* Insert Board */
+                        var lstBoard = lstPin.Where(o => o.Board != null && !string.IsNullOrEmpty(o.Board.id))
+                                                .GroupBy(o => o.Board.id)
+                                                .Select(o => o.First()).ToList();
+                        var lstBoardId = _db.CMS_Board.Select(o => o.ID).ToList();
+                        if(lstBoardId != null && lstBoardId.Any())
+                        {
+                            lstBoard = lstBoard.Where(o => !lstBoardId.Contains(o.Board.id)).ToList();
+                        }
+                        var lstInsertBoard = new List<CMS_Board>();
+                        foreach (var item in lstBoard)
+                        {
+                            lstInsertBoard.Add(new CMS_Board
+                            {
+                                BoardName = item.Board.name,
+                                ID = item.Board.id,
+                                Status = (byte)Commons.EStatus.Active,
+                                CreatedBy = createdBy,
+                                CreatedDate = DateTime.Now,
+                                UpdatedBy = createdBy,
+                                UpdatedDate = DateTime.Now,
+                                Description = item.Board.description,
+                                Pin_count = item.Board.pin_count,
+                                Sequence = 0,
+                                
+                            });
+                        }
+                        _db.CMS_Board.AddRange(lstInsertBoard);
+
+                        /* TABLE KEYWORD_PIN */
+                        var lstKeyWrd_Pin_Exist = _db.CMS_R_KeyWord_Pin.Where(o => o.KeyWordID == KeyWordID && lstPinID.Contains(o.PinID)).Select(o => o.PinID).ToList();
+                        var lstKeyWrd_Pin_New = lstPinID.Where(o => !lstKeyWrd_Pin_Exist.Contains(o)).ToList();
+                        var lstKeyWrd_Pin_InsertBD = lstKeyWrd_Pin_New.Select(o => new CMS_R_KeyWord_Pin()
+                        {
+                            ID = Guid.NewGuid().ToString(),
+                            KeyWordID = KeyWordID,
+                            PinID = o,
                             Status = (byte)Commons.EStatus.Active,
                             CreatedBy = createdBy,
                             CreatedDate = DateTime.Now,
                             UpdatedBy = createdBy,
                             UpdatedDate = DateTime.Now,
-                            BoardID = pin.Board != null ? pin.Board.id : null,
-                            BoardName = pin.Board != null ? pin.Board.name : null,
-                        });
+                        }).ToList();
+
+                        if (lstKeyWrd_Pin_InsertBD.Count > 0)
+                            _db.CMS_R_KeyWord_Pin.AddRange(lstKeyWrd_Pin_InsertBD);
+                        // save db 
+                        _db.SaveChanges();
+                        trans.Commit();
                     }
-                    if (listInsertDB.Count > 0)
-                        _db.CMS_Pin.AddRange(listInsertDB);
-
-                    //_db.SaveChanges();
-                    /* TABLE KEYWORD_PIN */
-                    var lstKeyWrd_Pin_Exist = _db.CMS_R_KeyWord_Pin.Where(o => o.KeyWordID == KeyWordID && lstPinID.Contains(o.PinID)).Select(o => o.PinID).ToList();
-                    var lstKeyWrd_Pin_New = lstPinID.Where(o => !lstKeyWrd_Pin_Exist.Contains(o)).ToList();
-                    var lstKeyWrd_Pin_InsertBD = lstKeyWrd_Pin_New.Select(o => new CMS_R_KeyWord_Pin()
+                    catch (Exception ex)
                     {
-                        ID = Guid.NewGuid().ToString(),
-                        KeyWordID = KeyWordID,
-                        PinID = o,
-                        Status = (byte)Commons.EStatus.Active,
-                        CreatedBy = createdBy,
-                        CreatedDate = DateTime.Now,
-                        UpdatedBy = createdBy,
-                        UpdatedDate = DateTime.Now,
-                    }).ToList();
+                        msg = "CreateOrUpdate Pin with exception.";
+                        result = false;
+                        LogHelper.WriteLogs("ErrorCreateOrUpdatePin: " + KeyWordID, JsonConvert.SerializeObject(ex));
+                        NSLog.Logger.Error("ErrorCreateOrUpdatePin: " + KeyWordID, ex);
+                        trans.Rollback();
+                    }
 
-                    if (lstKeyWrd_Pin_InsertBD.Count > 0)
-                        _db.CMS_R_KeyWord_Pin.AddRange(lstKeyWrd_Pin_InsertBD);
-                    // save db 
-                    _db.SaveChanges();
+                    finally
+                    {
+                        m_Semaphore.Release();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                msg = "CreateOrUpdate Pin with exception.";
-                result = false;
-                LogHelper.WriteLogs("ErrorCreateOrUpdatePin: " + KeyWordID, JsonConvert.SerializeObject(ex));
-                NSLog.Logger.Error("ErrorCreateOrUpdatePin: " + KeyWordID, ex);
-            }
-
-            finally
-            {
-                m_Semaphore.Release();
             }
             NSLog.Logger.Info("ResponseCreateOrUpdatePin: " + KeyWordID, result);
 

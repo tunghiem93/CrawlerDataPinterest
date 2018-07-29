@@ -341,7 +341,7 @@ namespace CMS_Shared.Keyword
                 using (var _db = new CMS_Context())
                 {
                     /* get key by ID */
-                    var keyWord = _db.CMS_KeyWord.Where(o => o.ID == Id).FirstOrDefault();
+                    var keyWord = _db.CMS_KeyWord.Where(o => o.ID == Id && o.Status == (byte)Commons.EStatus.Active).FirstOrDefault();
                     if (keyWord != null)
                     {
                         /* check time span crawl */
