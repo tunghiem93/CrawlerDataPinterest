@@ -221,9 +221,14 @@ namespace CMS_Shared.Keyword
                         "delete CMS_R_KeyWord_Pin where  KeyWordID = \'" + Id + "\'"
                         );
 
+                    ///* delete pin */
+                    //_db.Database.ExecuteSqlCommand(
+                    //    "delete CMS_Pin where ID not in (select PinID from CMS_R_KeyWord_Pin)"
+                    //    );
+
                     /* delete pin */
                     _db.Database.ExecuteSqlCommand(
-                        "delete CMS_Pin where ID not in (select PinID from CMS_R_KeyWord_Pin)"
+                        "delete CMS_Pin where ID not in (SELECT PinID FROM (SELECT PinID FROM CMS_R_KeyWord_Pin UNION SELECT PinID FROM CMS_R_Board_Pin) A;)"
                         );
 
                     /* delete group_key */
