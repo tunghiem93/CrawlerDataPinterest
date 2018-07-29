@@ -31,6 +31,13 @@ namespace CMS_Entity.Entity
 
         public DateTime? Created_At { get; set; }
 
+        [StringLength(60)]
+        public string BoardID { get; set; }
+
+        [StringLength(250)]
+        public string BoardName { get; set; }
+
+
         public int Status { get; set; }
 
         [StringLength(60)]
