@@ -16,28 +16,29 @@ namespace CMS_Entity.Entity
         }
 
         [StringLength(60)]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
-        [StringLength(250)]
-        public string Name { get; set; }
+        public int? Status { get; set; }
 
         [StringLength(2000)]
         public string Cookies { get; set; }
 
-        public int? Status { get; set; }
-
-        public int? State { get; set; }
-        public int? Sequence { get; set; }
-
-        public DateTime? CreatedDate { get; set; }
-
         [StringLength(60)]
         public string CreatedBy { get; set; }
+
+        public DateTime? UpdatedDate { get; set; }
 
         [StringLength(60)]
         public string UpdatedBy { get; set; }
 
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
+
+        [StringLength(250)]
+        public string Name { get; set; }
+
+        public int? State { get; set; }
+
+        public int? Sequence { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_Board> CMS_Board { get; set; }

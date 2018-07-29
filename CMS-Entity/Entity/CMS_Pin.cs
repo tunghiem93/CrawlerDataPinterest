@@ -12,6 +12,7 @@ namespace CMS_Entity.Entity
         public CMS_Pin()
         {
             CMS_R_KeyWord_Pin = new HashSet<CMS_R_KeyWord_Pin>();
+            CMS_R_Board_Pin = new HashSet<CMS_R_Board_Pin>();
         }
 
         [StringLength(60)]
@@ -31,13 +32,6 @@ namespace CMS_Entity.Entity
 
         public DateTime? Created_At { get; set; }
 
-        [StringLength(60)]
-        public string BoardID { get; set; }
-
-        [StringLength(250)]
-        public string BoardName { get; set; }
-
-
         public int Status { get; set; }
 
         [StringLength(60)]
@@ -50,7 +44,16 @@ namespace CMS_Entity.Entity
 
         public DateTime? UpdatedDate { get; set; }
 
+        [StringLength(60)]
+        public string BoardID { get; set; }
+
+        [StringLength(250)]
+        public string BoardName { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_R_KeyWord_Pin> CMS_R_KeyWord_Pin { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CMS_R_Board_Pin> CMS_R_Board_Pin { get; set; }
     }
 }

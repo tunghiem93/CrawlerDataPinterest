@@ -11,7 +11,7 @@ namespace CMS_Entity.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CMS_Board()
         {
-            CMS_R_Board_KeyWord = new HashSet<CMS_R_Board_KeyWord>();
+            CMS_R_Board_Pin = new HashSet<CMS_R_Board_Pin>();
             CMS_R_GroupBoard_Board = new HashSet<CMS_R_GroupBoard_Board>();
         }
 
@@ -39,7 +39,7 @@ namespace CMS_Entity.Entity
         public virtual CMS_Account CMS_Account { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CMS_R_Board_KeyWord> CMS_R_Board_KeyWord { get; set; }
+        public virtual ICollection<CMS_R_Board_Pin> CMS_R_Board_Pin { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_R_GroupBoard_Board> CMS_R_GroupBoard_Board { get; set; }
