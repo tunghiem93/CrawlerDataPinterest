@@ -1,4 +1,5 @@
-﻿using CMS_DTO.CMSCrawler;
+﻿using CMS_DTO.CMSBoard;
+using CMS_DTO.CMSCrawler;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -186,8 +187,10 @@ namespace CMS_Shared.Utilities
                                             {
                                                 // get Repin_Count
                                                 var _Repin_Count = 0;
-                                                Get_Tagged_RepinCount(ref _Repin_Count, pin.ID);
+                                                CMS_BoardModels board = new CMS_BoardModels();
+                                                Get_Tagged_RepinCount(ref _Repin_Count,ref board, pin.ID);
                                                 pin.Repin_count = _Repin_Count;
+                                                pin.Board = board;
                                             }
                                             else /* this pin have exist in model */
                                             {
@@ -451,6 +454,19 @@ namespace CMS_Shared.Utilities
                                     {
                                         flag = false;
                                     }
+                                    if(itemPin.ContainsKey("board"))
+                                    {
+                                        var strJson = itemPin.ContainsKey("board");
+                                        var json = new JavaScriptSerializer().Serialize(strJson);
+                                        CMS_BoardModels objBoards = JsonConvert.DeserializeObject<CMS_BoardModels> (json);
+                                        if (objBoards != null)
+                                            pin.Board = objBoards;
+                                    }
+                                    else
+                                    {
+                                        flag = false;
+                                    }
+
                                     return pin;
                                 }
                             }
@@ -685,9 +701,9 @@ namespace CMS_Shared.Utilities
             return model;
         }
         
-        public static int getRePinCount(string url, string pinId)
+        public static int getRePinCount(string url, string pinId,ref CMS_BoardModels board)
         {
-
+            var _Repin_Count = 0;
             try
             {
                 Uri uri = new Uri(url);
@@ -719,9 +735,19 @@ namespace CMS_Shared.Utilities
                                     var itemPin = results as Dictionary<string, dynamic>;
                                     if (itemPin.ContainsKey("repin_count"))
                                     {
-                                        var _Repin_Count = Convert.ToInt16(itemPin["repin_count"]);
-                                        return _Repin_Count;
+                                        _Repin_Count = Convert.ToInt16(itemPin["repin_count"]);
+                                        
                                     }
+
+                                    if (itemPin.ContainsKey("board"))
+                                    {
+                                        var strJson = itemPin["board"];
+                                        var json = new JavaScriptSerializer().Serialize(strJson);
+                                        CMS_BoardModels objBoards = JsonConvert.DeserializeObject<CMS_BoardModels>(json);
+                                        if (objBoards != null)
+                                            board = objBoards;
+                                    }
+                                    
                                 }
                             }
                         }
@@ -732,10 +758,10 @@ namespace CMS_Shared.Utilities
                 }
             }
             catch (Exception ex) { }
-            return 0;
+            return _Repin_Count;
         }
 
-        public static bool Get_Tagged_RepinCount(ref int RepinCount, string pinId = "")
+        public static bool Get_Tagged_RepinCount(ref int RepinCount, ref CMS_BoardModels board, string pinId = "")
         {
             string data = string.Empty;
             var urlOrg = Commons.HostApiPinDetail;
@@ -759,7 +785,7 @@ namespace CMS_Shared.Utilities
             data = Preg_replace(input, pattern, replacements);
             var timestamp = GetTimestamp(DateTime.Now);
             var url = urlOrg + "&data=" + data + "&_=" + timestamp;
-            RepinCount = getRePinCount(url, pinId);
+            RepinCount = getRePinCount(url, pinId, ref board);
             return false;
         }
 
