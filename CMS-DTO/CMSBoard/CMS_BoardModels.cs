@@ -8,12 +8,21 @@ namespace CMS_DTO.CMSBoard
 {
     public class CMS_BoardModels
     {
-        
+        public int Sequence { get; set; }
         public string description { get; set; }
         public int pin_count { get; set; }
         public string type { get; set; }
         public string id { get; set; }
         public string name { get; set; }
+
+        public string AccountID { get; set; }
+        public string StrLastUpdate { get; set; }
+        public bool Checked { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public string UpdatedBy { get; set; }
+
         public List<string> pin_thumbnail_urls { get; set; }
         public Dictionary<string, CMS_CoverImagesModels> cover_images { get; set; }
         public CMS_OwnerModels owner { get; set; }

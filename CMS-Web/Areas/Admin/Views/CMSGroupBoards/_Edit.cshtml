@@ -1,0 +1,179 @@
+﻿    @model CMS_DTO.CMSGroupBoards.CMS_GroupBoardsModels
+    
+    @{
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+
+    @{
+        var groupID = Model.Id;
+        ViewBag.Title = "Group Board - list data";
+    }
+<style>
+    .table .btn {
+        margin-right: -5px !important;
+    }
+
+    .linkPins {
+        padding: 2px 6px !important;
+    }
+</style>
+    <div role="main">
+        <div class="se-pre-con" style="display: none;"></div>
+        <div class="_gridview">
+            <div class="page-title">
+                <!-- BEGIN PAGE BAR -->
+                @Html.Partial("_breadcrumb", new Dictionary<string, string>
+                    { { "A", "Home page" }, { "B", "Boards in group - List data" } })
+                    <!-- END PAGE BAR -->
+            </div>
+            <div class="page-main">
+                <div class="table-responsive">
+                    <div class="col-md-12">
+                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                        <div class="portlet box red">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-cogs"></i>@Html.Raw("Boards in group \"" +  Model.Name + "\"")
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <table class="table table-striped table-bordered table-hover dt-responsive" id="sample_3">
+                                    <thead @*style="display: none !important; " *@>
+                                        <tr>
+                                            <th class="text-left">Name</th>
+                                            <th class="text-left">Last Crawl</th>
+                                            <th class="text-left">Total post</th>
+                                            <th class="text-left">Created day</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model != null && Model.ListKeyOnGroup.Any())
+                                        {
+                                            foreach (var item in Model.ListKeyOnGroup)
+                                            {
+                                                <tr class="odd gradeX rowKey">
+                                                    <td class="text-left">
+                                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSProducts" , new { keywordID=item.Id})" target="_blank"><b>@Html.Raw("[" + item.Sequence + "]" + " " + '"' + string.Format("{0}", (item.KeySearch.Length > 25) ? (item.KeySearch.Substring(0, 12) + "...") : item.KeySearch) + '"')</b></a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-link linkchange" href="@Url.Action(" Index", "CMSProducts" , new { keywordID=item.Id})" target="_blank" style="color: #000 !important; ">
+                                                            <b>@Html.Raw("Last crawl: ")</b>
+                                                            @if (string.IsNullOrEmpty(item.StrLastUpdate))
+                                                            {
+                                                                <span style="font-size: 14px !important; ">@Html.Raw("now")</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span style="font-size: 14px !important; ">@Html.Raw(item.StrLastUpdate + " ago  ")</span>
+                                                            }
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        @*<b>@Html.Raw("Total post got:")</b>*@
+                                                        <a class="btn btn-link linkPins" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts" , new { keywordID=item.Id})" target="_blank">@item.Quantity</a>
+                                                        <b>&nbsp;&nbsp;@Html.Raw("pins")</b>
+                                                    </td>
+                                                    <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
+                                                    <td class="text-center linkchange">
+                                                        <a class="btn btn-sm btn-danger" style="color: #fff !important; " onclick="Delete(this, '@item.Id'); return false;">@Html.Raw("Delete")</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END EXAMPLE TABLE PORTLET-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="detail-view" style="height:100%;">
+            <!-- detail partial view -->
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var _tableEmployee = null;
+        var _settingsOptionTableEmployee = {
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ records",
+                "infoEmpty": "No records found",
+                "infoFiltered": "(filtered1 from _MAX_ total records)",
+                "lengthMenu": "Show _MENU_",
+                "search": "Search:",
+                "zeroRecords": "No matching records found",
+                "paginate": {
+                    "previous": "Prev",
+                    "next": "Next",
+                    "last": "Last",
+                    "first": "First"
+                }
+            },
+            "oLanguage": {
+
+                "sSearch": "Tìm Kiếm:",
+                "sLengthMenu": "Xem _MENU_",
+                "sProcessing": "Đang xử lý...",
+                "sZeroRecords": "Không tìm thấy dòng nào phù hợp",
+                "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+                "sInfoEmpty": "Đang xem 0 đến 0 trong tổng số 0 mục",
+                "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+                "sInfoPostFix": "",
+            },
+
+            "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+            "lengthMenu": [
+                [6, 15, 20, -1],
+                [6, 15, 20, "All"] // change per page values here
+            ],
+            "pageLength": 6,
+            "columnDefs": [
+                { "orderable": false, "targets": [0, 1, 2, 4] },
+                { "width": "8%", "targets": [4] },
+            ],
+            "order": [
+                [3, "asc"]
+            ]
+        };
+
+        $(document).ready(function () {
+            _tableEmployee = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableEmployee));
+        });
+        
+        function Delete(btn, Keyid) {
+            $.ajax(
+            {
+                url: '@Url.Action("RemoveKeyFromGroup", "CMSBoards")',
+                type: 'get',
+                data: {
+                    KeyId: Keyid,
+                    GroupKeyID: '@groupID',
+                },
+                dataType: 'html',
+                success: function (data) {
+                    location.reload();
+                },
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                complete: function () {
+                    //$('.se-pre-con').hide();
+                },
+                error: function (e) {
+                    if (e.status == 400) {
+                        $(".detail-error").text("Unable to delete this Board!");
+                    }
+                    $('.se-pre-con').hide();
+                }
+            });
+        }
+        
+    </script>
