@@ -1,0 +1,338 @@
+﻿@model CMS_DTO.CMSProduct.CMS_ProductsModels
+@using CMS_Shared
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Pin data";
+}
+<style>
+    body {
+        overflow-x: hidden;
+    }
+
+    .info {
+        /*margin-left:20px;*/
+    }
+
+    .img-responsive {
+        height: 236px;
+        margin:auto;
+    }
+
+    .select2-selection--single .select2-selection__placeholder {
+        color: #73879C !important;
+    }
+    .fa-caret-down {
+        line-height: 18px !important;
+        float: right !important;
+    }
+</style>
+
+<div role="main">
+    <div class="se-pre-con" style="display: none;"></div>
+    <div class="_gridview">
+        <div class="page-title">
+            <!-- BEGIN PAGE BAR -->
+            @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Home page" }, { "B", "Pin data" } })
+            <!-- END PAGE BAR -->
+        </div>
+        <div class="page-main">
+            @using (Html.BeginForm("Search", "CMSProducts", FormMethod.Get, new { @class = "form-horizontal search-form", @id = "form-search" }))
+            {
+                <fieldset>
+                    <legend>Filter Pin data by: </legend>
+                </fieldset>
+                <div class="form-group">
+                    <div class="col-md-3 col-sm-8 col-xs-12">
+                        <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 90%">
+                            <i class="fa fa-calendar"></i>&nbsp;
+                            <span></span> <i class="fa fa-caret-down"></i>
+                        </div>
+                    </div>
+
+
+                    @*<div class="col-md-6 col-sm-6 col-xs-12 clsDate" style="width:26% !important">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.FromDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.FromDate, null, new { @class = "label label-danger" })
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
+                            </div>
+                        </div>*@
+
+                    @*<label for="CustomeFromDate" class="col-md-1 col-sm-3 col-xs-12 control-label clsDate">Đến</label>
+                        <div class="col-md-2 col-sm-3 col-xs-12 clsDate" style="width:13% !important">
+                            @Html.TextBoxFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off" })
+                            @Html.ValidationMessageFor(model => model.ToDate, null, new { @class = "label label-danger" })
+                        </div>*@
+                    <div class="col-md-2 col-sm-2 col-xs-12 " style="width:13% !important">
+                        <div class="input-prepend input-group" style="width:100%">
+                            <input type="hidden" id="IsLoadData" value="0" />
+                            @Html.HiddenFor(model => model.ToDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off",@id="txtToDate" })
+                            @Html.HiddenFor(model => model.FromDate, new { @class = "form-control datepicker1 has-feedback-left", @placeholder = "Từ ngày", @autocomplete = "off",@id="txtFromDate" })
+                            @Html.DropDownListFor(model => model.TypeQuantity,
+                                new SelectList(Model.ListQuantity, "Value", "Text", Model.TypeQuantity), "",
+                                new
+                                {
+                                    @class = "form-control select2_multiple",
+                                    @id = "storeDdlViewQuantity",
+                                    @style = "width:100%;"
+                                })
+                            @Html.ValidationMessageFor(model => model.TypeQuantity, null, new { @class = "label" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Board, null, new { @class = "label" })
+                    </div>
+
+                    @*<label for="FromDate" class="col-md-1 col-sm-3 col-xs-12 control-label">Thời gian</label>*@
+                    <div class="col-md-3 col-sm-3 col-xs-12 " style="width:15% !important">
+                        <div class="input-prepend input-group" style="width:100%">
+                            @Html.DropDownListFor(model => model.TypeTime,
+                    new SelectList(Model.ListTime, "Value", "Text", Model.TypeTime), "",
+                    new
+                    {
+                        @class = "form-control select2_multiple",
+                        @id = "storeDdlView",
+                        @style = "width:100%;",
+                        //@onChange = "ChangeDatetime(this);"
+                    })
+                            @Html.ValidationMessageFor(model => model.TypeTime, null, new { @class = "label" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12 ">
+                        <div class="input-prepend input-group" style="width:100%">
+                            @Html.DropDownListFor(model => model.listKeywords,
+                    new SelectList(@ViewBag.Keywords, "Value", "Text", Model.listKeywords), "Please select Key Words",
+                    new
+                    {
+                        @class = "form-control select2_multiple",
+                        @id = "KeywordsDdl",
+                        @style = "width : 100%;",
+                        @multiple = "multiple",
+                    })
+                            @Html.ValidationMessageFor(model => model.listKeywords, null, new { @class = "label label-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-1 col-sm-1 col-xs-12" style="width:4% !important">
+                            <button class="btn btn-primary" id="form-search"><i class="fa fa-search"></i>&nbsp;Load Data</button>
+                        </div>
+                    </div>
+                </div>
+            }
+            @*<div class="gridview" style="height:100%;"></div>*@
+        </div>
+    </div>
+    <div class="detail-view" style="height:100%;display:grid;">
+        <fieldset>
+            <legend>List matched data:</legend>
+        </fieldset>
+        <input type="hidden" id="txtPageIndex" value="1" />
+       <div class="detail-view-grid">
+           @Html.Partial("_ListItem", Model.Crawler)
+       </div>
+        <!-- detail partial view -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
+            console.log(picker.startDate.format('YYYY-MM-DD'));
+            console.log(picker.endDate.format('YYYY-MM-DD'));
+        });
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                //if ($(".pagenum:last").val() <= $(".rowcount").val()) {
+                //    var pagenum = parseInt($(".pagenum:last").val()) + 1;
+                //    getresult('getresult.php?page=' + pagenum);
+                //}
+                var _pageIndex = parseInt($("#txtPageIndex").val()) + 1;
+                $("#txtPageIndex").val(_pageIndex);
+                LoadScroll(_pageIndex);
+            }
+        });
+
+        var start = moment().startOf('day');
+        var end = moment().endOf('day');
+
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+        }
+
+        $('#reportrange').daterangepicker({
+            locale: {
+                format: 'DD/MM/YYYY'
+            },
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'All Time': [moment().subtract(100, 'years').startOf('month'), moment()]
+            }
+        }, cb).on('show.daterangepicker', function (event, data) {
+            var $container = data.container;
+            $container.children('.calendar.right').after($container.children('.calendar.left'));
+        });
+
+        cb(start, end);
+
+        $("#storeDdlViewQuantity").select2({
+            placeholder: "Repin count",
+            allowClear: true
+        });
+
+        $("#storeDdlView").select2({
+            placeholder: "Sort data by",
+            //allowClear: true
+        });
+
+        $("#storeDdlViewPin").select2({
+
+        })
+
+        $("#KeywordsDdl").select2({
+            placeholder: "Keyword",
+            multiple: true,
+        });
+        var selectedValues = [];
+        @if(Model.listKeywords != null && Model.listKeywords.Count > 0)
+        {
+            for(int i = 0; i < Model.listKeywords.Count;i++)
+            {
+                <text>
+                    selectedValues.push('@Model.listKeywords[i]');
+                </text>
+            }
+        }
+                    console.log(selectedValues);
+                    $("#KeywordsDdl").val(selectedValues).trigger('change');
+                   // $("#KeywordsDdl").select2('val', ['afb6348d-e489-4872-8781-74408f01074b','e9f088c7-88dc-4250-9eca-3376010c1e3e']);
+        
+    })
+
+    function LoadScroll(_pageIndex) {
+        var startDate = $('#reportrange').data('daterangepicker').startDate.format("DD/MM/YYYY");
+        var endDate = $('#reportrange').data('daterangepicker').endDate.format("DD/MM/YYYY");
+        var TypeQuantity = $("#storeDdlViewQuantity").val();
+        var TypeTime = $("#storeDdlView").val();
+        var LstKeyWordID = $("#KeywordsDdl").val();
+        var _url = window.location.href;
+        var FilterModel = {
+            CreatedAtFrom: startDate,
+            CreatedAtTo: endDate,
+            PinCountFrom: null,
+            PinCountTo: null,
+            PageIndex: _pageIndex,
+            LstKeyWordID: [],
+            TypeTime: TypeTime,
+            Url: _url
+        };
+        if (TypeQuantity == @Commons.EQuantityType.ZeroToOne.ToString("d")) {
+            FilterModel.PinCountFrom = 0;
+            FilterModel.PinCountTo = 100;
+        }
+        if (TypeQuantity == @Commons.EQuantityType.OneToTwo.ToString("d")) {
+            FilterModel.PinCountFrom = 100;
+            FilterModel.PinCountTo = 200;
+        }
+        if (TypeQuantity == @Commons.EQuantityType.TwoToThree.ToString("d")) {
+            FilterModel.PinCountFrom = 200;
+            FilterModel.PinCountTo = 300;
+        }
+        if (TypeQuantity == @Commons.EQuantityType.ThreeToFour.ToString("d")) {
+            FilterModel.PinCountFrom = 300;
+            FilterModel.PinCountTo = 400;
+        }
+        if (TypeQuantity == @Commons.EQuantityType.FourToFive.ToString("d")) {
+            FilterModel.PinCountFrom = 400;
+            FilterModel.PinCountTo = 500;
+        }
+        if (TypeQuantity == @Commons.EQuantityType.MoreFive.ToString("d")) {
+            FilterModel.PinCountFrom = 500;
+        }
+        if (LstKeyWordID != null && LstKeyWordID.length > 0)
+        {
+            console.log(FilterModel);
+            FilterModel.LstKeyWordID = LstKeyWordID;
+        }
+        var IsLoadData = parseInt($("[id=IsLoadData]").val());
+        if (IsLoadData == 0)
+        {
+            FilterModel = {
+                CreatedAtFrom: null,
+                CreatedAtTo: null,
+                PinCountFrom: null,
+                PinCountTo: null,
+                PageIndex: _pageIndex,
+                LstKeyWordID: [],
+                TypeTime: TypeTime,
+                Url: _url
+            };
+        }
+        $.ajax({
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            url: '@Url.Action("LoadScroll","CMSProducts")',
+            type: "post",
+            dataType: 'html',
+            data: {
+                pinFilter: FilterModel
+            },
+           // processData: false,
+          //  contentType: false,
+            success: function (data) {
+                $('.detail-view-grid').append(data);
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                //  $(".detail-view").html(jqXHR.responseText);
+            }
+        });
+        
+    }
+
+    $("#form-search").on("click").submit(function (e) {
+        var startDate = $('#reportrange').data('daterangepicker').startDate.format("DD/MM/YYYY");
+        var endDate = $('#reportrange').data('daterangepicker').endDate.format("DD/MM/YYYY");
+        $("[id=IsLoadData]").val(1);// set flag click button load data
+        $("[id=txtPageIndex]").val(1);
+        console.log(startDate + " " + endDate);
+        $("[id=txtToDate]").val(endDate);
+        $("[id=txtFromDate]").val(startDate);
+                $.ajax({
+                    beforeSend: function () {
+                        $('.se-pre-con').show();
+                    },
+                    url: $(this).attr('action'),
+                    type: "post",
+                    dataType: 'html',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        $('.detail-view-grid').html(data);
+                    },
+                    complete: function () {
+                        $('.se-pre-con').hide();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        //  $(".detail-view").html(jqXHR.responseText);
+                    }
+                });
+                e.preventDefault();
+            });
+</script>
