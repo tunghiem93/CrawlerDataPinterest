@@ -37,6 +37,7 @@ namespace CMS_Shared.CMSEmployees
                     var lstPinInsert = lstPin.Where(o => !lstPinUpdateID.Contains(o.ID)).ToList();
 
                     /* update pin */
+                    lstPinUpdate = lstPinUpdate.Where(o => o.Status == (byte)Commons.EStatus.Active).ToList();
                     foreach (var uPin in lstPinUpdate)
                     {
                         var repin_count = lstPin.Where(o => o.ID == uPin.ID).Select(o => o.Repin_count).FirstOrDefault();
@@ -236,5 +237,43 @@ namespace CMS_Shared.CMSEmployees
             }
             return result;
         }
+
+        public bool HidePin(string pinID, string createdBy, ref string msg)
+        {
+            NSLog.Logger.Info("HidePin: ", pinID);
+            var result = true;
+
+            m_Semaphore.WaitOne();
+            try
+            {
+                using (var _db = new CMS_Context())
+                {
+                    _db.Database.CommandTimeout = 500;
+                    var pin = _db.CMS_Pin.Where(o => o.ID == pinID).FirstOrDefault();
+                    pin.Status = (byte)Commons.EStatus.Deleted;
+                    pin.UpdatedBy = createdBy;
+                    pin.UpdatedDate = DateTime.Now;
+
+                    // save db 
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "CreateOrUpdate Pin with exception.";
+                result = false;
+                LogHelper.WriteLogs("ErrorHidePin: " + pinID, JsonConvert.SerializeObject(ex));
+                NSLog.Logger.Error("ErrorHidePin: " + pinID, ex);
+            }
+
+            finally
+            {
+                m_Semaphore.Release();
+            }
+            NSLog.Logger.Info("ResponseHidePin: " + pinID, result);
+
+            return result;
+        }
+
     }
 }
