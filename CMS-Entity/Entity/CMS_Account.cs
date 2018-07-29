@@ -39,6 +39,7 @@ namespace CMS_Entity.Entity
         public int? State { get; set; }
 
         public int? Sequence { get; set; }
+        public bool IsActive { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CMS_Board> CMS_Board { get; set; }

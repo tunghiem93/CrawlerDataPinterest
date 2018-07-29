@@ -20,7 +20,11 @@ namespace CMS_Entity.Entity
 
         [StringLength(250)]
         public string BoardName { get; set; }
-
+        public string OwnerName { get; set; }
+        public string Description { get; set; }
+        public string Type { get; set; }
+        public int? Pin_count { get; set; }
+        public int? Sequence { get; set; }
         public int Status { get; set; }
 
         [StringLength(60)]
