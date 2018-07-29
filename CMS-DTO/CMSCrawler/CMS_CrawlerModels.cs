@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS_DTO.CMSBoard;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,14 +26,14 @@ namespace CMS_DTO.CMSCrawler
         public int Repin_count { get; set; }
         public string ID { get; set; }
         public DateTime Created_At { get; set; }
-        public BoardModels Board { get; set; }
+        public CMS_BoardModels Board { get; set; }
         public List<ImageModels> Images { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdateDate { get; set; }
         public string LastTime { get; set; }
         public PinsModels()
         {
-            Board = new BoardModels();
+            Board = new CMS_BoardModels();
             Images = new List<ImageModels>();
         }
     }

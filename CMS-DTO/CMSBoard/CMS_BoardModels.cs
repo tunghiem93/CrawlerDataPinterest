@@ -8,6 +8,7 @@ namespace CMS_DTO.CMSBoard
 {
     public class CMS_BoardModels
     {
+        
         public string description { get; set; }
         public int pin_count { get; set; }
         public string type { get; set; }
@@ -33,6 +34,7 @@ namespace CMS_DTO.CMSBoard
 
     public class CMS_OwnerModels
     {
+        public string id { get; set; }
         public string username { get; set; }
         public bool domain_verified { get; set; }
         public bool is_default_image { get; set; }
