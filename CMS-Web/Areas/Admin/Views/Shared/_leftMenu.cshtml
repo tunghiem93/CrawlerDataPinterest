@@ -30,6 +30,26 @@
                 </a>
             </li>
 
+            @{ if (!user.IsSuperAdmin)
+                {
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" onclick="alert('You are not authorized to access!')" class="nav-link nav-toggle">
+                            <i class="fa fa-credit-card"></i>
+                            <span class="title">FB Accounts</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index","CMSPIAccounts")" class="nav-link nav-toggle">
+                            <i class="fa fa-credit-card"></i>
+                            <span class="title">FB Accounts</span>
+                        </a>
+                    </li>
+                }
+            }
+
             <li class="nav-item">
                 <a href="@Url.Action("Index","CMSProducts")" class="nav-link nav-toggle">
                     <i class="fa fa-pinterest"></i>
@@ -37,46 +57,106 @@
                 </a>
             </li>
 
-            @{if (!user.IsSuperAdmin)
-                {
-                    <li class="nav-item active">
-                        <a href="javascript:void(0)" onclick="alert('You are not authorized to access!')" class="nav-link nav-toggle">
-                            <i class="fa fa-key"></i>
-                            <span class="title">Keywords</span>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item active">
-                        <a href="@Url.Action("Index","CMSKeywords")" class="nav-link nav-toggle">
-                            <i class="fa fa-key"></i>
-                            <span class="title">Keywords</span>
-                        </a>
-                    </li>
-                }
-            }
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link nav-toggle">
+                    <i class="icon-layers"></i>
+                    <span class="title">Keywords Management</span>
+                    <span class="arrow open"></span>
+                </a>
+                <ul class="sub-menu">
+                    @{if (!user.IsSuperAdmin)
+                        {
+                            <li class="nav-item active">
+                                <a href="javascript:void(0)" onclick="alert('You are not authorized to access!')" class="nav-link nav-toggle">
+                                    <i class="fa fa-key"></i>
+                                    <span class="title">&nbsp; Keywords</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Index","CMSKeywords")" class="nav-link nav-toggle">
+                                    <i class="fa fa-key"></i>
+                                    <span class="title">&nbsp; Keywords</span>
+                                </a>
+                            </li>
+                        }
+                    }
 
-            @{if (!user.IsSuperAdmin)
-                {
-                    <li class="nav-item active">
-                        <a href="javascript:void(0)" onclick="alert('You are not authorized to access!')" class="nav-link nav-toggle">
-                            <i class="fa fa-group"></i>
-                            <span class="title">Group Keywords</span>
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item active">
-                        <a href="@Url.Action("Index","CMSGroupKeywords")" class="nav-link nav-toggle">
-                            <i class="fa fa-group"></i>
-                            <span class="title">Group Keywords</span>
-                        </a>
-                    </li>
-                }
-            }
+                    @{if (!user.IsSuperAdmin)
+                        {
+                            <li class="nav-item active">
+                                <a href="javascript:void(0)" onclick="alert('You are not authorized to access!')" class="nav-link nav-toggle">
+                                    <i class="fa fa-group"></i>
+                                    <span class="title">&nbsp; Group Keywords</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Index","CMSGroupKeywords")" class="nav-link nav-toggle">
+                                    <i class="fa fa-group"></i>
+                                    <span class="title">&nbsp; Group Keywords</span>
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link nav-toggle">
+                    <i class="fa fa-keyboard-o"></i>
+                    <span class="title">Board Management</span>
+                    <span class="arrow open"></span>
+                </a>
+                <ul class="sub-menu">
+                    @{if (!user.IsSuperAdmin)
+                        {
+                            <li class="nav-item active">
+                                <a href="javascript:void(0)" onclick="alert('You are not authorized to access!')" class="nav-link nav-toggle">
+                                    <i class="fa fa-key"></i>
+                                    <span class="title">&nbsp; Boards</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Index","CMSBoard")" class="nav-link nav-toggle">
+                                    <i class="fa fa-key"></i>
+                                    <span class="title">&nbsp; Boards</span>
+                                </a>
+                            </li>
+                        }
+                    }
+
+                    @{if (!user.IsSuperAdmin)
+                        {
+                            <li class="nav-item active">
+                                <a href="javascript:void(0)" onclick="alert('You are not authorized to access!')" class="nav-link nav-toggle">
+                                    <i class="fa fa-group"></i>
+                                    <span class="title">&nbsp; Group Boards</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item active">
+                                <a href="@Url.Action("Index","CMSGroupBoards")" class="nav-link nav-toggle">
+                                    <i class="fa fa-group"></i>
+                                    <span class="title">&nbsp; Group Boards</span>
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </li>
+
             
+
         </ul>
         <!-- END SIDEBAR MENU -->
         <!-- END SIDEBAR MENU -->

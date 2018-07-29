@@ -13,6 +13,7 @@ namespace CMS_Entity.Entity
         }
 
         public virtual DbSet<CMS_Employee> CMS_Employee { get; set; }
+        public virtual DbSet<CMS_Account> CMS_Account { get; set; }
         public virtual DbSet<CMS_GroupKey> CMS_GroupKey { get; set; }
         public virtual DbSet<CMS_KeyWord> CMS_KeyWord { get; set; }
         public virtual DbSet<CMS_Pin> CMS_Pin { get; set; }
@@ -50,6 +51,26 @@ namespace CMS_Entity.Entity
                 .IsUnicode(false);
 
             modelBuilder.Entity<CMS_Employee>()
+                .Property(e => e.UpdatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CMS_Account>()
+                .Property(e => e.Id)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CMS_Account>()
+                .Property(e => e.Account)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CMS_Account>()
+                .Property(e => e.Password)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CMS_Account>()
+                .Property(e => e.CreatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CMS_Account>()
                 .Property(e => e.UpdatedBy)
                 .IsUnicode(false);
 

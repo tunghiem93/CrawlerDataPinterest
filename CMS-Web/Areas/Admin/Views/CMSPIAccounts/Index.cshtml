@@ -1,0 +1,212 @@
+﻿@model CMS_DTO.CMSAccount.CMS_AccountModels
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@{ 
+    ViewBag.Title = "Accounts - list accounts";
+}
+
+<div role="main">
+    <div class="se-pre-con" style="display: none;"></div>
+    <div class="page-title">
+        <!-- BEGIN PAGE BAR -->
+        @Html.Partial("_breadcrumb", new Dictionary<string, string> { { "A", "Home page" }, { "B", "Accounts - List accounts" } })
+        <!-- END PAGE BAR -->
+    </div>
+    <div class="page-main">
+        <div class="page-main">
+            @using (Html.BeginForm("LoadGrid", "CMSPIAccounts", FormMethod.Post, new { @class = "form-horizontal search-form" }))
+            {
+                <div class="row" style="margin-bottom:15px;">
+                    <div class="form-inline">
+                        <div class="control-label col-md-1 col-sm-1 col-xs-1 lineHeight"></div>                        
+                        <div class="input-group">
+                            <div class="col-md-3 col-sm-3 col-xs-12" style="display: flex; ">
+                                <div class="">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus-square" style="font-size:14px;"></i><span>&nbsp; Add</span></button>
+                                </div>
+                                <div class="">
+                                    @*<span class="add-on input-group-addon"><i class="glyphicon fa fa-search"></i></span>*@
+                                    <input type="text" name="Account" value="@Model.Account" id="idStrAccount" class="form-control" placeholder="Facebook email, phone..." />
+                                </div>
+                                <div class="">
+                                    <input type="text" name="Password" value="@Model.Password" id="idStrPass" class="form-control" placeholder="Password..." />
+                                </div>
+
+                                @*<label class="label label-danger" style='@string.Format("display:{0}", (user.DuplicateKeyword.Length > 0) ? "block":"none")'>Duplicate Keyword. Please enter again!</label>*@
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            }
+            <div class="gridview" style="height:100%;"></div>
+        </div>
+    </div>
+    <div class="detail-view" style="height:100%;">
+        <!-- detail partial view -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    var AccountID = "";
+
+    $(document).ready(function () {
+        LoadGrid();
+    });
+
+    $(".search-form").submit(function (e) {
+        var account = $("#idStrAccount").val();
+        var pass = $('#idStrPass').val();
+        if (account !== "" && pass !== "")
+            LoadGrid();        
+        return false;
+    });
+    
+    function Delete(btn, id) {
+        $.ajax(
+        {
+            url: '@Url.Action("Delete", "CMSPIAccounts")',
+            type: 'get',
+            data: {
+                ID: id,
+            },
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                //$('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("Unable to delete this account!");
+                }
+                $('.se-pre-con').hide();
+            }
+        });
+    } 
+
+    function GetFBAccountID(AccountId) {
+        AccountID = AccountId;
+        if (AccountID != null && AccountID.length > 0) {            
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetCookiesPIAccount", "CMSPIAccounts")',
+                traditional: true,
+                data: {
+                    AccountID: AccountID,
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (data) {
+                    data = JSON.parse(data);
+                    if (data.Cookies != null && data.Cookies != '') {
+                        $('#strCookies').html(data.Cookies);
+                    }  
+                },
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                complete: function () {
+                    $('.se-pre-con').hide();
+                },
+                error: function (e) {
+                    //if (e.status == 400) {
+                    //    alert("Can not save Cookies!");
+                    //}
+                    $('.se-pre-con').hide();
+                }
+            });
+        }   
+    }
+
+    function ChangeStatus(AccountId) {
+        AccountID = AccountId;
+        if (AccountID != null && AccountID.length > 0) {            
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ChangeStatus", "CMSPIAccounts")',
+                traditional: true,
+                data: {
+                    AccountID: AccountID,
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (data) {
+                    location.reload();
+                },
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                complete: function () {
+                    $('.se-pre-con').hide();
+                },
+                error: function (e) {
+                    $('.se-pre-con').hide();
+                }
+            });
+        }   
+    }
+
+    function SaveCookies(btn, cookies) {
+        $.ajax(
+        {
+            url: '@Url.Action("SaveCookiesPIAccount", "CMSPIAccounts")',
+            type: 'get',
+            data: {
+                ID: AccountID,
+                Cookies: cookies,
+            },
+            dataType: 'html',
+            success: function (data) {
+                location.reload();
+            },
+            beforeSend: function () {
+                $('.se-pre-con').show();
+            },
+            complete: function () {
+                $('.se-pre-con').hide();
+            },
+            error: function (e) {
+                if (e.status == 400) {
+                    $(".detail-error").text("Unable to save this cookies!");
+                }
+                $('.se-pre-con').hide();
+            }
+        });
+    } 
+
+    function AddKeyToGroup(e) {
+        var Cookies = $('#strCookies').text();
+        if (keyID != null && keyID.length > 0) {
+            $.ajax(
+            {
+                url: '@Url.Action("AddKeyToGroup", "CMSKeywords")',
+                type: 'get',
+                data: {
+                    AccountID: keyID,
+                    Cookies: GroupKeyId
+                },
+                dataType: 'html',
+                success: function (data) {
+                },
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                    complete: function () {
+                        alert('Cookies save successful!')
+                    $('.se-pre-con').hide();
+                },
+                    error: function (e) {
+                        if (e.status == 400) {
+                            alert("Can not save Cookies!");
+                        }
+                    $('.se-pre-con').hide();
+                }
+            });
+        }        
+    }
+</script>

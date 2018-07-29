@@ -47,6 +47,13 @@ namespace CMS_Shared
             Inactive = 2,
             Deleted = 9,
         }
+
+        public enum EErrorStatus
+        {
+            Exception = 0,
+            AccPending = 2,
+            AccBlocked = 3,
+        }
         #endregion
 
         public static int WidthProduct = Convert.ToInt16(ConfigurationManager.AppSettings["WidthProduct"]);
