@@ -21,7 +21,7 @@ namespace CMS_Shared.CMSAccount
                     {
                         if (string.IsNullOrEmpty(model.Id))
                         {
-                            var checkDup = cxt.CMS_Account.Where(o => o.Account == model.Account).FirstOrDefault();
+                            var checkDup = cxt.CMS_Account.Where(o => o.Name == model.Account).FirstOrDefault();
 
                             if (checkDup == null)
                             {
@@ -30,9 +30,8 @@ namespace CMS_Shared.CMSAccount
                                 var dateTimeNow = DateTime.Now;
                                 var newAccount = new CMS_Account()
                                 {
-                                    Id = Guid.NewGuid().ToString(),
-                                    Account = model.Account,
-                                    Password = model.Password,
+                                    ID = Guid.NewGuid().ToString(),
+                                    Name = model.Account,
                                     Status = (byte)Commons.EErrorStatus.AccPending,
                                     CreatedBy = model.CreatedBy,
                                     CreatedDate = dateTimeNow,
@@ -103,14 +102,11 @@ namespace CMS_Shared.CMSAccount
                 {
                     var data = cxt.CMS_Account.Select(x => new CMS_AccountModels
                     {
-                        Id = x.Id,
+                        Id = x.ID,
                         CreatedBy = x.CreatedBy,
                         CreatedDate = x.CreatedDate ?? DateTime.Now,
-                        IsActive = x.IsActive,
-                        Sequence = x.Sequence,
-                        Status = x.Status,
-                        Account = x.Account,
-                        Password = x.Password,
+                        Status = x.Status ?? (byte)Commons.EStatus.Inactive,
+                        Account = x.Name,
                         UpdatedBy = x.UpdatedBy,
                         UpdatedDate = x.UpdatedDate ?? DateTime.Now,
                     }).ToList();
@@ -127,7 +123,7 @@ namespace CMS_Shared.CMSAccount
             {
                 using (var cxt = new CMS_Context())
                 {
-                    var data = cxt.CMS_Account.Where(w => w.Id.Equals(accountID)).Select(x => x.Cookies).FirstOrDefault();
+                    var data = cxt.CMS_Account.Where(w => w.ID.Equals(accountID)).Select(x => x.Cookies).FirstOrDefault();
                     return data;
                 }
             }
@@ -178,7 +174,7 @@ namespace CMS_Shared.CMSAccount
                         //    e.IsActive = !e.IsActive;
                         //}
 
-                        e.IsActive = !e.IsActive;
+                        //e.IsActive = !e.IsActive ?? true;
                     }
 
                     cxt.SaveChanges();
