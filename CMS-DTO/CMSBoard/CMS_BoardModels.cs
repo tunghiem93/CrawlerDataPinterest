@@ -52,4 +52,26 @@ namespace CMS_DTO.CMSBoard
         public bool explicitly_followed_by_me { get; set; }
         public string full_name { get; set; }
     }
+
+    public class BoardResourceURLModels
+    {
+        public CMS_BoardURL boards { get; set; }
+    }
+
+    public class CMS_BoardURL
+    {
+        public Dictionary<string, CMS_BoardURLContentModels> content { get; set; }
+
+        public CMS_BoardURL()
+        {
+            content = new Dictionary<string, CMS_BoardURLContentModels>();
+        }
+    }
+
+    public class CMS_BoardURLContentModels
+    {
+       public string id { get; set; }
+       public string type { get; set; }
+       public int pin_count { get; set; }
+    }
 }
