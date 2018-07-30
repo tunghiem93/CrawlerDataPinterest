@@ -31,16 +31,17 @@ namespace CMS_Shared.CMSBoard
                     /* get all key word */
                     var data = _db.CMS_Board.Where(o => o.Status == (byte)Commons.EStatus.Active).Select(o => new CMS_BoardModels()
                     {
-                       id = o.ID,
-                       name = o.BoardName,
-                       type = o.Type,
-                       description = o.Description,
-                       pin_count = o.Pin_count??0,
-                       Sequence = o.Sequence.Value,
-                       owner = new CMS_OwnerModels()
-                       {
-                           username = o.OwnerName,
-                       }
+                        id = o.ID,
+                        name = o.BoardName,
+                        url = o.Url,
+                        type = o.Type,
+                        description = o.Description,
+                        pin_count = o.Pin_count ?? 0,
+                        Sequence = o.Sequence ?? 0,
+                        owner = new CMS_OwnerModels()
+                        {
+                            username = o.OwnerName,
+                        }
                     }).ToList();
 
                     if (!string.IsNullOrEmpty(groupID)) /* filter by group ID */
@@ -80,7 +81,13 @@ namespace CMS_Shared.CMSBoard
                     m_Semaphore.WaitOne();
                     try
                     {
-                        if (string.IsNullOrEmpty(model.id))
+                        if (string.IsNullOrEmpty(model.id)) /* get board ID */
+                        {
+                            model.url = model.url.Trim();
+                            model.id = GetBoardID(model.url);
+                        }
+                        
+                        if (!string.IsNullOrEmpty(model.id))
                         {
                             /* check dup old key */
                             var checkDup = _db.CMS_Board.Where(o => o.ID == model.id).FirstOrDefault();
@@ -96,7 +103,8 @@ namespace CMS_Shared.CMSBoard
                                 {
                                     ID = model.id,
                                     BoardName = model.name,
-                                    OwnerName = model.owner != null ? model.owner.username:"",
+                                    Url = model.url,
+                                    OwnerName = model.owner != null ? model.owner.username : "",
                                     Pin_count = model.pin_count,
                                     Description = model.description,
                                     Sequence = ++curSeq,
@@ -125,10 +133,6 @@ namespace CMS_Shared.CMSBoard
                             _db.SaveChanges();
                             trans.Commit();
                         }
-                        else
-                        {
-                            msg = "Unable to edit key word.";
-                        }
                     }
                     catch (Exception ex)
                     {
@@ -144,6 +148,17 @@ namespace CMS_Shared.CMSBoard
                 }
             }
             return result;
+        }
+
+        private string GetBoardID(string url)
+        {
+            var ret = "";
+            try
+            {
+                ret = Guid.NewGuid().ToString();
+            }
+            catch(Exception ex) {  }
+            return ret;
         }
 
         public bool Delete(string Id, string createdBy, ref string msg)
@@ -309,7 +324,7 @@ namespace CMS_Shared.CMSBoard
                 {
                     /* get key by ID */
                     var keyWord = _db.CMS_Board.Where(o => o.ID.Equals(boardID) && o.Status == (byte)Commons.EStatus.Active).FirstOrDefault();
-                    if(keyWord != null)
+                    if (keyWord != null)
                     {
                         /* check time span crawl */
                         var timeSpanCrawl = DateTime.Now - keyWord.UpdatedDate;
@@ -319,9 +334,9 @@ namespace CMS_Shared.CMSBoard
                         keyWord.UpdatedBy = createdBy;
                         _db.SaveChanges();
 
-                        if(!string.IsNullOrEmpty(keyWord.CrawlAccountID))
+                        if (!string.IsNullOrEmpty(keyWord.CrawlAccountID))
                         {
-                            var _Cookie =  keyWord.CMS_Account.Cookies;
+                            var _Cookie = keyWord.CMS_Account.Cookies;
                             if (!string.IsNullOrEmpty(_Cookie))
                                 CrawlerBoardHelper._Cookies = _Cookie;
                             else
@@ -331,11 +346,11 @@ namespace CMS_Shared.CMSBoard
                         {
                             CrawlerHelper._Cookies = "_b = \"AS+B1gn0GdpGgLQl83JubKX1bG19kiuUUvX8lnvITKDHNq2tJcgqXNIQ0cLN+kjq4KM=\"; _pinterest_pfob = enabled; _ga = GA1.2.229901352.1528170174; pnodepath = \"/pin4\"; fba = True; G_ENABLED_IDPS = google; bei = false; logged_out = True; sessionFunnelEventLogged = 1; cm_sub = denied; _auth = 1; csrftoken = fkrSitmDb4vW2kT1G3GfOkcC8mPvl0kV; _pinterest_sess = \"TWc9PSZWaE0xeDZOVm4yL3Yva0VSazRkRjlHR013bk9mdVJBcU9zVEtEOUhXVjhKSFZmZUEreWJiNDYrV3FubVRoVzdqdDF0dmtDcXErcFF6MmlXQUQ3RDVzWERCWTZYZUt4eXMzemkvOGlXRFZQT1J6MjkwampOZlVJUFEvTnNkTUZYMkJ3dGxPTTRKaVIwdGNJY2h1MUhaSHlFT3djd0huNHE0YmtiTTBZR3dVTVB3d0RyYVE4UC8rMjZCYWo2eTJLNGJVSHR6KzRENjlWVE0rNFMxNWdGMUtVL0VtL2RDZktiUFg3M1Y2Z2dEbllPeUxFR3FOdEd6SUJSRTlBMWs1YkJnbTBlWHhwcC9pMmlqRmoydlh0V2VQSGYvYk1zeXlSM2dIU1dmUXIyRWVxWVBPdTYzbHFjcVhYRWRBT0FTQ3VBNmdWMm5QUlREZDdSY2ZQeE1NWklqSUZxNDllVHF1WUVzRFRrRjBXQnZCMVBGTlYxT0UzM1daeHFOUnBBTzliMzFJdmovQ1hQR2Vvc1pkTHNxL1FjT3FrWllTR1d6VHFrd2g5cFBFMmswM3dIa0dOOHVCbGd6aVlKUkJlZlZNeWVyRTBYREcrQVFlUTdRc1NqMlFlQ3RvaWlZMjJXZ1RURmIxNDA2d2JTODRGNk9BYWpoRzVJTUhLMkJ4UDJGb0NmN0NOQXpmZ0FoR08xcElmWmh5S29OeGRadFpDVWR1RGw3ZzZGRS81SlU4UlhSUVlIWm4wRzRJMGFVaTQzdGI3T2ovSCtHR2ZSWlk0M1RCN2JXSmZJRFdQUUpZWVpRMW5ta0pMbXgwT2NZckZJcHg0RTJrTjJlZWJIdXFSdkdJTWNXc2d3NHpXdzFTRGhKVkN4YmY4SCtJaTdSQSt0K2dhc1VDc0tkNnJIeVFhb3BHeDd6OUwvamZsanRKV0ZYNGFmZWFQNGlqNFVqekVFcGUreHU4UGVqZXRuMFVDNE1QbkFuWnJ6YzNjMTF3dVNZUHJ2MjBwMi8xeXNwbnczMlpSa3cvbzVPQUhQSyswNlU4Y2JQaThxNWN1NWtHVm83SWc0YjJVVW1tUWZYcHpWR2RCYS8wRE0yb2RtNUs0NzRteFp4JjVhOXZDbjB5RGtxL1lROE5WOVNDMjB4c1dMND0=\"";
                         }
-                        
+
                         var boardUrl = HttpUtility.UrlEncode(keyWord.Url);
                         List<CMS_PinOfBoardModels> models = new List<CMS_PinOfBoardModels>();
-                        CrawlerBoardHelper.Get_Tagged_PinOfBoard(ref models, boardUrl,boardID, Commons.PinDefault);
-                        if(models != null)
+                        CrawlerBoardHelper.Get_Tagged_PinOfBoard(ref models, boardUrl, boardID, Commons.PinDefault);
+                        if (models != null)
                         {
                             models = models.GroupBy(o => o.id).Select(o => o.First()).ToList();
                             Parallel.ForEach(models, pin =>
@@ -459,7 +474,7 @@ namespace CMS_Shared.CMSBoard
         }
 
 
-        public bool CreateOrUpdatePinOfBoard(List<CMS_PinOfBoardModels> models,string createdBy,string KeyWordID,  ref string msg)
+        public bool CreateOrUpdatePinOfBoard(List<CMS_PinOfBoardModels> models, string createdBy, string KeyWordID, ref string msg)
         {
             var result = true;
             using (var _db = new CMS_Context())
@@ -535,7 +550,7 @@ namespace CMS_Shared.CMSBoard
                         _db.SaveChanges();
                         _trans.Commit();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         NSLog.Logger.Error("CreateOrUpdatePinOfBoard", ex);
                         result = false;

@@ -26,7 +26,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             _factory = new CMSBoardFactory();
             _facAcc = new CMSAccountFactory();
             ListItem = new List<string>();
-            ListItem = _factory.GetList().Select(o => o.name).ToList();
+            ListItem = _factory.GetList().Select(o => o.url).ToList();
             ViewBag.ListGroupKey = getListGroupKeyword();
         }
         // GET: Admin/CMSBoard
@@ -68,7 +68,7 @@ namespace CMS_Web.Areas.Admin.Controllers
                 bool isCheck = true;
                 if (item.name != null && item.name.Length > 0)
                 {
-                    var temp = ListItem.Where(o => o.Trim() == item.name.Trim()).FirstOrDefault();
+                    var temp = ListItem.Where(o => o.Trim() == item.url.Trim()).FirstOrDefault();
                     if (temp == null)
                     {
                         var result = _factory.CreateOrUpdate(item, ref msg);
