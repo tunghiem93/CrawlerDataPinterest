@@ -129,6 +129,7 @@ namespace CMS_Shared.CMSBoard
                             }
                             else /* duplicate key word */
                             {
+                                result = false;
                                 msg = "Duplicate board.";
                             }
 
