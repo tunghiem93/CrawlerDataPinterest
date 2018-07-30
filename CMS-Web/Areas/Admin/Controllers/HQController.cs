@@ -1,6 +1,7 @@
 ﻿using CMS_DTO.CMSBase;
 using CMS_DTO.CMSSession;
 using CMS_Shared;
+using CMS_Shared.CMSGroupBoard;
 using CMS_Shared.CMSGroupKeywords;
 using CMS_Shared.Keyword;
 using System;
@@ -115,6 +116,25 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
             }
             return lstString;
+        }
+
+        public List<SelectListItem> getListGroupBoards()
+        {
+            var _fac = new CMSGroupBoardFactory();
+            var data = _fac.GetList();
+            var lstGroupBoards = new List<SelectListItem>();
+            if (data != null && data.Any())
+            {
+                foreach (var item in data)
+                {
+                    lstGroupBoards.Add(new SelectListItem
+                    {
+                        Value = item.Id,
+                        Text = item.Name
+                    });
+                }
+            }
+            return lstGroupBoards;
         }
     }
 }

@@ -48,7 +48,7 @@
 </div>
 
 <script type="text/javascript">
-    var keyID = "";
+    var BoardID = "";
 
     $(document).ready(function () {
         LoadGrid();
@@ -222,20 +222,20 @@
         });
     }
 
-    function GetKeyID(KeyId) {
-        keyID = KeyId;
+    function GetBoardID(BoardId) {
+        BoardID = BoardId;
     }
 
     function AddBoardToGroup(e) {
-        var GroupKeyId = $('#groupDdlView').val();
-        if (keyID != null && keyID.length > 0) {
+        var GroupBoardId = $('#groupDdlView').val();
+        if (BoardID != null && BoardID.length > 0) {
             $.ajax(
             {
                 url: '@Url.Action("AddBoardToGroup", "CMSBoards")',
                 type: 'get',
                 data: {
-                    KeyID: keyID,
-                    GroupKeyID: GroupKeyId
+                    BoardID: BoardID,
+                    GroupBoardID: GroupBoardId
                 },
                 dataType: 'html',
                 success: function (data) {

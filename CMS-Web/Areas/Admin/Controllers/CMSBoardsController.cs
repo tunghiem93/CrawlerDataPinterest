@@ -27,7 +27,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             _facAcc = new CMSAccountFactory();
             ListItem = new List<string>();
             ListItem = _factory.GetList().Select(o => o.url).ToList();
-            ViewBag.ListGroupKey = getListGroupKeyword();
+            ViewBag.ListGroupBoard = getListGroupBoards();
         }
         // GET: Admin/CMSBoard
         public ActionResult Index()
@@ -97,10 +97,10 @@ namespace CMS_Web.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult AddBoardToGroup(string KeyID, string GroupKeyID)
+        public ActionResult AddBoardToGroup(string BoardID, string GroupBoardID)
         {
             var msg = "";
-            var result = _factory.AddBoardToGroup(KeyID, GroupKeyID, ref msg);
+            var result = _factory.AddBoardToGroup(BoardID, GroupBoardID, ref msg);
             if (result)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);

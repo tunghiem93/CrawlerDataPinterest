@@ -48,16 +48,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (Model != null && Model.ListKeyOnGroup.Any())
+                                        @if (Model != null && Model.ListBoardOnGroup.Any())
                                         {
-                                            foreach (var item in Model.ListKeyOnGroup)
+                                            foreach (var item in Model.ListBoardOnGroup)
                                             {
                                                 <tr class="odd gradeX rowKey">
                                                     <td class="text-left">
-                                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSProducts" , new { keywordID=item.Id})" target="_blank"><b>@Html.Raw("[" + item.Sequence + "]" + " " + '"' + string.Format("{0}", (item.KeySearch.Length > 25) ? (item.KeySearch.Substring(0, 12) + "...") : item.KeySearch) + '"')</b></a>
+                                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSProducts" , new { BoardID = item.id})" target="_blank"><b>@Html.Raw("[" + item.Sequence + "]" + " " + '"' + string.Format("{0}", (item.url.Length > 25) ? (item.url.Substring(0, 25) + "...") : item.url) + '"')</b></a>
                                                     </td>
                                                     <td>
-                                                        <a class="btn btn-link linkchange" href="@Url.Action(" Index", "CMSProducts" , new { keywordID=item.Id})" target="_blank" style="color: #000 !important; ">
+                                                        <a class="btn btn-link linkchange" href="@Url.Action(" Index", "CMSProducts" , new { BoardID=item.id})" target="_blank" style="color: #000 !important; ">
                                                             <b>@Html.Raw("Last crawl: ")</b>
                                                             @if (string.IsNullOrEmpty(item.StrLastUpdate))
                                                             {
@@ -71,12 +71,12 @@
                                                     </td>
                                                     <td>
                                                         @*<b>@Html.Raw("Total post got:")</b>*@
-                                                        <a class="btn btn-link linkPins" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts" , new { keywordID=item.Id})" target="_blank">@item.Quantity</a>
+                                                        <a class="btn btn-link linkPins" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSProducts" , new { BoardID = item.id})" target="_blank">@item.pin_count</a>
                                                         <b>&nbsp;&nbsp;@Html.Raw("pins")</b>
                                                     </td>
                                                     <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
                                                     <td class="text-center linkchange">
-                                                        <a class="btn btn-sm btn-danger" style="color: #fff !important; " onclick="Delete(this, '@item.Id'); return false;">@Html.Raw("Delete")</a>
+                                                        <a class="btn btn-sm btn-danger" style="color: #fff !important; " onclick="Delete(this, '@item.id'); return false;">@Html.Raw("Delete")</a>
                                                     </td>
                                                 </tr>
                                             }

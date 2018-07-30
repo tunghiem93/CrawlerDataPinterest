@@ -66,7 +66,7 @@
                                     </td>
                                     <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
                                     <td class="text-center linkchange">
-                                        <a id="" onclick="GetKeyID('@item.id')" class="btn btn-primary btn-sm" style="background-color: #337ab7; color: #fff; " data-id="@item.id"
+                                        <a id="" onclick="GetBoardID('@item.id')" class="btn btn-primary btn-sm" style="background-color: #337ab7; color: #fff; " data-id="@item.id"
                                            data-toggle="modal" @*data-backdrop="static"*@ data-target=".bs-example-modal-order-form-Keyword">
                                             <i class="fa fa-plus-square" style="font-size:14px;"></i>
                                             <span>Group</span>
@@ -105,7 +105,7 @@
                             <td style="padding-top:12px; text-align:left" colspan="7">
                                 <div class="col-md-12 col-sm-12 col-xs-12 ">
                                     <div class="input-prepend input-group" style="width:100%">
-                                        @Html.DropDownList("key", new SelectList(ViewBag.ListGroupKey, "Value", "Text"), "",
+                                        @Html.DropDownList("key", new SelectList(ViewBag.ListGroupBoard, "Value", "Text"), "",
                                         new
                                         {
                                             @class = "form-control select2_multiple",
