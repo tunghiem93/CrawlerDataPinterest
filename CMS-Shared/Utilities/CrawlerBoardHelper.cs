@@ -350,7 +350,7 @@ namespace CMS_Shared.Utilities
         }
 
         /* get board_id from url */
-        public static void getBoardIdFromUrl(string url,ref string BoardId)
+        public static void getBoardIdFromUrl(string url,ref string BoardId,ref string BoardName)
         {
             url = "https://www.pinterest.com" + url;
             try
@@ -386,6 +386,7 @@ namespace CMS_Shared.Utilities
                             if(obj != null)
                             {
                                 BoardId = obj.id;
+                                BoardName = obj.name;
                             }
                         }
                     }

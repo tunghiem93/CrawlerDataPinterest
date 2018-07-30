@@ -73,5 +73,6 @@ namespace CMS_DTO.CMSBoard
        public string id { get; set; }
        public string type { get; set; }
        public int pin_count { get; set; }
+       public string name { get; set; }
     }
 }
