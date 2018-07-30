@@ -43,14 +43,29 @@ namespace CMS_Shared.CMSEmployees
                         lstPinUpdate = lstPinUpdate.Where(o => o.Status == (byte)Commons.EStatus.Active).ToList();
                         foreach (var uPin in lstPinUpdate)
                         {
-                            var repin_Board = lstPin.Where(o => o.ID == uPin.ID).Select(o => new { Repin_count = o.Repin_count, BoardID = o.Board != null ? o.Board.id : null, BoardName = o.Board != null ? o.Board.name : null }).FirstOrDefault();
+                            var repin_Board = lstPin.Where(o => o.ID == uPin.ID).Select(o => new {
+                                Repin_count = o.Repin_count,
+                                BoardID = o.Board != null ? o.Board.id : null,
+                                BoardName = o.Board != null ? o.Board.name : null,
+                                BoardUrl = o.Board != null ? o.Board.url : null
+                            }).FirstOrDefault();
+
                             if (repin_Board.Repin_count != uPin.Repin_count)
                             {
                                 uPin.Repin_count = repin_Board.Repin_count;
                                 uPin.UpdatedBy = createdBy;
                                 uPin.UpdatedDate = DateTime.Now;
+                            }
+
+                            /* update board info */
+                            if (string.IsNullOrEmpty(uPin.BoardUrl))
+                            {
                                 uPin.BoardID = repin_Board.BoardID;
                                 uPin.BoardName = repin_Board.BoardName;
+                                uPin.BoardUrl = repin_Board.BoardUrl;
+
+                                uPin.UpdatedBy = createdBy;
+                                uPin.UpdatedDate = DateTime.Now;
                             }
                         }
 
