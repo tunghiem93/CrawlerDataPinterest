@@ -3,6 +3,7 @@ using CMS_DTO.CMSCrawler;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -217,7 +218,7 @@ namespace CMS_Shared.Utilities
             return false;
         }
 
-        /* parse data board from api */
+        /* parse data pin of board from api */
         public static void getDataPinOfBoard(string url, ref List<CMS_PinOfBoardModels> model, ref string bookmarks)
         {
             dynamic dataLog = null;
@@ -254,6 +255,86 @@ namespace CMS_Shared.Utilities
                             {
                                 if (dataBookmark.ContainsKey("bookmark"))
                                     bookmarks = dataBookmark["bookmark"];
+                            }
+                        }
+                    }
+                    streamReader.Close();
+                    streamReader.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                NSLog.Logger.Info("ErrorGetDataPinterest: ", dataLog);
+                NSLog.Logger.Info("ErrorGetDataPinterest: ", ex);
+            }
+        }
+
+
+        public static bool Get_Tagged_PinDetail(ref CMS_PinOfBoardModels model, string pinId)
+        {
+            string data = string.Empty;
+            var urlOrg = Commons.HostApiPinDetail + "pin/"+pinId;
+            var path = string.Empty;
+            var objJson = new
+            {
+                options = new
+                {
+                    id = pinId,
+                    field_set_key = "detailed",
+                    is_landing_page = false,
+                },
+                context = new
+                {
+                },
+            };
+            string input = JsonConvert.SerializeObject(objJson);
+            path = "";
+            string[] pattern = new string[] { "\n", "\r", "\t" };
+            string[] replacements = new string[] { "", "", "" };
+            data = InitBaseBoard.Preg_replace(input, pattern, replacements);
+            var timestamp = InitBaseBoard.GetTimestamp(DateTime.Now);
+            var url = urlOrg + "&data=" + data + "" + path + "&_=" + timestamp;
+            var bookmarks = "";
+            getDataPinDetail(url, ref model);
+
+            if (!string.IsNullOrEmpty(bookmarks))
+            {
+                Get_Tagged_PinDetail(ref model, pinId);
+            }
+            return false;
+        }
+
+        /* parse data pin of board from api */
+        public static void getDataPinDetail(string url, ref CMS_PinOfBoardModels model)
+        {
+            dynamic dataLog = null;
+            try
+            {
+                Uri uri = new Uri(url);
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
+                httpWebRequest.Headers["X-Requested-With"] = "XMLHttpRequest";
+                httpWebRequest.Headers["Cookie"] = _Cookies;
+                httpWebRequest.Timeout = 100000;
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var answer = streamReader.ReadToEnd();
+                    JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+                    dynamic dobj = jsonSerializer.Deserialize<dynamic>(answer);
+                    dataLog = dobj;
+                    if (dobj != null)
+                    {
+                        var resource_data_cache = dobj["resource_data_cache"];
+                        if (resource_data_cache != null)
+                        {
+                            var data = resource_data_cache[0]["data"];
+                            if (data != null)
+                            {
+                                var json = new JavaScriptSerializer().Serialize(data);
+                                CMS_PinOfBoardDetailModels objBoards = JsonConvert.DeserializeObject<CMS_PinOfBoardDetailModels>(json);
+                                if (objBoards != null)
+                                    model.created_at = DateTime.Parse(objBoards.created_at.ToString(), new CultureInfo("en-US", true)); ;
                             }
                         }
                     }

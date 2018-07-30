@@ -15,7 +15,7 @@ namespace CMS_DTO.CMSBoard
         public string link { get; set; }
         public int repin_count { get; set; }
         public CMS_BoardModels board { get; set; }
-
+        public DateTime created_at { get; set; }
         public CMS_PinOfBoardModels()
         {
             images = new Dictionary<string, CMS_CoverImagesModels>();

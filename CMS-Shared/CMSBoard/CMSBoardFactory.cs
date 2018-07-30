@@ -337,6 +337,12 @@ namespace CMS_Shared.CMSBoard
                         CrawlerBoardHelper.Get_Tagged_PinOfBoard(ref models, boardUrl,boardID, Commons.PinDefault);
                         if(models != null)
                         {
+                            models = models.GroupBy(o => o.id).Select(o => o.First()).ToList();
+                            Parallel.ForEach(models, pin =>
+                            {
+                                CrawlerBoardHelper.Get_Tagged_PinDetail(ref pin, pin.id);
+                            });
+
                             CreateOrUpdatePinOfBoard(models, createdBy, keyWord.ID, ref msg);
                         }
                     }
@@ -497,8 +503,7 @@ namespace CMS_Shared.CMSBoard
                                 Link = pin.link,
                                 Repin_count = pin.repin_count,
                                 ImageUrl = pin.images.Values.Select(o => o.url).First(),
-                                //Created_At = pin.Created_At,
-                                Created_At = DateTime.Now,
+                                Created_At = pin.created_at,
                                 Domain = pin.domain,
                                 Status = (byte)Commons.EStatus.Active,
                                 CreatedBy = createdBy,
