@@ -498,14 +498,17 @@ namespace CMS_Shared.CMSBoard
                         lstPinUpdate = lstPinUpdate.Where(o => o.Status == (byte)Commons.EStatus.Active).ToList();
                         foreach (var uPin in lstPinUpdate)
                         {
-                            var repin_Board = models.Where(o => o.id == uPin.ID).Select(o => new { Repin_count = o.repin_count, BoardID = o.board != null ? o.board.id : null, BoardName = o.board != null ? o.board.name : null }).FirstOrDefault();
+                            var repin_Board = models.Where(o => o.id == uPin.ID).Select(o => new {
+                                Repin_count = o.repin_count,
+                                BoardID = o.board != null ? o.board.id : null,
+                                BoardName = o.board != null ? o.board.name : null,
+                                BoardUrl = o.board != null ? o.board.url : null,
+                            }).FirstOrDefault();
                             if (repin_Board.Repin_count != uPin.Repin_count)
                             {
                                 uPin.Repin_count = repin_Board.Repin_count;
                                 uPin.UpdatedBy = createdBy;
                                 uPin.UpdatedDate = DateTime.Now;
-                                uPin.BoardID = repin_Board.BoardID;
-                                uPin.BoardName = repin_Board.BoardName;
                             }
                         }
 
@@ -529,6 +532,7 @@ namespace CMS_Shared.CMSBoard
                                 UpdatedDate = DateTime.Now,
                                 BoardID = pin.board != null ? pin.board.id : null,
                                 BoardName = pin.board != null ? pin.board.name : null,
+                                BoardUrl = pin.board != null ? pin.board.url : null,
                             });
 
                             listInsertBoard_Pin.Add(new CMS_R_Board_Pin
