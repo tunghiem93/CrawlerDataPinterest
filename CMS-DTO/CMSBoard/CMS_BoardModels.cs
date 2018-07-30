@@ -14,6 +14,7 @@ namespace CMS_DTO.CMSBoard
         public string type { get; set; }
         public string id { get; set; }
         public string name { get; set; }
+        public string url { get; set; }
 
         public string AccountID { get; set; }
         public string StrLastUpdate { get; set; }

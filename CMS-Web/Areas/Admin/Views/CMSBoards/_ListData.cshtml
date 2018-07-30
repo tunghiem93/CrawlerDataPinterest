@@ -67,7 +67,7 @@
                                             <i class="fa fa-plus-square" style="font-size:14px;"></i>
                                             <span>Group</span>
                                         </a>
-                                        <a class="btn btn-sm btn-default cls-@item.id" style="color: #17a2b8 !important; border-color: #17a2b8 !important; " onclick="CrawlerKeyword('@item.id', '@item.name'); return false;">@Html.Raw("Crawl now")</a>
+                                        <a class="btn btn-sm btn-default cls-@item.id" style="color: #17a2b8 !important; border-color: #17a2b8 !important; " onclick="CrawlerBoard('@item.id', '@item.name'); return false;">@Html.Raw("Crawl now")</a>
                                         <a class="btn btn-sm btn-default" style="color: #fff !important; background-color: #6c757d !important; border-color: #6c757d !important; " onclick="Delete(this, '@item.id'); return false;">@Html.Raw("Delete")</a>
                                         <a class="btn btn-sm btn-danger" onclick="DeleteAndClearPost(this, '@item.id'); return false;">@Html.Raw("Delete and clear posts")</a>
                                     </td>

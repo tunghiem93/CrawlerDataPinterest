@@ -142,6 +142,131 @@ namespace CMS_Shared.Utilities
                 NSLog.Logger.Info("ErrorGetDataPinterest: ", ex);
             }
         }
+
+
+        public static bool Get_Tagged_PinOfBoard(ref List<CMS_PinOfBoardModels> model, string board_url, string boardId, int limit = 1, string bookmarks_str = null, int page = 1)
+        {
+            if (page > limit) return false;
+            var next_page = false;
+            if (!string.IsNullOrEmpty(bookmarks_str))
+                next_page = true;
+
+            string data = string.Empty;
+            var urlOrg = Commons.HostApiPinOfBoard + board_url;
+            var path = string.Empty;
+            if (!next_page)
+            {
+                var objJson = new
+                {
+                    options = new
+                    {
+                        board_id = boardId,
+                        board_url= board_url,
+                        field_set_key = "react_grid_pin",
+                        filter_section_pins = true,
+                        layout = "default",
+                        page_size = 25,
+                        redux_normalize_feed = true,
+                    },
+                    context = new
+                    {
+                    },
+                };
+                string input = JsonConvert.SerializeObject(objJson);
+                urlOrg = Commons.HostApiPinOfBoard + board_url;
+                path = "";
+                string[] pattern = new string[] { "\n", "\r", "\t" };
+                string[] replacements = new string[] { "", "", "" };
+                data = InitBaseBoard.Preg_replace(input, pattern, replacements);
+            }
+            else
+            {
+                var objJson = new
+                {
+                    options = new
+                    {
+                        board_id = boardId,
+                        board_url = board_url,
+                        field_set_key = "react_grid_pin",
+                        filter_section_pins = true,
+                        layout = "default",
+                        page_size = 25,
+                        redux_normalize_feed = true,
+                        bookmarks = new string[] { bookmarks_str },
+                    },
+                    context = new
+                    {
+                    },
+                };
+                string input = JsonConvert.SerializeObject(objJson);
+                urlOrg = Commons.HostApiPinOfBoard + board_url;
+                path = "";
+                string[] pattern = new string[] { "\n", "\r", "\t" };
+                string[] replacements = new string[] { "", "", "" };
+                data = InitBaseBoard.Preg_replace(input, pattern, replacements);
+            }
+            var timestamp = InitBaseBoard.GetTimestamp(DateTime.Now);
+            var url = urlOrg + "&data=" + data + "" + path + "&_=" + timestamp;
+            var bookmarks = "";
+            getDataPinOfBoard(url, ref model, ref bookmarks);
+
+            if (!string.IsNullOrEmpty(bookmarks))
+            {
+                Get_Tagged_PinOfBoard(ref model, board_url, boardId, limit, bookmarks, ++page);
+            }
+            return false;
+        }
+
+        /* parse data board from api */
+        public static void getDataPinOfBoard(string url, ref List<CMS_PinOfBoardModels> model, ref string bookmarks)
+        {
+            dynamic dataLog = null;
+            try
+            {
+                Uri uri = new Uri(url);
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
+                httpWebRequest.Headers["X-Requested-With"] = "XMLHttpRequest";
+                httpWebRequest.Headers["Cookie"] = _Cookies;
+                httpWebRequest.Timeout = 100000;
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var answer = streamReader.ReadToEnd();
+                    JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+                    dynamic dobj = jsonSerializer.Deserialize<dynamic>(answer);
+                    dataLog = dobj;
+                    if (dobj != null)
+                    {
+                        var resource_data_cache = dobj["resource_data_cache"];
+                        if (resource_data_cache != null)
+                        {
+                            var data = resource_data_cache[0]["data"];
+                            if (data != null)
+                            {
+                                var json = new JavaScriptSerializer().Serialize(data);
+                                List<CMS_PinOfBoardModels> objBoards = JsonConvert.DeserializeObject<List<CMS_PinOfBoardModels>>(json);
+                                if (objBoards != null)
+                                    model.AddRange(objBoards);
+                            }
+                            var dataBookmark = resource_data_cache[0]["response"];
+                            if (dataBookmark != null)
+                            {
+                                if (dataBookmark.ContainsKey("bookmark"))
+                                    bookmarks = dataBookmark["bookmark"];
+                            }
+                        }
+                    }
+                    streamReader.Close();
+                    streamReader.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                NSLog.Logger.Info("ErrorGetDataPinterest: ", dataLog);
+                NSLog.Logger.Info("ErrorGetDataPinterest: ", ex);
+            }
+        }
     }
 
     public static class InitBaseBoard

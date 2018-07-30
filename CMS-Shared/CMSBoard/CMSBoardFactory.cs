@@ -36,6 +36,7 @@ namespace CMS_Shared.CMSBoard
                        type = o.Type,
                        description = o.Description,
                        pin_count = o.Pin_count??0,
+                       Sequence = o.Sequence.Value,
                        owner = new CMS_OwnerModels()
                        {
                            username = o.OwnerName,
@@ -307,7 +308,38 @@ namespace CMS_Shared.CMSBoard
                 using (var _db = new CMS_Context())
                 {
                     /* get key by ID */
-                    
+                    var keyWord = _db.CMS_Board.Where(o => o.ID.Equals(boardID) && o.Status == (byte)Commons.EStatus.Active).FirstOrDefault();
+                    if(keyWord != null)
+                    {
+                        /* check time span crawl */
+                        var timeSpanCrawl = DateTime.Now - keyWord.UpdatedDate;
+                        /* update crawer date */
+                        var bkTime = keyWord.UpdatedDate;
+                        keyWord.UpdatedDate = DateTime.Now;
+                        keyWord.UpdatedBy = createdBy;
+                        _db.SaveChanges();
+
+                        if(!string.IsNullOrEmpty(keyWord.CrawlAccountID))
+                        {
+                            var _Cookie =  keyWord.CMS_Account.Cookies;
+                            if (!string.IsNullOrEmpty(_Cookie))
+                                CrawlerBoardHelper._Cookies = _Cookie;
+                            else
+                                CrawlerHelper._Cookies = "_b = \"AS+B1gn0GdpGgLQl83JubKX1bG19kiuUUvX8lnvITKDHNq2tJcgqXNIQ0cLN+kjq4KM=\"; _pinterest_pfob = enabled; _ga = GA1.2.229901352.1528170174; pnodepath = \"/pin4\"; fba = True; G_ENABLED_IDPS = google; bei = false; logged_out = True; sessionFunnelEventLogged = 1; cm_sub = denied; _auth = 1; csrftoken = fkrSitmDb4vW2kT1G3GfOkcC8mPvl0kV; _pinterest_sess = \"TWc9PSZWaE0xeDZOVm4yL3Yva0VSazRkRjlHR013bk9mdVJBcU9zVEtEOUhXVjhKSFZmZUEreWJiNDYrV3FubVRoVzdqdDF0dmtDcXErcFF6MmlXQUQ3RDVzWERCWTZYZUt4eXMzemkvOGlXRFZQT1J6MjkwampOZlVJUFEvTnNkTUZYMkJ3dGxPTTRKaVIwdGNJY2h1MUhaSHlFT3djd0huNHE0YmtiTTBZR3dVTVB3d0RyYVE4UC8rMjZCYWo2eTJLNGJVSHR6KzRENjlWVE0rNFMxNWdGMUtVL0VtL2RDZktiUFg3M1Y2Z2dEbllPeUxFR3FOdEd6SUJSRTlBMWs1YkJnbTBlWHhwcC9pMmlqRmoydlh0V2VQSGYvYk1zeXlSM2dIU1dmUXIyRWVxWVBPdTYzbHFjcVhYRWRBT0FTQ3VBNmdWMm5QUlREZDdSY2ZQeE1NWklqSUZxNDllVHF1WUVzRFRrRjBXQnZCMVBGTlYxT0UzM1daeHFOUnBBTzliMzFJdmovQ1hQR2Vvc1pkTHNxL1FjT3FrWllTR1d6VHFrd2g5cFBFMmswM3dIa0dOOHVCbGd6aVlKUkJlZlZNeWVyRTBYREcrQVFlUTdRc1NqMlFlQ3RvaWlZMjJXZ1RURmIxNDA2d2JTODRGNk9BYWpoRzVJTUhLMkJ4UDJGb0NmN0NOQXpmZ0FoR08xcElmWmh5S29OeGRadFpDVWR1RGw3ZzZGRS81SlU4UlhSUVlIWm4wRzRJMGFVaTQzdGI3T2ovSCtHR2ZSWlk0M1RCN2JXSmZJRFdQUUpZWVpRMW5ta0pMbXgwT2NZckZJcHg0RTJrTjJlZWJIdXFSdkdJTWNXc2d3NHpXdzFTRGhKVkN4YmY4SCtJaTdSQSt0K2dhc1VDc0tkNnJIeVFhb3BHeDd6OUwvamZsanRKV0ZYNGFmZWFQNGlqNFVqekVFcGUreHU4UGVqZXRuMFVDNE1QbkFuWnJ6YzNjMTF3dVNZUHJ2MjBwMi8xeXNwbnczMlpSa3cvbzVPQUhQSyswNlU4Y2JQaThxNWN1NWtHVm83SWc0YjJVVW1tUWZYcHpWR2RCYS8wRE0yb2RtNUs0NzRteFp4JjVhOXZDbjB5RGtxL1lROE5WOVNDMjB4c1dMND0=\"";
+                        }
+                        else
+                        {
+                            CrawlerHelper._Cookies = "_b = \"AS+B1gn0GdpGgLQl83JubKX1bG19kiuUUvX8lnvITKDHNq2tJcgqXNIQ0cLN+kjq4KM=\"; _pinterest_pfob = enabled; _ga = GA1.2.229901352.1528170174; pnodepath = \"/pin4\"; fba = True; G_ENABLED_IDPS = google; bei = false; logged_out = True; sessionFunnelEventLogged = 1; cm_sub = denied; _auth = 1; csrftoken = fkrSitmDb4vW2kT1G3GfOkcC8mPvl0kV; _pinterest_sess = \"TWc9PSZWaE0xeDZOVm4yL3Yva0VSazRkRjlHR013bk9mdVJBcU9zVEtEOUhXVjhKSFZmZUEreWJiNDYrV3FubVRoVzdqdDF0dmtDcXErcFF6MmlXQUQ3RDVzWERCWTZYZUt4eXMzemkvOGlXRFZQT1J6MjkwampOZlVJUFEvTnNkTUZYMkJ3dGxPTTRKaVIwdGNJY2h1MUhaSHlFT3djd0huNHE0YmtiTTBZR3dVTVB3d0RyYVE4UC8rMjZCYWo2eTJLNGJVSHR6KzRENjlWVE0rNFMxNWdGMUtVL0VtL2RDZktiUFg3M1Y2Z2dEbllPeUxFR3FOdEd6SUJSRTlBMWs1YkJnbTBlWHhwcC9pMmlqRmoydlh0V2VQSGYvYk1zeXlSM2dIU1dmUXIyRWVxWVBPdTYzbHFjcVhYRWRBT0FTQ3VBNmdWMm5QUlREZDdSY2ZQeE1NWklqSUZxNDllVHF1WUVzRFRrRjBXQnZCMVBGTlYxT0UzM1daeHFOUnBBTzliMzFJdmovQ1hQR2Vvc1pkTHNxL1FjT3FrWllTR1d6VHFrd2g5cFBFMmswM3dIa0dOOHVCbGd6aVlKUkJlZlZNeWVyRTBYREcrQVFlUTdRc1NqMlFlQ3RvaWlZMjJXZ1RURmIxNDA2d2JTODRGNk9BYWpoRzVJTUhLMkJ4UDJGb0NmN0NOQXpmZ0FoR08xcElmWmh5S29OeGRadFpDVWR1RGw3ZzZGRS81SlU4UlhSUVlIWm4wRzRJMGFVaTQzdGI3T2ovSCtHR2ZSWlk0M1RCN2JXSmZJRFdQUUpZWVpRMW5ta0pMbXgwT2NZckZJcHg0RTJrTjJlZWJIdXFSdkdJTWNXc2d3NHpXdzFTRGhKVkN4YmY4SCtJaTdSQSt0K2dhc1VDc0tkNnJIeVFhb3BHeDd6OUwvamZsanRKV0ZYNGFmZWFQNGlqNFVqekVFcGUreHU4UGVqZXRuMFVDNE1QbkFuWnJ6YzNjMTF3dVNZUHJ2MjBwMi8xeXNwbnczMlpSa3cvbzVPQUhQSyswNlU4Y2JQaThxNWN1NWtHVm83SWc0YjJVVW1tUWZYcHpWR2RCYS8wRE0yb2RtNUs0NzRteFp4JjVhOXZDbjB5RGtxL1lROE5WOVNDMjB4c1dMND0=\"";
+                        }
+                        
+                        var boardUrl = HttpUtility.UrlEncode(keyWord.Url);
+                        List<CMS_PinOfBoardModels> models = new List<CMS_PinOfBoardModels>();
+                        CrawlerBoardHelper.Get_Tagged_PinOfBoard(ref models, boardUrl,boardID, Commons.PinDefault);
+                        if(models != null)
+                        {
+                            CreateOrUpdatePinOfBoard(models, createdBy, keyWord.ID, ref msg);
+                        }
+                    }
                 }
 
                 NSLog.Logger.Info("ResponseCrawlData: " + boardID, result);
@@ -416,6 +448,100 @@ namespace CMS_Shared.CMSBoard
             {
                 msg = "Can't delete data.";
                 result = false;
+            }
+            return result;
+        }
+
+
+        public bool CreateOrUpdatePinOfBoard(List<CMS_PinOfBoardModels> models,string createdBy,string KeyWordID,  ref string msg)
+        {
+            var result = true;
+            using (var _db = new CMS_Context())
+            {
+                using (var _trans = _db.Database.BeginTransaction())
+                {
+                    m_Semaphore.WaitOne();
+                    try
+                    {
+                        _db.Database.CommandTimeout = 500;
+                        models = models.GroupBy(x => x.id).Select(x => x.First()).ToList();
+                        models = models.Where(x => !string.IsNullOrEmpty(x.id) && x.id.Length <= 60).ToList();
+                        var lstPinID = models.Select(o => o.id).ToList();
+                        var lstPinUpdate = _db.CMS_Pin.Where(o => lstPinID.Contains(o.ID)).ToList();
+                        var lstPinUpdateID = lstPinUpdate.Select(o => o.ID).ToList();
+                        var lstPinInsert = models.Where(o => !lstPinUpdateID.Contains(o.id)).ToList();
+
+                        /* update pin */
+                        lstPinUpdate = lstPinUpdate.Where(o => o.Status == (byte)Commons.EStatus.Active).ToList();
+                        foreach (var uPin in lstPinUpdate)
+                        {
+                            var repin_Board = models.Where(o => o.id == uPin.ID).Select(o => new { Repin_count = o.repin_count, BoardID = o.board != null ? o.board.id : null, BoardName = o.board != null ? o.board.name : null }).FirstOrDefault();
+                            if (repin_Board.Repin_count != uPin.Repin_count)
+                            {
+                                uPin.Repin_count = repin_Board.Repin_count;
+                                uPin.UpdatedBy = createdBy;
+                                uPin.UpdatedDate = DateTime.Now;
+                                uPin.BoardID = repin_Board.BoardID;
+                                uPin.BoardName = repin_Board.BoardName;
+                            }
+                        }
+
+                        /* insert new pin */
+                        var listInsertDB = new List<CMS_Pin>();
+                        var listInsertBoard_Pin = new List<CMS_R_Board_Pin>();
+                        foreach (var pin in lstPinInsert)
+                        {
+                            listInsertDB.Add(new CMS_Pin()
+                            {
+                                ID = pin.id,
+                                Link = pin.link,
+                                Repin_count = pin.repin_count,
+                                ImageUrl = pin.images.Values.Select(o => o.url).First(),
+                                //Created_At = pin.Created_At,
+                                Created_At = DateTime.Now,
+                                Domain = pin.domain,
+                                Status = (byte)Commons.EStatus.Active,
+                                CreatedBy = createdBy,
+                                CreatedDate = DateTime.Now,
+                                UpdatedBy = createdBy,
+                                UpdatedDate = DateTime.Now,
+                                BoardID = pin.board != null ? pin.board.id : null,
+                                BoardName = pin.board != null ? pin.board.name : null,
+                            });
+
+                            listInsertBoard_Pin.Add(new CMS_R_Board_Pin
+                            {
+                                ID = Guid.NewGuid().ToString(),
+                                BoardID = pin.board != null ? pin.board.id : null,
+                                PinID = pin.id,
+                                Status = (byte)Commons.EStatus.Active,
+                                CreatedBy = createdBy,
+                                CreatedDate = DateTime.Now,
+                                UpdatedBy = createdBy,
+                                UpdatedDate = DateTime.Now,
+                            });
+                        }
+                        if (listInsertDB.Count > 0)
+                            _db.CMS_Pin.AddRange(listInsertDB);
+                        /* TABLE BOARD_PIN */
+                        if (listInsertBoard_Pin.Count > 0)
+                            _db.CMS_R_Board_Pin.AddRange(listInsertBoard_Pin);
+
+                        _db.SaveChanges();
+                        _trans.Commit();
+                    }
+                    catch(Exception ex)
+                    {
+                        NSLog.Logger.Error("CreateOrUpdatePinOfBoard", ex);
+                        result = false;
+                        _trans.Rollback();
+                    }
+                    finally
+                    {
+                        _db.Dispose();
+                        m_Semaphore.Release();
+                    }
+                }
             }
             return result;
         }

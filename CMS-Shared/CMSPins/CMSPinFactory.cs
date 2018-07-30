@@ -86,6 +86,10 @@ namespace CMS_Shared.CMSEmployees
                             lstBoard = lstBoard.Where(o => !lstBoardId.Contains(o.Board.id)).ToList();
                         }
                         var lstInsertBoard = new List<CMS_Board>();
+                        /* get current seq */
+                        var curSeq = _db.CMS_Board.OrderByDescending(o => o.Sequence).Select(o => o.Sequence).FirstOrDefault();
+                        if (curSeq == null)
+                            curSeq = 0;
                         foreach (var item in lstBoard)
                         {
                             lstInsertBoard.Add(new CMS_Board
@@ -99,8 +103,8 @@ namespace CMS_Shared.CMSEmployees
                                 UpdatedDate = DateTime.Now,
                                 Description = item.Board.description,
                                 Pin_count = item.Board.pin_count,
-                                Sequence = 0,
-                                
+                                Url = item.Board.url,
+                                Sequence = curSeq ++,
                             });
                         }
                         _db.CMS_Board.AddRange(lstInsertBoard);

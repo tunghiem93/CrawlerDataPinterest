@@ -26,7 +26,7 @@ namespace CMS_Entity.Entity
         public int? Pin_count { get; set; }
         public int? Sequence { get; set; }
         public int Status { get; set; }
-
+        public string Url { get; set; }
         [StringLength(60)]
         public string CreatedBy { get; set; }
 
