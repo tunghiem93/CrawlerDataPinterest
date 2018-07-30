@@ -28,7 +28,7 @@
                     <p style="background-color:#f8d7da;height:35px;line-height:35px;border-radius:5px !important">&nbsp;&nbsp;<span>RePin:</span> &nbsp;&nbsp;<span style="color:#721c24;font-weight:bold">@item.Repin_count</span> </p>
                     @if (item.Board != null && !string.IsNullOrEmpty(item.Board.name))
                     {
-                    <p title="@string.Format("{0}", !string.IsNullOrEmpty(item.Board.name) ? item.Board.name : "No Board")" style="background-color:#ccc;height:35px;line-height:35px;border-radius:5px !important"><span></span> &nbsp;&nbsp;<span style="color:#721c24;font-weight:bold">@string.Format("{0}", !string.IsNullOrEmpty(item.Board.name) && item.Board.name.Length > 17 ? item.Board.name.Substring(0, 17) + "..." : "No Board")</span><a onclick="SendToBoard('@item.Board.id', '@item.Board.name')" title="Send to Boards Manager" style="text-decoration: none; float: right; padding-right: 3px; ">&nbsp;<span class="fa fa-share-square-o"></span></a></p>
+                    <p title="@string.Format("{0}", !string.IsNullOrEmpty(item.Board.name) ? item.Board.name : "No Board")" style="background-color:#ccc;height:35px;line-height:35px;border-radius:5px !important"><span></span> &nbsp;&nbsp;<span style="color:#721c24;font-weight:bold">@string.Format("{0}", !string.IsNullOrEmpty(item.Board.name) && item.Board.name.Length > 17 ? item.Board.name.Substring(0, 17) + "..." : "No Board")</span><a onclick="SendToBoard('@item.Board.id', '@item.Board.name', '@item.Board.url')" title="Send to Boards Manager" style="text-decoration: none; float: right; padding-right: 3px; ">&nbsp;<span class="fa fa-share-square-o"></span></a></p>
                     } 
                 </div>
             </div>
@@ -37,14 +37,15 @@
 }
 
 <script type="text/javascript">
-    function SendToBoard(id, board) {
+    function SendToBoard(id, board, url) {
         $.ajax(
         {
             url: '@Url.Action("SendToBoard", "CMSProducts")',
             type: 'get',
             data: {
                 ID: id,
-                Board: board
+                Board: board,
+                Url: url
             },
             dataType: 'html',
             success: function () {

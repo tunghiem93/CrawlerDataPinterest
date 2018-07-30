@@ -31,8 +31,6 @@ namespace CMS_DTO.CMSCrawler
         public DateTime CreatedDate { get; set; }
         public DateTime UpdateDate { get; set; }
         public string LastTime { get; set; }
-        public string BoardName { get; set; }
-        public string BoardID { get; set; }
         public PinsModels()
         {
             Board = new CMS_BoardModels();

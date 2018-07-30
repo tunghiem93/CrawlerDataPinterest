@@ -1,4 +1,5 @@
-﻿using CMS_DTO.CMSCrawler;
+﻿using CMS_DTO.CMSBoard;
+using CMS_DTO.CMSCrawler;
 using CMS_DTO.CMSEmployee;
 using CMS_Entity;
 using CMS_Entity.Entity;
@@ -42,7 +43,7 @@ namespace CMS_Shared.CMSEmployees
                         lstPinUpdate = lstPinUpdate.Where(o => o.Status == (byte)Commons.EStatus.Active).ToList();
                         foreach (var uPin in lstPinUpdate)
                         {
-                            var repin_Board = lstPin.Where(o => o.ID == uPin.ID).Select(o => new { Repin_count = o.Repin_count, BoardID = o.Board != null ? o.Board.id : null , BoardName = o.Board != null ? o.Board.name : null }).FirstOrDefault();
+                            var repin_Board = lstPin.Where(o => o.ID == uPin.ID).Select(o => new { Repin_count = o.Repin_count, BoardID = o.Board != null ? o.Board.id : null, BoardName = o.Board != null ? o.Board.name : null }).FirstOrDefault();
                             if (repin_Board.Repin_count != uPin.Repin_count)
                             {
                                 uPin.Repin_count = repin_Board.Repin_count;
@@ -76,7 +77,7 @@ namespace CMS_Shared.CMSEmployees
                         }
                         if (listInsertDB.Count > 0)
                             _db.CMS_Pin.AddRange(listInsertDB);
-                       
+
 
                         /* TABLE KEYWORD_PIN */
                         var lstKeyWrd_Pin_Exist = _db.CMS_R_KeyWord_Pin.Where(o => o.KeyWordID == KeyWordID && lstPinID.Contains(o.PinID)).Select(o => o.PinID).ToList();
@@ -138,7 +139,7 @@ namespace CMS_Shared.CMSEmployees
                             if (filter.LstGroupID.Count > 0)
                             {
                                 var lstKeyID = _db.CMS_R_GroupKey_KeyWord.Where(o => filter.LstGroupID.Contains(o.GroupKeyID) && o.Status != (byte)Commons.EStatus.Deleted).Select(o => o.KeyWordID).ToList();
-                                if(lstKeyID.Count > 0)
+                                if (lstKeyID.Count > 0)
                                 {
                                     if (filter.LstKeyWordID == null)
                                         filter.LstKeyWordID = new List<string>();
@@ -188,7 +189,7 @@ namespace CMS_Shared.CMSEmployees
                         /* order data */
                         if (filter.TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")))
                         {
-                            query = query.OrderByDescending(x => x.Created_At).ThenBy(o=> o.ID);
+                            query = query.OrderByDescending(x => x.Created_At).ThenBy(o => o.ID);
                         }
                         else if (filter.TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")))
                         {
@@ -231,8 +232,12 @@ namespace CMS_Shared.CMSEmployees
                         Created_At = o.Created_At ?? DateTime.MinValue,
                         CreatedDate = o.CreatedDate ?? DateTime.MinValue,
                         UpdateDate = o.UpdatedDate ?? DateTime.MinValue,
-                        BoardID = o.BoardID,
-                        BoardName = o.BoardName
+                        Board = new CMS_BoardModels()
+                        {
+                            id = o.BoardID,
+                            name = o.BoardName,
+                            url = o.BoardUrl,
+                        }
                         //LastTime = CommonHelper.GetDurationFromNow(o.UpdatedDate),
                     }).ToList();
                 }
