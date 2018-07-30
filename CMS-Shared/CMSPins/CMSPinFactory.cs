@@ -73,6 +73,7 @@ namespace CMS_Shared.CMSEmployees
                                 UpdatedDate = DateTime.Now,
                                 BoardID = pin.Board != null ? pin.Board.id : null,
                                 BoardName = pin.Board != null ? pin.Board.name : null,
+                                BoardUrl = pin.Board != null ? pin.Board.url : null,
                             });
                         }
                         if (listInsertDB.Count > 0)
