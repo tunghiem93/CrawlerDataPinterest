@@ -24,8 +24,8 @@
                             <div class="col-md-12 col-sm-12 col-xs-12" style="display: inline-flex; ">
                                     <button type="submit" class="btn btn-primary form-control form-inline"><i class="fa fa-plus-square" style="font-size:14px;"></i><span>&nbsp; Add</span></button>
                                     @*<span class="add-on input-group-addon"><i class="glyphicon fa fa-search"></i></span>*@
-                                    <input type="text" name="Account" value="@Model.Account" id="idStrAccount" class="form-control form-inline" placeholder="Account..." />
-                                    <input type="text" name="Cookies" value="@Model.Cookies" id="idStrCookies" class="form-control form-inline" placeholder="Cookies..." />
+                                    <input type="text" name="Account" value="@Model.Account" id="idStrAccount" class="form-control form-inline" placeholder="Account..." required/>
+                                    <input type="text" name="Cookies" value="@Model.Cookies" id="idStrCookies" class="form-control form-inline" placeholder="Cookies..." required/>
 
                                 @*<label class="label label-danger" style='@string.Format("display:{0}", (user.DuplicateKeyword.Length > 0) ? "block":"none")'>Duplicate Keyword. Please enter again!</label>*@
                             </div>
@@ -49,10 +49,9 @@
     });
 
     $(".search-form").submit(function (e) {
-        var account = $("#idStrAccount").val();
-        var cookies = $('#idStrCookies').val();
-        if (account !== "" && cookies !== "")
-            LoadGrid();        
+        LoadGrid();    
+        $("#idStrAccount").val("");
+        $('#idStrCookies').val("");
         return false;
     });
     
@@ -111,6 +110,34 @@
                     //if (e.status == 400) {
                     //    alert("Can not save Cookies!");
                     //}
+                    $('.se-pre-con').hide();
+                }
+            });
+        }   
+    }    
+
+    function ChangAccDefault(AccountId) {
+        AccountID = AccountId;
+        if (AccountID != null && AccountID.length > 0) {            
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ChangAccDefault", "CMSPIAccounts")',
+                traditional: true,
+                data: {
+                    AccountID: AccountID,
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (data) {
+                    location.reload();
+                },
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                complete: function () {
+                    $('.se-pre-con').hide();
+                },
+                error: function (e) {
                     $('.se-pre-con').hide();
                 }
             });

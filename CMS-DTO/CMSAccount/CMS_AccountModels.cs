@@ -15,6 +15,7 @@ namespace CMS_DTO.CMSAccount
         public string Password { get; set; }
         public string Cookies { get; set; }
         public bool IsActive { get; set; }
+        public bool IsDefault { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }

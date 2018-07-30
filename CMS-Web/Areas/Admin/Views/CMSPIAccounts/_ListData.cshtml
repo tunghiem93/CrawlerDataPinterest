@@ -38,6 +38,7 @@
                     <thead @*style="display: none !important; "*@>
                         <tr>
                             <th class="text-left">Name</th>
+                            <th class="text-center">Default</th>
                             <th class="text-center">Created date</th>
                             <th class="text-center">Cookies</th>
                             <th class="text-center">Active</th>
@@ -52,6 +53,22 @@
                                 <tr class="odd gradeX rowKey">
                                     <td class="text-left">
                                         <a class="btn btn-link" href="" target="_blank"><b>@Html.Raw("[" + item.Sequence + "]" + " " + item.Account)</b></a>
+                                    </td>
+                                    <td class="text-center">
+                                        @{if (item.IsDefault)
+                                            {
+                                                <a onclick="ChangAccDefault('@item.Id')" style="text-decoration: none"><span class="label label-sm label-success">
+                                                    @Html.Raw(item.IsDefault)
+                                                </span></a>
+                                            }
+                                            else
+                                            {
+                                                <a onclick="ChangAccDefault('@item.Id')" style="text-decoration: none"><span class="label label-sm label-danger">
+                                                    @Html.Raw(item.IsDefault)
+                                                    </span></a>
+                                            }
+                                        }
+
                                     </td>
                                     <td class="text-center">
                                         @string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")
@@ -184,10 +201,11 @@
             { "width": "10%", "targets": [1] },
             { "width": "10%", "targets": [2] },
             { "width": "10%", "targets": [3] },
-            { "width": "20%", "targets": [4] },
+            { "width": "10%", "targets": [4] },
+            { "width": "20%", "targets": [5] },
         ],
         "order": [
-            [3, "asc"],
+            [4, "asc"],
             [0, "asc"]
         ]
     };

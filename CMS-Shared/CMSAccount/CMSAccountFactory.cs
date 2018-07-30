@@ -110,6 +110,7 @@ namespace CMS_Shared.CMSAccount
                         IsActive = x.IsActive,
                         Sequence = x.Sequence ?? 0,
                         Status = x.Status ?? (byte)Commons.EStatus.Inactive,
+                        IsDefault = x.IsDefault,
                         Account = x.Name,
                         Cookies = x.Cookies,
                         UpdatedBy = x.UpdatedBy,
@@ -188,6 +189,38 @@ namespace CMS_Shared.CMSAccount
             catch (Exception ex)
             {
                 msg = "Can't update status this account.";
+                result = false;
+            }
+            return result;
+        }
+
+        public bool ChangAccDefault(string ID, ref string msg)
+        {
+            var result = true;
+            try
+            {
+                using (var cxt = new CMS_Context())
+                {
+                    var e = cxt.CMS_Account.Find(ID);
+                    if (e != null)
+                    {
+                        if (!e.IsDefault)
+                        {
+                            var isDefault = cxt.CMS_Account.Where(o => o.IsDefault).FirstOrDefault();
+                            if (isDefault != null)
+                            {
+                                isDefault.IsActive = false;
+                            }
+                            e.IsDefault = !e.IsDefault;
+                        }
+                    }
+
+                    cxt.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = "Can't update this default account.";
                 result = false;
             }
             return result;

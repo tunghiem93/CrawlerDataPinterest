@@ -116,5 +116,16 @@ namespace CMS_Web.Areas.Admin.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
+
+        public ActionResult ChangAccDefault(string AccountID)
+        {
+            var msg = "";
+            var result = _factory.ChangAccDefault(AccountID, ref msg);
+            if (result)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
     }
 }
