@@ -18,7 +18,7 @@ namespace CMS_Shared.CMSBoard
 {
     public class CMSBoardFactory
     {
-
+        private static string _pinterestHost = "pinterest.com";
         private static Semaphore m_Semaphore = new Semaphore(1, 1); /* semaphore for create key, craw data */
         private static Semaphore m_SemaphoreCrawlAll = new Semaphore(1, 1); /* semaphore for create key, craw data */
 
@@ -33,7 +33,7 @@ namespace CMS_Shared.CMSBoard
                     {
                         id = o.ID,
                         name = o.BoardName,
-                        url = o.Url,
+                        url = !string.IsNullOrEmpty(o.Url) ? _pinterestHost + o.Url : "",
                         type = o.Type,
                         description = o.Description,
                         pin_count = o.Pin_count ?? 0,
@@ -85,10 +85,10 @@ namespace CMS_Shared.CMSBoard
                     {
                         if (string.IsNullOrEmpty(model.id)) /* get board ID */
                         {
-                            model.url = model.url.Trim();
+                            model.url = GetUrl(model.url);
                             model.id = GetBoardID(model.url);
                         }
-                        
+
                         if (!string.IsNullOrEmpty(model.id))
                         {
                             /* check dup old key */
@@ -135,6 +135,11 @@ namespace CMS_Shared.CMSBoard
                             _db.SaveChanges();
                             trans.Commit();
                         }
+                        else
+                        {
+                            result = false;
+                            msg = "Wrong Url.";
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -152,16 +157,30 @@ namespace CMS_Shared.CMSBoard
             return result;
         }
 
+        private string GetUrl(string url)
+        {
+            var ret = "";
+            try
+            {
+                url = url.Trim();
+                var index = url.IndexOf(_pinterestHost);
+                ret = url.Substring(index + _pinterestHost.Length);
+            }
+            catch (Exception ex) { }
+            return ret;
+        }
         private string GetBoardID(string url)
         {
             var ret = "";
             try
             {
-                ret = Guid.NewGuid().ToString();
+                CrawlerBoardHelper.getBoardIdFromUrl(url, ref ret);
             }
-            catch(Exception ex) {  }
+            catch (Exception ex) { }
             return ret;
         }
+
+
 
         public bool Delete(string Id, string createdBy, ref string msg)
         {
@@ -486,7 +505,7 @@ namespace CMS_Shared.CMSBoard
                     m_Semaphore.WaitOne();
                     try
                     {
-                        _db.Database.CommandTimeout = 500;
+                       _db.Database.CommandTimeout = 500;
                         models = models.GroupBy(x => x.id).Select(x => x.First()).ToList();
                         models = models.Where(x => !string.IsNullOrEmpty(x.id) && x.id.Length <= 60 && x.type.ToLower().Equals("pin")).ToList();
                         var lstPinID = models.Select(o => o.id).ToList();
@@ -498,7 +517,8 @@ namespace CMS_Shared.CMSBoard
                         lstPinUpdate = lstPinUpdate.Where(o => o.Status == (byte)Commons.EStatus.Active).ToList();
                         foreach (var uPin in lstPinUpdate)
                         {
-                            var repin_Board = models.Where(o => o.id == uPin.ID).Select(o => new {
+                            var repin_Board = models.Where(o => o.id == uPin.ID).Select(o => new
+                            {
                                 Repin_count = o.repin_count,
                                 BoardID = o.board != null ? o.board.id : null,
                                 BoardName = o.board != null ? o.board.name : null,
