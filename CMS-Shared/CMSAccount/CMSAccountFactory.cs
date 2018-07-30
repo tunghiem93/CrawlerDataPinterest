@@ -204,15 +204,12 @@ namespace CMS_Shared.CMSAccount
                     var e = cxt.CMS_Account.Find(ID);
                     if (e != null)
                     {
-                        if (!e.IsDefault)
+                        var isDefault = cxt.CMS_Account.Where(o => o.IsDefault).FirstOrDefault();
+                        if (isDefault != null)
                         {
-                            var isDefault = cxt.CMS_Account.Where(o => o.IsDefault).FirstOrDefault();
-                            if (isDefault != null)
-                            {
-                                isDefault.IsActive = false;
-                            }
-                            e.IsDefault = !e.IsDefault;
+                            isDefault.IsDefault = false;
                         }
+                        e.IsDefault = !e.IsDefault;
                     }
 
                     cxt.SaveChanges();

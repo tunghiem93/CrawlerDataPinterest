@@ -28,7 +28,7 @@
                     @*<p><span>Ngày crawler</span>&nbsp;&nbsp; @DateTime.Now.ToString("dd/MM/yyyy")</p>*@
                     <p style="background-color:#d4edda;height:35px;line-height:35px;border-radius:5px !important">&nbsp;&nbsp; About @CommonHelper.GetDurationFromNow(item.CreatedDate)</p>
                     <p style="background-color:#f8d7da;height:35px;line-height:35px;border-radius:5px !important">&nbsp;&nbsp;<span>RePin:</span> &nbsp;&nbsp;<span style="color:#721c24;font-weight:bold">@item.Repin_count</span> </p>
-                    <p title="@string.Format("{0}", !string.IsNullOrEmpty(item.BoardName) ? item.BoardName : "No Board")" style="background-color:#ccc;height:45px;border-radius:5px !important"><span></span> &nbsp;&nbsp;<span style="color:#721c24;font-weight:bold">@string.Format("{0}", !string.IsNullOrEmpty(item.BoardName) && item.BoardName.Length > 30 ? item.BoardName.Substring(0, 30) + "..." : (string.IsNullOrEmpty(item.BoardName) ? "No Board" : item.BoardName))</span><a onclick="SendToBoard('@item.BoardID', '@item.BoardName')" title="Send to Boards Manager" style="text-decoration: none; float: right; padding-right: 3px; ">&nbsp;<span class="fa fa-share-square-o"></span></a></p>
+                    <p title="@string.Format("{0}", !string.IsNullOrEmpty(item.BoardName) ? item.BoardName : "No Board")" style="background-color:#ccc;height:45px;border-radius:5px !important"><span></span> &nbsp;&nbsp;<span style="color:#721c24;font-weight:bold">@string.Format("{0}", !string.IsNullOrEmpty(item.BoardName) && item.BoardName.Length > 30 ? item.BoardName.Substring(0, 30) + "..." : (string.IsNullOrEmpty(item.BoardName) ? "No Board" : item.BoardName))</span><a onclick="SendToBoard('@item.BoardID', '@item.BoardName', '@item.Link')" title="Send to Boards Manager" style="text-decoration: none; float: right; padding-right: 3px; ">&nbsp;<span class="fa fa-share-square-o"></span></a></p>
                 </div>
             </div>
         }
@@ -36,32 +36,36 @@
 }
 
 <script type="text/javascript">
-    function SendToBoard(id, board) {
-        $.ajax(
+    function SendToBoard(id, board, link) {
+        if (board != "")
         {
-            url: '@Url.Action("SendToBoard", "CMSProducts")',
-            type: 'get',
-            data: {
-                ID: id,
-                Board: board
-            },
-            dataType: 'html',
-            success: function () {
-                $('.se-pre-con').hide();
-            },
-            beforeSend: function () {
-                $('.se-pre-con').show();
-            },
-            complete: function () {
-                $('.se-pre-con').hide();
-            },
-            error: function (e) {
-                if (e.status == 400) {
-                    alert("This Board already exists!");
+            $.ajax(
+            {
+                url: '@Url.Action("SendToBoard", "CMSProducts")',
+                type: 'get',
+                data: {
+                    ID: id,
+                    Board: board,
+                    Link: link,
+                },
+                dataType: 'html',
+                success: function () {
+                    $('.se-pre-con').hide();
+                },
+                beforeSend: function () {
+                    $('.se-pre-con').show();
+                },
+                complete: function () {
+                    $('.se-pre-con').hide();
+                },
+                error: function (e) {
+                    if (e.status == 400) {
+                        alert("This Board already exists!");
+                    }
+                    $('.se-pre-con').hide();
                 }
-                $('.se-pre-con').hide();
-            }
-        });
+            });
+        }        
     }
 
     function DeletePin(id) {

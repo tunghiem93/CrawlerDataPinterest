@@ -365,12 +365,12 @@ namespace CMS_Web.Areas.Admin.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        public ActionResult SendToBoard(string ID, string Board)
+        public ActionResult SendToBoard(string ID, string Board, string Link)
         {
-            CMS_BoardModels model = new CMS_BoardModels();
-            model.id = ID;
-            model.name = Board;
-            model.description = "Get Board from Product";
+            PinsModels model = new PinsModels();
+            model.BoardID = ID;
+            model.BoardName = Board;
+            model.Link = Link;
             var msg = "";
             var result = _facBoard.CreateOrUpdate(model, ref msg);
             if (result)
