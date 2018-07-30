@@ -10,6 +10,7 @@
 
     .linkchange {
         text-decoration: none !important;
+        display: inline-flex !important;
     }
     .table .btn {
         margin-right: -5px !important;
@@ -33,6 +34,7 @@
                 <table class="table table-striped table-bordered table-hover dt-responsive" id="sample_3">
                     <thead @*style="display: none !important; "*@>
                         <tr>
+                            <th class="text-left">Url</th>
                             <th class="text-left">Name</th>
                             <th class="text-left">Last Crawl</th>
                             <th class="text-left">Total post</th>
@@ -47,11 +49,13 @@
                             {
                                 <tr class="odd gradeX rowKey">
                                     <td class="text-left">
-                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSBoardProducts", new { BoardID = item.id})" target="_blank"><b>@Html.Raw("[" + item.Sequence + "]" + " " + '"' + string.Format("{0}", (item.name.Length > 25) ? (item.name.Substring(0, 12) + "...") : item.name) + '"')</b></a>
+                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSBoardProducts", new { BoardID = item.id})" target="_blank"><b>@Html.Raw("[" + item.Sequence + "]" + " " + '"' + string.Format("{0}", (item.url.Length > 20) ? (item.url.Substring(0, 20) + "...") : item.url) + '"')</b></a>
+                                    </td>
+                                    <td class="text-left">
+                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSBoardProducts", new { BoardID = item.id})" target="_blank"><b>@Html.Raw(string.Format("{0}", (item.name.Length > 20) ? (item.name.Substring(0, 20) + "...") : item.name) + '"')</b></a>
                                     </td>
                                     <td>
                                         <a class="btn btn-link linkchange" href="@Url.Action("Index", "CMSBoardProducts", new { BoardID = item.id})" target="_blank" style="color: #000 !important; ">
-                                            <b>@Html.Raw("Last crawl: ")</b>
                                             <span style="font-size: 14px !important; ">@Html.Raw(item.StrLastUpdate + " ago  ")</span>
                                         </a>
                                     </td>
@@ -163,7 +167,7 @@
         "pageLength": 100,
         "columnDefs": [
             { "orderable": false, "targets": [0, 1, 2, 4] },
-            { "width": "33%", "targets": [4] },
+            { "width": "33%", "targets": [5] },
         ],
         "order": [
             [3, "asc"]
