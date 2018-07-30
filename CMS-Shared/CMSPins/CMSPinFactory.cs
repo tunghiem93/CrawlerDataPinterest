@@ -76,66 +76,7 @@ namespace CMS_Shared.CMSEmployees
                         }
                         if (listInsertDB.Count > 0)
                             _db.CMS_Pin.AddRange(listInsertDB);
-                        /* Insert Board */
-                        var lstBoard = lstPin.Where(o => o.Board != null && !string.IsNullOrEmpty(o.Board.id))
-                                                .GroupBy(o => o.Board.id)
-                                                .Select(o => o.First()).ToList();
-                        var lstBoardId = _db.CMS_Board.Select(o => o.ID).ToList();
-                        var listInsBoard = new List<PinsModels>();
-                        var listUpBoard = new List<CMS_Board>();
-                        if(lstBoardId != null && lstBoardId.Any())
-                        {
-                            listInsBoard = lstBoard.Where(o => !lstBoardId.Contains(o.Board.id)).ToList();
-
-                            listUpBoard = _db.CMS_Board.Where(o => lstBoardId.Contains(o.ID) && o.Status ==(byte)Commons.EStatus.Active).ToList();
-                        }
-                        else
-                        {
-                            listInsBoard = lstBoard;
-                        }
-
-                        /* Insert new board */
-                        var lstInsertBoard = new List<CMS_Board>();
-                        /* get current seq */
-                        var curSeq = _db.CMS_Board.OrderByDescending(o => o.Sequence).Select(o => o.Sequence).FirstOrDefault();
-                        if (curSeq == null)
-                            curSeq = 0;
-                        /* get acc of key */
-                        string acc = null;
-                        var curAcc = _db.CMS_KeyWord.Where(o => o.ID.Equals(KeyWordID) && o.Status == (byte)Commons.EStatus.Active).FirstOrDefault();
-                        if (curAcc != null)
-                            acc = curAcc.CrawlAccountID;
-                        foreach (var item in listInsBoard)
-                        {
-                            lstInsertBoard.Add(new CMS_Board
-                            {
-                                BoardName = item.Board.name,
-                                ID = item.Board.id,
-                                Status = (byte)Commons.EStatus.Active,
-                                CreatedBy = createdBy,
-                                CreatedDate = DateTime.Now,
-                                UpdatedBy = createdBy,
-                                UpdatedDate = DateTime.Now,
-                                Description = item.Board.description,
-                                Pin_count = item.Board.pin_count,
-                                Url = item.Board.url,
-                                Sequence = curSeq++,
-                                CrawlAccountID = acc,
-                            });
-                        }
-                        _db.CMS_Board.AddRange(lstInsertBoard);
-
-
-                        /* update board */
-                        if(listUpBoard != null && listUpBoard.Any())
-                        {
-                            foreach(var board in listUpBoard)
-                            {
-                                board.CrawlAccountID = acc;
-                                board.UpdatedBy = createdBy;
-                                board.UpdatedDate = DateTime.Now;
-                            }
-                        }
+                       
 
                         /* TABLE KEYWORD_PIN */
                         var lstKeyWrd_Pin_Exist = _db.CMS_R_KeyWord_Pin.Where(o => o.KeyWordID == KeyWordID && lstPinID.Contains(o.PinID)).Select(o => o.PinID).ToList();
