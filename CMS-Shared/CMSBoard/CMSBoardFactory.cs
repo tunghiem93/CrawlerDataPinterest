@@ -465,7 +465,7 @@ namespace CMS_Shared.CMSBoard
                     {
                         _db.Database.CommandTimeout = 500;
                         models = models.GroupBy(x => x.id).Select(x => x.First()).ToList();
-                        models = models.Where(x => !string.IsNullOrEmpty(x.id) && x.id.Length <= 60).ToList();
+                        models = models.Where(x => !string.IsNullOrEmpty(x.id) && x.id.Length <= 60 && x.type.ToLower().Equals("pin")).ToList();
                         var lstPinID = models.Select(o => o.id).ToList();
                         var lstPinUpdate = _db.CMS_Pin.Where(o => lstPinID.Contains(o.ID)).ToList();
                         var lstPinUpdateID = lstPinUpdate.Select(o => o.ID).ToList();
