@@ -62,6 +62,8 @@ namespace CMS_DTO.CMSCrawler
     {
         public List<string> LstGroupID { get; set; }
         public List<string> LstKeyWordID { get; set; }
+        public List<string> LstGroupBoardID { get; set; }
+        public List<string> LstBoardID { get; set; }
         public DateTime? CreatedDateFrom { get; set; }
         public DateTime? CreatedDateTo { get; set; }
         public DateTime? CreatedAtFrom { get; set; }

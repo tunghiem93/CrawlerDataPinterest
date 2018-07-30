@@ -164,12 +164,37 @@ namespace CMS_Shared.CMSEmployees
                             }
                         }
 
-                        /* filter by list key words */
+                        /* filter by list KEY WORD */
                         if (filter.LstKeyWordID != null)
                         {
                             if (filter.LstKeyWordID.Count > 0)
                             {
                                 var lstPinID = _db.CMS_R_KeyWord_Pin.Where(o => filter.LstKeyWordID.Contains(o.KeyWordID)).Select(o => o.PinID).ToList();
+                                query = query.Where(o => lstPinID.Contains(o.ID));
+                            }
+                        }
+
+                        /* filter by list GROUP BOARD */
+                        if (filter.LstGroupBoardID != null)
+                        {
+                            if (filter.LstGroupBoardID.Count > 0)
+                            {
+                                var lstBoardID = _db.CMS_R_GroupBoard_Board.Where(o => filter.LstGroupBoardID.Contains(o.GroupBoardID) && o.Status != (byte)Commons.EStatus.Deleted).Select(o => o.BoardID).ToList();
+                                if (lstBoardID.Count > 0)
+                                {
+                                    if (filter.LstBoardID == null)
+                                        filter.LstBoardID = new List<string>();
+                                    filter.LstBoardID.AddRange(lstBoardID);
+                                }
+                            }
+                        }
+
+                        /* filter by list BOARD */
+                        if (filter.LstBoardID != null)
+                        {
+                            if (filter.LstBoardID.Count > 0)
+                            {
+                                var lstPinID = _db.CMS_R_Board_Pin.Where(o => filter.LstBoardID.Contains(o.BoardID)).Select(o => o.PinID).ToList();
                                 query = query.Where(o => lstPinID.Contains(o.ID));
                             }
                         }
