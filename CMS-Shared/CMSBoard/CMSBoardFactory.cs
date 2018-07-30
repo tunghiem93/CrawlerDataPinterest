@@ -38,6 +38,8 @@ namespace CMS_Shared.CMSBoard
                         description = o.Description,
                         pin_count = o.Pin_count ?? 0,
                         Sequence = o.Sequence ?? 0,
+                        CreatedDate = o.CreatedDate,
+                        UpdatedDate = o.UpdatedDate,
                         owner = new CMS_OwnerModels()
                         {
                             username = o.OwnerName,
@@ -62,7 +64,7 @@ namespace CMS_Shared.CMSBoard
                     data.ForEach(o =>
                     {
                         o.pin_count = listCount.Where(c => c.Id == o.id).Select(c => c.Quantity).FirstOrDefault();
-                        //o.StrLastUpdate = CommonHelper.GetDurationFromNow(o.UpdatedDate);
+                        o.StrLastUpdate = CommonHelper.GetDurationFromNow(o.UpdatedDate);
                     });
                     return data;
                 }
