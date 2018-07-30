@@ -52,7 +52,7 @@
                                         <a class="btn btn-link" href="@Url.Action("Index", "CMSBoardProducts", new { BoardID = item.id})" target="_blank" title="@item.url"><b>@Html.Raw("[" + item.Sequence + "]" + " " + '"' + string.Format("{0}", (item.url.Length > 20) ? (item.url.Substring(0, 20) + "...") : item.url) + '"')</b></a>
                                     </td>
                                     <td class="text-left">
-                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSBoardProducts", new { BoardID = item.id})" target="_blank"><b>@Html.Raw(string.Format("{0}", (item.name.Length > 20) ? (item.name.Substring(0, 20) + "...") : item.name) + '"')</b></a>
+                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSBoardProducts", new { BoardID = item.id})" target="_blank"><b>@Html.Raw('"'+string.Format("{0}", (item.name.Length > 20) ? (item.name.Substring(0, 20) + "...") : item.name) + '"')</b></a>
                                     </td>
                                     <td>
                                         <a class="btn btn-link linkchange" href="@Url.Action("Index", "CMSBoardProducts", new { BoardID = item.id})" target="_blank" style="color: #000 !important; ">

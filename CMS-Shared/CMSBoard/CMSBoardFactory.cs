@@ -86,7 +86,7 @@ namespace CMS_Shared.CMSBoard
                         if (string.IsNullOrEmpty(model.id)) /* get board ID */
                         {
                             model.url = GetUrl(model.url);
-                            model.id = GetBoardID(model.url);
+                            GetBoardInfo(model);
                         }
 
                         if (!string.IsNullOrEmpty(model.id))
@@ -164,20 +164,29 @@ namespace CMS_Shared.CMSBoard
             {
                 url = url.Trim();
                 var index = url.IndexOf(_pinterestHost);
-                ret = url.Substring(index + _pinterestHost.Length);
+                if (index >= 0)
+                {
+                    ret = url.Substring(index + _pinterestHost.Length);
+                }
+                else
+                {
+                    ret = url;
+                }
             }
             catch (Exception ex) { }
             return ret;
         }
-        private string GetBoardID(string url)
+        private void GetBoardInfo(CMS_BoardModels model)
         {
-            var ret = "";
             try
             {
-                CrawlerBoardHelper.getBoardIdFromUrl(url, ref ret);
+                var id = "";
+                var bName = "";
+                CrawlerBoardHelper.getBoardIdFromUrl(model.url, ref id, ref bName);
+                model.name = bName;
+                model.id = id;
             }
             catch (Exception ex) { }
-            return ret;
         }
 
 

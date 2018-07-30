@@ -66,7 +66,7 @@ namespace CMS_Web.Areas.Admin.Controllers
             {
                 var msg = "";
                 bool isCheck = true;
-                if (item.name != null && item.name.Length > 0)
+                if (item.url != null && item.url.Length > 0)
                 {
                     var temp = ListItem.Where(o => o.Trim() == item.url.Trim()).FirstOrDefault();
                     if (temp == null)
