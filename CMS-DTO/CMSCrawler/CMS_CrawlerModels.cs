@@ -79,6 +79,8 @@ namespace CMS_DTO.CMSCrawler
         {
             LstGroupID = new List<string>();
             LstKeyWordID = new List<string>();
+            LstBoardID = new List<string>();
+            LstGroupBoardID = new List<string>();
         }
     }
 }
