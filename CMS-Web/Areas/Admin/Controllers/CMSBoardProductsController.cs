@@ -38,18 +38,25 @@ namespace CMS_Web.Areas.Admin.Controllers
                 model.ListTime = getListTime();
                 model.ListQuantity = getListQuantity();
                 // model.ListRePin = getListRepinCount();
-                ViewBag.Keywords = getListKeyword();
+                var lstBoard = getListBoard();
+                ViewBag.Keywords = lstBoard;
                 if (!string.IsNullOrEmpty(_Key))
                 {
-                    FilterModel.LstKeyWordID.Add(_Key);
-                    model.listKeywords.Add(_Key);
+                    FilterModel.LstBoardID.Add(_Key);
+                    model.listBoards.Add(_Key);
                 }
                 if (!string.IsNullOrEmpty(_Group))
                 {
-                    FilterModel.LstGroupID.Add(_Group);
+                    FilterModel.LstGroupBoardID.Add(_Group);
 
-                    var _lstKeywords = getListKeyWordByGroup(_Group);
-                    model.listKeywords.AddRange(_lstKeywords);
+                    var _lstKeywords = getListBoardByGroud(_Group);
+                    FilterModel.LstBoardID = _lstKeywords;
+                    model.listBoards.AddRange(_lstKeywords);
+                }
+
+                if(FilterModel.LstBoardID.Count == 0)
+                {
+                    FilterModel.LstBoardID = lstBoard.Select(o => o.Value).ToList();
                 }
 
                 var _pinModels = new List<PinsModels>();
@@ -92,27 +99,31 @@ namespace CMS_Web.Areas.Admin.Controllers
                 if (!string.IsNullOrEmpty(pinFilter.Url))
                 {
                     NameValueCollection QueryString = CommonHelper.GetQueryParameters(pinFilter.Url);
-                    var _Key = QueryString["keywordID"] ?? "";
+                    var _Key = QueryString["BoardID"] ?? "";
                     var _Group = QueryString["GroupID"] ?? "";
 
                     if (!string.IsNullOrEmpty(_Key))
                     {
-                        pinFilter.LstKeyWordID.Add(_Key);
+                        pinFilter.LstBoardID.Add(_Key);
                     }
                     if (!string.IsNullOrEmpty(_Group))
                     {
-                        pinFilter.LstGroupID.Add(_Group);
+                        pinFilter.LstGroupBoardID.Add(_Group);
 
-                        var _lstKeywords = getListKeyWordByGroup(_Group);
-                        pinFilter.LstKeyWordID.AddRange(_lstKeywords);
+                        var _lstKeywords = getListBoardByGroud(_Group);
+                        pinFilter.LstBoardID.AddRange(_lstKeywords);
                     }
                 }
 
-                if (pinFilter.LstKeyWordID != null && pinFilter.LstKeyWordID.Count > 0)
+                if (pinFilter.LstBoardID != null && pinFilter.LstBoardID.Count > 0)
                 {
-                    if (string.IsNullOrEmpty(pinFilter.LstKeyWordID[0]))
-                        pinFilter.LstKeyWordID = null;
+                    if (string.IsNullOrEmpty(pinFilter.LstBoardID[0]))
+                        pinFilter.LstBoardID = null;
                 }
+
+                if (pinFilter.LstBoardID == null || pinFilter.LstBoardID.Count == 0)
+                    pinFilter.LstBoardID = getListBoard().Select(o => o.Value).ToList();
+
                 var modelCrawler = new CMS_CrawlerModels();
                 var _pinModels = new List<PinsModels>();
                 var msg = "";
@@ -147,9 +158,9 @@ namespace CMS_Web.Areas.Admin.Controllers
                 {
                     TypeQuantity = Convert.ToInt16(_TypeQuantity);
                 }
-                var Keywords = Request["listKeywords"] ?? null;
+                var KeyBoard = Request["listBoards"] ?? null;
                 char[] separator = new char[] { ',' };
-                var ListKeyword = CommonHelper.ParseStringToList(Keywords, separator);
+                var ListBoards = CommonHelper.ParseStringToList(KeyBoard, separator);
                 var _FromDate = Convert.ToDateTime(Request["FromDate"]);
                 var _ToDate = Convert.ToDateTime(Request["ToDate"]);
                 #region "comment"
@@ -202,11 +213,15 @@ namespace CMS_Web.Areas.Admin.Controllers
                     FilterModel.PinCountFrom = 500;
                 }
 
-                if (ListKeyword != null && ListKeyword.Count > 0)
+                if (ListBoards != null && ListBoards.Count > 0)
                 {
-                    FilterModel.LstKeyWordID = ListKeyword;
+                    FilterModel.LstBoardID = ListBoards;
                     // Response.Cookies["Keywords"].Value = Keywords.ToString();
                     //  Response.Cookies["Keywords"].Expires = DateTime.Now.AddYears(1); // add expiry time
+                }
+                else
+                {
+                    FilterModel.LstBoardID = getListBoard().Select(o => o.Value).ToList();
                 }
                 FilterModel.TypeTime = TypeTime;
 

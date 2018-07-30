@@ -45,7 +45,7 @@
                             {
                                 <tr class="odd gradeX rowKey">
                                     <td class="text-left">
-                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSProducts", new { GroupID = item.Id})" target="_blank"><b>@Html.Raw("[" + item.Sequence + "]" + " " + '"' + string.Format("{0}", (item.Name.Length > 25) ? (item.Name.Substring(0, 12) + "...") : item.Name) + '"')</b></a>
+                                        <a class="btn btn-link" href="@Url.Action("Index", "CMSBoardProducts", new { GroupID = item.Id})" target="_blank"><b>@Html.Raw("[" + item.Sequence + "]" + " " + '"' + string.Format("{0}", (item.Name.Length > 25) ? (item.Name.Substring(0, 12) + "...") : item.Name) + '"')</b></a>
                                     </td>
                                     <td>
                                         <b>@Html.Raw("Total post got:")</b>

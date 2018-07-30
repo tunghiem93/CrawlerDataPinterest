@@ -33,6 +33,7 @@ namespace CMS_DTO.CMSProduct
         public HttpPostedFileBase[] PictureUpload { get; set; }
         public byte[] PictureByte { get; set; }
         public string ImageURL { get; set; }
+        public List<string> listBoards { get; set; }
 
         public CMS_CrawlerModels Crawler { get; set; }
         [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
@@ -49,6 +50,7 @@ namespace CMS_DTO.CMSProduct
             ToDate = DateTime.Now;
             listKeywords = new List<string>();
             listGroups = new List<string>();
+            listBoards = new List<string>();
         }
     }
 }

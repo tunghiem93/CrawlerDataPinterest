@@ -104,8 +104,8 @@
 
                     <div class="col-md-4 col-sm-4 col-xs-12 ">
                         <div class="input-prepend input-group" style="width:100%">
-                            @Html.DropDownListFor(model => model.listKeywords,
-                    new SelectList(@ViewBag.Keywords, "Value", "Text", Model.listKeywords), "Please select Key Words",
+                            @Html.DropDownListFor(model => model.listBoards,
+                    new SelectList(@ViewBag.Keywords, "Value", "Text", Model.listBoards), "Please select Key Words",
                     new
                     {
                         @class = "form-control select2_multiple",
@@ -113,7 +113,7 @@
                         @style = "width : 100%;",
                         @multiple = "multiple",
                     })
-                            @Html.ValidationMessageFor(model => model.listKeywords, null, new { @class = "label label-danger" })
+                            @Html.ValidationMessageFor(model => model.listBoards, null, new { @class = "label label-danger" })
                         </div>
                     </div>
 
@@ -206,12 +206,12 @@
             multiple: true,
         });
         var selectedValues = [];
-        @if(Model.listKeywords != null && Model.listKeywords.Count > 0)
+        @if(Model.listBoards != null && Model.listBoards.Count > 0)
         {
-            for(int i = 0; i < Model.listKeywords.Count;i++)
+            for(int i = 0; i < Model.listBoards.Count;i++)
             {
                 <text>
-                    selectedValues.push('@Model.listKeywords[i]');
+                    selectedValues.push('@Model.listBoards[i]');
                 </text>
             }
         }
@@ -226,7 +226,7 @@
         var endDate = $('#reportrange').data('daterangepicker').endDate.format("DD/MM/YYYY");
         var TypeQuantity = $("#storeDdlViewQuantity").val();
         var TypeTime = $("#storeDdlView").val();
-        var LstKeyWordID = $("#KeywordsDdl").val();
+        var _LstBoardID = $("#KeywordsDdl").val();
         var _url = window.location.href;
         var FilterModel = {
             CreatedAtFrom: startDate,
@@ -234,7 +234,7 @@
             PinCountFrom: null,
             PinCountTo: null,
             PageIndex: _pageIndex,
-            LstKeyWordID: [],
+            LstBoardID: [],
             TypeTime: TypeTime,
             Url: _url
         };
@@ -261,10 +261,10 @@
         if (TypeQuantity == @Commons.EQuantityType.MoreFive.ToString("d")) {
             FilterModel.PinCountFrom = 500;
         }
-        if (LstKeyWordID != null && LstKeyWordID.length > 0)
+        if (_LstBoardID != null && _LstBoardID.length > 0)
         {
-            console.log(FilterModel);
-            FilterModel.LstKeyWordID = LstKeyWordID;
+            console.log(_LstBoardID);
+            FilterModel.LstBoardID = _LstBoardID;
         }
         var IsLoadData = parseInt($("[id=IsLoadData]").val());
         if (IsLoadData == 0)
@@ -275,7 +275,7 @@
                 PinCountFrom: null,
                 PinCountTo: null,
                 PageIndex: _pageIndex,
-                LstKeyWordID: [],
+                LstBoardID: [],
                 TypeTime: TypeTime,
                 Url: _url
             };
@@ -284,7 +284,7 @@
             beforeSend: function () {
                 $('.se-pre-con').show();
             },
-            url: '@Url.Action("LoadScroll","CMSProducts")',
+            url: '@Url.Action("LoadScroll", "CMSBoardProducts")',
             type: "post",
             dataType: 'html',
             data: {

@@ -1,6 +1,7 @@
 ﻿using CMS_DTO.CMSBase;
 using CMS_DTO.CMSSession;
 using CMS_Shared;
+using CMS_Shared.CMSBoard;
 using CMS_Shared.CMSGroupBoard;
 using CMS_Shared.CMSGroupKeywords;
 using CMS_Shared.Keyword;
@@ -84,6 +85,25 @@ namespace CMS_Web.Areas.Admin.Controllers
             return lstKeyword;
         }
 
+        public List<SelectListItem> getListBoard()
+        {
+            var _fac = new CMSBoardFactory();
+            var data = _fac.GetList();
+            var lstKeyword = new List<SelectListItem>();
+            if (data != null && data.Any())
+            {
+                foreach (var item in data)
+                {
+                    lstKeyword.Add(new SelectListItem
+                    {
+                        Value = item.id,
+                        Text = item.name
+                    });
+                }
+            }
+            return lstKeyword;
+        }
+
         public List<SelectListItem> getListGroupKeyword()
         {
             var _fac = new CMSGroupKeywordsFactory();
@@ -101,6 +121,21 @@ namespace CMS_Web.Areas.Admin.Controllers
                 }
             }
             return lstGroupKeyword;
+        }
+
+        public List<string> getListBoardByGroud(string GroupId)
+        {
+            var _fac = new CMSBoardFactory();
+            var data = _fac.GetList(GroupId);
+            var lstString = new List<string>();
+            if (data != null && data.Any())
+            {
+                foreach (var item in data)
+                {
+                    lstString.Add(item.id);
+                }
+            }
+            return lstString;
         }
 
         public List<string> getListKeyWordByGroup(string GroupId)
