@@ -74,7 +74,8 @@ namespace CMS_Web.Areas.Admin.Controllers
                         var result = _factory.CreateOrUpdate(item, ref msg);
                         if (!result)
                         {
-                            isCheck = false;
+                            //isCheck = false;
+                            ViewBag.ErrorMessage = msg;
                         }
                     }
                     else

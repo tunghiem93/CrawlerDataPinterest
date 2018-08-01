@@ -2,6 +2,7 @@
     Layout = null;
     var IsAdmin = @ViewBag.IsAdmin;
     var Duplicate = @ViewBag.DuplicateKeyword;
+    var ErrorMsg = @ViewBag.ErrorMessage;
 }
 <style>
     .rowKey td b {
@@ -177,6 +178,9 @@
     $(document).ready(function () {
         if ('@Duplicate' != '') {
             alert('Duplicate Board. Please enter again!');
+        }
+        if ('@ErrorMsg' != '') {
+            alert('@ErrorMsg');
         }
         _tableEmployee = $('#sample_3').DataTable($.extend(true, {}, _settingsOptionTableEmployee));
 
