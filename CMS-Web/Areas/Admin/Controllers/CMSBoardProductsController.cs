@@ -59,32 +59,36 @@ namespace CMS_Web.Areas.Admin.Controllers
                     FilterModel.LstBoardID = lstBoard.Select(o => o.Value).ToList();
                 }
 
-                var _pinModels = new List<PinsModels>();
-                var msg = "";
-                int totalPin = 0;
-                var result = _fac.GetPin(ref _pinModels, ref totalPin, FilterModel, ref msg);
-                if (result)
+                if(FilterModel.LstBoardID != null && FilterModel.LstBoardID.Count > 0)
                 {
-                    model.Crawler.Pins = _pinModels.OrderBy(x => x.Created_At).ToList();
-                    #region "Comment"
-                    //if (TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")))
-                    //{
-                    //    model.Crawler.Pins = model.Crawler.Pins.OrderByDescending(x => x.Created_At).ToList();
-                    //}
-                    //else if (TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")))
-                    //{
-                    //    model.Crawler.Pins = model.Crawler.Pins.OrderBy(x => x.Created_At).ToList();
-                    //}
-                    //else if (TypePin.Equals(Commons.ETimeType.PinReduce.ToString("d")))
-                    //{
-                    //    model.Crawler.Pins = model.Crawler.Pins.OrderByDescending(x => x.Repin_count).ToList();
-                    //}
-                    //else if (TypePin.Equals(Commons.ETimeType.PinIncrease.ToString("d")))
-                    //{
-                    //    model.Crawler.Pins = model.Crawler.Pins.OrderBy(x => x.Repin_count).ToList();
-                    //}
-                    #endregion
+                    var _pinModels = new List<PinsModels>();
+                    var msg = "";
+                    int totalPin = 0;
+                    var result = _fac.GetPin(ref _pinModels, ref totalPin, FilterModel, ref msg);
+                    if (result)
+                    {
+                        model.Crawler.Pins = _pinModels.OrderBy(x => x.Created_At).ToList();
+                        #region "Comment"
+                        //if (TypeTime.Equals(Commons.ETimeType.TimeReduce.ToString("d")))
+                        //{
+                        //    model.Crawler.Pins = model.Crawler.Pins.OrderByDescending(x => x.Created_At).ToList();
+                        //}
+                        //else if (TypeTime.Equals(Commons.ETimeType.TimeIncrease.ToString("d")))
+                        //{
+                        //    model.Crawler.Pins = model.Crawler.Pins.OrderBy(x => x.Created_At).ToList();
+                        //}
+                        //else if (TypePin.Equals(Commons.ETimeType.PinReduce.ToString("d")))
+                        //{
+                        //    model.Crawler.Pins = model.Crawler.Pins.OrderByDescending(x => x.Repin_count).ToList();
+                        //}
+                        //else if (TypePin.Equals(Commons.ETimeType.PinIncrease.ToString("d")))
+                        //{
+                        //    model.Crawler.Pins = model.Crawler.Pins.OrderBy(x => x.Repin_count).ToList();
+                        //}
+                        #endregion
+                    }
                 }
+                
             }
             catch (Exception ex)
             {
@@ -125,15 +129,19 @@ namespace CMS_Web.Areas.Admin.Controllers
                     pinFilter.LstBoardID = getListBoard().Select(o => o.Value).ToList();
 
                 var modelCrawler = new CMS_CrawlerModels();
-                var _pinModels = new List<PinsModels>();
-                var msg = "";
-                pinFilter.PageSize = Commons.PageSize;
-                int totalPin = 0;
-                var result = _fac.GetPin(ref _pinModels, ref totalPin, pinFilter, ref msg);
-                if (result)
+                if(pinFilter.LstBoardID != null && pinFilter.LstBoardID.Count > 0)
                 {
-                    modelCrawler.Pins = _pinModels;
+                    var _pinModels = new List<PinsModels>();
+                    var msg = "";
+                    pinFilter.PageSize = Commons.PageSize;
+                    int totalPin = 0;
+                    var result = _fac.GetPin(ref _pinModels, ref totalPin, pinFilter, ref msg);
+                    if (result)
+                    {
+                        modelCrawler.Pins = _pinModels;
+                    }
                 }
+                
                 return PartialView("_ListItem", modelCrawler);
             }
             catch (Exception) { }
@@ -226,14 +234,17 @@ namespace CMS_Web.Areas.Admin.Controllers
                 FilterModel.TypeTime = TypeTime;
 
                 var modelCrawler = new CMS_CrawlerModels();
-                var _pinModels = new List<PinsModels>();
-                var msg = "";
-                int totalPin = 0;
-                var result = _fac.GetPin(ref _pinModels, ref totalPin, FilterModel, ref msg);
-                if (result)
+                if(FilterModel.LstBoardID != null && FilterModel.LstBoardID.Count > 0)
                 {
-                    modelCrawler.Pins = _pinModels;
+                    var _pinModels = new List<PinsModels>();
+                    var msg = "";
+                    int totalPin = 0;
+                    var result = _fac.GetPin(ref _pinModels, ref totalPin, FilterModel, ref msg);
+                    if (result)
+                    {
+                        modelCrawler.Pins = _pinModels;
 
+                    }
                 }
                 return PartialView("_ListItem", modelCrawler);
             }
