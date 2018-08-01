@@ -61,7 +61,7 @@
                                     </td>
                                     <td>
                                         @*<b>@Html.Raw("Total post got:")</b>*@
-                                        <a class="btn btn-link linkPins" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSBoards", new { BoardID = item.id})" target="_blank">@item.pin_count</a>
+                                        <a class="btn btn-link linkPins" style="background-color: #007bff !important; color: #fff !important; " href="@Url.Action("Index", "CMSBoardProducts", new { BoardID = item.id})" target="_blank">@item.pin_count</a>
                                         <b>&nbsp;&nbsp;@Html.Raw("Pins")</b>
                                     </td>
                                     <td>@string.Format("{0}", item.CreatedDate.HasValue ? item.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
