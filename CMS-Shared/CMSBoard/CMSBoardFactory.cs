@@ -97,7 +97,8 @@ namespace CMS_Shared.CMSBoard
                             if (checkDup == null)
                             {
                                 /* get current seq */
-                                var curSeq = _db.CMS_Board.OrderByDescending(o => o.Sequence).Select(o => o.Sequence).FirstOrDefault();
+                                var curSeq = _db.CMS_Board.OrderByDescending(o => o.Sequence).Select(o => o.Sequence).FirstOrDefault() ?? 0;
+
 
                                 /* add new record */
                                 var dateTimeNow = DateTime.Now;
@@ -515,7 +516,7 @@ namespace CMS_Shared.CMSBoard
                     m_Semaphore.WaitOne();
                     try
                     {
-                       _db.Database.CommandTimeout = 500;
+                        _db.Database.CommandTimeout = 500;
                         models = models.GroupBy(x => x.id).Select(x => x.First()).ToList();
                         models = models.Where(x => !string.IsNullOrEmpty(x.id) && x.id.Length <= 60 && x.type.ToLower().Equals("pin")).ToList();
                         var lstPinID = models.Select(o => o.id).ToList();
