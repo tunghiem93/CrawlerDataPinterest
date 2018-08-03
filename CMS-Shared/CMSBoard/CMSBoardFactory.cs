@@ -131,7 +131,7 @@ namespace CMS_Shared.CMSBoard
                             else /* duplicate key word */
                             {
                                 result = false;
-                                msg = "Duplicate board.";
+                                msg = "Duplicate board, please check your board.";
                             }
 
                             _db.SaveChanges();
@@ -140,7 +140,7 @@ namespace CMS_Shared.CMSBoard
                         else
                         {
                             result = false;
-                            msg = "Wrong Url.";
+                            msg = "Invalid board, please check your board.";
                         }
                     }
                     catch (Exception ex)

@@ -352,6 +352,7 @@ namespace CMS_Shared.Utilities
         /* get board_id from url */
         public static void getBoardIdFromUrl(string url,ref string BoardId,ref string BoardName)
         {
+            NSLog.Logger.Info("getBoardIdFromUrl", url);
             url = "https://www.pinterest.com" + url;
             try
             {
@@ -376,7 +377,9 @@ namespace CMS_Shared.Utilities
                     HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                     doc.LoadHtml(answer);
                     var _script = doc.DocumentNode.Descendants("script").Where(o => o.InnerText.Contains("\"nux\": {")).ToList();
-                    if(_script != null && _script.Count > 0)
+                    NSLog.Logger.Info("ResponseGetBoardIdFromUrl_script", _script);
+
+                    if (_script != null && _script.Count > 0)
                     {
                         var json = _script[0].InnerText.ToString();
                         var objJson = JsonConvert.DeserializeObject<BoardResourceURLModels>(json);
@@ -394,10 +397,13 @@ namespace CMS_Shared.Utilities
                     streamReader.Close();
                     streamReader.Dispose();
                 }
+
+                NSLog.Logger.Info("ResponseGetBoardIdFromUrl", new{ url, BoardId, BoardName,});
+
             }
             catch (Exception ex)
             {
-                NSLog.Logger.Info("ErrorGetDataPinterest: ", ex);
+                NSLog.Logger.Info("ErrorGetGetBoardIdFromUrl", ex);
             }
         }
     }
